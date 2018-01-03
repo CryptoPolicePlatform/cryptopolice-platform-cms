@@ -1,0 +1,17 @@
+title = "Training Task"
+url = "/training-task/:slug"
+is_hidden = 0
+
+[TrainingTask]
+max = 10
+==
+<div class="content">
+    <div class="content__inner">
+        <div class="courses__open">
+            {% component 'TrainingTask' %}
+        </div>
+        <div class="courses__footer  text-left">
+            <a class="btn" href="{{'training'|page}}">back to course list</a>
+        </div>
+    </div>
+</div>
