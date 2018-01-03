@@ -10,8 +10,18 @@ forceSecure = 0
 {% if not user %}
     <div class="row">
         <div class="col-md-6">
-            <h3>Sign in</h3>
-            {% partial account ~ '::signin' %}
+           <div class="choose">
+                <div class="choose__item">
+                    <h3 class="choose__title">Login</h3>
+                    <form class="form" action=""  data-request="onSignin" method="post">
+                        <div class="form__group">
+                            <input name="login" class="input  input--email" id="userSigninLogin" type="text" placeholder="Enter your {{ loginAttributeLabel|lower }}">
+                            <input class="input  input--pswd" type="password" id="userSigninPassword" name="password" placeholder="Enter your password">
+                            <a class="form__link" href="#">Forgot Your Password?</a>
+                        </div>
+                        <button class="btn  btn--full" type="submit">Log in</button>
+                    </form>
+            </div>
         </div>
     </div>
 {% endif %}

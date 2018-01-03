@@ -1811,6 +1811,9 @@ html.remodal-is-locked {
   background: url("../images/bg.jpg") center no-repeat;
   background-size: cover;
   position: relative; }
+  .page--sign {
+    background: url("../images/sign-bg.jpg") center no-repeat;
+    background-size: cover; }
 
 .content__inner {
   width: 100%;
@@ -1861,6 +1864,8 @@ html.remodal-is-locked {
     text-decoration: none;
     background: linear-gradient(168deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.27) 32%, rgba(255, 255, 255, 0.2) 32%, rgba(255, 255, 255, 0.3) 100%);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
+  .btn--full {
+    width: 100%; }
 
 .courses {
   margin: 0 0 38px;
@@ -1908,12 +1913,6 @@ html.remodal-is-locked {
   @media (max-width: 600px) {
     .courses__num {
       width: 15%; } }
-.error__title {
-     text-transform: uppercase; 
-    color: #fff;
-  font-size: 30px;
-    margin-top:20%;
-}
 
 .courses__title {
   color: #fff;
@@ -1957,8 +1956,6 @@ html.remodal-is-locked {
     border-radius: 20px; }
   .courses__score.in-progress span {
     background-color: #84c01b; }
-  .courses__score.in-progress {
-      margin-left: auto; }
   @media (max-width: 600px) {
     .courses__score {
       width: 100%;
@@ -2231,6 +2228,53 @@ html.remodal-is-locked {
       border-color: #f4effa; }
     .radio__label--disabled:hover {
       cursor: not-allowed; }
+
+.form {
+  height: 180px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: justify;
+      justify-content: space-between; }
+
+.form__group {
+  text-align: left; }
+
+.form__link {
+  font-size: 10px;
+  color: #fff; }
+
+.input {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 3px 10px 5px 30px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #fff;
+  font-size: 16px;
+  font-weight: 300;
+  color: #fff;
+  transition: border-color .1s linear; }
+  .input:focus {
+    outline: 0;
+    border-bottom-color: #f5e25b; }
+  .input::-webkit-input-placeholder {
+    color: #fff; }
+  .input:-ms-input-placeholder {
+    color: #fff; }
+  .input::placeholder {
+    color: #fff; }
+  .input--email {
+    background: url("../images/mail.svg") left 5px no-repeat;
+    background-size: 19px auto; }
+  .input--pswd {
+    background: url("../images/password.svg") left 2px no-repeat;
+    background-size: 19px auto; }
+  .input--confirm {
+    background: url("../images/confirm_password.svg") left 2px no-repeat;
+    background-size: 21px auto; }
 
 .footer {
   width: 100%;
