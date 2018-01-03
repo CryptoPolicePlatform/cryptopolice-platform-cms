@@ -9,3 +9,7 @@ navigation:
         label: Exams
         url: academy/cryptopolice/exams
         icon: icon-arrows-alt
+    main-menu-item2:
+        label: Scores
+        url: academy/cryptopolice/scores
+        icon: icon-life-ring

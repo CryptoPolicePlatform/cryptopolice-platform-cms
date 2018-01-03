@@ -1,0 +1,31 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    scores:
+        label: Scores
+        type: number
+        searchable: true
+        sortable: true
+    question_num:
+        label: 'Question Number'
+        type: number
+        searchable: true
+        sortable: true
+    answer_num:
+        label: 'Answer Number'
+        type: number
+        searchable: true
+        sortable: true
+    is_correct:
+        label: 'Is Correct?'
+        type: number
+        searchable: true
+        sortable: true
+    try:
+        label: Try
+        type: number
+        searchable: true
+        sortable: true

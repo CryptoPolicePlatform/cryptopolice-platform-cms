@@ -1,0 +1,12 @@
+list: $/academy/cryptopolice/models/score/columns.yaml
+modelClass: Academy\CryptoPolice\Models\Score
+title: Scores
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'academy/cryptopolice/scores/update/:id'
