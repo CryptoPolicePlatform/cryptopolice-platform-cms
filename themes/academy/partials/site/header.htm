@@ -1,0 +1,29 @@
+==
+<header class="header">
+    <div class="header__inner">
+        <div class="header__left">
+            <a class="header__logo" href="{{'home'|page}}">
+                <img src={{"assets/images/cryptopolice-logo.png"|theme}} width="135" alt="CryptoPolice">       
+            </a>  <a class="" href="{{'cryptopolice'|page}}">Platform
+    </a>
+        </div>
+        <div class="header__right">
+            <ul class="header__profile">
+                <li>
+                {% if user %}
+                    <img class="header__ava" src="{{user.avatar.path}}" width="30" height="30" alt="">
+                    {% endif %}
+                </li>
+                <li>
+                    <a href="{{'profile'|page}}">{{ user.name }}</a>
+                </li>
+                    {% if user %}
+                        <li> <a data-request="onLogout" data-request-data="redirect: '/'">Logout</a> </li>
+                    {% else %}
+                       <li> <a href="{{'registration'|page}}">Registration</a> </li>
+                       <li> <a href="{{'login'|page}}">Login</a> </li>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+</header>
