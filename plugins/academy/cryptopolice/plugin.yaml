@@ -1,0 +1,6 @@
+plugin:
+    name: 'academy.cryptopolice::lang.plugin.name'
+    description: 'academy.cryptopolice::lang.plugin.description'
+    author: Cunami
+    icon: oc-icon-bitbucket
+    homepage: ''
