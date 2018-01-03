@@ -13,3 +13,7 @@ navigation:
         label: Scores
         url: academy/cryptopolice/scores
         icon: icon-life-ring
+    main-menu-item3:
+        label: Trainings
+        url: academy/cryptopolice/trainings
+        icon: icon-cubes
