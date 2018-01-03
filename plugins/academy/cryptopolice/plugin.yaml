@@ -1,7 +1,7 @@
 plugin:
-    name: 'academy.cryptopolice::lang.plugin.name'
+    name: CryptoPolice
     description: 'academy.cryptopolice::lang.plugin.description'
-    author: Cunami
+    author: CryptoPolice
     icon: oc-icon-bitbucket
     homepage: ''
 navigation:

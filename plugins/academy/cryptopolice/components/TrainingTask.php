@@ -1,8 +1,8 @@
-<?php namespace CryptoPolice\NewAcademy\Components;
+<?php namespace Academy\CryptoPolice\Components;
 
 use Flash;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\NewAcademy\Models\Training;
+use Academy\CryptoPolice\Models\Training;
 
 class TrainingTask extends ComponentBase
 {

@@ -1,10 +1,10 @@
-<?php namespace CryptoPolice\NewAcademy\Components;
+<?php namespace Academy\CryptoPolice\Components;
 
 use Auth;
 use Redirect;
 use Response;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\newAcademy\Models\Training;
+use Academy\CryptoPolice\Models\Training;
 
 class Trainings extends ComponentBase
 {

@@ -1,12 +1,12 @@
-<?php namespace CryptoPolice\Newacademy\Components;
+<?php namespace Academy\CryptoPolice\Components;
 
 use Auth;
 use Flash;
 use Redirect;
 use DateTime;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\NewAcademy\Models\Exam;
-use CryptoPolice\NewAcademy\Models\FinalScore;
+use Academy\CryptoPolice\Models\Exam;
+use Academy\CryptoPolice\Models\FinalScore;
 
 class Exams extends ComponentBase
 {
@@ -37,29 +37,6 @@ class Exams extends ComponentBase
     }
 
     public function onExamClick() {
-
-    //     $id = post('id');
-    //     $userScoress = $this->scores;
-    //     $user = Auth::getUser();
-    //     $user_id = $user->id;
-
-    //     $userScores = FinalScore::where('exam_id', $id)
-    //         ->where('user_id', $user_id)
-    //         ->get()
-    //         ->toArray();
-
-    //         if($userScores) {
-    //     $exam_started_at = new DateTime('now');
-    //     $exam_ended_at = new DateTime($userScores[0]['complete_at']);
-    //     if($exam_started_at > $exam_ended_at) {
-    //         Flash::error('You can\'t pass this test!');
-    //     }
-    // }
-    // return ['#test' => "
-    // <p data-control=\"flash-message\" class=\"flash-message fade error\" data-interval=\"5\">First error<\/p>\n    
-    // <p data-control=\"flash-message\" class=\"flash-message fade warning\" data-interval=\"5\">First warning<\/p>\n    
-    // <p data-control=\"flash-message\" class=\"flash-message fade success\" data-interval=\"5\">First success</p>\n
-    // "];
 
     }
 

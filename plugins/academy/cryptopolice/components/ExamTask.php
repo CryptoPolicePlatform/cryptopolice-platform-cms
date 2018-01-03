@@ -1,4 +1,4 @@
-<?php namespace CryptoPolice\Newacademy\Components;
+<?php namespace Academy\CryptoPolice\Components;
 
 use Auth;
 use Cache;
@@ -8,9 +8,9 @@ use Redirect;
 use DateInterval;
 use Cms\Classes\ComponentBase;
 use Illuminate\Support\Facades\Input;
-use CryptoPolice\Newacademy\Models\Exam;
-use CryptoPolice\Newacademy\Models\Score;
-use CryptoPolice\Newacademy\Models\FinalScore;
+use Academy\CryptoPolice\Models\Exam;
+use Academy\CryptoPolice\Models\Score;
+use Academy\CryptoPolice\Models\FinalScore;
 
 class ExamTask extends ComponentBase
 {
