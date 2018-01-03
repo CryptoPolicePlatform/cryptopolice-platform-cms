@@ -1,0 +1,32 @@
+{% set tasks = __SELF__.task %}
+<ul class="courses">
+    {% for task in tasks %}
+    <li class="courses__item">
+        <div class="courses__link  watched">
+            <span class="courses__num">#<b>{{ task.id }}</b></span>
+            <span class="courses__title">{{ task.title }}</span>
+        </div>
+    </li>
+    <li>
+        <div class="courses__content">
+        {{ task.description|raw }}
+    </div>
+    </li>
+    <li>
+        {% if task.status == '0' %}
+        <form data-request="onAcceptTraining" data-request-success="console.log('data');" data-request-flash data-request-validate>
+           <div class="courses__footer  text-left">
+               <button class="btn" type="submit"> Accept + </button>
+           </div>
+       </form>
+       {% endif %}
+       </li>
+   {% else %}
+   <li class="courses__item">
+    <div class="courses__link  watched">
+        <span class="courses__num"><b> ... </b></span>
+        <span class="courses__title"> Task Not Found </span>
+    </div>
+</li>
+{% endfor %}
+</ul>
