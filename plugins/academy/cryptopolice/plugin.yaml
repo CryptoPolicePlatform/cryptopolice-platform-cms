@@ -4,3 +4,8 @@ plugin:
     author: Cunami
     icon: oc-icon-bitbucket
     homepage: ''
+navigation:
+    main-menu-item:
+        label: Exams
+        url: academy/cryptopolice/exams
+        icon: icon-arrows-alt

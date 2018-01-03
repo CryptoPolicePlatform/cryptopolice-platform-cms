@@ -1,0 +1,61 @@
+fields:
+    exam_title:
+        label: 'Exam Title'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    exam_slug:
+        label: 'Exam Slug'
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    s_score:
+        label: Score
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    status:
+        label: Status
+        span: auto
+        type: switch
+    timer:
+        label: Timer
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    exam_description:
+        label: 'academy.cryptopolice::lang.plugin.description'
+        size: large
+        oc.commentPosition: ''
+        span: full
+        type: richeditor
+    question:
+        label: Questions
+        oc.commentPosition: ''
+        prompt: 'Add new item'
+        span: auto
+        type: repeater
+        form:
+            fields:
+                question_title:
+                    label: 'Question Title'
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                answers:
+                    label: Answers
+                    oc.commentPosition: ''
+                    prompt: 'Add new item'
+                    span: auto
+                    type: repeater
+                    form:
+                        fields:
+                            answer_title:
+                                label: 'Answer Title'
+                                oc.commentPosition: ''
+                                span: auto
+                                type: text
+                            answers_correct:
+                                label: 'Is Correct?'
+                                span: auto
+                                type: switch

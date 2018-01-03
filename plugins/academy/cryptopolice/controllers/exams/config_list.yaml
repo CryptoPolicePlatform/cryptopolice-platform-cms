@@ -1,0 +1,12 @@
+list: $/academy/cryptopolice/models/exam/columns.yaml
+modelClass: Academy\CryptoPolice\Models\Exam
+title: Exams
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'academy/cryptopolice/exams/update/:id'
