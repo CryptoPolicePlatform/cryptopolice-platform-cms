@@ -1,0 +1,30 @@
+description = "Academy layout"
+==
+<!DOCTYPE html>
+<html>
+    
+    {% partial 'site/head' %}
+    
+    <body>
+        <div class="page">
+            
+            <!-- Header -->
+            {% partial 'site/header' %}
+    
+            <!-- Content -->
+            {% page %}
+    
+            <!-- Footer -->
+            {% partial 'site/footer' %}
+         
+            <!-- Scripts -->
+            <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+            <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+            <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
+            <script src="{{ 'assets/javascript/main.js'|theme }}"></script>
+            {% scripts %}
+            {% framework extras %}
+        </div>
+    </body>
+    
+</html>

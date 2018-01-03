@@ -1,0 +1,39 @@
+description = "Platform Layout"
+
+[session]
+security = "all"
+==
+<!DOCTYPE html>
+<html>
+    
+    {% partial 'platform/head' %}
+    
+    <body>
+        <div class="page">
+            
+            <!-- Header -->
+            {% partial 'platform/header' %}
+             
+            <!-- Sidebar -->
+            {% partial 'platform/sidebar' %}
+    
+            <!-- Content -->
+            {% page %}
+    
+            <!-- Content sidebar -->
+            {% partial 'platform/content-sidebar' %}
+            
+            <!-- Footer -->
+            {% partial 'platform/footer' %}
+         
+            <!-- Scripts -->
+            <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+            <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+            <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
+            <script src="{{ 'assets/javascript/platform-main.js'|theme }}"></script>
+            {% scripts %}
+            {% framework extras %}
+        </div>
+    </body>
+    
+</html>
