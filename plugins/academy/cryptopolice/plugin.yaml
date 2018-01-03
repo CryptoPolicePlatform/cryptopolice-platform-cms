@@ -17,3 +17,7 @@ navigation:
         label: Trainings
         url: academy/cryptopolice/trainings
         icon: icon-cubes
+    main-menu-item4:
+        label: 'Final Results'
+        url: academy/cryptopolice/finalscores
+        icon: icon-life-ring
