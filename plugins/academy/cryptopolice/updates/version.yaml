@@ -1,2 +1,14 @@
 1.0.1:
-    - Initialize plugin.
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table academy_cryptopolice_exams'
+    - builder_table_create_academy_cryptopolice_exams.php
+1.0.3:
+    - 'Created table academy_cryptopolice_final_exam_score'
+    - builder_table_create_academy_cryptopolice_final_exam_score.php
+1.0.4:
+    - 'Created table academy_cryptopolice_scores'
+    - builder_table_create_academy_cryptopolice_scores.php
+1.0.5:
+    - 'Created table academy_cryptopolice_trainings'
+    - builder_table_create_academy_cryptopolice_trainings.php
