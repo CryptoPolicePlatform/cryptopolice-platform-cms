@@ -1,0 +1,83 @@
+
+{% set answerCounter = 1 %}
+{% set timer = ExamTask.timer %}
+{% for fullExamTask in ExamTask.fullTask %}
+
+<div id="progress-block">
+
+    <div class="exam__progress">
+        <div>Question * / *</div>
+        <div class="exam__progress-bar">
+            <span style="width: 30%;"></span>
+        </div>
+    </div>
+
+    {% for question in fullExamTask.question %}
+    {% set currentQuestion = loop.index - 1 %}
+    {% set totalQuestion = loop.length %}
+
+    <form data-request="onCheckQuestion" 
+    data-request-success="var x = data[2] == 0 ? 'red' : 'green'; 
+    $('#ans_'+data[0]+'_'+data[1]).css('color',x);
+    $('#btn_check_'+data[1]).prop( 'disabled', false );
+    " 
+    data-request-data="id:{{currentQuestion}}">
+
+    <div class="question">
+        <div class="question__header">
+            <div class="question__title">Test {{fullExamTask.id}}, <b>Question {{currentQuestion + 1}} / {{ totalQuestion }}</b>
+            </div>
+            <div class="question__text">
+                <p>
+                    {{question.question_title | raw}}
+                </p>
+            </div>
+        </div>
+        <div id="question__check_{{currentQuestion}}" class="question__answers">
+
+            {% for answer in question.answers %}
+
+            <div class="radio">
+                <input class="radio__input" type="radio" name="question_title"
+                id="option_{{currentQuestion}}_{{answerCounter}}" value="{{currentQuestion}}_{{answerCounter}}">
+                <label class="radio__label" for="option_{{currentQuestion}}_{{answerCounter}}"  id="ans_{{currentQuestion}}_{{answerCounter}}">
+
+                    {{answer.answers_title}} => {{answer.answers_correct}}
+
+                </label>
+            </div>
+
+            {% set answerCounter = answerCounter + 1 %}
+            {%endfor%}
+
+        </div>
+    </div><!-- /.question -->
+    <button class="btn" type="submit" id="btn_check_{{currentQuestion}}">Check</button>
+</form><br>
+
+{%endfor%}
+
+</div>
+<div class="exam__timer">
+    <div>Time left <span id="timer" data-countdown="{{ExamTask.timer}}"></span> sec.</div>
+
+    <div class="exam__timer-inner">
+        <div class="exam__timer-progress" id="timer-progress">
+            <span style="width: 0;" id="timer-bar"></span>
+        </div>
+    </div>
+</div>
+
+<form data-request="onCompleteTask" data-request-success="console.log(data)" >
+    <button class="btn" type="submit">Complete Task</button>
+</form>
+
+{% endfor %}
+
+<div class="remodal" id="endtime_modal" role="dialog">
+    <div class="remodal__inner">
+        <div class="remodal__title">Scamer stole your money!</div>
+        <div class="remodal__text">Take it easy, its just a friedly joke.<br>You did not answer in time!</div>
+    </div>
+    <a class="btn" href="{{'exam'|page}}">exit and try again</a>
+</div>
