@@ -14,57 +14,59 @@ use Academy\CryptoPolice\Models\FinalScore;
 
 class ExamTask extends ComponentBase
 {
-	
-	public $timer;
-	public $fullTask;
 
-	public function componentDetails()
-	{
-		return [
-			'name' => 'Exam Task',
-			'description' => 'Exam for officers.'
-		];
-	}
+    public $timer;
+    public $fullTask;
+    public $data;
+
+    public function componentDetails()
+    {
+        return [
+            'name' => 'Exam Task',
+            'description' => 'Exam for officers.'
+        ];
+    }
 
 
- 	/**
+    /**
      * Complete current Exam Task
      * - Get user identifier
      * - Get task details from Cache
      * - Update record
      */
 
- 	public function onCompleteTask() {
+    public function onCompleteTask()
+    {
 
- 		$user = Auth::getUser();
- 		$task = $this->prepareFullExamTask();
+        $user = Auth::getUser();
+        $task = $this->prepareFullExamTask();
 
- 		$userID = $user->id;
- 		$examID = $task[0]['id'];
- 		$examScore = $task[0]['s_score'];
- 		
- 		$query = FinalScore::where('exam_id', $examID)
-	 		->where('user_id', $userID)
-	 		->where('complete_status', '0')
-	 		->get()
-	 		->toArray();
+        $userID = $user->id;
+        $examID = $task[0]['id'];
+        $examScore = $task[0]['s_score'];
 
-	 	$try = isset($query[0]['try']) && !empty($query[0]['try']) ? $query[0]['try'] + 1 : '1';
+        $query = FinalScore::where('exam_id', $examID)
+            ->where('user_id', $userID)
+            ->where('complete_status', '0')
+            ->get()
+            ->toArray();
 
- 		FinalScore::where('user_id', $userID)
-	 		->where('exam_id', $examID)
-	 		->where('try', $try)
-	 		->update([
-	 			'complete_status' => '1', 
-	 			'score' => $examScore,
-	 			'try' => $try
-	 		]);
+        $try = isset($query[0]['try']) && !empty($query[0]['try']) ? $query[0]['try'] + 1 : '1';
 
- 		return Redirect::to('/exam');	
- 	}
+        FinalScore::where('user_id', $userID)
+            ->where('exam_id', $examID)
+            ->where('try', $try)
+            ->update([
+                'complete_status' => '1',
+                'score' => $examScore,
+                'try' => $try
+            ]);
+
+        return Redirect::to('/exam');
+    }
 
 
- 	/**
+    /**
      * Check question "is correct?"
      * - Get question ID
      * - Get answer ID
@@ -73,43 +75,45 @@ class ExamTask extends ComponentBase
      * - Insert row
      */
 
- 	public function onCheckQuestion()
- 	{
+    public function onCheckQuestion()
+    {
 
- 		$user = Auth::getUser();
- 		$task = $this->prepareFullExamTask();
- 		$examID = $this->param('id');
+        $answerNum = 0;
+        $questionNum = 0;
 
- 		$userID = $user->id;
- 		$questionID = Input::get('question_title');
+        $user = $this->getUserID();
+        $task = $this->prepareFullExamTask();
 
- 		if (!empty($questionID)) {
- 			$val = explode("_", $questionID);
- 			$questionNum = $val[0];
- 			$answerNum = $val[1];
- 		} else {
- 			$questionNum = 0;
- 			$answerNum = 0;
- 		}
+        $examID = $task->id;
+        $userID = $user->id;
+        $questionID = Input::get('question_title');
 
- 		$correct = $task[0]['question'][$questionNum]['answers'][$answerNum]['answers_correct'];
+        if (!empty($questionID)) {
+            $arr = explode("_", $questionID);
+            $questionNum = $arr[0] ? $arr[0] : 0;
+            $answerNum = $arr[1] ? $arr[1] : 0;
+        }
 
- 		Score::insert([
- 			'scores' => '***/100',
- 			'user_id' => $userID,
- 			'exam_id' => $examID,
- 			'is_correct' => $correct,
- 			'answer_num' => $answerNum,
- 			'question_num' => $questionNum + 1
- 		]);
+    $this->data = $questionNum;
+        dd($questionNum, $answerNum);
+        $correct = $task[0]['question'][$questionNum]['answers'][$answerNum]['answers_correct'];
 
- 		return [
- 			$questionNum, $answerNum, $correct
- 		];
- 	}
+        Score::insert([
+            'scores' => '***/100',
+            'user_id' => $userID,
+            'exam_id' => $examID,
+            'is_correct' => $correct,
+            'answer_num' => $answerNum,
+            'question_num' => $questionNum
+        ]);
+
+        return [
+            $questionNum, $answerNum, $correct
+        ];
+    }
 
 
-	/**
+    /**
      *
      * Start Officer Exam
      *
@@ -120,104 +124,112 @@ class ExamTask extends ComponentBase
      * - Insert row
      */
 
-	public function onRun()
-	{
+    public function onRun()
+    {
 
-		$user = Auth::getUser();
-		$task = $this->prepareFullExamTask();
+        $user = $this->getUserID();
+        $task = $this->prepareFullExamTask();
 
-		$userID = $user->id;
-		$examID = $task[0]['id'];
-		$timer = $task[0]['timer'];
+        $userID = $user->id;
+        $examID = $task->id;
+        $examTimer = $task->timer;
 
+        if (!empty($userID) && !empty($examID)) {
 
-		if(!empty($userID) && !empty($examID)) {
+            $currentExamStatus = FinalScore::where('exam_id', $examID)
+                ->where('user_id', $userID)
+                ->where('complete_status', '0')
+                ->first();
 
-			$currentExamStatus = FinalScore::where('exam_id', $examID)
-				->where('user_id', $userID)
-				->where('complete_status', '0')
-				->get()
-				->toArray();
+            // Verify if officer have completed previous exam
+            if (isset($currentExamStatus->id) && !empty($currentExamStatus->id)) {
 
-			// Trying to verify if officer have completed previous exam
-			if(isset($currentExamStatus[0]['id']) && !empty($currentExamStatus[0]['id'])) {
+                $examStartTime = new DateTime('now');
+                $examEndTime = new DateTime($currentExamStatus->completed_at);
 
-				$examStartTime = new DateTime('now');
-				$examEndTime = new DateTime($currentExamStatus[0]['completed_at']);
+                if ($examStartTime > $examEndTime) {
 
-				if($examStartTime > $examEndTime) {
+                    // Complete Task
+                    $examScore = '4444';
+                    $try = (isset($currentExamStatus->try) && !empty($currentExamStatus->try)) ? $currentExamStatus->try : 1;
 
-					$examScore = '4444';
-					$try = (isset($currentExamStatus[0]['try']) && !empty($currentExamStatus[0]['try'])) ? $currentExamStatus[0]['try'] : 1;
-					
-					FinalScore::where('user_id', $userID)
-						->where('exam_id', $examID)
-						->where('try', $try)
-						->update([
-							'complete_status' => '1', 
-							'score' => $examScore
-						]);
+                    FinalScore::where('user_id', $userID)
+                        ->where('exam_id', $examID)
+                        ->where('try', $try)
+                        ->update([
+                            'complete_status' => '1',
+                            'score' => $examScore
+                        ]);
 
-					return Redirect::to('/exam');
-				}
+                    return Redirect::to('/exam');
 
-			} else {
+                } else {
 
-				$examStartTime =  new DateTime('now');
-				$examEndTime = new DateTime('now');
-				$examEndTime->add(new DateInterval("PT{$timer}S"));
+                    $examStartTime = new DateTime('now');
+                    $examEndTime = new DateTime('now');
+                    $examEndTime->add(new DateInterval("PT{$examTimer}S"));
 
- 				// Get previous try number
-				$try = FinalScore::where('exam_id', $examID)
-					->where('user_id', $userID)
-					->where('complete_status', '1')
-					->orderBy('created_at', 'desc')
-					->get()
-					->toArray();
-
-				$try = isset($try[0]['try']) && !empty($try[0]['try']) ? $try[0]['try'] + 1 : '1';
-
-		 		// Use the next attempt "try"
-				FinalScore::insert(
-					[
-						'exam_id' => $task[0]['id'], 
-						'user_id' => $user->id,
-						'created_at' => $examStartTime,
-						'completed_at' => $examEndTime,
-						'try' => $try
-					]
-				);
-
- 				//
-				$currentExamStatus = FinalScore::where('exam_id', $task[0]['id'])
-					->where('user_id', $user->id)
-					->where('complete_status', '0')
-					->get()
-					->toArray();
-			}
-
-			$this->timer = $examEndTime->getTimestamp() - $examStartTime->getTimestamp();
-
-			$this->fullTask = $task;
-		}
-	}
+                    // Get previous try number
+                    $try = FinalScore::where('exam_id', $examID)
+                        ->where('user_id', $userID)
+                        ->where('complete_status', '1')
+                        ->orderBy('created_at', 'desc')
+                        ->first();
 
 
+                    $try = isset($try->try) && !empty($try->try) ? $try->try + 1 : '1';
+
+                    // Use the next attempt "try"
+                    FinalScore::insert(
+                        [
+                            'completed_at' => $examEndTime,
+                            'created_at' => $examStartTime,
+                            'exam_id' => $examID,
+                            'user_id' => $userID,
+                            'try' => $try
+                        ]
+                    );
+
+                    //                    $currentExamStatus = FinalScore::where('exam_id', $examID)
+                    //                        ->where('user_id', $userID)
+                    //                        ->where('complete_status', '0')
+                    //                        ->first();
+                }
+
+                $this->timer = $examEndTime->getTimestamp() - $examStartTime->getTimestamp();
+                $this->fullTask = $task;
+
+            } else {
+                return Redirect::to('/exam');
+            }
+        } else {
+            return Redirect::to('/exam');
+        }
+    }
+
+    /**
+     * Officer Exam
+     * - Get Exam
+     * - Return single row or null
+     */
+
+    public function prepareFullExamTask()
+    {
+        $slug = $this->param('slug');
+        $query = Exam::where('exam_slug', $slug)
+            ->first();
+        return $query ? $query : null;
+    }
+
+    /**
+     * Get UserID
+     */
+
+    public function getUserID()
+    {
+        $user = Auth::getUser();
+        return $user ? $user : null;
+    }
 
 
-	public function prepareFullExamTask() {    
-
-		$minutes = 20;
-		$slug = $this->param('slug');
-
-		Cache::flush();
-		if (!Cache::has($slug)) {
-			return Cache::remember($slug, $minutes, function() {
-				return Exam::where('exam_slug', $this->param('slug'))->get()->toArray();
-			});
-		} else {
-			return Cache::get($slug);
-		}
-
-	}
 }
