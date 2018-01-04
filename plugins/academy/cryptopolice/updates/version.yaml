@@ -12,3 +12,6 @@
 1.0.5:
     - 'Created table academy_cryptopolice_trainings'
     - builder_table_create_academy_cryptopolice_trainings.php
+1.0.6:
+    - 'Updated table academy_cryptopolice_final_exam_score'
+    - builder_table_update_academy_cryptopolice_final_exam_score.php

@@ -143,7 +143,7 @@ class ExamTask extends ComponentBase
 			if(isset($currentExamStatus[0]['id']) && !empty($currentExamStatus[0]['id'])) {
 
 				$examStartTime = new DateTime('now');
-				$examEndTime = new DateTime($currentExamStatus[0]['complete_at']);
+				$examEndTime = new DateTime($currentExamStatus[0]['completed_at']);
 
 				if($examStartTime > $examEndTime) {
 
@@ -183,7 +183,7 @@ class ExamTask extends ComponentBase
 						'exam_id' => $task[0]['id'], 
 						'user_id' => $user->id,
 						'created_at' => $examStartTime,
-						'complete_at' => $examEndTime,
+						'completed_at' => $examEndTime,
 						'try' => $try
 					]
 				);

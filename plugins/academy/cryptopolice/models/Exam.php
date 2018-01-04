@@ -19,6 +19,8 @@ class Exam extends Model
     public $rules = [
     ];
 
+    protected $jsonable = ['question'];
+
     /**
      * @var string The database table used by the model.
      */
