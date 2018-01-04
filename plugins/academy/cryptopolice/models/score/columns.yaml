@@ -29,3 +29,8 @@ columns:
         type: number
         searchable: true
         sortable: true
+    exam_id:
+        label: Exam
+        type: number
+        searchable: true
+        sortable: true

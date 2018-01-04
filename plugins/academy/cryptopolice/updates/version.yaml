@@ -15,3 +15,6 @@
 1.0.6:
     - 'Updated table academy_cryptopolice_final_exam_score'
     - builder_table_update_academy_cryptopolice_final_exam_score.php
+1.0.7:
+    - 'Updated table academy_cryptopolice_scores'
+    - builder_table_update_academy_cryptopolice_scores.php
