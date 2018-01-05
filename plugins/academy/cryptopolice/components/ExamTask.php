@@ -42,16 +42,23 @@ class ExamTask extends ComponentBase
         $task = $this->prepareFullExamTask();
 
         $userID = $user->id;
-        $examID = $task[0]['id'];
-        $examScore = $task[0]['s_score'];
+        $examID = $task->id;
+        $examScore = '1';
 
         $query = FinalScore::where('exam_id', $examID)
             ->where('user_id', $userID)
             ->where('complete_status', '0')
-            ->get()
-            ->toArray();
+            ->first();
 
-        $try = isset($query[0]['try']) && !empty($query[0]['try']) ? $query[0]['try'] + 1 : '1';
+        $try = $query->try;
+
+
+        $scores = Score::where('user_id',$userID)
+            ->join('academy_cryptopolice_scores','','=','')
+            ->where('exam_id', $examID)
+            ->where('user_id', $try)
+            ->get();
+
 
         FinalScore::where('user_id', $userID)
             ->where('exam_id', $examID)
@@ -107,15 +114,13 @@ class ExamTask extends ComponentBase
             }
         }
 
-        $score = 0;
-
         Score::insert([
-            'scores' => $score,
             'user_id' => $userID,
             'exam_id' => $examID,
             'answer_num' => $answerNumber,
             'question_num' => $questionNum,
-            'is_correct' => $answerCorrect
+            'is_correct' => $answerCorrect,
+            'created_at' => new DateTime('now')
         ]);
 
         return [
@@ -136,7 +141,6 @@ class ExamTask extends ComponentBase
 
     public function onRun()
     {
-
 
         $user = $this->getUserID();
         $task = $this->prepareFullExamTask();
@@ -209,6 +213,7 @@ class ExamTask extends ComponentBase
             }
             $this->timer = $examEndTime->getTimestamp() - $examStartTime->getTimestamp();
             $this->fullTask = $task;
+
         } else {
             return Redirect::to('/exam');
         }
