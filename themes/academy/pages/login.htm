@@ -8,44 +8,55 @@ paramCode = "code"
 forceSecure = 0
 ==
 {% if not user %}
-   <div class="content">
-        <div class="content__inner">
+<div class="content">
+    <div class="content__inner">
+        <div class="content__header">
+            <img src="{{'assets/images/cryptopolice-logo-white.png'|theme}}" width="261" height="120"
+                 alt="CryptoPolice">
 
-            <div class="content__header">
-                <img src="{{'assets/images/cryptopolice-logo-white.png'|theme}}" width="261" height="120" alt="CryptoPolice">
+            <h1 class="content__title">Early bird CryptoPolice registration</h1>
+            <div class="content__text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit quo voluptatibus vero magni!
+                    Ducimus eveniet aperiam totam? Eius magni, illum quaerat optio deserunt nemo, aperiam dolorum quos
+                    non, eveniet laboriosam.</p>
+            </div>
+        </div>
 
-                <h1 class="content__title">Early bird CryptoPolice registration</h1>
-                <div class="content__text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit quo voluptatibus vero magni! Ducimus eveniet aperiam totam? Eius magni, illum quaerat optio deserunt nemo, aperiam dolorum quos non, eveniet laboriosam.</p>
-                </div>
+        <div class="choose">
+            <div class="choose__item">
+                <h3 class="choose__title">Login</h3>
+                <form class="form" action="" method="post" data-request="onSignin">
+                    <div class="form__group">
+                        <input class="input  input--email" type="text" placeholder="Your email address" name="login"
+                               id="userSigninLogin">
+                        <input class="input  input--pswd" type="password" placeholder="Password" name="password"
+                               id="userSigninPassword">
+                        <a class="form__link" href="#">Forgot Your Password?</a>
+                    </div>
+                    <button class="btn  btn--full" type="submit">log in</button>
+                </form>
             </div>
 
-            <div class="choose">
-                <div class="choose__item">
-                    <h3 class="choose__title">Login</h3>
-                    <form class="form" action="" method="post">
-                        <div class="form__group">
-                            <input class="input  input--email" type="text" placeholder="Your email address">
-                            <input class="input  input--pswd" type="password" placeholder="Password">
-                            <a class="form__link" href="#">Forgot Your Password?</a>
-                        </div>
-                        <button class="btn  btn--full" type="submit">log in</button>
-                    </form>
-                </div>
+            {% if canRegister %}
+            <div class="choose__item">
+                <h3 class="choose__title">Signup</h3>
+                <form class="form" action="" method="post" data-request="onRegister">
+                    <div class="form__group">
+                        <input class="input  input--email" type="text" placeholder="Your email address" name="email"
+                               id="registerEmail">
+                        <input class="input  input--email" type="text" placeholder="Your user name" name="username"
+                               id="registerName">
+                        <input class="input  input--pswd" type="password" placeholder="Password" name="password"
+                               id="registerPassword">
+                    </div>
+                    <button class="btn  btn--full" type="submit">sign up</button>
+                </form>
+            </div>
+            {% else %}
+            <!-- Registration is disabled. -->
+            {% endif %}
 
-                <div class="choose__item">
-                    <h3 class="choose__title">Signup</h3>
-                    <form class="form" action="" method="post">
-                        <div class="form__group">
-                            <input class="input  input--email" type="text" placeholder="Your email address">
-                            <input class="input  input--pswd" type="password" placeholder="Password">
-                            <input class="input  input--confirm" type="password" placeholder="Confirm password">
-                        </div>
-                        <button class="btn  btn--full" type="submit">sign up</button>
-                    </form>
-                </div>
-            </div><!-- /.choose -->
-
-        </div><!-- /.content__inner -->
-    </div><!-- /.content -->
+        </div><!-- /.choose -->
+    </div><!-- /.content__inner -->
+</div><!-- /.content -->
 {% endif %}
