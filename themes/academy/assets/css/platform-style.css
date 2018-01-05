@@ -3551,9 +3551,15 @@ html.remodal-is-locked {
     width: 33.33333%;
 }
 
-@media (max-width: 1699px) {
+@media (max-width: 1720px) {
     .grid__col.w3 {
         width: 50%;
+    }
+}
+
+@media (max-width: 1320px) {
+    .grid__col.w3 {
+        width: 100%;
     }
 }
 
@@ -3583,6 +3589,38 @@ html.remodal-is-locked {
     }
 }
 
+@media (max-width: 1720px) {
+    .header__inner {
+        max-width: 1500px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .header__inner {
+        max-width: 1300px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .header__inner {
+        max-width: 1300px;
+    }
+}
+
+@media (max-width: 1320px) {
+    .header__inner {
+        max-width: 1100px;
+    }
+}
+
+@media (max-width: 1120px) {
+    .header__inner {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 70px;
+    }
+}
+
 .header__logo {
     position: absolute;
     top: 10px;
@@ -3590,9 +3628,32 @@ html.remodal-is-locked {
     z-index: 1;
 }
 
+@media (max-width: 1120px) {
+    .header__logo {
+        left: 15px;
+    }
+}
+
 .header__search {
     width: 450px;
     padding-top: 17px;
+}
+
+@media (max-width: 1120px) {
+    .header__search {
+        width: 100%;
+        padding: 5px 15px 8px 15px;
+        display: none;
+        background-color: #282d38;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        z-index: 1;
+    }
+
+    .header__search.open {
+        display: block;
+    }
 }
 
 .header__search-input {
@@ -3628,11 +3689,27 @@ html.remodal-is-locked {
 .header__nav {
     height: 23px;
     position: absolute;
-    top: 50%;
+    top: 25px;
     right: 20px;
     z-index: 1;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+}
+
+@media (max-width: 1120px) {
+    .header__nav {
+        width: 100%;
+        height: 40px;
+        padding: 7px 15px;
+        display: none;
+        top: 80px;
+        left: 0;
+        right: auto;
+        text-align: right;
+        background-color: #282d38;
+    }
+
+    .header__nav.open {
+        display: block;
+    }
 }
 
 .header__nav-item {
@@ -3687,6 +3764,25 @@ html.remodal-is-locked {
     line-height: 23px;
 }
 
+.header__mob {
+    display: none;
+}
+
+.header__mob a {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+@media (max-width: 1120px) {
+    .header__mob {
+        display: block;
+        position: absolute;
+        top: 25px;
+        right: 15px;
+    }
+}
+
 .sidebar {
     width: 240px;
     height: 100%;
@@ -3697,6 +3793,19 @@ html.remodal-is-locked {
     top: 0;
     left: 0;
     z-index: 99;
+}
+
+@media (max-width: 1120px) {
+    .sidebar {
+        -ms-transform: translateX(-240px);
+        transform: translateX(-240px);
+        transition: transform .2s linear;
+    }
+
+    .sidebar.open {
+        -ms-transform: translateX(0);
+        transform: translateX(0);
+    }
 }
 
 .nav {
@@ -3748,6 +3857,19 @@ html.remodal-is-locked {
     padding-bottom: 120px;
 }
 
+@media (max-width: 1120px) {
+    .content {
+        padding-bottom: 160px;
+    }
+}
+
+@media (max-width: 767px) {
+    .content {
+        padding-top: 90px;
+        padding-bottom: 20px;
+    }
+}
+
 .content__inner {
     width: 100%;
     max-width: 1920px;
@@ -3762,9 +3884,46 @@ html.remodal-is-locked {
     }
 }
 
-@media (max-width: 1699px) {
+@media (max-width: 1720px) {
     .content__inner {
-        max-width: 1400px;
+        max-width: 1500px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .content__inner {
+        max-width: 1300px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .content__inner {
+        max-width: 1300px;
+    }
+}
+
+@media (max-width: 1320px) {
+    .content__inner {
+        max-width: 1100px;
+    }
+}
+
+@media (max-width: 1120px) {
+    .content__inner {
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .content__inner {
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content__inner {
+        padding-right: 15px;
+        padding-left: 15px;
     }
 }
 
@@ -3774,6 +3933,19 @@ html.remodal-is-locked {
     top: 27px;
     right: 20px;
     z-index: 1;
+}
+
+@media (max-width: 767px) {
+    .content__sidebar {
+        position: static;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .content__sidebar {
+        width: 100%;
+    }
 }
 
 .content__sidebar-title {
@@ -4327,9 +4499,23 @@ html.remodal-is-locked {
     width: 40%;
 }
 
+@media (max-width: 480px) {
+    .card__footer-left {
+        width: 100%;
+    }
+}
+
 .card__footer-right {
     width: 60%;
     text-align: right;
+}
+
+@media (max-width: 480px) {
+    .card__footer-right {
+        width: 100%;
+        margin-top: 15px;
+        text-align: left;
+    }
 }
 
 .card__ava-list {
@@ -4537,10 +4723,65 @@ html.remodal-is-locked {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+@media (max-width: 1720px) {
+    .profile__sidebar {
+        width: 25%;
+    }
+}
+
+@media (max-width: 1520px) {
+    .profile__sidebar {
+        width: 30%;
+    }
+}
+
+@media (max-width: 1320px) {
+    .profile__sidebar {
+        width: 40%;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile__sidebar {
+        width: 100%;
+    }
+}
+
 .profile__content {
     width: 80%;
     float: left;
     padding-left: 25px;
+}
+
+@media (max-width: 1720px) {
+    .profile__content {
+        width: 75%;
+    }
+}
+
+@media (max-width: 1520px) {
+    .profile__content {
+        width: 70%;
+    }
+}
+
+@media (max-width: 1320px) {
+    .profile__content {
+        width: 60%;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile__content {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile__content {
+        margin-top: 30px;
+        padding-left: 0;
+    }
 }
 
 .profile__ava {
@@ -4559,14 +4800,10 @@ html.remodal-is-locked {
 
 .profile__block {
     margin-top: 15px;
-    padding: 15px 0;
+    padding-top: 15px;
     border-top: 1px solid #ccc;
     font-size: 12px;
     color: #333333;
-}
-
-.profile__block:last-child {
-    padding-bottom: 0;
 }
 
 .profile__block p {
@@ -4688,8 +4925,8 @@ html.remodal-is-locked {
     display: flex;
     -ms-flex-align: center;
     align-items: center;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     min-height: 49px;
     padding: 10px 70px 10px 15px;
     margin-bottom: 9px;
@@ -4704,6 +4941,13 @@ html.remodal-is-locked {
     padding-right: 155px;
 }
 
+@media (max-width: 1520px) {
+    .issues__item--history {
+        display: block;
+        padding-right: 15px;
+    }
+}
+
 .issues__type {
     width: 62px;
     height: 28px;
@@ -4712,15 +4956,37 @@ html.remodal-is-locked {
     line-height: 28px;
     font-weight: bold;
     border-right: 1px solid #ccc;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    z-index: 1;
+}
+
+@media (max-width: 1520px) {
+    .issues__item--history .issues__type {
+        position: static;
+        width: 100%;
+        text-align: center;
+        border-right: 0;
+    }
 }
 
 .issues__title {
     -ms-flex-positive: 2;
     flex-grow: 2;
-    padding-left: 18px;
+    padding-left: 80px;
     font-size: 12px;
     color: #333333;
     font-weight: 300;
+}
+
+@media (max-width: 1520px) {
+    .issues__item--history .issues__title {
+        display: block;
+        width: 100%;
+        padding-left: 0;
+        text-align: center;
+    }
 }
 
 .issues__view,
@@ -4736,7 +5002,19 @@ html.remodal-is-locked {
     border-left: 1px solid #ccc;
 }
 
+@media (max-width: 1520px) {
+    .issues__view,
+    .issues__amount {
+        display: block;
+        width: 100%;
+        max-width: none;
+        border: 0;
+        text-align: center;
+    }
+}
+
 .issues__amount {
+    min-width: 130px;
     font-size: 14px;
 }
 
@@ -4772,8 +5050,14 @@ html.remodal-is-locked {
     z-index: 1;
 }
 
+@media (max-width: 1520px) {
+    .issues__item--history .issues__status:before {
+        display: none;
+    }
+}
+
 .issues__status--big {
-    width: 130px;
+    width: 120px;
     text-align: center;
 }
 
@@ -4789,6 +5073,26 @@ html.remodal-is-locked {
     left: 0;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+@media (max-width: 1520px) {
+    .issues__item--history .issues__status--big span {
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 5px 10px;
+        position: static;
+        -ms-transform: none;
+        transform: none;
+    }
+}
+
+@media (max-width: 1520px) {
+    .issues__item--history .issues__status--big {
+        display: block;
+        width: 100%;
+        position: static;
+    }
 }
 
 .issues__status--green {
@@ -6542,6 +6846,18 @@ html.remodal-is-locked {
     z-index: 100;
 }
 
+@media (max-width: 1120px) {
+    .footer {
+        height: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .footer {
+        position: static;
+    }
+}
+
 .footer__inner {
     display: -ms-flexbox;
     display: flex;
@@ -6560,8 +6876,77 @@ html.remodal-is-locked {
     }
 }
 
-.footer__item {
-    width: 33.33333%;
+@media (max-width: 1720px) {
+    .footer__inner {
+        max-width: 1500px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .footer__inner {
+        max-width: 1300px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .footer__inner {
+        max-width: 1300px;
+    }
+}
+
+@media (max-width: 1320px) {
+    .footer__inner {
+        max-width: 1100px;
+    }
+}
+
+@media (max-width: 1320px) {
+    .footer__inner {
+        max-width: none;
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 1120px) {
+    .footer__inner {
+        display: block;
+        text-align: center;
+    }
+}
+
+.footer__item--nav {
+    -ms-flex-positive: 2;
+    flex-grow: 2;
+}
+
+@media (max-width: 1120px) {
+    .footer__item--nav {
+        margin-bottom: 15px;
+    }
+}
+
+.footer__item--logo {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.footer__item--social {
+    -ms-flex-positive: 2;
+    flex-grow: 2;
+    text-align: right;
+}
+
+@media (max-width: 1120px) {
+    .footer__item--social {
+        text-align: center;
+    }
+}
+
+@media (max-width: 1120px) {
+    .footer__item {
+        width: 100%;
+    }
 }
 
 .footer__nav {
@@ -6594,7 +6979,6 @@ html.remodal-is-locked {
 
 .footer__social {
     padding: 8px 0;
-    text-align: right;
 }
 
 .footer__social span {
@@ -6612,12 +6996,6 @@ html.remodal-is-locked {
     vertical-align: middle;
     margin-left: 10px;
     color: #ccc;
-}
-
-@media (max-width: 1199px) {
-    .footer__social {
-        text-align: center;
-    }
 }
 
 /* Helpers

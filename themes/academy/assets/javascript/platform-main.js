@@ -14831,3 +14831,57 @@ $(function() {
 
 
 });
+$(function() {
+
+    "use strict";
+
+    var sidebarToggle = $("#sidebar_toggle"),
+        sidebar = $("#sidebar"),
+        profile = $("#profile"),
+        search = $("#search");
+
+    sidebarToggle.on("click", function(event) {
+        event.preventDefault();
+
+        sidebar.toggleClass("open");
+        search.removeClass("open");
+        profile.removeClass("open");
+    });
+
+});
+$(function() {
+
+    "use strict";
+
+    var searchToggle = $("#search_toggle"),
+        search = $("#search"),
+        profile = $("#profile"),
+        sidebar = $("#sidebar");
+
+    searchToggle.on("click", function(event) {
+        event.preventDefault();
+
+        search.toggleClass("open");
+        sidebar.removeClass("open");
+        profile.removeClass("open");
+    });
+
+});
+$(function() {
+
+    "use strict";
+
+    var profileToggle = $("#profile_toggle"),
+        profile = $("#profile"),
+        sidebar = $("#sidebar"),
+        search = $("#search");
+
+    profileToggle.on("click", function(event) {
+        event.preventDefault();
+
+        profile.toggleClass("open");
+        sidebar.removeClass("open");
+        search.removeClass("open");
+    });
+
+});
