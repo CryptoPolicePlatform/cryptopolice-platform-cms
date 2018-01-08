@@ -35,6 +35,14 @@ class ExamTask extends ComponentBase
      * - Update record
      */
 
+    public function onNextQuestion () {
+        return true;
+    }
+
+    public function onClickQuestion () {
+        return true;
+    }
+
     public function onCompleteTask()
     {
 

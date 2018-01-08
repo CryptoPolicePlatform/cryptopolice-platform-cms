@@ -15952,7 +15952,10 @@ $(function () {
 
     var slider = $('#question_slider'),
         prev = $("#prev_question"),
-        next = $("#next_question");
+        next = $("#next_question"),
+		questionNumber = $('#qst_num'),
+        questionProgress = $('#qst_progress'),
+        questionProgressBar = $('#qst_progress-bar');
 
     slider.slick({
         infinite: false,
@@ -15973,6 +15976,18 @@ $(function () {
     next.on("click", function (event) {
         event.preventDefault();
         slider.slick("slickNext");
+    });
+
+
+    slider.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+
+    	var percentage = 100 / slick.slideCount * nextSlide + 2 + '%';
+        var num = (nextSlide + 1 == slick.slideCount) ? 0 : nextSlide + 1;
+
+        questionNumber.val(num);
+        questionProgress.text('Question ' + (nextSlide + 1) + '/' + slick.slideCount);
+        questionProgressBar.find("span").css('width', percentage);
+
     });
 
 });

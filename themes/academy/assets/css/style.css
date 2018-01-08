@@ -2335,6 +2335,18 @@ html.remodal-is-locked {
     position: absolute;
     bottom: 0;
     left: 0; }
+.question__next {
+    display:none;
+}
+.question__check {
+    display:none;
+}
+.complete_task {
+    display:none;
+}
+.question__complete {
+    display:none;
+}
 
 .radio {
   display: block;
