@@ -60,20 +60,20 @@ class ExamTask extends ComponentBase
 
         $try = $query->try;
 
-
         $scores = Score::where('user_id',$userID)
-            ->join('academy_cryptopolice_scores','','=','')
+            ->where('try', $try)
             ->where('exam_id', $examID)
-            ->where('user_id', $try)
+            ->where('is_correct', '1')
             ->get();
 
+        $size = sizeof($scores);
 
         FinalScore::where('user_id', $userID)
             ->where('exam_id', $examID)
             ->where('try', $try)
             ->update([
                 'complete_status' => '1',
-                'score' => $examScore,
+                'score' => $size,
                 'try' => $try
             ]);
 
@@ -122,12 +122,19 @@ class ExamTask extends ComponentBase
             }
         }
 
+        $userTry = FinalScore::where('exam_id', $examID)
+            ->where('user_id', $userID)
+            ->where('complete_status', '0')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
         Score::insert([
             'user_id' => $userID,
             'exam_id' => $examID,
             'answer_num' => $answerNumber,
             'question_num' => $questionNum,
             'is_correct' => $answerCorrect,
+            'try' => $userTry->try,
             'created_at' => new DateTime('now')
         ]);
 
@@ -250,6 +257,5 @@ class ExamTask extends ComponentBase
         $user = Auth::getUser();
         return $user ? $user : null;
     }
-
 
 }
