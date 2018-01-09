@@ -11,7 +11,6 @@ security = "all"
             <a class="header__logo" href="{{'home'|page}}">
                 <img src={{"assets/images/cryptopolice-logo.png"|theme}} width="135" alt="CryptoPolice">       
             </a>
-    </a>
         </div>
         <div class="header__right">
             <ul class="header__profile">
@@ -21,7 +20,15 @@ security = "all"
                     {% endif %}
                 </li>
                 <li>
-                    <a href="{{'profile'|page}}">{{ user.name }}</a>
+                
+                    {% if not user.name %}
+                    
+                        <a href="{{'profile'|page}}">{{ user.email }}</a>
+                    {% else %}
+                        <a href="{{'profile'|page}}">{{ user.name }}</a>                    
+                    {% endif %}
+                    
+                    
                 </li>
                     {% if user %}
                         <li> <a data-request="onLogout" data-request-data="redirect: '/login'">Logout</a> </li>

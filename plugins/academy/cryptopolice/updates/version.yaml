@@ -18,3 +18,24 @@
 1.0.7:
     - 'Updated table academy_cryptopolice_scores'
     - builder_table_update_academy_cryptopolice_scores.php
+1.0.8:
+    - 'Updated table academy_cryptopolice_scores'
+    - builder_table_update_academy_cryptopolice_scores_2.php
+1.0.9:
+    - 'Updated table academy_cryptopolice_final_exam_score'
+    - builder_table_update_academy_cryptopolice_final_exam_score_2.php
+1.0.10:
+    - 'Updated table academy_cryptopolice_scores'
+    - builder_table_update_academy_cryptopolice_scores_3.php
+1.0.11:
+    - 'Updated table academy_cryptopolice_exams'
+    - builder_table_update_academy_cryptopolice_exams.php
+1.0.12:
+    - 'Updated table academy_cryptopolice_exams'
+    - builder_table_update_academy_cryptopolice_exams_2.php
+1.0.13:
+    - 'Updated table academy_cryptopolice_exams'
+    - builder_table_update_academy_cryptopolice_exams_3.php
+1.0.14:
+    - 'Updated table academy_cryptopolice_exams'
+    - builder_table_update_academy_cryptopolice_exams_4.php

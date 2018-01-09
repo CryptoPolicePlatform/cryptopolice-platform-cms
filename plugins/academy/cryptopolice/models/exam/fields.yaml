@@ -8,6 +8,12 @@ fields:
         label: 'Exam Slug'
         oc.commentPosition: ''
         span: auto
+        trigger:
+            action: ''
+            field: exam_slug
+        preset:
+            field: exam_title
+            type: slug
         type: text
     s_score:
         label: Score
@@ -20,6 +26,11 @@ fields:
         type: switch
     timer:
         label: Timer
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    retake_time:
+        label: 'Retake Time'
         oc.commentPosition: ''
         span: auto
         type: text

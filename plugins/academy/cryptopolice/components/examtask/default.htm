@@ -1,21 +1,29 @@
 {% set timer = ExamTask.fullTask.timer %}
+{% set examQuestions = ExamTask.fullTask.question|length %}
+
+
 <div class="content">
     <div class="content__inner">
         <div class="exam">
             <div class="exam__inner">
+
+
                 <div class="exam__progress">
-                    <div>Question 3/21</div>
-                    <div class="exam__progress-bar">
-                        <span style="width: 30%;"></span>
+                    <div id="qst_progress">Question 1/{{examQuestions}}</div>
+                    <div id="qst_progress-bar" class="exam__progress-bar">
+                        <span style="width: 10%;"></span>
                     </div>
                 </div>
+
+
                 <div id="question_slider">
                     {% for question in ExamTask.fullTask.question %}
                     {% set currentQuestion = loop.index %}
                     {% set totalQuestion = loop.length %}
                     <form data-request="onCheckQuestion"
-                          data-request-success="var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x); $('#btn_check_'+data[1]).prop( 'disabled', false );"
-                          data-request-data="id:{{currentQuestion}}">
+                          data-request-success="console.log(data); var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);"
+                          data-request-data="id:{{currentQuestion}}"
+                          id="exam_form_{{currentQuestion}}">
                         <div class="question">
                             <div class="question__header">
                                 <div class="question__title">Test {{ExamTask.fullTask.id}}, <b>Question
@@ -38,11 +46,14 @@
                                 </div>
                                 {%endfor%}
                             </div>
-                            <button class="btn" type="submit" id="btn_check_{{currentQuestion}}">Check</button>
                         </div><!-- /.question -->
+                        <input type="hidden" id="qst_num" value="{{currentQuestion}}">
+                        <input type="hidden" id="qst_total_num" value="{{examQuestions}}">
                     </form>
                     {% endfor %}
                 </div><!-- /#question_slider -->
+
+
                 <div class="exam__timer">
                     <div>Time left <span id="timer" data-countdown="{{ExamTask.timer}}"></span> sec.</div>
                     <div class="exam__timer-inner">
@@ -50,12 +61,35 @@
                             <span style="width: 0;" id="timer-bar"></span>
                         </div>
                     </div>
-                    <a class="btn" id="prev_question" href="#">prev question</a>
-                    <a class="btn" id="next_question" href="#">next question</a>
+
+                    <a style="display: none;" data-request="onNextQuestion"
+                       data-request-success="$( '.question__next' ).css('display','none');$( '.question__check' ).css('display','');"
+                       class="btn question__next" id="next_question" href="#">next question</a>
+
+                    <form data-request="onCompleteTask" class="question__complete"
+                          data-request-success="console.log(data)">
+                        <button class="btn">Complete Task</button>
+                    </form>
+
+                    <button class="btn question__check" id="current_question" data-request="onClickQuestion"
+                            data-request-success="
+                            var currentForm = $('#qst_num').val();
+                            var currentFormTotalQst = $('#qst_total_num').val();
+                            if(currentForm > 0) {
+                                $('#exam_form_' + currentForm).submit();
+                                $( '.question__next' ).css('display','');
+                                $( '.question__check' ).css('display','none');
+                            }
+                            if(currentFormTotalQst == currentForm) {
+                              $('.question__complete').css('display','block');
+                              $( '.question__check' ).css('display','none');
+                              $( '.question__next' ).css('display','none');
+                            }"
+                            type="submit">Submit Answer
+                    </button>
                 </div>
-                <form data-request="onCompleteTask" data-request-success="console.log(data)">
-                    <button class="btn">Complete Task</button>
-                </form>
+
+
                 <div class="remodal" id="endtime_modal" role="dialog">
                     <div class="remodal__inner">
                         <div class="remodal__title">Scamer stole your money!</div>
@@ -64,6 +98,8 @@
                     </div>
                     <a class="btn" href="{{'exam'|page}}">exit and try again</a>
                 </div>
+
+
             </div><!-- /.exam__inner -->
         </div><!-- /.exam -->
     </div><!-- /.content__inner -->
