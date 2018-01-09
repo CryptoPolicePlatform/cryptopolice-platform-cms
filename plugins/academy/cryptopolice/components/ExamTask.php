@@ -51,14 +51,12 @@ class ExamTask extends ComponentBase
 
         $userID = $user->id;
         $examID = $task->id;
-        $examScore = '1';
 
-        $query = FinalScore::where('exam_id', $examID)
+        $userTry = FinalScore::where('exam_id', $examID)
             ->where('user_id', $userID)
             ->where('complete_status', '0')
             ->first();
-
-        $try = $query->try;
+        $try = $userTry->try;
 
         $scores = Score::where('user_id',$userID)
             ->where('try', $try)
@@ -66,14 +64,14 @@ class ExamTask extends ComponentBase
             ->where('is_correct', '1')
             ->get();
 
-        $size = sizeof($scores);
+        $correctAnswers = sizeof($scores);
 
         FinalScore::where('user_id', $userID)
             ->where('exam_id', $examID)
             ->where('try', $try)
             ->update([
                 'complete_status' => '1',
-                'score' => $size,
+                'score' => $correctAnswers,
                 'try' => $try,
                 'completed_at' => new DateTime('now')
             ]);
@@ -129,7 +127,6 @@ class ExamTask extends ComponentBase
             ->orderBy('created_at', 'desc')
             ->first();
 
-
         Score::insert([
             'user_id' => $userID,
             'exam_id' => $examID,
@@ -168,10 +165,12 @@ class ExamTask extends ComponentBase
 
         if (!empty($userID) && !empty($examID)) {
 
+            // Get current ExamTask, not completed
             $currentExamStatus = FinalScore::where('exam_id', $examID)
                 ->where('user_id', $userID)
                 ->where('complete_status', '0')
                 ->first();
+
 
             // Verify if officer have completed previous exam
             if (isset($currentExamStatus->id) && !empty($currentExamStatus->id)) {
@@ -179,26 +178,50 @@ class ExamTask extends ComponentBase
                 $examStartTime = new DateTime('now');
                 $examEndTime = new DateTime($currentExamStatus->completed_at);
 
+                // AutoComplete Task
                 if ($examStartTime > $examEndTime) {
-
-                    // Complete Task
-                    $examScore = '111';
                     $try = (isset($currentExamStatus->try) && !empty($currentExamStatus->try)) ? $currentExamStatus->try : 1;
+
+                    $scores = Score::where('user_id',$userID)
+                        ->where('try', $try)
+                        ->where('exam_id', $examID)
+                        ->where('is_correct', '1')
+                        ->get();
+                    $correctAnswers = sizeof($scores);
 
                     FinalScore::where('user_id', $userID)
                         ->where('exam_id', $examID)
                         ->where('try', $try)
                         ->update([
                             'complete_status' => '1',
-                            'score' => $examScore
+                            'score' =>  $correctAnswers
                         ]);
 
                     return Redirect::to('/exam');
-
                 }
 
             } else {
 
+                // Check if user can pass new exam
+                $lastPassedExam = FinalScore::where('exam_id', $examID)
+                    ->where('user_id', $userID)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+
+                if(!empty($lastPassedExam->id) && isset($lastPassedExam->id)) {
+
+                    $examStartTime = new DateTime('now');
+                    $examEndTime = new DateTime($lastPassedExam->created_at);
+                    $timeSeconds = $examStartTime->getTimestamp() - $examEndTime->getTimestamp();
+
+                    if ($timeSeconds < $task->retake_time) {
+                        Flash::error('You can retake your certification test again but you must wait!');
+                        return Redirect::to('/exam');
+                    }
+
+                }
+
+                //Start New Exam
                 $examStartTime = new DateTime('now');
                 $examEndTime = new DateTime('now');
                 $examEndTime->add(new DateInterval("PT{$examTimer}S"));
@@ -209,12 +232,10 @@ class ExamTask extends ComponentBase
                     ->where('complete_status', '1')
                     ->orderBy('created_at', 'desc')
                     ->first();
-
                 $try = isset($try->try) && !empty($try->try) ? $try->try + 1 : '1';
 
                 // Use the next attempt "try"
-                FinalScore::insert(
-                    [
+                FinalScore::insert([
                         'completed_at' => $examEndTime,
                         'created_at' => $examStartTime,
                         'exam_id' => $examID,
@@ -222,11 +243,6 @@ class ExamTask extends ComponentBase
                         'try' => $try
                     ]
                 );
-
-                //                    $currentExamStatus = FinalScore::where('exam_id', $examID)
-                //                        ->where('user_id', $userID)
-                //                        ->where('complete_status', '0')
-                //                        ->first();
             }
             $this->timer = $examEndTime->getTimestamp() - $examStartTime->getTimestamp();
             $this->fullTask = $task;
@@ -245,8 +261,7 @@ class ExamTask extends ComponentBase
     public function prepareFullExamTask()
     {
         $slug = $this->param('slug');
-        $query = Exam::where('exam_slug', $slug)
-            ->first();
+        $query = Exam::where('exam_slug', $slug)->first();
         return $query ? $query : null;
     }
 

@@ -12898,41 +12898,6 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 
 })(jQuery);
 
-$(function() {
-
-    "use strict";
-
-    /* Docs: http://keith-wood.name/countdown.html */
-
-    var timer = $("#timer");
-    var sec = timer.data('countdown');
-    var timerProgress = $("#timer-progress").width();
-    var timerBar = $("#timer-bar");
-    var progressW = 0;
-    var widthStep = timerProgress / sec;
-    var endModal = $("#endtime_modal").remodal();
-
-    timer.countdown({
-        format: 's',
-        until: sec,
-        compact: true,
-        onTick: moveScamer,
-        tickInterval: 1,
-        onExpiry: endTime
-    });
-
-
-    function moveScamer() {
-        progressW = progressW + widthStep;
-
-        timerBar.width(progressW);
-    }
-
-    function endTime() {
-        endModal.open();
-    }
-
-});
 /*
      _ _      _       _
  ___| (_) ___| | __  (_)___
@@ -15950,10 +15915,39 @@ $(function () {
 
     "use strict";
 
+    /* Docs: http://keith-wood.name/countdown.html */
+
+    var timer = $("#timer");
+    var sec = timer.data('countdown');
+    var timerProgress = $("#timer-progress").width();
+    var timerBar = $("#timer-bar");
+    var progressW = 0;
+    var widthStep = timerProgress / sec;
+    var endModal = $("#endtime_modal").remodal();
+
+    timer.countdown({
+        format: 's',
+        until: sec,
+        compact: true,
+        onTick: moveScamer,
+        tickInterval: 1,
+        onExpiry: endTime
+    });
+
+    function moveScamer() {
+        progressW = progressW + widthStep;
+
+        timerBar.width(progressW);
+    }
+
+    function endTime() {
+        endModal.open();
+    }
+
     var slider = $('#question_slider'),
         prev = $("#prev_question"),
         next = $("#next_question"),
-		questionNumber = $('#qst_num'),
+        questionNumber = $('#qst_num'),
         questionProgress = $('#qst_progress'),
         questionProgressBar = $('#qst_progress-bar');
 
@@ -15979,25 +15973,17 @@ $(function () {
     });
 
 
-    slider.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+    slider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
-		var num;
-    	var percentage = 100 / slick.slideCount * nextSlide + 2 + '%';
-
-        // if(currentSlide + 1 == slick.slideCount) {
-         //    num = 0
-         //    $('.question__complete').css('display','block');
-         //    $( '.question__check' ).css('display','none');
-		// } else {
-        	num = nextSlide + 1;
-        // }
-
-
-
-        questionNumber.val(num);
+        var percentage = 100 / slick.slideCount * nextSlide + 2 + '%';
+        questionNumber.val(nextSlide + 1);
         questionProgress.text('Question ' + (nextSlide + 1) + '/' + slick.slideCount);
         questionProgressBar.find("span").css('width', percentage);
 
     });
 
+});
+
+$(document).on('closed', '#endtime_modal', function (e) {
+    $.request('onCompleteTask');
 });

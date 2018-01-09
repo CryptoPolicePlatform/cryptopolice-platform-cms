@@ -41,7 +41,7 @@
                                     <label class="radio__label"
                                            for="option_{{currentQuestion}}_{{answer.answer_number}}"
                                            id="ans_{{currentQuestion}}_{{answer.answer_number}}">
-                                        {{answer.answer_title}} => {{answer.answer_correct}}
+                                        {{answer.answer_title}}
                                     </label>
                                 </div>
                                 {%endfor%}
@@ -96,7 +96,7 @@
                         <div class="remodal__text">Take it easy, its just a friedly joke.<br>You did not answer in time!
                         </div>
                     </div>
-                    <a class="btn" href="{{'exam'|page}}">exit and try again</a>
+                    <a class="btn" data-request="onCompleteTask" href="{{'exam'|page}}">exit and try again</a>
                 </div>
 
 

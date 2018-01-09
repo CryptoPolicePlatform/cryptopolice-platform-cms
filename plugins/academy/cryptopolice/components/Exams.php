@@ -1,5 +1,6 @@
 <?php namespace Academy\CryptoPolice\Components;
 
+use DB;
 use Auth;
 use Flash;
 use Redirect;
@@ -17,7 +18,7 @@ class Exams extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Exam List',
+            'name' => 'Exam List',
             'description' => 'List of exams for officers.'
         ];
     }
@@ -26,19 +27,21 @@ class Exams extends ComponentBase
     {
         return [
             'max' => [
-                'description'       => 'The most amount of todo items allowed',
-                'title'             => 'Max items',
-                'default'           => 10,
-                'type'              => 'string',
+                'description' => 'The most amount of todo items allowed',
+                'title' => 'Max items',
+                'default' => 10,
+                'type' => 'string',
                 'validationPattern' => '^[0-9]+$',
                 'validationMessage' => 'The Max Items value is required and should be integer.'
             ]
         ];
     }
 
-    protected function formatDate($value) {
+    protected function formatDate($value)
+    {
         return str_pad($value, 2, '0', STR_PAD_LEFT);
     }
+
     public function onExamClick()
 
     {
@@ -54,7 +57,7 @@ class Exams extends ComponentBase
             ->orderBy('created_at', 'desc')
             ->first();
 
-        if(!empty($currentExamStatus) && isset($currentExamStatus)) {
+        if (!empty($currentExamStatus) && isset($currentExamStatus)) {
 
             //Get current time
             $examStartTime = new DateTime('now');
@@ -72,12 +75,12 @@ class Exams extends ComponentBase
                 $minutes = floor(($left / 60) % 60);
                 $seconds = $left % 60;
 
-                Flash::error('You can retake your certification test again but you must wait! <br>'.$this->formatDate($hours).":".$this->formatDate($minutes).":".$this->formatDate($seconds));
+                Flash::error('You can retake your certification test again but you must wait! <br>' . $this->formatDate($hours) . ":" . $this->formatDate($minutes) . ":" . $this->formatDate($seconds));
             } else {
-                return Redirect::to('/exam-task/'.$examSlug);
+                return Redirect::to('/exam-task/' . $examSlug);
             }
         } else {
-            return Redirect::to('/exam-task/'.$examSlug);
+            return Redirect::to('/exam-task/' . $examSlug);
         }
     }
 
@@ -89,11 +92,12 @@ class Exams extends ComponentBase
      * - Get user current scores;
      */
 
-    public function onRun() {
-            
+    public function onRun()
+    {
+
         // Check if user is logged in
         $loggedIn = Auth::check();
-        if(!$loggedIn) {
+        if (!$loggedIn) {
             return Redirect::to('/login');
         }
 
@@ -104,14 +108,34 @@ class Exams extends ComponentBase
         $user = Auth::getUser();
         $user_id = $user->id;
 
-        // Get user current scores
-        $userScores = FinalScore::where('user_id', $user->id)->orderBy('created_at','asc')->get()->toArray();
 
-        if(!$exams) {
+        //        select f .*
+        //                from(
+        //                    select exam_id, max(created_at) as minDate
+        //                   from academy_cryptopolice_final_exam_score group by exam_id
+        //                ) as x inner join academy_cryptopolice_final_exam_score as f on f . exam_id = x . exam_id and f . created_at = x . minDate;
+        //
+        //        $userScores =
+        //            DB::table('academy_cryptopolice_final_exam_score AS f')
+        //                ->select('f.*')
+        //                ->from(Db::table('academy_cryptopolice_final_exam_score AS ff')
+        //                    ->select('ff.exam_id', 'max(ff.created_at) as minDate')->groupBy('exam_id as x')
+        //                    ->leftJoin('academy_cryptopolice_final_exam_score as x', function ($join) {
+        //                        $join->on('f.exam_id', '=', 'x.exam_id')
+        //                            ->orOn('f.created_at', '=', 'x.created_at');
+        //                    }))->get();
+
+
+
+        $userScores = FinalScore::where('user_id', $user_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        if (isset($exams->id) && !empty($exams->id)) {
             return $this->controller->run('404');
         } else {
-           $this->exams = $exams;
-           $this->scores = $userScores;
-       }
+            $this->exams = $exams;
+            $this->scores = $userScores;
+        }
    }
 }

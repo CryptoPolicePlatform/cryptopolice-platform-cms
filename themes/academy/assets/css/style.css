@@ -2092,6 +2092,7 @@ html.remodal-is-locked {
       width: 15%; } }
 
 .courses__title {
+    width: 80%;
   color: #fff;
   font-size: 14px;
   line-height: 1.2; }
