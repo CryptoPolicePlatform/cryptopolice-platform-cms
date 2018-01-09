@@ -15,8 +15,8 @@ is_hidden = 0
 
             <div class="profile">
                 <div class="profile__sidebar">
-                    <img class="profile__ava" src="http://placehold.it/79" width="79" height="79" title="Avatar" alt="Avatar">
-                    <div class="profile__name">CryptoMaster</div>
+                    <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
+                    <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</div>
 
                     <div class="profile__block">
                         <p>Role: <b>Officer</b></p>

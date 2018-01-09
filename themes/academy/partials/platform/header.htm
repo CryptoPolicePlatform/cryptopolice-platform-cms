@@ -9,9 +9,9 @@
 
         <div class="header__nav" id="profile">
             <a class="header__ava" href="{{'profile'|page}}">
-                <img src="http://placehold.it/23" width="23" height="23" alt="Avatar">
+                <img src="{{user.avatar.path}}" width="23" height="23" alt="Avatar">
             </a>
-            <a class="header__name" href="{{'profile'|page}}">CryptoMaster</a>
+            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</a>
 
             <a class="header__nav-item" href="#">
                 <img src="{{'assets/images/wallet-ico.png'|theme}}" width="20" height="19" alt="">

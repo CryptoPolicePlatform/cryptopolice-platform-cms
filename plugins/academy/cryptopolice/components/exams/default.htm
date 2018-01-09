@@ -1,12 +1,6 @@
 <ul class="courses"> 
     {% for exam in Exams.exams %}
     <li class="courses__item">
-         <!--  
-                data-request-flash
-                data-request-success="console.log(data)" 
-                data-request="onExamClick" 
-                data-request-data="id: '{{exam.id}}', slug:'{{exam.slug}}'"  
-        -->
         <a class="courses__link  watched"  href="{{ 'exam-open'|page({ slug:exam.exam_slug }) }}">
             <span class="courses__num">#<b>{{exam.id}}</b></span>
             <span class="courses__title">{{exam.exam_title}}</span>

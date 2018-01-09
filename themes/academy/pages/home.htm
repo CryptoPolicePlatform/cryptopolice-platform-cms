@@ -3,6 +3,17 @@ url = "/academy"
 layout = "academy"
 is_hidden = 0
 ==
+<?php
+
+   function onStart() {
+        if(!Auth::check()) {
+            return Redirect::to('/login');
+        }
+    }
+
+?>
+==
+
 <div class="content">
     <div class="content__inner">
        <div class="content__header">

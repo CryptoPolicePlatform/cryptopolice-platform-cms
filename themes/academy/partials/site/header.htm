@@ -10,7 +10,7 @@ security = "all"
         <div class="header__left">
             <a class="header__logo" href="{{'home'|page}}">
                 <img src={{"assets/images/cryptopolice-logo.png"|theme}} width="135" alt="CryptoPolice">       
-            </a>  <a class="" href="{{'cryptopolice'|page}}">Platform
+            </a>
     </a>
         </div>
         <div class="header__right">
@@ -24,7 +24,7 @@ security = "all"
                     <a href="{{'profile'|page}}">{{ user.name }}</a>
                 </li>
                     {% if user %}
-                        <li> <a data-request="onLogout" data-request-data="redirect: '/'">Logout</a> </li>
+                        <li> <a data-request="onLogout" data-request-data="redirect: '/login'">Logout</a> </li>
                     {% else %}
                        <li> <a href="{{'registration'|page}}">Registration</a> </li>
                        <li> <a href="{{'login'|page}}">Login</a> </li>

@@ -7,6 +7,19 @@ is_hidden = 0
 paramCode = "code"
 forceSecure = 0
 ==
+
+<?php
+
+    function onStart() {
+        if(Auth::check()) {
+            return Redirect::to('/academy');
+        }
+    }
+
+?>
+
+==
+
 {% if not user %}
 <div class="content">
     <div class="content__inner">
