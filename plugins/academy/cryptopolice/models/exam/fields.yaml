@@ -29,6 +29,11 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    retake_time:
+        label: 'Retake Time'
+        oc.commentPosition: ''
+        span: auto
+        type: text
     exam_description:
         label: 'academy.cryptopolice::lang.plugin.description'
         size: large

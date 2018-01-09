@@ -13,7 +13,7 @@ class Exams extends ComponentBase
 
     public $exams;
     public $scores;
-    
+
     public function componentDetails()
     {
         return [
@@ -36,8 +36,49 @@ class Exams extends ComponentBase
         ];
     }
 
-    public function onExamClick() {
+    protected function formatDate($value) {
+        return str_pad($value, 2, '0', STR_PAD_LEFT);
+    }
+    public function onExamClick()
 
+    {
+
+        $user = Auth::getUser();
+        $userID = $user->id;
+        $examID = post('id');
+        $examSlug = post('slug');
+
+        $exams = Exam::where('id', $examID)->first();
+        $currentExamStatus = FinalScore::where('exam_id', $examID)
+            ->where('user_id', $userID)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if(!empty($currentExamStatus) && isset($currentExamStatus)) {
+
+            //Get current time
+            $examStartTime = new DateTime('now');
+
+            //Exam finished at
+            $examEndTime = new DateTime($currentExamStatus->completed_at);
+
+            $timeSeconds = $examStartTime->getTimestamp() - $examEndTime->getTimestamp();
+
+            if ($timeSeconds < $exams->retake_time) {
+
+                $left = $exams->retake_time - $timeSeconds;
+
+                $hours = floor($left / 3600);
+                $minutes = floor(($left / 60) % 60);
+                $seconds = $left % 60;
+
+                Flash::error('You can retake your certification test again but you must wait! <br>'.$this->formatDate($hours).":".$this->formatDate($minutes).":".$this->formatDate($seconds));
+            } else {
+                return Redirect::to('/exam-task/'.$examSlug);
+            }
+        } else {
+            return Redirect::to('/exam-task/'.$examSlug);
+        }
     }
 
     /**
@@ -49,7 +90,7 @@ class Exams extends ComponentBase
      */
 
     public function onRun() {
-
+            
         // Check if user is logged in
         $loggedIn = Auth::check();
         if(!$loggedIn) {
@@ -62,9 +103,9 @@ class Exams extends ComponentBase
         // Get user identifier
         $user = Auth::getUser();
         $user_id = $user->id;
-       
+
         // Get user current scores
-        $userScores = FinalScore::where('user_id', $user->id)->groupBy('exam_id')->orderBy('created_at','asc')->get()->toArray();
+        $userScores = FinalScore::where('user_id', $user->id)->orderBy('created_at','asc')->get()->toArray();
 
         if(!$exams) {
             return $this->controller->run('404');

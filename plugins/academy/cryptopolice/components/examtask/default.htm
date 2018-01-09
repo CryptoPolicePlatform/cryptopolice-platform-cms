@@ -21,7 +21,7 @@
                     {% set currentQuestion = loop.index %}
                     {% set totalQuestion = loop.length %}
                     <form data-request="onCheckQuestion"
-                          data-request-success="var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);"
+                          data-request-success="console.log(data); var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);"
                           data-request-data="id:{{currentQuestion}}"
                           id="exam_form_{{currentQuestion}}">
                         <div class="question">
@@ -48,6 +48,7 @@
                             </div>
                         </div><!-- /.question -->
                         <input type="hidden" id="qst_num" value="{{currentQuestion}}">
+                        <input type="hidden" id="qst_total_num" value="{{examQuestions}}">
                     </form>
                     {% endfor %}
                 </div><!-- /#question_slider -->
@@ -73,14 +74,18 @@
                     <button class="btn question__check" id="current_question" data-request="onClickQuestion"
                             data-request-success="
                             var currentForm = $('#qst_num').val();
+                            var currentFormTotalQst = $('#qst_total_num').val();
                             if(currentForm > 0) {
                                 $('#exam_form_' + currentForm).submit();
                                 $( '.question__next' ).css('display','');
                                 $( '.question__check' ).css('display','none');
-                            } else {
-                                $('.question__complete').css('display','block');
-                                $( '.question__check' ).css('display','none');
-                            }" type="submit">Check
+                            }
+                            if(currentFormTotalQst == currentForm) {
+                              $('.question__complete').css('display','block');
+                              $( '.question__check' ).css('display','none');
+                              $( '.question__next' ).css('display','none');
+                            }"
+                            type="submit">Submit Answer
                     </button>
                 </div>
 

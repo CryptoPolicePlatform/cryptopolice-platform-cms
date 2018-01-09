@@ -20,7 +20,15 @@ security = "all"
                     {% endif %}
                 </li>
                 <li>
-                    <a href="{{'profile'|page}}">{{ user.name }}</a>
+                
+                    {% if not user.name %}
+                    
+                        <a href="{{'profile'|page}}">{{ user.email }}</a>
+                    {% else %}
+                        <a href="{{'profile'|page}}">{{ user.name }}</a>                    
+                    {% endif %}
+                    
+                    
                 </li>
                     {% if user %}
                         <li> <a data-request="onLogout" data-request-data="redirect: '/'">Logout</a> </li>

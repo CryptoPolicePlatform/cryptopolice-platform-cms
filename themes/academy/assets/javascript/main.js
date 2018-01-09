@@ -15981,8 +15981,18 @@ $(function () {
 
     slider.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
 
+		var num;
     	var percentage = 100 / slick.slideCount * nextSlide + 2 + '%';
-        var num = (nextSlide + 1 == slick.slideCount) ? 0 : nextSlide + 1;
+
+        // if(currentSlide + 1 == slick.slideCount) {
+         //    num = 0
+         //    $('.question__complete').css('display','block');
+         //    $( '.question__check' ).css('display','none');
+		// } else {
+        	num = nextSlide + 1;
+        // }
+
+
 
         questionNumber.val(num);
         questionProgress.text('Question ' + (nextSlide + 1) + '/' + slick.slideCount);

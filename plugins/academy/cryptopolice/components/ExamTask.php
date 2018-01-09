@@ -74,7 +74,8 @@ class ExamTask extends ComponentBase
             ->update([
                 'complete_status' => '1',
                 'score' => $size,
-                'try' => $try
+                'try' => $try,
+                'completed_at' => new DateTime('now')
             ]);
 
         return Redirect::to('/exam');
@@ -127,6 +128,7 @@ class ExamTask extends ComponentBase
             ->where('complete_status', '0')
             ->orderBy('created_at', 'desc')
             ->first();
+
 
         Score::insert([
             'user_id' => $userID,
