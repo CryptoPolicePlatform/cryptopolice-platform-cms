@@ -7,20 +7,17 @@ is_hidden = 0
 paramCode = "code"
 forceSecure = 0
 ==
-
 <?php
 
-    function onStart() {
-     $loggedIn = Auth::check();
-        if($loggedIn) {
-            return Redirect::to('/academy');
+     function onStart() {
+
+        if(Auth::check()) {
+           return Redirect::to('/academy');
         }
      }
 
-
 ?>
 ==
-
 {% if not user %}
 <div class="content">
     <div class="content__inner">
@@ -39,12 +36,12 @@ forceSecure = 0
         <div class="choose">
             <div class="choose__item">
                 <h3 class="choose__title">Login</h3>
-                <form class="form" action="" method="post" data-request-flash data-request="onSignin">
+                <form class="form" action="" method="post" data-request-flash data-request="onSignin" autocomplete="off">
                     <div class="form__group">
                         <input class="input  input--email" type="text" placeholder="Your email address" name="login"
-                               id="userSigninLogin">
+                               id="userSigninLogin" autocomplete="off">
                         <input class="input  input--pswd" type="password" placeholder="Password" name="password"
-                               id="userSigninPassword">
+                               id="userSigninPassword" autocomplete="off">
                         <a class="form__link" href="#">Forgot Your Password?</a>
                     </div>
                     <button class="btn  btn--full" type="submit">log in</button>
@@ -56,9 +53,9 @@ forceSecure = 0
                 <h3 class="choose__title">Signup</h3>
                 <form class="form" action="" method="post" data-request-flash data-request="onRegister" autocomplete="off">
                     <div class="form__group">
-                        <input class="input  input--email" type="text" placeholder="Your email address" name="email" id="registerEmail">
-                        <input class="input  input--pswd" type="password" placeholder="Password" name="password" id="registerPassword">
-                        <input class="input  input--confirm" type="password" name="password_confirmation" placeholder="Confirm password">
+                        <input class="input  input--email" type="text" placeholder="Your email address" name="email" id="registerEmail" autocomplete="off">
+                        <input class="input  input--pswd" type="password" placeholder="Password" name="password" id="registerPassword" autocomplete="off">
+                        <input class="input  input--confirm" type="password" name="password_confirmation" placeholder="Confirm password" autocomplete="off">
                     </div>
                     <button class="btn  btn--full" type="submit">sign up</button>
                 </form>

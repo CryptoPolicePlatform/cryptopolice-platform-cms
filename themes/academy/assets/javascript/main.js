@@ -15975,7 +15975,9 @@ $(function () {
 
     slider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
-        var percentage = 100 / slick.slideCount * nextSlide + 2 + '%';
+        var prop = 100 / slick.slideCount;
+        var percentage	= (prop * nextSlide + 3)  + '%';
+
         questionNumber.val(nextSlide + 1);
         questionProgress.text('Question ' + (nextSlide + 1) + '/' + slick.slideCount);
         questionProgressBar.find("span").css('width', percentage);
