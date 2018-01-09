@@ -8,19 +8,8 @@
         </div>
     </li>
     <li>
-        <div class="courses__content">
-        {{ task.description|raw }}
-    </div>
+        <div class="courses__content"> {{ task.description|raw }} </div>
     </li>
-    <li>
-        {% if task.status == '0' %}
-        <form data-request="onAcceptTraining" data-request-success="console.log('data');" data-request-flash data-request-validate>
-           <div class="courses__footer  text-left">
-               <button class="btn" type="submit"> Accept + </button>
-           </div>
-       </form>
-       {% endif %}
-       </li>
    {% else %}
    <li class="courses__item">
     <div class="courses__link  watched">
