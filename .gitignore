@@ -1,6 +1,0 @@
-.DS_Store
-*.log
-/*
-!.gitignore
-!/themes/academy
-!/plugins/academy

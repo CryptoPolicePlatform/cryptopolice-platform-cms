@@ -8,6 +8,12 @@ fields:
         label: 'Exam Slug'
         oc.commentPosition: ''
         span: auto
+        trigger:
+            action: ''
+            field: exam_slug
+        preset:
+            field: exam_title
+            type: slug
         type: text
     s_score:
         label: Score
@@ -23,6 +29,11 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    retake_time:
+        label: 'Retake Time'
+        oc.commentPosition: ''
+        span: auto
+        type: text
     exam_description:
         label: 'academy.cryptopolice::lang.plugin.description'
         size: large
@@ -33,7 +44,7 @@ fields:
         label: Questions
         oc.commentPosition: ''
         prompt: 'Add new item'
-        span: auto
+        span: full
         type: repeater
         form:
             fields:
@@ -50,12 +61,18 @@ fields:
                     type: repeater
                     form:
                         fields:
+                            answer_number:
+                                label: 'Answer Number'
+                                oc.commentPosition: ''
+                                span: auto
+                                default: '0'
+                                type: number
+                            answer_correct:
+                                label: Answers
+                                span: auto
+                                type: switch
                             answer_title:
                                 label: 'Answer Title'
                                 oc.commentPosition: ''
                                 span: auto
                                 type: text
-                            answers_correct:
-                                label: 'Is Correct?'
-                                span: auto
-                                type: switch

@@ -1,0 +1,41 @@
+[account]
+paramCode = "code"
+forceSecure = 0
+
+[session]
+security = "all"
+==
+<header class="header">
+    <div class="header__inner">
+        <div class="header__left">
+            <a class="header__logo" href="{{'cryptopolice'|page}}">
+                <img src={{"assets/images/cryptopolice-logo.png"|theme}} width="135" alt="CryptoPolice">       
+            </a>
+        </div>
+        <div class="header__right">
+            <ul class="header__profile">
+                <li>
+                 {% if user %}
+                    {% if user.avatar.path %}
+                        <img class="header__ava" src="{{user.avatar.path}}" width="30" height="30" alt="user-avatar">
+                    {% else %}
+                        <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                    {% endif %}
+                {% endif %}
+                </li>
+                <li>
+                    {% if not user.name %}
+                        <a href="{{'profile'|page}}">{{ user.email }}</a>
+                    {% else %}
+                        <a href="{{'profile'|page}}">{{ user.name }}</a>                    
+                    {% endif %}
+                </li>
+                    {% if user %}
+                        <li> <a data-request="onLogout" data-request-flash data-request-data="redirect: '/login'">Logout</a> </li>
+                    {% else %}
+                       <li> <a href="{{'login'|page}}">Login</a> </li>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+</header>

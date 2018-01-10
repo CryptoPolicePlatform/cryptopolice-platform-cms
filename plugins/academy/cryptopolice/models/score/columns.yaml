@@ -1,11 +1,11 @@
 columns:
-    id:
-        label: ID
+    user_id:
+        label: 'User ID'
         type: number
         searchable: true
         sortable: true
-    scores:
-        label: Scores
+    exam_id:
+        label: 'Exam ID'
         type: number
         searchable: true
         sortable: true
@@ -24,8 +24,8 @@ columns:
         type: number
         searchable: true
         sortable: true
-    try:
-        label: Try
-        type: number
+    created_at:
+        label: 'Created At'
+        type: datetime
         searchable: true
         sortable: true
