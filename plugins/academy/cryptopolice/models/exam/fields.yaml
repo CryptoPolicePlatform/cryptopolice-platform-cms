@@ -8,9 +8,6 @@ fields:
         label: 'Exam Slug'
         oc.commentPosition: ''
         span: auto
-        trigger:
-            action: ''
-            field: exam_slug
         preset:
             field: exam_title
             type: slug

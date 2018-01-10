@@ -8,9 +8,6 @@ fields:
         label: Slug
         oc.commentPosition: ''
         span: auto
-        trigger:
-            action: ''
-            field: slug
         preset:
             field: title
             type: slug
@@ -18,7 +15,7 @@ fields:
     description:
         label: Description
         span: auto
+        size: large
         oc.commentPosition: ''
-        size: ''
-        language: php
-        type: codeeditor
+        required: 1
+        type: richeditor
