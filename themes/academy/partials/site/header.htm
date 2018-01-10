@@ -15,8 +15,10 @@ security = "all"
         <div class="header__right">
             <ul class="header__profile">
                 <li>
-                {% if user %}
-                    <img class="header__ava" src="{{user.avatar.path}}" width="30" height="30" alt="">
+                    {% if user.avatar.path %}
+                        <img class="header__ava" src="{{user.avatar.path}}" width="30" height="30" alt="user-avatar">
+                    {% else %}
+                        <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                     {% endif %}
                 </li>
                 <li>
