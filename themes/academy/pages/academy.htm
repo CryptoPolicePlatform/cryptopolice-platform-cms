@@ -14,6 +14,15 @@ is_hidden = 0
 ?>
 ==
 
+{% flash %}
+<p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+    {{ message }}
+</p>
+{% endflash %}
+
 <div class="content">
     <div class="content__inner">
        <div class="content__header">

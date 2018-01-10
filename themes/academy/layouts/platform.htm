@@ -4,13 +4,11 @@ description = "Platform Layout"
 security = "all"
 ==
 <?php
-
-    function onStart() {
+function onStart() {
         if(!Auth::check()) {
             return Redirect::to('/login');
         }
     }
-
 ?>
 ==
 <!DOCTYPE html>
@@ -29,9 +27,6 @@ security = "all"
     
             <!-- Content -->
             {% page %}
-    
-            <!-- Content sidebar -->
-            {% partial 'platform/content-sidebar' %}
 
             <!-- Footer -->
             {% partial 'platform/footer' %}
