@@ -17,7 +17,8 @@ fields:
         type: text
     description:
         label: Description
-        size: large
+        span: auto
         oc.commentPosition: ''
-        span: full
-        type: richeditor
+        size: ''
+        language: php
+        type: codeeditor
