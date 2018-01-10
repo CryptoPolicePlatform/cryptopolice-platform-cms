@@ -15,9 +15,13 @@
         </a>
     </li>
     {% endfor %}
-    <div class="courses__footer">
-        <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>
-        <a class="btn" href="{{ trainings.nextPageUrl|raw }}">next section</a>
-    </div>
-    <div class="courses__pages">{{ trainings.currentPage|raw }}/{{ trainings.lastPage|raw }}</div>
+
+    {% if trainings|length == 10 %}
+        <div class="courses__footer">
+            <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>
+            <a class="btn" href="{{ trainings.nextPageUrl|raw }}">next section</a>
+        </div>
+        <div class="courses__pages">{{ trainings.currentPage|raw }}/{{ trainings.lastPage|raw }}</div>
+    {% endif %}
+
 </ul>

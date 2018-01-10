@@ -41,8 +41,11 @@
     </li>
     {% endfor %}
 </ul>
-<div class="courses__pages">{{Exams.exams.currentPage|raw}}/{{ Exams.exams.lastPage|raw }}</div>
-<div class="courses__footer">
-    <a class="btn" href="{{ Exams.exams.previousPageUrl|raw }}">previous exams</a>
-    <a class="btn" href="{{ Exams.exams.nextPageUrl|raw }}">next exams</a>
-</div>
+
+{% if Exams.exams|length == 10 %}
+    <div class="courses__pages">{{Exams.exams.currentPage|raw}}/{{ Exams.exams.lastPage|raw }}</div>
+    <div class="courses__footer">
+        <a class="btn" href="{{ Exams.exams.previousPageUrl|raw }}">previous exams</a>
+        <a class="btn" href="{{ Exams.exams.nextPageUrl|raw }}">next exams</a>
+    </div>
+{% endif %}
