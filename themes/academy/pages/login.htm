@@ -18,6 +18,16 @@ forceSecure = 0
 
 ?>
 ==
+
+{% flash %}
+<p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+    {{ message }}
+</p>
+{% endflash %}
+
 {% if not user %}
 <div class="content">
     <div class="content__inner">
