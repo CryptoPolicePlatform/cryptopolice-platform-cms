@@ -15910,11 +15910,10 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 
 }));
 
-
 $(function () {
 
     "use strict";
-
+  
     /* Docs: http://keith-wood.name/countdown.html */
 
     var timer = $("#timer");
@@ -15989,3 +15988,4 @@ $(function () {
 $(document).on('closed', '#endtime_modal', function (e) {
     $.request('onCompleteTask');
 });
+

@@ -9,7 +9,9 @@
 
         <div class="header__nav" id="profile">
             <a class="header__ava" href="{{'profile'|page}}">
+            {% if user.avatar.path %}
                 <img src="{{user.avatar.path}}" width="23" height="23" alt="Avatar">
+            {% endif %}
             </a>
             <a class="header__name" href="{{'profile'|page}}">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</a>
 

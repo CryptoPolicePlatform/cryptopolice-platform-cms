@@ -35,11 +35,13 @@ class ExamTask extends ComponentBase
      * - Update record
      */
 
-    public function onNextQuestion () {
+    public function onNextQuestion()
+    {
         return true;
     }
 
-    public function onClickQuestion () {
+    public function onClickQuestion()
+    {
         return true;
     }
 
@@ -58,7 +60,7 @@ class ExamTask extends ComponentBase
             ->first();
         $try = $userTry->try;
 
-        $scores = Score::where('user_id',$userID)
+        $scores = Score::where('user_id', $userID)
             ->where('try', $try)
             ->where('exam_id', $examID)
             ->where('is_correct', '1')
@@ -91,6 +93,7 @@ class ExamTask extends ComponentBase
 
     public function onCheckQuestion()
     {
+
         $answerNum = 0;
         $questionNum = 0;
 
@@ -127,15 +130,24 @@ class ExamTask extends ComponentBase
             ->orderBy('created_at', 'desc')
             ->first();
 
-        Score::insert([
-            'user_id' => $userID,
-            'exam_id' => $examID,
-            'answer_num' => $answerNumber,
-            'question_num' => $questionNum,
-            'is_correct' => $answerCorrect,
-            'try' => $userTry->try,
-            'created_at' => new DateTime('now')
-        ]);
+
+        $answeredQuestion = Score::where('exam_id', $examID)
+            ->where('user_id', $userID)
+            ->where('question_num', $questionNum)
+            ->where('try', $userTry->try)
+            ->first();
+
+        if (!$answeredQuestion) {
+            Score::insert([
+                'user_id' => $userID,
+                'exam_id' => $examID,
+                'answer_num' => $answerNumber,
+                'question_num' => $questionNum,
+                'is_correct' => $answerCorrect,
+                'try' => $userTry->try,
+                'created_at' => new DateTime('now')
+            ]);
+        }
 
         return [
             $questionNum, $answerNum, $answerCorrect
@@ -182,7 +194,7 @@ class ExamTask extends ComponentBase
                 if ($examStartTime > $examEndTime) {
                     $try = (isset($currentExamStatus->try) && !empty($currentExamStatus->try)) ? $currentExamStatus->try : 1;
 
-                    $scores = Score::where('user_id',$userID)
+                    $scores = Score::where('user_id', $userID)
                         ->where('try', $try)
                         ->where('exam_id', $examID)
                         ->where('is_correct', '1')
@@ -194,7 +206,7 @@ class ExamTask extends ComponentBase
                         ->where('try', $try)
                         ->update([
                             'complete_status' => '1',
-                            'score' =>  $correctAnswers
+                            'score' => $correctAnswers
                         ]);
 
                     return Redirect::to('/exam');
@@ -208,7 +220,7 @@ class ExamTask extends ComponentBase
                     ->orderBy('created_at', 'desc')
                     ->first();
 
-                if(!empty($lastPassedExam->id) && isset($lastPassedExam->id)) {
+                if (!empty($lastPassedExam->id) && isset($lastPassedExam->id)) {
 
                     $examStartTime = new DateTime('now');
                     $examEndTime = new DateTime($lastPassedExam->created_at);

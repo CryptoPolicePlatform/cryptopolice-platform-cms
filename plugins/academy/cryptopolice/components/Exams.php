@@ -57,24 +57,23 @@ class Exams extends ComponentBase
             ->orderBy('created_at', 'desc')
             ->first();
 
-        if (!empty($currentExamStatus) && isset($currentExamStatus)) {
+        // if latest exam not passed
+        if (isset($currentExamStatus->complete_status) && ($currentExamStatus->complete_status == '0')) {
+            return Redirect::to('/exam-task/' . $examSlug);
+        }
 
-            //Get current time
+        if (isset($currentExamStatus->complete_status) && ($currentExamStatus->complete_status == '1')) {
+
             $examStartTime = new DateTime('now');
-
-            //Exam finished at
             $examEndTime = new DateTime($currentExamStatus->completed_at);
-
             $timeSeconds = $examStartTime->getTimestamp() - $examEndTime->getTimestamp();
 
             if ($timeSeconds < $exams->retake_time) {
 
                 $left = $exams->retake_time - $timeSeconds;
-
                 $hours = floor($left / 3600);
                 $minutes = floor(($left / 60) % 60);
                 $seconds = $left % 60;
-
                 Flash::error('You can retake your certification test again but you must wait! <br>' . $this->formatDate($hours) . ":" . $this->formatDate($minutes) . ":" . $this->formatDate($seconds));
             } else {
                 return Redirect::to('/exam-task/' . $examSlug);
