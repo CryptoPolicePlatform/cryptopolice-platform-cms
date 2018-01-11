@@ -1,27 +1,82 @@
-{% set trainings = __SELF__.trainings %}
-<ul class="courses">
-    {% for training in trainings %}
-        <li class="courses__item">
-            <a class="courses__link watched" href="{{ 'training-open'|page({slug: training.slug}) }}">
-                <span class="courses__num">#<b>{{ training.id }}</b></span>
-                <span class="courses__title">{{ training.title }}</span>
-            </a>
-        </li>
-    {% else %}
-    <li class="courses__item">
-        <a class="courses__link  watched" href="{{ 'training'|page}}">
-            <span class="courses__num"><b> ... </b></span>
-            <span class="courses__title">No Found</span>
-        </a>
-    </li>
-    {% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+            <ul class="sidebar__category">
 
-    {% if trainings|length == 10 %}
-        <div class="courses__footer">
-            <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>
-            <a class="btn" href="{{ trainings.nextPageUrl|raw }}">next section</a>
+                {% for category in categories %}
+                <li><i class="pe-7s-{{ category.icon }} pe-1x pe-va"></i> <a href="#accordion-{{ loop.index }} "> {{
+                    category.title }} </a></li>
+                {% endfor %}
+
+            </ul>
         </div>
-        <div class="courses__pages">{{ trainings.currentPage|raw }}/{{ trainings.lastPage|raw }}</div>
-    {% endif %}
+        <div class="col-lg-6">
 
-</ul>
+            {% set categoryNumber = 1 %}
+            {% for category in categories %}
+
+            <header>
+                <h2 class="header-title"><i class="pe-7s-{{ category.icon}} pe-1x pe-va"></i> {{category.title }}
+                </h2>
+            </header>
+
+            <div class="row">
+                <div id="accordion-{{categoryNumber}}" class="acc-list" role="tablist">
+
+                    {% set topicNumber = 0 %}
+                    {% for topic in topics %}
+                        {% if category.id == topic.category_id %}
+
+                        <div class="topic-list">
+                            <div class="topic-header" role="tab" id="heading-{{categoryNumber}}-{{topicNumber}}">
+                                <i class="pe-7s-file pe-1x pe-va"> </i>
+                                <a class="collapsed topic-answer" data-toggle="collapse"
+                                   data-parent="#accordion-{{categoryNumber}}"
+                                   href="#collapse-{{categoryNumber}}-{{topicNumber}}" aria-expanded="false"
+                                   aria-controls="collapse-{{categoryNumber}}-{{topicNumber}}">
+
+                                    {{ topic.topic_questions|raw }}
+
+                                </a>
+                            </div>
+                            <div id="collapse-{{categoryNumber}}-{{topicNumber}}" class="collapse" role="tabpanel"
+                                 aria-labelledby="heading-{{categoryNumber}}-{{topicNumber}}">
+                                <div class="card-block">
+
+                                    {% if topic.topic_short_answer|length %}
+                                    <p> {{ topic.topic_short_answer|raw }} </p>
+
+                                        {% if topic.topic_answer|length %}
+                                        <a href="{{'single-topic'|page({slug: topic.slug })}}">[Read More]</a>
+                                        {% endif %}
+
+                                        {% else %}
+                                        <p> {{ str_limit(topic.topic_answer, 300)|striptags|raw }} </p>
+                                        {% if topic.topic_answer|length > 300 %}
+                                        <a href="{{'single-topic'|page({slug: topic.slug })}}">[Read More]</a>
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {% set topicNumber = topicNumber + 1 %}
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            {% set categoryNumber = categoryNumber + 1 %}
+            {% endfor %}
+
+        </div>
+        <div class="col-lg-4">
+
+            {% partial 'mail/mail-form' %}
+
+        </div>
+    </div>
+</div>

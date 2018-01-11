@@ -6,8 +6,8 @@ fields:
         type: text
     exam_slug:
         label: 'Exam Slug'
-        oc.commentPosition: ''
         span: auto
+        commentAbove: dasdas
         preset:
             field: exam_title
             type: slug
