@@ -1,22 +1,23 @@
 <div class="profile__content">
     <div class="content__block">
-        <form data-read-flash data-request-success="console.log(data);" data-request="onUpdateProfile">
-
-            <h3 class="content__title">Profile</h3>
-
+        {% flash %}
+        <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+        {% endflash %}
+        <form data-request-flash data-request-success="console.log(data);" data-request="onUpdateProfile">
+            <h3 class="content__title">User Profile</h3>
             <div class="form__group">
-                <input class="input" type="text" name="name" placeholder="Name">
+                <input class="input" type="text" name="name" placeholder="Name" value="{{ user.name }}">
             </div>
             <div class="form__group">
-                <input class="input" type="text" name="surname" placeholder="Surname">
+                <input class="input" type="text" name="surname" placeholder="Surname" value="{{ user.surname }}">
             </div>
             <div class="form__group">
-                <input class="input" type="text" name="country" placeholder="Country">
+                <input class="input" type="email" name="email" placeholder="Email" value="{{ user.email }}">
             </div>
             <div class="form__group">
-                <input class="input" type="email" name="email" placeholder="Email">
+                <input class="input" type="text" name="country_id" placeholder="Country">
             </div>
             <button class="btn  btn--gpink" type="submit">Update Profile</button>
         </form>
-    </div><!-- /.profile__content -->
-</div><!-- /.profile -->
+    </div>
+</div>

@@ -7,9 +7,10 @@ security = "all"
 function onStart() {
         if(!Auth::check()) {
             return Redirect::to('/login');
-        }else{
-            return Redirect::to('/academy');
         }
+        //else{
+          //  return Redirect::to('/academy');
+        //}
     }
 ?>
 ==
