@@ -4,6 +4,14 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    exam_slug:
+        label: 'Exam Slug'
+        oc.commentPosition: ''
+        span: auto
+        preset:
+            field: exam_title
+            type: slug
+        type: text
     s_score:
         label: Score
         oc.commentPosition: ''
