@@ -1,0 +1,47 @@
+description = "Platform Layout"
+
+[session]
+security = "all"
+==
+<?php
+function onStart() {
+        if(!Auth::check()) {
+            return Redirect::to('/login');
+        }
+        //else{
+          //  return Redirect::to('/academy');
+        //}
+    }
+?>
+==
+<!DOCTYPE html>
+<html>
+    
+    {% partial 'platform/head' %}
+    
+    <body>
+        <div class="page">
+            
+            <!-- Header -->
+            {% partial 'platform/header' %}
+             
+            <!-- Sidebar -->
+            {% partial 'platform/sidebar' %}
+    
+            <!-- Content -->
+            {% page %}
+
+            <!-- Footer -->
+            {% partial 'platform/footer' %}
+         
+            <!-- Scripts -->
+            <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
+            <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
+            <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
+            <script src="{{ 'assets/javascript/platform-main.js'|theme }}"></script>
+            {% scripts %}
+            {% framework extras %}
+        </div>
+    </body>
+    
+</html>

@@ -8,16 +8,14 @@ fields:
         label: Slug
         oc.commentPosition: ''
         span: auto
-        trigger:
-            action: ''
-            field: slug
         preset:
             field: title
             type: slug
         type: text
     description:
         label: Description
+        span: auto
         size: large
         oc.commentPosition: ''
-        span: full
+        required: 1
         type: richeditor

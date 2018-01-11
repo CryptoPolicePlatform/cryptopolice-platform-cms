@@ -1,4 +1,0 @@
-title: FinalScores
-modelClass: Academy\CryptoPolice\Models\FinalScore
-toolbar:
-    buttons: reorder_toolbar

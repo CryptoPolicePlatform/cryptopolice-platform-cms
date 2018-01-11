@@ -1,0 +1,80 @@
+title = "Login"
+url = "/login"
+layout = "academy"
+is_hidden = 0
+
+[account]
+paramCode = "code"
+forceSecure = 0
+==
+<?php
+
+     function onStart() {
+
+        if(Auth::check()) {
+           return Redirect::to('/academy');
+        }
+     }
+
+?>
+==
+<<<<<<< HEAD:themes/academy/pages/login.htm
+dasdas
+=======
+
+{% flash %}
+    <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+{% endflash %}
+
+>>>>>>> 919335ec1f226efdf7961e9781acc3a4f9eec283:themes/platform/pages/login.htm
+{% if not user %}
+<div class="content">
+    <div class="content__inner">
+        <div class="content__header">
+            <img src="{{'assets/images/cryptopolice-logo-white.png'|theme}}" width="261" height="120"
+                 alt="CryptoPolice">
+
+            <h1 class="content__title">Early bird Officer registration is now open!</h1>
+            <div class="content__text">
+                <p>
+                    We launch of the first demo version of the CryptoPolice Academy
+                    The team has done an outstanding job in order to show its combat readiness in the early stages of the project.
+                    The Academy is the core of the CryptoPolice platform’s Officer training process.
+                    At the moment the Academy is filled with demo materials for you to get acquainted with the CryptoPolice platform training system.
+                </p>
+            </div>
+        </div>
+
+        <div class="choose">
+            <div class="choose__item">
+                <h3 class="choose__title">Login</h3>
+                <form class="form" action="" method="post" data-request-flash data-request="onSignin" autocomplete="off">
+                    <div class="form__group">
+                        <input class="input  input--email" type="text" placeholder="Your email address" name="login" id="userSigninLogin" autocomplete="off">
+                        <input class="input  input--pswd" type="password" placeholder="Password" name="password" id="userSigninPassword" autocomplete="off">
+                        <a class="form__link" href="{{'forgot-password'|page}}">Forgot Your Password?</a>
+                    </div>
+                    <button class="btn  btn--full" type="submit">log in</button>
+                </form>
+            </div>
+
+            {% if canRegister %}
+            <div class="choose__item">
+                <h3 class="choose__title">Signup</h3>
+                <form class="form" action="" method="post" data-request-flash data-request="onRegister" autocomplete="off">
+                    <div class="form__group">
+                        <input class="input  input--email" type="text" placeholder="Your email address" name="email" id="registerEmail" autocomplete="off">
+                        <input class="input  input--pswd" type="password" placeholder="Password" name="password" id="registerPassword" autocomplete="off">
+                        <input class="input  input--confirm" type="password" name="password_confirmation" placeholder="Confirm password" autocomplete="off">
+                    </div>
+                    <button class="btn  btn--full" type="submit">sign up</button>
+                </form>
+            </div>
+            {% else %}
+            <!-- Registration is disabled. -->
+            {% endif %}
+
+        </div><!-- /.choose -->
+    </div><!-- /.content__inner -->
+</div><!-- /.content -->
+{% endif %}

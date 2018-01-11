@@ -6,11 +6,8 @@ fields:
         type: text
     exam_slug:
         label: 'Exam Slug'
-        oc.commentPosition: ''
         span: auto
-        trigger:
-            action: ''
-            field: exam_slug
+        commentAbove: dasdas
         preset:
             field: exam_title
             type: slug
@@ -28,7 +25,7 @@ fields:
         label: Timer
         oc.commentPosition: ''
         span: auto
-        type: text
+        type: number
     retake_time:
         label: 'Retake Time'
         oc.commentPosition: ''

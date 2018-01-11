@@ -8,16 +8,16 @@ navigation:
     main-menu-item:
         label: Exams
         url: academy/cryptopolice/exams
-        icon: icon-arrows-alt
+        icon: icon-graduation-cap
     main-menu-item2:
         label: Scores
         url: academy/cryptopolice/scores
-        icon: icon-life-ring
+        icon: icon-area-chart
     main-menu-item3:
         label: Trainings
         url: academy/cryptopolice/trainings
-        icon: icon-cubes
+        icon: icon-empire
     main-menu-item4:
         label: 'Final Results'
         url: academy/cryptopolice/finalscores
-        icon: icon-life-ring
+        icon: icon-star-o
