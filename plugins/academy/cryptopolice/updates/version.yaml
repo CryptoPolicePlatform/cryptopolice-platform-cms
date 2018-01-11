@@ -42,3 +42,9 @@
 1.0.15:
     - 'Updated table academy_cryptopolice_trainings'
     - builder_table_update_academy_cryptopolice_trainings.php
+1.0.16:
+    - 'Updated table academy_cryptopolice_trainings'
+    - builder_table_update_academy_cryptopolice_trainings_2.php
+1.0.17:
+    - 'Updated table academy_cryptopolice_trainings'
+    - builder_table_update_academy_cryptopolice_trainings_3.php

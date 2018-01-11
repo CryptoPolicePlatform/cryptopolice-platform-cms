@@ -1,4 +1,0 @@
-title: Exams
-modelClass: Academy\CryptoPolice\Models\Exam
-toolbar:
-    buttons: reorder_toolbar

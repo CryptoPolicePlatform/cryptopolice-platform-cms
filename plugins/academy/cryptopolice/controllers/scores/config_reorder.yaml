@@ -1,4 +1,0 @@
-title: Scores
-modelClass: Academy\CryptoPolice\Models\Score
-toolbar:
-    buttons: reorder_toolbar

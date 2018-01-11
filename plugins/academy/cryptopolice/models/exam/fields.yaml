@@ -4,17 +4,6 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
-    exam_slug:
-        label: 'Exam Slug'
-        oc.commentPosition: ''
-        span: auto
-        trigger:
-            action: ''
-            field: exam_slug
-        preset:
-            field: exam_title
-            type: slug
-        type: text
     s_score:
         label: Score
         oc.commentPosition: ''
@@ -28,7 +17,7 @@ fields:
         label: Timer
         oc.commentPosition: ''
         span: auto
-        type: text
+        type: number
     retake_time:
         label: 'Retake Time'
         oc.commentPosition: ''
