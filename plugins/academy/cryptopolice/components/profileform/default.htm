@@ -14,9 +14,22 @@
             <div class="form__group">
                 <input class="input" type="email" name="email" placeholder="Email" value="{{ user.email }}">
             </div>
+
+            {% set countryId = user.country_id %}
+            {% set stateId = stateId|default(form_value('state_id')) %}
+
             <div class="form__group">
-                <input class="input" type="text" name="country_id" placeholder="Country">
+                <div class="select">
+                    {{
+                        form_select_country('country_id', countryId, {
+                            id: 'accountCountry',
+                            class: 'form-control',
+                            emptyOption: ''
+                        })
+                    }}
+                </div>
             </div>
+
             <button class="btn  btn--gpink" type="submit">Update Profile</button>
         </form>
     </div>

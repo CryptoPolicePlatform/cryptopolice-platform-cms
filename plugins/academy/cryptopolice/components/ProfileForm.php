@@ -46,7 +46,7 @@ class ProfileForm extends ComponentBase
                 ->update([
                     'name' => post('name'),
                     'surname' => post('surname'),
-                    'country_id' => post('country'),
+                    'country_id' => post('country_id'),
                     'email' => post('email')
                 ]);
 
