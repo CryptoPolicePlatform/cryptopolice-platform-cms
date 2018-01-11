@@ -90,7 +90,7 @@ class Exams extends ComponentBase
      */
 
     public function onRun() {
-            
+
         // Check if user is logged in
         $loggedIn = Auth::check();
         if(!$loggedIn) {
