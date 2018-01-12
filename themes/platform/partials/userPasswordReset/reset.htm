@@ -1,0 +1,19 @@
+<p class="lead">
+    <div class="content__text">Please check your email for the activation code.</div>
+<p>
+
+<form data-request="{{ __SELF__ }}::onResetPassword" data-request-update="'{{ __SELF__ }}::complete': '#partialUserResetForm'">
+
+    <div class="form-group">
+        <div class="content__text">Activation Code</div>
+        <input name="code" type="text" class="input" id="resetCode" placeholder="Enter the activation code" value="{{ __SELF__.code }}">
+    </div>
+
+    <div class="form-group">
+        <div class="content__text">New Password</div>
+        <input name="password" type="password" class="input  input--pswd" id="resetPassword" placeholder="Enter a new password">
+    </div>
+
+    <button type="submit" class="btn btn-default">Reset password</button>
+
+</form>

@@ -1,0 +1,11 @@
+{% if not user %}
+
+<div class="choose">
+
+    {% partial __SELF__ ~ '::signin' %}
+
+    {% partial __SELF__ ~ '::register' %}
+
+</div>
+
+{% endif %}

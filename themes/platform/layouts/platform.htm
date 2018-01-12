@@ -7,8 +7,6 @@ security = "all"
 function onStart() {
         if(!Auth::check()) {
             return Redirect::to('/login');
-        }else{
-            return Redirect::to('/academy');
         }
     }
 ?>
@@ -38,8 +36,8 @@ function onStart() {
             <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
             <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
             <script src="{{ 'assets/javascript/platform-main.js'|theme }}"></script>
-            {% scripts %}
             {% framework extras %}
+            {% scripts %}
         </div>
     </body>
     

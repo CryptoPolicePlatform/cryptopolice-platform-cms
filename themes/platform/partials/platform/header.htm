@@ -9,35 +9,39 @@
 
         <div class="header__nav" id="profile">
             <a class="header__ava" href="{{'profile'|page}}">
-            {% if user.avatar.path %}
+                {% if user.avatar.path %}
                 <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
-            {% else %}
-                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
-            {% endif %}
+                {% else %}
+                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30"
+                     alt="user-avatar">
+                {% endif %}
             </a>
-            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</a>
+            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %}{{ user.email }}{% else %} {{
+                user.name }} {% endif %}</a>
 
-            <a class="header__nav-item" href="#">
-                <img src="{{'assets/images/wallet-ico.png'|theme}}" width="20" height="19" alt="">
-            </a>
+            <!--<a class="header__nav-item" href="#">-->
+                <!--<img src="{{'assets/images/wallet-ico.png'|theme}}" width="20" height="19" alt="">-->
+            <!--</a>-->
 
-            <a class="header__nav-item" href="#">
-                <span class="header__mails-count">2</span>
-                <img src="{{'assets/images/mail-ico.png'|theme}}" width="20" height="19" alt="">
-            </a>
+            <!--<a class="header__nav-item" href="#">-->
+                <!--<span class="header__mails-count">2</span>-->
+                <!--<img src="{{'assets/images/mail-ico.png'|theme}}" width="20" height="19" alt="">-->
+            <!--</a>-->
 
-            <a class="header__nav-item" href="#">
+            <a class="header__nav-item" href="https://support.cryptopolice.com">
                 <img src="{{'assets/images/faq-ico.png'|theme}}" width="20" height="20" alt="">
             </a>
 
+            <a class="header__nav-item" data-request="onLogout" data-request-flash data-request-data="redirect: '/login'">
+                <i class="fa fa-sign-out fa-5" aria-hidden="true"></i>
+            </a>
+
             <div class="dropdown-wrapper">
-                <button class="btn  btn--dropdown  text-l" type="button" data-toggle="dropdown"><i class="fa  fa-angle-down"></i></button>
+                <button class="btn  btn--dropdown  text-l" type="button" data-toggle="dropdown"><i
+                        class="fa  fa-angle-down"></i></button>
                 <ul class="dropdown  dropdown--right" data-dropdown>
                     <li>
-                        <a class="dropdown__link" href="#1"><i class="fa fa-save"></i> Save this file</a>
-                    </li>
-                    <li>
-                        <a class="dropdown__link" href="#2"><i class="fa fa-trash"></i> Delete this file</a>
+                        <a class="dropdown__link" href="{{ 'profile'|page }}"><i class="fa fa-save"></i> Settings </a>
                     </li>
                 </ul>
             </div>

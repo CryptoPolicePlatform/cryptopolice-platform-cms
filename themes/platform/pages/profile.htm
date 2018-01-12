@@ -2,30 +2,17 @@ title = "Profile"
 url = "/profile"
 layout = "platform"
 is_hidden = 0
-==
-<?php
-function onUpdateProfile () {
 
-    $user = Auth::getUser();
-    $id = $user->id;
+[ProfileForm]
 
-User::where('id', $id)
-->update([
-'name' => post('name'),
-'complete_status' => post('surname'),
-'country_id' => post('country'),
-'mobile' => post('email')
-]);
-
-return Flash::success('Updated');
-}
-?>
+[customUploader]
 ==
 <!-- Content -->
 <main class="content">
     <div class="content__inner">
 
         <div class="content__left">
+
             <div class="breadcrumbs">
                 <a class="breadcrumbs__item" href="#">Home</a>
                 <span class="breadcrumbs__item  active">My profile</span>
@@ -33,16 +20,16 @@ return Flash::success('Updated');
 
             <div class="profile">
                 <div class="profile__sidebar">
+
                     {% if user.avatar.path %}
-                    <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar"
+                        <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar"
                          alt="Avatar">
                     {% else %}
-                    <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79"
+                        <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79"
                          title="Avatar" alt="Avatar">
                     {% endif %}
-                    <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif
-                        %}
-                    </div>
+
+                    <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</div>
 
                     <div class="profile__block">
                         <p>Role: <b>Officer</b></p>
@@ -55,9 +42,7 @@ return Flash::success('Updated');
                         <div class="profile__block-item">
                             <p>Total reviewed issues: <b>231</b></p>
                             <div class="profile__stat">
-                                <div class="stat__pie  stat__pie--big" data-circle data-color="#8f78db"
-                                     data-empty="#c6bbec" data-value="0.75" data-size="60" data-thickness="10"></div>
-
+                                <div class="stat__pie  stat__pie--big" data-circle data-color="#8f78db" data-empty="#c6bbec" data-value="0.75" data-size="60" data-thickness="10"></div>
                                 <ul class="profile__stat-list">
                                     <li class="purple">Approved: <b>117</b></li>
                                     <li class="light-purple">Declined: <b>5</b></li>
@@ -68,9 +53,7 @@ return Flash::success('Updated');
                         <div class="profile__block-item">
                             <p>Total reviewed projects: <b>12</b></p>
                             <div class="profile__stat">
-                                <div class="stat__pie  stat__pie--big" data-circle data-color="#48cdd0"
-                                     data-empty="#a3e6e7" data-value="0.50" data-size="60" data-thickness="10"></div>
-
+                                <div class="stat__pie  stat__pie--big" data-circle data-color="#48cdd0" data-empty="#a3e6e7" data-value="0.50" data-size="60" data-thickness="10"></div>
                                 <ul class="profile__stat-list">
                                     <li class="teal">Approved: <b>8</b></li>
                                     <li class="light-teal">Declined: <b>8</b></li>
@@ -80,29 +63,16 @@ return Flash::success('Updated');
                     </div>
                 </div>
 
-                <div class="profile__content">
-                    <div class="content__block">
-                        <form data-read-flash data-request-success="console.log(data);" data-request="onUpdateProfile">
+                {% component 'ProfileForm' %}
 
-                            <h3 class="content__title">Waiting for verification</h3>
+                <div class="content__sidebar">
+                    <h3 class="content__title">
+                        Change Avatar
+                    </h3>
+                    {% component 'customUploader' %}
+                </div>
 
-                            <div class="form__group">
-                                <input class="input" type="text" name="name" placeholder="Name">
-                            </div>
-                            <div class="form__group">
-                                <input class="input" type="text" name="surname" placeholder="Surname">
-                            </div>
-                            <div class="form__group">
-                                <input class="input" type="text" name="country" placeholder="Country">
-                            </div>
-                            <div class="form__group">
-                                <input class="input" type="email" name="email" placeholder="Email">
-                            </div>
-                            <button class="btn  btn--gpink" type="submit">Save</button>
-                        </form>
-                    </div><!-- /.profile__content -->
-                </div><!-- /.profile -->
-            </div><!-- /.content__left -->
+            </div>
         </div>
     </div>
 </main>
