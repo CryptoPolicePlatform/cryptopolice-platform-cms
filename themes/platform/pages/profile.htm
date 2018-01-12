@@ -32,8 +32,8 @@ is_hidden = 0
                     <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</div>
                     <div class="profile__block">
                         <p>Name: <b>{{ user.name }}</b></p>
-                        <p>Surname: <b>{{ user.surname }}/b></p>
-                        <p>Eth wallet: <b>{{ user.eth_address }}</b></p>
+                        <p>Surname: <b>{{ user.surname }}</b></p>
+                        <p>E-mail: <b>{{ user.email }}</b></p>
                     </div>
 
                     <!-- <div class="profile__block">
