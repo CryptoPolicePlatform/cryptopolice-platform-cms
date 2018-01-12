@@ -3,7 +3,6 @@
 {% partial customUploader ~ '::image-multi' %}
 
 {% else %}
-
 <div
         class="responsiv-uploader-fileupload style-image-single {{ customUploader.isPopulated() ? 'is-populated' }}"
         data-control="fileupload"
@@ -28,7 +27,8 @@
     <!-- Existing file -->
     <div class="upload-files-container">
         {% if file %}
-        <div class="upload-object is-success" data-id="{{ file.id }}" data-path="{{ file.pathUrl }}">
+        <!--<div class="upload-object is-success" data-id="{{ file.id }}" data-path="{{ file.pathUrl }}">-->
+        <div class="upload-object is-success" data-id="{{ file.id }}">
             <div class="icon-container image">
                 <img src="{{ file.thumbUrl }}" alt=""/>
             </div>

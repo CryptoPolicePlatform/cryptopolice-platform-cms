@@ -6,15 +6,6 @@ is_hidden = 0
 [ProfileForm]
 
 [customUploader]
-placeholderText = "Click or drag images to upload"
-maxSize = 5
-fileTypes = ".gif,.jpg,.jpeg,.png"
-imageWidth = 100
-imageHeight = 100
-imageMode = "crop"
-modelClass = "RainLab\User\Models\User"
-modelKeyColumn = "avatar"
-identifierValue = "{{ :id }}"
 ==
 <!-- Content -->
 <main class="content">
@@ -75,6 +66,9 @@ identifierValue = "{{ :id }}"
                 {% component 'ProfileForm' %}
 
                 <div class="content__sidebar">
+                    <h3 class="content__title">
+                        Change Avatar
+                    </h3>
                     {% component 'customUploader' %}
                 </div>
 
