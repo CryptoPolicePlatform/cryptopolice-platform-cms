@@ -30,16 +30,21 @@ is_hidden = 0
                     {% endif %}
 
                     <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</div>
-
                     <div class="profile__block">
+                        <p>Name: <b>{{ user.name }}</b></p>
+                        <p>Surname: <b>{{ user.surname }}/b></p>
+                        <p>Eth wallet: <b>{{ user.eth_address }}</b></p>
+                    </div>
+
+                    <!-- <div class="profile__block">
                         <p>Role: <b>Officer</b></p>
                         <p>Balance: <b>3152 OFC</b></p>
                     </div>
 
-                    <div class="profile__block">
+                   <<div class="profile__block">
                         <p>Statistics:</p>
 
-                        <div class="profile__block-item">
+                        div class="profile__block-item">
                             <p>Total reviewed issues: <b>231</b></p>
                             <div class="profile__stat">
                                 <div class="stat__pie  stat__pie--big" data-circle data-color="#8f78db" data-empty="#c6bbec" data-value="0.75" data-size="60" data-thickness="10"></div>
@@ -60,7 +65,10 @@ is_hidden = 0
                                 </ul>
                             </div>
                         </div>
-                    </div>
+
+                    </div>-->
+
+
                 </div>
 
                 {% component 'ProfileForm' %}
