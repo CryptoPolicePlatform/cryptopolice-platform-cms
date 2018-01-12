@@ -1,36 +1,7 @@
 <div class="profile__content">
     <div class="content__block">
-        {% flash %}
-        <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
-        {% endflash %}
-        <form data-request-flash data-request-success="console.log(data);" data-request="onUpdateProfile">
-            <h3 class="content__title">User Profile</h3>
-            <div class="form__group">
-                <input class="input" type="text" name="name" placeholder="Name" value="{{ user.name }}">
-            </div>
-            <div class="form__group">
-                <input class="input" type="text" name="surname" placeholder="Surname" value="{{ user.surname }}">
-            </div>
-            <div class="form__group">
-                <input class="input" type="email" name="email" placeholder="Email" value="{{ user.email }}">
-            </div>
 
-            {% set countryId = user.country_id %}
-            {% set stateId = stateId|default(form_value('state_id')) %}
+        {% partial __SELF__ ~ '::personal-data-update' %}
 
-            <div class="form__group">
-                <div class="select">
-                    {{
-                        form_select_country('country_id', countryId, {
-                            id: 'accountCountry',
-                            class: 'form-control',
-                            emptyOption: ''
-                        })
-                    }}
-                </div>
-            </div>
-
-            <button class="btn  btn--gpink" type="submit">Update Profile</button>
-        </form>
     </div>
 </div>

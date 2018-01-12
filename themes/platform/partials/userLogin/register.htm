@@ -1,0 +1,18 @@
+{% if canRegister %}
+<div class="choose__item">
+    <h3 class="choose__title">Signup</h3>
+    <form class="form" action="" method="post" data-request-flash data-request="onRegister" autocomplete="off">
+        <div class="form__group">
+            <input class="input  input--email" type="text" placeholder="Your email address" name="email"
+                   id="registerEmail" autocomplete="off">
+            <input class="input  input--pswd" type="password" placeholder="Password" name="password"
+                   id="registerPassword" autocomplete="off">
+            <input class="input  input--confirm" type="password" name="password_confirmation"
+                   placeholder="Confirm password" autocomplete="off">
+        </div>
+        <button class="btn  btn--full" type="submit">sign up</button>
+    </form>
+</div>
+{% else %}
+<!-- Registration is disabled. -->
+{% endif %}

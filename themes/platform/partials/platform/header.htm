@@ -9,13 +9,15 @@
 
         <div class="header__nav" id="profile">
             <a class="header__ava" href="{{'profile'|page}}">
-            {% if user.avatar.path %}
+                {% if user.avatar.path %}
                 <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
-            {% else %}
-                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
-            {% endif %}
+                {% else %}
+                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30"
+                     alt="user-avatar">
+                {% endif %}
             </a>
-            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</a>
+            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %}{{ user.email }}{% else %} {{
+                user.name }} {% endif %}</a>
 
             <a class="header__nav-item" href="#">
                 <img src="{{'assets/images/wallet-ico.png'|theme}}" width="20" height="19" alt="">
@@ -31,13 +33,14 @@
             </a>
 
             <div class="dropdown-wrapper">
-                <button class="btn  btn--dropdown  text-l" type="button" data-toggle="dropdown"><i class="fa  fa-angle-down"></i></button>
+                <button class="btn  btn--dropdown  text-l" type="button" data-toggle="dropdown"><i
+                        class="fa  fa-angle-down"></i></button>
                 <ul class="dropdown  dropdown--right" data-dropdown>
                     <li>
-                        <a class="dropdown__link" href="#1"><i class="fa fa-save"></i> Save this file</a>
+                        <a class="dropdown__link" href="{{ 'profile'|page }}"><i class="fa fa-save"></i> Settings </a>
                     </li>
                     <li>
-                        <a class="dropdown__link" href="#2"><i class="fa fa-trash"></i> Delete this file</a>
+                        <a class="dropdown__link" href="#" data-request="onLogout">Logout</a>
                     </li>
                 </ul>
             </div>

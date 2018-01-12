@@ -10,10 +10,11 @@ namespace Academy\CryptoPolice\Components;
 
 use Auth;
 use Flash;
+use Input;
 use Redirect;
 use Validator;
+use ValidationException;
 use Cms\Classes\ComponentBase;
-use RainLab\User\Models\User;
 
 class ProfileForm extends ComponentBase
 {
@@ -30,34 +31,28 @@ class ProfileForm extends ComponentBase
     {
 
         $user = Auth::getUser();
-        $userID = $user->id;
-        $rules = [
-            'name' => 'required',
-            'country_id' => 'required',
-            'surname' => 'required|min:8',
-            'email' => 'required|email|unique:users',
-        ];
 
-        $validator = Validator::make(post(), $rules);
+        if ($user) {
 
-        if (!$validator->fails()) {
+            $rules = [
+                'eth_address' => 'min:42|max:42|unique:users',
+            ];
+            $validator = Validator::make(['eth_address' => post('eth_address')], $rules);
 
-            User::where('id', $userID)
-                ->update([
-                    'name' => post('name'),
-                    'surname' => post('surname'),
-                    'country_id' => post('country_id'),
-                    'email' => post('email')
-                ]);
+            if ($validator->fails()) {
 
-            Flash::success('Your profile has been successfully updated');
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    Flash::error($message);
+                }
 
-        } else {
-
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-                Flash::error($message);
+            } else {
+                $user->update(input());
+                Flash::success('Profile has been successfully updated');
             }
+        } else {
+            return Redirect::to('/login');
         }
     }
+
 }
