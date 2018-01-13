@@ -39,8 +39,8 @@ is_hidden = 0
                     </div>
 
                     <div class="profile__block">
-                        <p>Joined: <b>{{ user.created_at }}</b></p>
-                        <p>Last seen: <b>{{ user.last_seen }}</b></p>
+                        <p>Joined: <b>{{ user.created_at| date("m.d.Y") }}</b></p>
+                        <p>Last seen: <b>{{ user.last_seen | date("m.d.Y H:i:s")}}</b></p>
                     </div>
 
                 </div>
