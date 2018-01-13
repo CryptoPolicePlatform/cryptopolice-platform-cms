@@ -270,6 +270,15 @@ th {
     padding: 0;
 }
 
+.header-icon{
+    color:#A2A2A3;
+    font-size: 24px!important;
+    cursor: pointer;
+}
+
+.header-icon:hover {
+    color: #9e4b8c;
+}
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -4334,7 +4343,7 @@ html.remodal-is-locked {
 }
 
 .btn--dropdown {
-    padding: 2px 5px !important;
+    padding: 0 5px !important;
     line-height: 1;
     background: transparent;
 }
