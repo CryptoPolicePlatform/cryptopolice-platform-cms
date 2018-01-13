@@ -4723,6 +4723,14 @@ html.remodal-is-locked {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+.profile__card {
+    width: 100%;
+    float: left;
+    padding: 15px;
+    background: #fff url("../images/profile-sidebar-bg.png") no-repeat right top;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
 @media (max-width: 1720px) {
     .profile__sidebar {
         width: 25%;

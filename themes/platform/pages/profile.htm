@@ -29,55 +29,32 @@ is_hidden = 0
                          title="Avatar" alt="Avatar">
                     {% endif %}
 
-                    <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</div>
+
+
+                    <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }}  {{ user.surname }}{% endif %}</div>
                     <div class="profile__block">
                         <p>Name: <b>{{ user.name }}</b></p>
                         <p>Surname: <b>{{ user.surname }}</b></p>
                         <p>E-mail: <b>{{ user.email }}</b></p>
                     </div>
 
-                    <!-- <div class="profile__block">
-                        <p>Role: <b>Officer</b></p>
-                        <p>Balance: <b>3152 OFC</b></p>
+                    <div class="profile__block">
+                        <p>Joined: <b>{{ user.created_at }}</b></p>
+                        <p>Last seen: <b>{{ user.last_seen }}</b></p>
                     </div>
-
-                   <<div class="profile__block">
-                        <p>Statistics:</p>
-
-                        div class="profile__block-item">
-                            <p>Total reviewed issues: <b>231</b></p>
-                            <div class="profile__stat">
-                                <div class="stat__pie  stat__pie--big" data-circle data-color="#8f78db" data-empty="#c6bbec" data-value="0.75" data-size="60" data-thickness="10"></div>
-                                <ul class="profile__stat-list">
-                                    <li class="purple">Approved: <b>117</b></li>
-                                    <li class="light-purple">Declined: <b>5</b></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="profile__block-item">
-                            <p>Total reviewed projects: <b>12</b></p>
-                            <div class="profile__stat">
-                                <div class="stat__pie  stat__pie--big" data-circle data-color="#48cdd0" data-empty="#a3e6e7" data-value="0.50" data-size="60" data-thickness="10"></div>
-                                <ul class="profile__stat-list">
-                                    <li class="teal">Approved: <b>8</b></li>
-                                    <li class="light-teal">Declined: <b>8</b></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>-->
-
 
                 </div>
 
                 {% component 'ProfileForm' %}
 
                 <div class="content__sidebar">
-                    <h3 class="content__title">
-                        Change Avatar
-                    </h3>
-                    {% component 'customUploader' %}
+                    <div class="profile__card">
+                        <h3 class="content__title">
+                            Change Avatar
+                        </h3>
+                        {% component 'customUploader' %}
+                    </div>
+
                 </div>
 
             </div>
