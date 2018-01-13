@@ -1,0 +1,36 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    user_id:
+        label: 'User ID'
+        type: number
+        searchable: true
+        sortable: true
+    exam_id:
+        label: 'Exam ID'
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Created At'
+        type: datetime
+        searchable: true
+        sortable: true
+    complete_status:
+        label: 'Complete Status'
+        type: number
+        searchable: true
+        sortable: true
+    score:
+        label: Score
+        type: number
+        searchable: true
+        sortable: true
+    try:
+        label: Try
+        type: number
+        searchable: true
+        sortable: true

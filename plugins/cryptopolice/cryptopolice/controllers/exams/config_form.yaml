@@ -1,0 +1,10 @@
+name: Exams
+form: $/cryptopolice/cryptopolice/models/exam/fields.yaml
+modelClass: CryptoPolice\CryptoPolice\Models\Exam
+defaultRedirect: cryptopolice/cryptopolice/exams
+create:
+    redirect: 'cryptopolice/cryptopolice/exams/update/:id'
+    redirectClose: cryptopolice/cryptopolice/exams
+update:
+    redirect: cryptopolice/cryptopolice/exams
+    redirectClose: cryptopolice/cryptopolice/exams

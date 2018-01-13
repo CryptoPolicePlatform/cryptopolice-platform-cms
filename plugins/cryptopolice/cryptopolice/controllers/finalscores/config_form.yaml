@@ -1,0 +1,10 @@
+name: FinalScores
+form: $/cryptopolice/cryptopolice/models/finalscore/fields.yaml
+modelClass: CryptoPolice\CryptoPolice\Models\FinalScore
+defaultRedirect: cryptopolice/cryptopolice/finalscores
+create:
+    redirect: 'cryptopolice/cryptopolice/finalscores/update/:id'
+    redirectClose: cryptopolice/cryptopolice/finalscores
+update:
+    redirect: cryptopolice/cryptopolice/finalscores
+    redirectClose: cryptopolice/cryptopolice/finalscores

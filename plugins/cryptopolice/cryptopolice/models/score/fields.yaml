@@ -1,0 +1,6 @@
+fields:
+    scores:
+        label: Score
+        oc.commentPosition: ''
+        span: auto
+        type: text

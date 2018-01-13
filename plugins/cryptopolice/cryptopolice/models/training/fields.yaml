@@ -1,0 +1,21 @@
+fields:
+    title:
+        label: Title
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    slug:
+        label: Slug
+        oc.commentPosition: ''
+        span: auto
+        preset:
+            field: title
+            type: slug
+        type: text
+    description:
+        label: Description
+        span: auto
+        size: large
+        oc.commentPosition: ''
+        required: 1
+        type: richeditor

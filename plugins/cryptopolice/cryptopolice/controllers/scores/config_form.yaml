@@ -1,0 +1,10 @@
+name: Scores
+form: $/cryptopolice/cryptopolice/models/score/fields.yaml
+modelClass: CryptoPolice\CryptoPolice\Models\Score
+defaultRedirect: cryptopolice/cryptopolice/scores
+create:
+    redirect: 'cryptopolice/cryptopolice/scores/update/:id'
+    redirectClose: cryptopolice/cryptopolice/scores
+update:
+    redirect: cryptopolice/cryptopolice/scores
+    redirectClose: cryptopolice/cryptopolice/scores
