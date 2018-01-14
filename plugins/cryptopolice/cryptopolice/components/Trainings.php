@@ -1,6 +1,5 @@
 <?php namespace CryptoPolice\CryptoPolice\Components;
 
-use Auth;
 use Redirect;
 use Response;
 use Cms\Classes\ComponentBase;
@@ -35,12 +34,7 @@ class Trainings extends ComponentBase
 
     public function onRun() {
 
-        $loggedIn = Auth::check();
-        if(!$loggedIn) {
-            return Redirect::to('/login');
-        }
-
-        $training = Training::paginate(10);
+        $training = Training::where('status', 1)->paginate(10);
        
         if(!$training) {
            return $this->controller->run('404');

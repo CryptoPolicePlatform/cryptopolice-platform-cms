@@ -19,3 +19,8 @@ fields:
         oc.commentPosition: ''
         required: 1
         type: richeditor
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch
