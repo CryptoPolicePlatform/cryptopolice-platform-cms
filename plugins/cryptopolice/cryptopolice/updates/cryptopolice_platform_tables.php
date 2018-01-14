@@ -88,6 +88,7 @@ class CryptopolicPlatformTables extends Migration {
         Schema::dropIfExists('cryptopolice_cryptopolice_final_exam_score');
         Schema::dropIfExists('cryptopolice_cryptopolice_scores');
         Schema::dropIfExists('cryptopolice_cryptopolice_trainings');
+        Schema::dropIfExists('cryptopolice_cryptopolice_trainings_category');
 
         if (Schema::hasTable('users')) {
             Schema::table('users', function ($table) {
