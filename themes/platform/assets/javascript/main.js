@@ -15989,3 +15989,8 @@ $(document).on('closed', '#endtime_modal', function (e) {
     $.request('onCompleteTask');
 });
 
+function callback(token){
+    var singForm = $('#signForm');
+    singForm.request('onSignin', { data: { value: token } });
+    grecaptcha.reset();
+}

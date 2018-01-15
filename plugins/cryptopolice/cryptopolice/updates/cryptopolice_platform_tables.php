@@ -12,6 +12,7 @@ class CryptopolicPlatformTables extends Migration {
         Schema::dropIfExists('academy_cryptopolice_final_exam_score');
         Schema::dropIfExists('academy_cryptopolice_scores');
         Schema::dropIfExists('academy_cryptopolice_trainings');
+        Schema::dropIfExists('cryptopolice_cryptopolice_trainings_category');
 
         Schema::create('cryptopolice_cryptopolice_exams', function ($table) {
             $table->engine = 'InnoDB';
@@ -45,6 +46,19 @@ class CryptopolicPlatformTables extends Migration {
             $table->integer('try')->default(0);
         });
 
+        Schema::create('cryptopolice_cryptopolice_scores', function ($table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+            $table->integer('exam_id');
+            $table->integer('question_num');
+            $table->integer('answer_num');
+            $table->boolean('is_correct');
+            $table->integer('user_id');
+            $table->integer('try')->default(0);
+        });
 
         Schema::create('cryptopolice_cryptopolice_trainings', function ($table) {
             $table->engine = 'InnoDB';

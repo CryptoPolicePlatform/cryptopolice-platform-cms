@@ -47,6 +47,19 @@ class Plugin extends PluginBase
             }
 
         });
+
+        Event::listen('rainlab.user.beforeAuthenticate', function () {
+
+            $secret = "6Ld4s0AUAAAAAHo3oldlbn99Sl0Pj6dbqvviovUS";
+            $response = post('g-recaptcha-response');
+            $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+            $captcha_success = json_decode($verify);
+
+            if ($captcha_success->success == false) {
+                throw new ApplicationException('<p>reCAPTCHA is not solved</p>');
+            }
+        });
+
     }
 
     protected function extendUserModel()
