@@ -3,6 +3,7 @@ url = "/login"
 layout = "academy"
 is_hidden = 0
 
+[reCaptcha]
 [account userLogin]
 paramCode = "code"
 forceSecure = 0
@@ -16,9 +17,6 @@ function onStart() {
      }
 ?>
 ==
-{% flash %}
-<p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
-{% endflash %}
 
 <div class="content">
     <div class="content__inner">
