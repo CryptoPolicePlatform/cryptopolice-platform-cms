@@ -73,7 +73,7 @@ class Plugin extends PluginBase
         $captcha_success = json_decode($verify);
 
         if ($captcha_success->success == false) {
-            throw new ApplicationException('<p>reCAPTCHA is not solved</p>');
+            throw new ValidationException('<p>reCAPTCHA is not solved</p>');
         }
     }
 
