@@ -2184,6 +2184,19 @@ html.remodal-is-locked {
     .choose__item {
       padding: 20px; } }
 
+.choose__item2 {
+  padding: 40px;
+    max-width: 390px;
+    display: block;
+    margin: 0 auto;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.2) 100%);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset;
+  text-align: center;
+}
+
+
 .choose__content {
   margin-top: 25px; }
   .choose__content:before {

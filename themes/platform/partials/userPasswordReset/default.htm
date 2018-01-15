@@ -2,14 +2,13 @@
     <img src="{{'assets/images/cryptopolice-logo-white.png'|theme}}" width="261" height="120" alt="CryptoPolice">
 </div>
 
-<div class="choose">
-    <div class="choose__item">
-        <div id="partialUserResetForm">
-            {% if __SELF__.code == null %}
-                {% partial __SELF__ ~ '::restore' %}
-            {% else %}
-                {% partial __SELF__ ~ '::reset' %}
-            {% endif %}
-        </div>
+<div class="choose__item2">
+    <div id="partialUserResetForm">
+        {% if __SELF__.code == null %}
+            {% partial __SELF__ ~ '::restore' %}
+        {% else %}
+            {% partial __SELF__ ~ '::reset' %}
+        {% endif %}
     </div>
 </div>
+
