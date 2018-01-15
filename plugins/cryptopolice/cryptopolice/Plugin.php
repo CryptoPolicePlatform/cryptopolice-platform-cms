@@ -2,6 +2,7 @@
 
 use Auth;
 use Event;
+use Config;
 use ApplicationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
@@ -24,6 +25,7 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
+
     }
 
     public function boot()
@@ -36,8 +38,9 @@ class Plugin extends PluginBase
 
         Event::listen('rainlab.user.beforeRegister', function ($user) {
 
-            $userPassword = post('password');
+            $this->verifyCaptcha();
 
+            $userPassword = post('password');
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
                 throw new ApplicationException('Password should contain at least one letter character');
             }
@@ -49,17 +52,23 @@ class Plugin extends PluginBase
         });
 
         Event::listen('rainlab.user.beforeAuthenticate', function () {
-
-            $secret = "6Ld4s0AUAAAAAHo3oldlbn99Sl0Pj6dbqvviovUS";
-            $response = post('g-recaptcha-response');
-            $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
-            $captcha_success = json_decode($verify);
-
-            if ($captcha_success->success == false) {
-                throw new ApplicationException('<p>reCAPTCHA is not solved</p>');
-            }
+            $this->verifyCaptcha();
         });
 
+
+    }
+
+    protected function verifyCaptcha()
+    {
+
+        $secret = "6Ld4s0AUAAAAAHo3oldlbn99Sl0Pj6dbqvviovUS";
+        $response = post('g-recaptcha-response');
+        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+        $captcha_success = json_decode($verify);
+
+        if ($captcha_success->success == false) {
+            throw new ApplicationException('<p>reCAPTCHA is not solved</p>');
+        }
     }
 
     protected function extendUserModel()
