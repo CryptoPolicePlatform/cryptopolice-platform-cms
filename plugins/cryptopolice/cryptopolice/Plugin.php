@@ -2,11 +2,12 @@
 
 use Auth;
 use Event;
-use Config;
 use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
+use CryptoPolice\CryptoPolice\Components\Recaptcha as Recaptcha;
+
 
 class Plugin extends PluginBase
 {
@@ -20,6 +21,7 @@ class Plugin extends PluginBase
         return [
             'CryptoPolice\Cryptopolice\Components\Exams' => 'Exams',
             'CryptoPolice\Cryptopolice\Components\ExamTask' => 'ExamTask',
+            'CryptoPolice\Cryptopolice\Components\Recaptcha' => 'reCaptcha',
             'CryptoPolice\Cryptopolice\Components\Trainings' => 'Trainings',
             'CryptoPolice\Cryptopolice\Components\ProfileForm' => 'ProfileForm',
             'CryptoPolice\Cryptopolice\Components\TrainingTask' => 'TrainingTask',
@@ -34,13 +36,12 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-
         $this->extendUserModel();
         $this->extendUsersController();
 
-        Event::listen('rainlab.user.beforeRegister', function ($user) {
+        Event::listen('rainlab.user.beforeRegister', function () {
 
-            $this->verifyCaptcha();
+            Recaptcha::verifyCaptcha();
 
             $userPassword = post('password');
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
@@ -58,23 +59,9 @@ class Plugin extends PluginBase
         });
 
         Event::listen('rainlab.user.beforeAuthenticate', function () {
-            $this->verifyCaptcha();
+            Recaptcha::verifyCaptcha();
         });
 
-
-    }
-
-    protected function verifyCaptcha()
-    {
-
-        $secret = "6Ld4s0AUAAAAAHo3oldlbn99Sl0Pj6dbqvviovUS";
-        $response = post('g-recaptcha-response');
-        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
-        $captcha_success = json_decode($verify);
-
-        if ($captcha_success->success == false) {
-            throw new ApplicationException('<p>reCAPTCHA is not solved</p>');
-        }
     }
 
     protected function extendUserModel()

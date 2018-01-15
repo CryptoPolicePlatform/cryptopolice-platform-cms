@@ -1,10 +1,5 @@
 
 
-        {% flash %}
-            <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5">
-                {{ message }}
-            </p>
-        {% endflash %}
 
         <form data-request-flash data-request-files data-request-success="console.log(data);" data-request="onUpdateProfile">
 
@@ -46,7 +41,8 @@
                     </div>
                 </div>
 
-                <button class="btn  btn--gpink" type="submit">Update Profile</button>
+                <button id="captcha_profile" class="btn  btn--gpink g-recaptcha" type="submit">Update Profile</button>
+
             </div>
 
         </form>
