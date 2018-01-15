@@ -2,11 +2,11 @@
 
 use Auth;
 use Event;
-use ApplicationException;
+use Config;
+use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
-use RainLab\Notify\NotifyRules\SaveDatabaseAction;
 
 class Plugin extends PluginBase
 {
@@ -24,6 +24,7 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
+
     }
 
     public function boot()
@@ -31,22 +32,44 @@ class Plugin extends PluginBase
 
         $this->extendUserModel();
         $this->extendUsersController();
-        $this->extendSaveDatabaseAction();
-        $this->extendUserModel();
 
         Event::listen('rainlab.user.beforeRegister', function ($user) {
 
-            $userPassword = post('password');
+            $this->verifyCaptcha();
 
+            $userPassword = post('password');
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
-                throw new ApplicationException('Password should contain at least one letter character');
+                throw new ValidationException([
+                    'password' => 'Password should contain at least one letter character'
+                ]);
             }
 
             if (!preg_match('/[^a-zA-Z\d]/', $userPassword)) {
-                throw new ApplicationException('Password should contain at least one special character');
+                throw new ValidationException([
+                    'password' => 'Password should contain at least one letter character'
+                ]);
             }
 
         });
+
+        Event::listen('rainlab.user.beforeAuthenticate', function () {
+            $this->verifyCaptcha();
+        });
+
+
+    }
+
+    protected function verifyCaptcha()
+    {
+
+        $secret = "6Ld4s0AUAAAAAHo3oldlbn99Sl0Pj6dbqvviovUS";
+        $response = post('g-recaptcha-response');
+        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+        $captcha_success = json_decode($verify);
+
+        if ($captcha_success->success == false) {
+            throw new ApplicationException('<p>reCAPTCHA is not solved</p>');
+        }
     }
 
     protected function extendUserModel()
@@ -78,21 +101,6 @@ class Plugin extends PluginBase
             // $configFile = plugins_path('rainlab/userplus/config/profile_fields.yaml');
             // $config = Yaml::parse(File::get($configFile));
             // $widget->addTabFields($config);
-        });
-    }
-
-    protected function extendSaveDatabaseAction()
-    {
-        if (!class_exists(SaveDatabaseAction::class)) {
-            return;
-        }
-
-        SaveDatabaseAction::extend(function ($action) {
-            $action->addTableDefinition([
-                'label' => 'User activity',
-                'class' => UserModel::class,
-                'param' => 'user'
-            ]);
         });
     }
 

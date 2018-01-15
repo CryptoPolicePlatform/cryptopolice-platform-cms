@@ -1,13 +1,16 @@
 <div class="choose__item">
     <h3 class="choose__title">Login</h3>
-    <form class="form" action="" method="post" data-request-flash data-request="onSignin" autocomplete="off">
+    <form class="form" action="" method="post" id="signForm" data-request-flash data-request="onSignin" autocomplete="off">
         <div class="form__group">
             <input class="input  input--email" type="text" placeholder="Your email address" name="login"
                    id="userSigninLogin" autocomplete="off">
             <input class="input  input--pswd" type="password" placeholder="Password" name="password"
                    id="userSigninPassword" autocomplete="off">
+            <input type="hidden" id="captcha" name="captcha" value="">
             <a class="form__link" href="{{'forgot-password'|page}}">Forgot Your Password?</a>
         </div>
-        <button class="btn  btn--full" type="submit">log in</button>
+        <button id="captcha1" class="btn btn--full g-recaptcha">
+            Log in
+        </button>
     </form>
 </div>
