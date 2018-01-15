@@ -1,0 +1,25 @@
+title = "Trainings"
+url = "/trainings/:slug"
+layout = "academy"
+is_hidden = 0
+
+[Trainings]
+max = 10
+[session]
+security = "user"
+redirect = "login"
+==
+<div class="content">
+    <div class="content__inner">
+        <div class="content__header">
+            <h1 class="content__title">CryptoPolice training   </h1>
+            <div class="content__text">
+                <p>
+                    Power up your skills and gain knowledge on the topics, that will help you to fight scams.
+                    <br> NB! At the moment the Academy is filled with demo materials for you to get acquainted with the CryptoPolice platform's training system.
+                </p>
+            </div>
+        </div>
+        {% component 'Trainings' %}
+    </div>
+</div>

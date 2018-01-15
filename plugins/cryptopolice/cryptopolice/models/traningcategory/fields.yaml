@@ -1,6 +1,6 @@
 fields:
     title:
-        label: Title
+        label: 'Category title'
         oc.commentPosition: ''
         span: auto
         required: 1
@@ -14,22 +14,15 @@ fields:
             field: title
             type: slug
         type: text
-    category:
-        label: Category
-        span: auto
+    description:
+        label: Description
+        size: large
         oc.commentPosition: ''
-        nameFrom: title
-        descriptionFrom: description
-        type: relation
+        span: full
+        required: 1
+        type: textarea
     status:
         label: Status
         span: auto
         default: 1
         type: switch
-    description:
-        label: Description
-        span: full
-        size: large
-        oc.commentPosition: ''
-        required: 1
-        type: richeditor

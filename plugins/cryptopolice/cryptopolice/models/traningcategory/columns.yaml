@@ -1,22 +1,12 @@
 columns:
     id:
-        label: ID
+        label: id
         type: number
         searchable: true
         sortable: true
     title:
-        label: Title
+        label: title
         type: text
-        searchable: true
-        sortable: true
-    created_at:
-        label: 'Created at'
-        type: datetime
-        searchable: true
-        sortable: true
-    updated_at:
-        label: 'Updated at'
-        type: datetime
         searchable: true
         sortable: true
     slug:
@@ -24,18 +14,28 @@ columns:
         type: text
         searchable: true
         sortable: true
-    category_id:
-        label: category_id
-        type: number
-        searchable: true
-        sortable: true
     description:
         label: description
         type: text
         searchable: true
         sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        searchable: true
+        sortable: true
+    user_id:
+        label: user_id
+        type: number
+        searchable: true
+        sortable: true
     status:
         label: status
-        type: text
+        type: number
         searchable: true
         sortable: true

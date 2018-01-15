@@ -24,7 +24,7 @@ class CryptopolicPlatformTables extends Migration {
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->integer('timer');
-            $table->integer('status');
+            $table->boolean('status')->default(0);
             $table->integer('retake_time')->unsigned(false)->default(0);
         });
 
@@ -48,21 +48,22 @@ class CryptopolicPlatformTables extends Migration {
 
         Schema::create('cryptopolice_cryptopolice_trainings', function ($table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->text('title')->nullable();
-            $table->text('slug')->nullable();
+            $table->increments('id')->unsigned();
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->integer('category_id')->nullable();
             $table->text('description')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->integer('user_id')->default(0);
-            $table->integer('status')->default(0);
+            $table->boolean('status')->default(0);
             $table->integer('likes')->default(0);
         });
 
         Schema::create('cryptopolice_cryptopolice_trainings_category', function ($table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->text('title')->nullable();
             $table->text('slug')->nullable();
             $table->text('description')->nullable();
@@ -70,7 +71,8 @@ class CryptopolicPlatformTables extends Migration {
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->integer('user_id')->default(0);
-            $table->integer('status')->default(0);
+            $table->integer('nest_left')->default(0);
+            $table->boolean('status');
         });
 
         if (Schema::hasColumns('users', ['eth_address'])) {

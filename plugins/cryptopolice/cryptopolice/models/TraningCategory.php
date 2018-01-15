@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class Training extends Model
+class TraningCategory extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
@@ -19,17 +19,12 @@ class Training extends Model
     public $rules = [
     ];
 
-
-    public $belongsTo = [
-        'category' => [
-            'CryptoPolice\CryptoPolice\Models\TraningCategory',
-            'key' => 'category_id'
-        ],
+    public $hasMany = [
+        'Traning' => ['CryptoPolice\CryptoPolice\Models\Traning'],
     ];
-
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cryptopolice_cryptopolice_trainings';
+    public $table = 'cryptopolice_cryptopolice_trainings_category';
 }

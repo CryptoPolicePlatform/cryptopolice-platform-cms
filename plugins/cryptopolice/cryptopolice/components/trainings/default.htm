@@ -1,14 +1,18 @@
+{% set slug = __SELF__.slug %}
 {% set trainings = __SELF__.trainings %}
+
+{% if slug == 'default' %}
+
 <ul class="courses">
-    {% for training in trainings %}
+    {% for trainingcat in trainings %}
     <li class="courses__item">
-        <a class="courses__link watched" href="{{ 'training-open'|page({slug: training.slug}) }}">
-            <span class="courses__num">#<b>{{ training.id }}</b></span>
-            <span class="courses__title">{{ training.title }}</span>
+        <a class="courses__link watched" href="{{ 'trainings'|page({slug: trainingcat.slug}) }}">
+            <span class="courses__num">#<b> {{ loop.index }}</b></span>
+            <span class="courses__title">{{ trainingcat.title }}</span>
         </a>
     </li>
     {% else %}
-        <h4 class="content__title">Noting  here</h4>
+    <h4 class="content__title">Noting  here...</h4>
     {% endfor %}
     <div class="courses__footer">
         <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>
@@ -16,3 +20,28 @@
     </div>
     <div class="courses__pages">{{ trainings.currentPage|raw }}/{{ trainings.lastPage|raw }}</div>
 </ul>
+
+{% else%}
+
+
+<ul class="courses">
+    {% for training in trainings %}
+    <li class="courses__item">
+        <a class="courses__link watched" href="{{ 'training-open'|page({slug: training.slug}) }}">
+            <span class="courses__num">#<b>{{ loop.index }}</b></span>
+            <span class="courses__title">{{ training.title }}</span>
+        </a>
+    </li>
+    {% else %}
+    <h4 class="content__title">Noting  here</h4>
+    {% endfor %}
+    <div class="courses__footer">
+        <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>
+        <a class="btn" href="{{ trainings.nextPageUrl|raw }}">next section</a>
+    </div>
+    <div class="courses__pages">{{ trainings.currentPage|raw }}/{{ trainings.lastPage|raw }}</div>
+</ul>
+
+{% endif %}
+
+

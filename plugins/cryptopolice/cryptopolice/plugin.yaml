@@ -17,6 +17,15 @@ navigation:
         label: Trainings
         url: cryptopolice/cryptopolice/trainings
         icon: icon-empire
+        sideMenu:
+            side-menu-item2:
+                label: Trainings
+                url: cryptopolice/cryptopolice/trainings
+                icon: icon-slack
+            side-menu-item:
+                label: 'Tranings category'
+                url: cryptopolice/cryptopolice/traningscategory
+                icon: icon-sitemap
     main-menu-item4:
         label: 'Final Results'
         url: cryptopolice/cryptopolice/finalscores
