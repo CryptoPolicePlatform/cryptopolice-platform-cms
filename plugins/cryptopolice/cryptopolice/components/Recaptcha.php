@@ -21,10 +21,6 @@ class Recaptcha extends ComponentBase
         ];
     }
 
-    public function onRun() {
-        $this->addJs('/plugins/cryptopolice/cryptopolice/components/recapthca/assets/reCaptcha.js');
-    }
-
     public static function verifyCaptcha()
     {
 
