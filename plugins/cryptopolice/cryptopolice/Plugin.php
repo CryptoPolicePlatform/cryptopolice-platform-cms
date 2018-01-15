@@ -10,6 +10,11 @@ use RainLab\User\Controllers\Users as UsersController;
 
 class Plugin extends PluginBase
 {
+
+    public $require = [
+        'RainLab.User', 'RainLab.Location', 'RainLab.Notify', 'Netsti.Uploader'
+    ];
+
     public function registerComponents()
     {
         return [
