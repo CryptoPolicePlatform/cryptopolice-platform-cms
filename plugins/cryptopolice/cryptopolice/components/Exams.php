@@ -118,5 +118,27 @@ class Exams extends ComponentBase
             $this->exams = $exams;
             $this->scores = $userScores;
         }
+
+
+        // TODO:: ja bi delal tak ...
+//        $user = Auth::getUser();
+//
+//        if(empty($user)) {
+//            return Redirect::to('/login');
+//        } else {
+//            // Get exam list
+//            $exams = Exam::paginate(10);
+//
+//            if (isset($exams->id) && !empty($exams->id)) {
+//                return $this->controller->run('404');
+//            } else {
+//                $this->exams = $exams;
+//                $this->scores =  FinalScore::where('user_id', $user->id)
+//                    ->orderBy('created_at', 'desc')
+//                    ->get();
+//            }
+//        }
+
+
    }
 }

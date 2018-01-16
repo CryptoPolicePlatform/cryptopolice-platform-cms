@@ -2,14 +2,17 @@
 
 use Auth;
 use Event;
-use ApplicationException;
+use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
-use RainLab\Notify\NotifyRules\SaveDatabaseAction;
 
 class Plugin extends PluginBase
 {
+    public $require = [
+        'RainLab.User', 'RainLab.Location', 'RainLab.Notify', 'Netsti.Uploader'
+    ];
+
     public function registerComponents()
     {
         return [
@@ -31,19 +34,21 @@ class Plugin extends PluginBase
 
         $this->extendUserModel();
         $this->extendUsersController();
-        $this->extendSaveDatabaseAction();
-        $this->extendUserModel();
 
         Event::listen('rainlab.user.beforeRegister', function ($user) {
 
             $userPassword = post('password');
 
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
-                throw new ApplicationException('Password should contain at least one letter character');
+                throw new ValidationException([
+                    'password' => 'Password should contain at least one letter character'
+                ]);
             }
 
             if (!preg_match('/[^a-zA-Z\d]/', $userPassword)) {
-                throw new ApplicationException('Password should contain at least one special character');
+                throw new ValidationException([
+                    'password' => 'Password should contain at least one letter character'
+                ]);
             }
 
         });
@@ -78,21 +83,6 @@ class Plugin extends PluginBase
             // $configFile = plugins_path('rainlab/userplus/config/profile_fields.yaml');
             // $config = Yaml::parse(File::get($configFile));
             // $widget->addTabFields($config);
-        });
-    }
-
-    protected function extendSaveDatabaseAction()
-    {
-        if (!class_exists(SaveDatabaseAction::class)) {
-            return;
-        }
-
-        SaveDatabaseAction::extend(function ($action) {
-            $action->addTableDefinition([
-                'label' => 'User activity',
-                'class' => UserModel::class,
-                'param' => 'user'
-            ]);
         });
     }
 
