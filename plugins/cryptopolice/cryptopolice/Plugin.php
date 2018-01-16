@@ -95,5 +95,4 @@ class Plugin extends PluginBase
             // $widget->addTabFields($config);
         });
     }
-
 }
