@@ -1,10 +1,10 @@
 <ul class="courses">
     {% for exam in Exams.exams %}
-    
+
     <li class="courses__item">
-        
+
         {% set break = false %}
-            
+
             {% for score in Exams.scores if not break %}
                 {% if score.exam_id == exam.id %}
                 {% set break = true %}
@@ -32,11 +32,11 @@
                             {% endif %}
                     {% endif %}
                 {% endfor %}
-            
+
             {% if not break %}
             <span class="courses__score"><span> 0 / {{ exam.question|length }}</span></span>
             {% endif %}
-            
+
         </a>
     </li>
     {% endfor %}

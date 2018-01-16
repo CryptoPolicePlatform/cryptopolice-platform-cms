@@ -18,12 +18,12 @@ class CryptopolicPlatformTables extends Migration
                 $table->string('exam_description', 255);
                 $table->string('exam_slug', 255);
                 $table->text('question');
+                $table->integer('timer');
+                $table->integer('retake_time')->unsigned(false)->default(0);
+                $table->boolean('status')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
-                $table->integer('timer');
-                $table->boolean('status')->default(0);
-                $table->integer('retake_time')->unsigned(false)->default(0);
             });
         }
 
@@ -40,9 +40,6 @@ class CryptopolicPlatformTables extends Migration
                 $table->timestamp('deleted_at')->nullable();
                 $table->dateTime('completed_at');
                 $table->boolean('complete_status')->default(0);
-                $table->integer('question_num');
-                $table->integer('answer_num');
-                $table->boolean('is_correct');
                 $table->integer('try')->default(0);
             });
         }
@@ -52,15 +49,15 @@ class CryptopolicPlatformTables extends Migration
             Schema::create('cryptopolice_cryptopolice_scores', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
-                $table->timestamp('created_at')->nullable();
-                $table->timestamp('updated_at')->nullable();
-                $table->timestamp('deleted_at')->nullable();
                 $table->integer('exam_id');
                 $table->integer('question_num');
                 $table->integer('answer_num');
                 $table->boolean('is_correct');
                 $table->integer('user_id');
                 $table->integer('try')->default(0);
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
             });
         }
 
@@ -73,12 +70,12 @@ class CryptopolicPlatformTables extends Migration
                 $table->string('slug')->nullable();
                 $table->integer('category_id')->nullable();
                 $table->text('description')->nullable();
-                $table->timestamp('created_at')->nullable();
-                $table->timestamp('updated_at')->nullable();
-                $table->timestamp('deleted_at')->nullable();
                 $table->integer('user_id')->default(0);
                 $table->boolean('status')->default(0);
                 $table->integer('likes')->default(0);
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
             });
         }
 
@@ -90,12 +87,12 @@ class CryptopolicPlatformTables extends Migration
                 $table->text('title')->nullable();
                 $table->text('slug')->nullable();
                 $table->text('description')->nullable();
-                $table->timestamp('created_at')->nullable();
-                $table->timestamp('updated_at')->nullable();
-                $table->timestamp('deleted_at')->nullable();
                 $table->integer('user_id')->default(0);
                 $table->integer('nest_left')->default(0);
                 $table->boolean('status');
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
             });
         }
 
