@@ -8,6 +8,7 @@ use DateTime;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\CryptoPolice\Models\Exam;
 use CryptoPolice\CryptoPolice\Models\FinalScore;
+use CryptoPolice\CryptoPolice\Models\Score;
 
 class Exams extends ComponentBase
 {
@@ -43,44 +44,52 @@ class Exams extends ComponentBase
     }
 
     public function onExamClick()
-
     {
 
         $user = Auth::getUser();
         $userID = $user->id;
         $examID = post('id');
-        $examSlug = post('slug');
+        $slug = post('slug');
 
-        $exams = Exam::where('id', $examID)->first();
-        $currentExamStatus = FinalScore::where('exam_id', $examID)
+        $selectedExam = Exam::where('id', $examID)->first();
+
+        $selectedExamStatus = FinalScore::where('exam_id', $examID)
             ->where('user_id', $userID)
             ->orderBy('created_at', 'desc')
             ->first();
 
         // if latest exam not passed
-        if (isset($currentExamStatus->complete_status) && ($currentExamStatus->complete_status == '0')) {
-            return Redirect::to('/exam-task/' . $examSlug);
+        if (isset($selectedExamStatus->complete_status) && ($selectedExamStatus->complete_status == '0')) {
+            return Redirect::to('/exam-task/' . $slug);
         }
 
-        if (isset($currentExamStatus->complete_status) && ($currentExamStatus->complete_status == '1')) {
+        if (isset($selectedExamStatus->complete_status) && ($selectedExamStatus->complete_status == '1')) {
 
-            $examStartTime = new DateTime('now');
-            $examEndTime = new DateTime($currentExamStatus->completed_at);
-            $timeSeconds = $examStartTime->getTimestamp() - $examEndTime->getTimestamp();
+            $start = new DateTime('now');
+            $end = new DateTime($selectedExamStatus->completed_at);
+            $left = $start->getTimestamp() - $end->getTimestamp();
 
-            if ($timeSeconds < $exams->retake_time) {
+            if ($left < $selectedExam->retake_time) {
 
-                $left = $exams->retake_time - $timeSeconds;
-                $hours = floor($left / 3600);
-                $minutes = floor(($left / 60) % 60);
-                $seconds = $left % 60;
-                Flash::error('You can retake your certification test again but you must wait! <br>' . $this->formatDate($hours) . ":" . $this->formatDate($minutes) . ":" . $this->formatDate($seconds));
+                $timeLeft = $selectedExam->retake_time - $left;
+                Flash::error('You can retake your certification test again but you must wait! <br>' . $this->getDate($timeLeft));
+
             } else {
-                return Redirect::to('/exam-task/' . $examSlug);
+                return Redirect::to('/exam-task/' . $slug);
             }
         } else {
-            return Redirect::to('/exam-task/' . $examSlug);
+            return Redirect::to('/exam-task/' . $slug);
         }
+    }
+
+
+
+    public function getDate($time)
+    {
+        $hours = floor($time / 3600);
+        $minutes = floor(($time / 60) % 60);
+        $seconds = $time % 60;
+        return $this->formatDate($hours) . ":" . $this->formatDate($minutes) . ":" . $this->formatDate($seconds);
     }
 
     /**
@@ -94,29 +103,20 @@ class Exams extends ComponentBase
     public function onRun()
     {
 
-        // Check if user is logged in
-        $loggedIn = Auth::check();
-        if (!$loggedIn) {
-            return Redirect::to('/login');
-        }
+        $examList = Exam::paginate(10);
 
-        // Get exam list
-        $exams = Exam::paginate(10);
-
-        // Get user identifier
         $user = Auth::getUser();
-        $user_id = $user->id;
+        $userID = $user->id;
 
-
-        $userScores = FinalScore::where('user_id', $user_id)
+        $userScores = FinalScore::where('user_id', $userID)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        if (isset($exams->id) && !empty($exams->id)) {
-            return $this->controller->run('404');
-        } else {
-            $this->exams = $exams;
+        if ($examList) {
+            $this->exams = $examList;
             $this->scores = $userScores;
+        } else {
+            $this->exams = false;
         }
-   }
+    }
 }

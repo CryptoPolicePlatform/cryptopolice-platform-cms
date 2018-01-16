@@ -10,7 +10,7 @@ namespace CryptoPolice\CryptoPolice\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;
-
+// TODO:: nazvanie classov s bolsoj bukvi
 class customUploader extends ComponentBase
 {
 

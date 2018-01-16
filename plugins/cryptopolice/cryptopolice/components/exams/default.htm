@@ -1,20 +1,20 @@
 <ul class="courses">
     {% for exam in Exams.exams %}
-    
+
     <li class="courses__item">
-        
+
         {% set break = false %}
-            
+
             {% for score in Exams.scores if not break %}
                 {% if score.exam_id == exam.id %}
                 {% set break = true %}
-                <a data-request-flash data-request-success="console.log(data)" data-request="onExamClick"
+                <a data-request-flash data-request="onExamClick"
                 data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link watched">
                 {% endif %}
             {% endfor %}
 
             {% if not break %}
-                <a data-request-flash data-request-success="console.log(data)" data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
+                <a data-request-flash data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
             {% endif %}
 
             <span class="courses__num">#<b>{{exam.id}}</b></span>
@@ -32,13 +32,16 @@
                             {% endif %}
                     {% endif %}
                 {% endfor %}
-            
+
             {% if not break %}
             <span class="courses__score"><span> 0 / {{ exam.question|length }}</span></span>
             {% endif %}
-            
+
         </a>
     </li>
+
+    {% else %}
+    <li><h4 class="content__title">Noting  here</h4></li>
     {% endfor %}
 </ul>
 
