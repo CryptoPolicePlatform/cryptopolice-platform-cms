@@ -3,12 +3,39 @@ url = "/profile"
 layout = "platform"
 is_hidden = 0
 
+[reCaptcha]
+
 [ProfileForm]
 
-[customUploader]
 [session]
 security = "user"
 redirect = "login"
+
+[imageUploader]
+placeholderText = "Click or drag images to upload"
+maxSize = 5
+fileTypes = ".gif,.jpg,.jpeg,.png"
+imageWidth = 100
+imageHeight = 100
+imageMode = "crop"
+modelClass = "RainLab\User\Models\User"
+modelKeyColumn = "picture"
+identifierValue = "{{ :id }}"
+==
+<?php
+// TODO : registration component!
+    function onInit() {
+        $user = Auth::getUser();
+            if($user){
+                $component = $this->addComponent(
+                    'NetSTI\Uploader\Components\ImageUploader',
+                    'imageUploader',
+                    ['modelClass'=>'RainLab\User\Models\User','modelKeyColumn'=>'avatar', 'deferredBinding' => false]
+                );
+            $component->bindModel('avatar', $user);
+        }
+    }
+?>
 ==
 <!-- Content -->
 <main class="content">
@@ -53,7 +80,7 @@ redirect = "login"
                         <h3 class="content__title">
                             Change Avatar
                         </h3>
-                        {% component 'customUploader' %}
+                        {% component 'imageUploader' %}
                     </div>
 
                 </div>

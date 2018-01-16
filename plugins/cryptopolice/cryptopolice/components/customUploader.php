@@ -23,14 +23,13 @@ class customUploader extends ComponentBase
     }
 
 
-    function init()
+    function onInit()
     {
         $user = Auth::getUser();
         if($user){
             $component = $this->addComponent(
-                // TODO: Need change to our (customUploader) component
                 'NetSTI\Uploader\Components\ImageUploader',
-                'customUploader',
+                'imageUploader',
                 ['modelClass'=>'RainLab\User\Models\User','modelKeyColumn'=>'avatar', 'deferredBinding' => false]
             );
 

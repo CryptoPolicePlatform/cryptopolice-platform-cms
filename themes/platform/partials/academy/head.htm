@@ -1,6 +1,5 @@
 ==
 <head>
-
     <meta charset="utf-8">
     <title>{{ this.page.title }}</title>
     <meta name="description" content="{{ this.page.meta_description }}">
@@ -16,16 +15,21 @@
     <meta name="google" content="notranslate">
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="icon" type="image/png" href="{{ 'assets/images/favicons/favicon-16x16.png'|theme }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
+    <!--<link rel="icon" type="image/png" href="{{ 'assets/images/favicons/favicon-16x16.png'|theme }}">-->
     <link href="{{ 'assets/css/style.css?v1.1'|theme }}" rel="stylesheet">
     {% styles %}
+
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    <script src="{{ 'assets/javascript/reCaptcha.js'|theme }}"></script>
 
     <!-- Favicons for all devices -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/images/favicons/apple-touch-icon.png'|theme }}">
     <link rel="icon" type="image/png" href="{{ 'assets/images/favicons/favicon-32x32.png'|theme }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{[ 'assets/images/favicons/favicon-16x16.png'|theme }}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{ 'assets/images/favicons/favicon-16x16.png'|theme }}" sizes="16x16">
     <link rel="manifest" href="{{ 'assets/images/favicons/manifest.json'|theme }}">
     <link rel="mask-icon" href="{{ 'assets/images/favicons/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
     <meta property="image" content="{{ 'https://cryptopolice.io/assets/images/police-hat-logo.png'|app }}"/>
+
 
 </head>

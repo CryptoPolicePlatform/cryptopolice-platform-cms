@@ -15,6 +15,7 @@ use Redirect;
 use Validator;
 use ValidationException;
 use Cms\Classes\ComponentBase;
+use CryptoPolice\CryptoPolice\Components\Recaptcha as Recaptcha;
 
 class ProfileForm extends ComponentBase
 {
@@ -30,29 +31,28 @@ class ProfileForm extends ComponentBase
     public function onUpdateProfile()
     {
 
+        Recaptcha::verifyCaptcha();
+
         $user = Auth::getUser();
 
-        if ($user) {
 
-            $rules = [
-                'eth_address' => 'min:42|max:42|unique:users',
-            ];
-            $validator = Validator::make(['eth_address' => post('eth_address')], $rules);
+        $rules = [
+            'eth_address' => 'min:42|max:42|unique:users',
+        ];
+        $validator = Validator::make(['eth_address' => post('eth_address')], $rules);
 
-            if ($validator->fails()) {
+        if ($validator->fails()) {
 
-                $messages = $validator->messages();
-                foreach ($messages->all() as $message) {
-                    Flash::error($message);
-                }
-
-            } else {
-                $user->update(input());
-                Flash::success('Profile has been successfully updated');
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                Flash::error($message);
             }
+
         } else {
-            return Redirect::to('/login');
+            $user->update(input());
+            Flash::success('Profile has been successfully updated');
         }
+
     }
 
 }

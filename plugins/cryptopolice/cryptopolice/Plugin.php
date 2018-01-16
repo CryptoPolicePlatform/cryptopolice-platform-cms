@@ -6,9 +6,12 @@ use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
+use CryptoPolice\CryptoPolice\Components\Recaptcha as Recaptcha;
+
 
 class Plugin extends PluginBase
 {
+
     public $require = [
         'RainLab.User', 'RainLab.Location', 'RainLab.Notify', 'Netsti.Uploader'
     ];
@@ -18,6 +21,7 @@ class Plugin extends PluginBase
         return [
             'CryptoPolice\Cryptopolice\Components\Exams' => 'Exams',
             'CryptoPolice\Cryptopolice\Components\ExamTask' => 'ExamTask',
+            'CryptoPolice\Cryptopolice\Components\Recaptcha' => 'reCaptcha',
             'CryptoPolice\Cryptopolice\Components\Trainings' => 'Trainings',
             'CryptoPolice\Cryptopolice\Components\ProfileForm' => 'ProfileForm',
             'CryptoPolice\Cryptopolice\Components\TrainingTask' => 'TrainingTask',
@@ -27,18 +31,19 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
+
     }
 
     public function boot()
     {
-
         $this->extendUserModel();
         $this->extendUsersController();
 
-        Event::listen('rainlab.user.beforeRegister', function ($user) {
+        Event::listen('rainlab.user.beforeRegister', function () {
+
+            Recaptcha::verifyCaptcha();
 
             $userPassword = post('password');
-
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
                 throw new ValidationException([
                     'password' => 'Password should contain at least one letter character'
@@ -52,6 +57,11 @@ class Plugin extends PluginBase
             }
 
         });
+
+        Event::listen('rainlab.user.beforeAuthenticate', function () {
+            Recaptcha::verifyCaptcha();
+        });
+
     }
 
     protected function extendUserModel()
@@ -85,5 +95,4 @@ class Plugin extends PluginBase
             // $widget->addTabFields($config);
         });
     }
-
 }
