@@ -9,13 +9,9 @@ max = 10
 security = "user"
 redirect = "login"
 ==
+
 <div class="content">
     <div class="content__inner">
-        <div class="courses__open">
-            {% component 'TrainingTask' %}
-        </div>
-        <div class="courses__footer  text-left">
-            <a class="btn" href="{{'trainings/all'|page}}">back to course list</a>
-        </div>
+        {% component 'TrainingTask' %}
     </div>
 </div>

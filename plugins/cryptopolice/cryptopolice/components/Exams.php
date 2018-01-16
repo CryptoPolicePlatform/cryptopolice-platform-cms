@@ -112,11 +112,11 @@ class Exams extends ComponentBase
             ->orderBy('created_at', 'desc')
             ->get();
 
-        if (isset($examList->id) && !empty($examList->id)) {
-            return $this->controller->run('404');
-        } else {
+        if ($examList) {
             $this->exams = $examList;
             $this->scores = $userScores;
+        } else {
+            $this->exams = false;
         }
     }
 }

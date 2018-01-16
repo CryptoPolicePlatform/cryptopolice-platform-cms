@@ -8,13 +8,13 @@
             {% for score in Exams.scores if not break %}
                 {% if score.exam_id == exam.id %}
                 {% set break = true %}
-                <a data-request-flash data-request-success="console.log(data)" data-request="onExamClick"
+                <a data-request-flash data-request="onExamClick"
                 data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link watched">
                 {% endif %}
             {% endfor %}
 
             {% if not break %}
-                <a data-request-flash data-request-success="console.log(data)" data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
+                <a data-request-flash data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
             {% endif %}
 
             <span class="courses__num">#<b>{{exam.id}}</b></span>
@@ -39,6 +39,9 @@
 
         </a>
     </li>
+
+    {% else %}
+    <li><h4 class="content__title">Noting  here</h4></li>
     {% endfor %}
 </ul>
 
