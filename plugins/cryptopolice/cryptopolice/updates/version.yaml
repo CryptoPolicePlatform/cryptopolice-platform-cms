@@ -1,5 +1,5 @@
 1.0.1:
     - 'Initialize plugin.'
-1.0.12:
+1.0.13:
     - 'CryptoPolice Platform Academy create tables'
     - cryptopolice_platform_academy_tables.php

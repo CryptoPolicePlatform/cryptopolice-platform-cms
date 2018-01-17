@@ -103,7 +103,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
         if (!Schema::hasColumns('users', ['eth_address'])) {
 
             Schema::table('users', function ($table) {
-                $table->string('eth_address', 42)->nullable()->unique();
+                $table->string('eth_address', 42)->nullable()->unique()->default(0);
             });
         }
     }

@@ -6,7 +6,9 @@ use BackendMenu;
 class FinalScores extends Controller
 {
     public $implement = [
-        'Backend\Behaviors\ListController','Backend\Behaviors\FormController'   ];
+        'Backend\Behaviors\ListController',
+        'Backend\Behaviors\FormController'
+    ];
     
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
