@@ -30,12 +30,21 @@ class Trainings extends ComponentBase
         $this->slug = $slug = $this->param('slug');
 
         if ($slug) {
+
             // Get trainings  by category slug
-            $category_id = TrainingCategory::where('slug', $slug)->value('id');
-            $trainings = Training::where('category_id', $category_id)->paginate(10);
+            $category_id = TrainingCategory::where('slug', $slug)
+                ->value('id');
+
+            $trainings = Training::where('category_id', $category_id)
+                ->orderBy('sort_order', 'asc')
+                ->paginate(10);
+
         } else {
+
             // Get all trainings category
-            $trainings = TrainingCategory::where('status', 1)->paginate(10);
+            $trainings = TrainingCategory::where('status', 1)
+                ->orderBy('sort_order', 'asc')
+                ->paginate(10);
         }
 
         $this->trainings = $trainings;
