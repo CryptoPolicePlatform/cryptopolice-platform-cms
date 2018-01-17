@@ -9,12 +9,16 @@ paramCode = "code"
 forceSecure = 0
 ==
 <?php
-function onStart() {
+
+    function onStart() {
+
+        $this['active']  = isset($_GET['activate']) && !empty($_GET['activate']) ? $_GET['activate'] : '';
 
         if(Auth::check()) {
            return Redirect::to('/academy');
         }
-     }
+    }
+
 ?>
 ==
 
@@ -27,15 +31,22 @@ function onStart() {
             <h1 class="content__title">Early bird Officer registration is now open!</h1>
             <div class="content__text">
                 <p>
-                    We have launched the first demo version of the CryptoPolice Academy! The team has done an outstanding job in order to show its combat readiness in the early stages of the project. The Academy is the core of the CryptoPolice platform’s Officer training process. At the moment the Academy is filled with demo materials for you to get acquainted with the CryptoPolice platform's training system.
+                    We have launched the first demo version of the CryptoPolice Academy! The team has done an
+                    outstanding job in order to show its combat readiness in the early stages of the project. The
+                    Academy is the core of the CryptoPolice platform’s Officer training process. At the moment the
+                    Academy is filled with demo materials for you to get acquainted with the CryptoPolice platform's
+                    training system.
                 </p>
             </div>
+
+            {% if not user %}
+                {% component 'userLogin' %}
+            {% elseif active is not empty %}
+                <div class="content__title">
+                    Congratulations! You have successfully activated
+                </div>
+            {% endif %}
+
         </div>
-        {% if not user %}
-
-        {% component 'userLogin' %}
-
-        {% endif %}
-
-    </div><!-- /.content -->
+    </div>
 </div>
