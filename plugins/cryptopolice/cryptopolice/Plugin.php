@@ -2,12 +2,12 @@
 
 use Auth;
 use Event;
+use Redirect;
 use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
 use CryptoPolice\CryptoPolice\Components\Recaptcha as Recaptcha;
-
 
 class Plugin extends PluginBase
 {
@@ -19,13 +19,13 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'CryptoPolice\Cryptopolice\Components\Exams' => 'Exams',
-            'CryptoPolice\Cryptopolice\Components\ExamTask' => 'ExamTask',
-            'CryptoPolice\Cryptopolice\Components\Recaptcha' => 'reCaptcha',
-            'CryptoPolice\Cryptopolice\Components\Trainings' => 'Trainings',
-            'CryptoPolice\Cryptopolice\Components\ProfileForm' => 'ProfileForm',
-            'CryptoPolice\Cryptopolice\Components\TrainingTask' => 'TrainingTask',
-            'CryptoPolice\Cryptopolice\Components\customUploader' => 'customUploader',
+            'CryptoPolice\Cryptopolice\Components\Exams'            => 'Exams',
+            'CryptoPolice\Cryptopolice\Components\ExamTask'         => 'ExamTask',
+            'CryptoPolice\Cryptopolice\Components\Recaptcha'        => 'reCaptcha',
+            'CryptoPolice\Cryptopolice\Components\Trainings'        => 'Trainings',
+            'CryptoPolice\Cryptopolice\Components\ProfileForm'      => 'ProfileForm',
+            'CryptoPolice\Cryptopolice\Components\TrainingTask'     => 'TrainingTask',
+            'CryptoPolice\Cryptopolice\Components\CustomUploader'   => 'CustomUploader',
         ];
     }
 
@@ -36,8 +36,11 @@ class Plugin extends PluginBase
 
     public function boot()
     {
+
         $this->extendUserModel();
         $this->extendUsersController();
+
+        // For registration form
 
         Event::listen('rainlab.user.beforeRegister', function () {
 
@@ -52,14 +55,18 @@ class Plugin extends PluginBase
 
             if (!preg_match('/[^a-zA-Z\d]/', $userPassword)) {
                 throw new ValidationException([
-                    'password' => 'Password should contain at least one letter character'
+                    'password' => 'Password should contain at least one special character'
                 ]);
             }
 
         });
 
+        // For login form
+
         Event::listen('rainlab.user.beforeAuthenticate', function () {
+
             Recaptcha::verifyCaptcha();
+
         });
 
     }

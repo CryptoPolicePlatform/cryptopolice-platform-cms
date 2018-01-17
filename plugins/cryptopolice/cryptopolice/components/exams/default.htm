@@ -17,7 +17,7 @@
                 <a data-request-flash data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
             {% endif %}
 
-            <span class="courses__num">#<b>{{exam.id}}</b></span>
+            <span class="courses__num">#<b>{{ loop.index }}</b></span>
             <span class="courses__title">{{exam.exam_title}}</span>
 
             {% set break = false %}

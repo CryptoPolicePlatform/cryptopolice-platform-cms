@@ -1,112 +1,86 @@
+{% set timer = ExamTask.fullTask.timer %}
+{% set examQuestions = ExamTask.fullTask.question|length %}
 
-                {% set timer = ExamTask.fullTask.timer %}
-                {% set examQuestions = ExamTask.fullTask.question|length %}
+<div class="content">
+    <div class="content__inner">
+        <div class="exam">
+            <div class="exam__inner">
 
+                <div class="exam__progress">
+                    <div id="qst_progress">Question 1/{{examQuestions}}</div>
+                    <div id="qst_progress-bar" class="exam__progress-bar">
+                        <span style="width: 10%;"></span>
+                    </div>
+                </div>
 
-                <div class="content">
-                    <div class="content__inner">
-                        <div class="exam">
-                            <div class="exam__inner">
-
-                                <div class="exam__progress">
-                                    <div id="qst_progress">Question 1/{{examQuestions}}</div>
-                                    <div id="qst_progress-bar" class="exam__progress-bar">
-                                        <span style="width: 10%;"></span>
-                                    </div>
-                                </div>
-
-
-                                <div id="question_slider">
-                                    {% for question in ExamTask.fullTask.question %}
-                                    {% set currentQuestion = loop.index %}
-                                    {% set totalQuestion = loop.length %}
-                                    <form data-request="onCheckQuestion"
-                                          data-read-flash
-                                          data-request-success="console.log(data); var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);"
-                                          data-request-data="id:{{currentQuestion}}"
-                                          id="exam_form_{{currentQuestion}}">
-                                        <div class="question">
-                                            <div class="question__header">
-                                                <div class="question__title">Test {{ExamTask.fullTask.id}}, <b>Question
-                                                    {{currentQuestion}} / {{totalQuestion}}</b></div>
-                                                <div class="question__text">
-                                                    <p>{{question.question_title | raw}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="question__answers">
-                                                {% for answer in question.answers %}
-                                                <div class="radio">
-                                                    <input class="radio__input" type="radio" name="question_title"
-                                                           id="option_{{currentQuestion}}_{{answer.answer_number}}"
-                                                           value="{{currentQuestion}}_{{answer.answer_number}}">
-                                                    <label class="radio__label"
-                                                           for="option_{{currentQuestion}}_{{answer.answer_number}}"
-                                                           id="ans_{{currentQuestion}}_{{answer.answer_number}}">
-                                                        {{answer.answer_title}}
-                                                    </label>
-                                                </div>
-                                                {%endfor%}
-                                            </div>
-                                        </div><!-- /.question -->
-                                        <input type="hidden" id="qst_num" value="{{currentQuestion}}">
-                                        <input type="hidden" id="qst_total_num" value="{{examQuestions}}">
-                                    </form>
-                                    {% endfor %}
-                                </div><!-- /#question_slider -->
-
-
-                                <div class="exam__timer">
-                                    <div>Time left <span id="timer" data-countdown="{{ExamTask.timer}}"></span> sec.
-                                    </div>
-                                    <div class="exam__timer-inner">
-                                        <div class="exam__timer-progress" id="timer-progress">
-                                            <span style="width: 0;" id="timer-bar"></span>
+                <div id="question_slider">
+                    {% for question in ExamTask.fullTask.question %}
+                        {% set currentQuestion = loop.index %}
+                        {% set totalQuestion = loop.length %}
+                            <form data-request="onCheckQuestion"
+                                  data-read-flash
+                                  data-request-success="var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);"
+                                  data-request-data="id:{{currentQuestion}}"
+                                  id="exam_form_{{currentQuestion}}">
+                                <div class="question">
+                                    <div class="question__header">
+                                        <div class="question__title">Test {{ExamTask.fullTask.id}}, <b>Question
+                                            {{currentQuestion}} / {{totalQuestion}}</b></div>
+                                        <div class="question__text">
+                                            <p>{{question.question_title | raw}}</p>
                                         </div>
                                     </div>
-
-                                    <a style="display: none;" data-request="onNextQuestion"
-                                       data-request-success="$( '.question__next' ).css('display','none');$( '.question__check' ).css('display','');"
-                                       class="btn question__next" id="next_question" href="#">next question</a>
-
-                                    <form data-request="onCompleteTask" class="question__complete"
-                                          data-request-success="console.log(data)">
-                                        <button class="btn">Complete Task</button>
-                                    </form>
-
-                                    <button class="btn question__check" id="current_question"
-                                            data-request="onClickQuestion"
-                                            data-request-flash data-request-success="
-                            var currentForm = $('#qst_num').val();
-                            var currentFormTotalQst = $('#qst_total_num').val();
-                            if(currentForm > 0) {
-                                $('#exam_form_' + currentForm).submit();
-                                $( '.question__next' ).css('display','');
-                                $( '.question__check' ).css('display','none');
-                            }
-                            if(currentFormTotalQst == currentForm) {
-                              $('.question__complete').css('display','block');
-                              $( '.question__check' ).css('display','none');
-                              $( '.question__next' ).css('display','none');
-                            }"
-                                            type="submit">Submit Answer
-                                    </button>
-                                </div>
-
-
-                                <div class="remodal" id="endtime_modal" role="dialog">
-                                    <div class="remodal__inner">
-                                        <div class="remodal__title">Scamer stole your money!</div>
-                                        <div class="remodal__text">Take it easy, its just a friedly joke.<br>You did not
-                                            answer in
-                                            time!
+                                    <div class="question__answers">
+                                        {% for answer in question.answers %}
+                                        <div class="radio">
+                                            <input class="radio__input" type="radio" name="question_title"
+                                                   id="option_{{currentQuestion}}_{{answer.answer_number}}"
+                                                   value="{{currentQuestion}}_{{answer.answer_number}}">
+                                            <label class="radio__label"
+                                                   for="option_{{currentQuestion}}_{{answer.answer_number}}"
+                                                   id="ans_{{currentQuestion}}_{{answer.answer_number}}">
+                                                {{answer.answer_title}}
+                                            </label>
                                         </div>
+                                        {%endfor%}
                                     </div>
-                                    <a class="btn" data-request="onCompleteTask" href="{{'exam'|page}}">exit and try
-                                        again</a>
-                                </div>
+                                </div><!-- /.question -->
+                                <input type="hidden" id="qst_num" value="{{currentQuestion}}">
+                                <input type="hidden" id="qst_total_num" value="{{examQuestions}}">
+                            </form>
+                    {% endfor %}
+                </div><!-- /#question_slider -->
 
+                <div class="exam__timer">
 
-                            </div><!-- /.exam__inner -->
-                        </div><!-- /.exam -->
-                    </div><!-- /.content__inner -->
-                </div><!-- /.content -->
+                    <div>Time left <span id="timer" data-countdown="{{ExamTask.timer}}"></span> sec.</div>
+
+                    <div class="exam__timer-inner">
+                        <div class="exam__timer-progress" id="timer-progress">
+                            <span style="width: 0;" id="timer-bar"></span>
+                        </div>
+                    </div>
+
+                    <a style="display: none;" data-request="onNextQuestion" data-request-success="$( '.question__next' ).css('display','none');$( '.question__check' ).css('display','');" class="btn question__next" id="next_question" href="#">next question</a>
+
+                    <form data-request="onCompleteTask" class="question__complete">
+                        <button class="btn">Complete Task</button>
+                    </form>
+
+                    <button class="btn question__check" id="current_question" data-request="onClickQuestion" data-request-flash data-request-success='var currentForm=$("#qst_num").val(),currentFormTotalQst=$("#qst_total_num").val();currentForm>0&&($("#exam_form_"+currentForm).submit(),$(".question__next").css("display",""),$(".question__check").css("display","none")),currentFormTotalQst==currentForm&&($(".question__complete").css("display","block"),$(".question__check").css("display","none"),$(".question__next").css("display","none"));' type="submit">
+                        Submit Answer
+                    </button>
+                </div>
+
+                <div class="remodal" id="endtime_modal" role="dialog">
+                    <div class="remodal__inner">
+                        <div class="remodal__title">Scamer stole your money!</div>
+                        <div class="remodal__text">Take it easy, its just a friedly joke.<br>You did not answer in time!
+                        </div>
+                    </div>
+                    <a class="btn" data-request="onCompleteTask" href="{{'exam'|page}}">exit and try again</a>
+                </div>
+            </div><!-- /.exam__inner -->
+        </div><!-- /.exam -->
+    </div><!-- /.content__inner -->
+</div><!-- /.content -->

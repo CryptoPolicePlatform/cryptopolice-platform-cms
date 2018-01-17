@@ -1,7 +1,6 @@
-{% set slug = __SELF__.slug %}
 {% set trainings = __SELF__.trainings %}
 
-{% if slug %}
+{% if this.params.slug %}
 
     <ul class="courses">
         {% for training in trainings %}

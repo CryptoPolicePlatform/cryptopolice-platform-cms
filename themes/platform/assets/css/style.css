@@ -762,6 +762,13 @@ th {
 .fa-telegram:before {
     content: "";
 }
+.fa-bitbucket:before {
+    content: "";
+}
+
+.fa-bitbucket-square:before {
+    content: "";
+}
 
 .sr-only {
     position: absolute;
