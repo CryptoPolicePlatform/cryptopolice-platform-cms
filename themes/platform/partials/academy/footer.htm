@@ -9,12 +9,12 @@
         <div class="footer__right">
             <div class="footer__social">
                 <span>Follow us</span>
-                <a href="https://www.facebook.com/CryptoPoliceOfficial" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                <a href="https://www.facebook.com/CryptoPoliceOfficial" target="_blank"><i
+                        class="fa fa-facebook-square"></i></a>
                 <a href="https://twitter.com/CryptoPolicecom" target="_blank"><i class="fa fa-twitter"></i></a>
                 <a href="https://t.me/cryptopolice" target="_blank"><i class="fa fa-telegram"></i></a>
-
-                <!-- TODO : Add bitbucket  / git icon -->
-                <a href="https://bitbucket.org/account/user/cunamiweb/projects/CP" target="_blank"><i class="fa fa-bitbucket"></i></a>
+                <a href="https://bitbucket.org/account/user/cunamiweb/projects/CP" target="_blank"><i
+                        class="fa fa-bitbucket"></i></a>
 
                 <a href="#" target="_blank"><i class="fa fa-bitcoin"></i></a>
                 <a href="#" target="_blank"><i class="fa fa-reddit-alien"></i></a>
@@ -23,3 +23,12 @@
 
     </div>
 </footer>
+
+{% if active is empty %}
+    <!--Hack with flash notification, remove text rendering before flash message -->
+    <div style="display:none;">
+        {% flash %}
+            <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+        {% endflash %}
+    </div>
+{% endif %}

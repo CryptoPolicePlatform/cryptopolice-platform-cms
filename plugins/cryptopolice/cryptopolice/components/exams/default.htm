@@ -1,47 +1,45 @@
 <ul class="courses">
     {% for exam in Exams.exams %}
-
-    <li class="courses__item">
-
-        {% set break = false %}
-
-            {% for score in Exams.scores if not break %}
-                {% if score.exam_id == exam.id %}
-                {% set break = true %}
-                <a data-request-flash data-request="onExamClick"
-                data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link watched">
-                {% endif %}
-            {% endfor %}
-
-            {% if not break %}
-                <a data-request-flash data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
-            {% endif %}
-
-            <span class="courses__num">#<b>{{exam.id}}</b></span>
-            <span class="courses__title">{{exam.exam_title}}</span>
+        <li class="courses__item">
 
             {% set break = false %}
-                {% for score in Exams.scores if not break %}
 
+                {% for score in Exams.scores if not break %}
                     {% if score.exam_id == exam.id %}
-                        {% set break = true %}
-                            {% if score.complete_status == 1 %}
-                            <span class="courses__score  in-progress"><span> {{score.score}}/{{ exam.question|length }}</span></span>
-                            {% else %}
-                            <span class="courses__score  in-progress"><span> In Progress </span></span>
-                            {% endif %}
+                    {% set break = true %}
+                    <a data-request-flash data-request="onExamClick"
+                    data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link watched">
                     {% endif %}
                 {% endfor %}
 
-            {% if not break %}
-            <span class="courses__score"><span> 0 / {{ exam.question|length }}</span></span>
-            {% endif %}
+                {% if not break %}
+                    <a data-request-flash data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
+                {% endif %}
 
-        </a>
-    </li>
+                <span class="courses__num">#<b>{{exam.id}}</b></span>
+                <span class="courses__title">{{exam.exam_title}}</span>
 
+                {% set break = false %}
+                    {% for score in Exams.scores if not break %}
+
+                        {% if score.exam_id == exam.id %}
+                            {% set break = true %}
+                                {% if score.complete_status == 1 %}
+                                <span class="courses__score  in-progress"><span> {{score.score}}/{{ exam.question|length }}</span></span>
+                                {% else %}
+                                <span class="courses__score  in-progress"><span> In Progress </span></span>
+                                {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                {% if not break %}
+                <span class="courses__score"><span> 0 / {{ exam.question|length }}</span></span>
+                {% endif %}
+
+            </a>
+        </li>
     {% else %}
-    <li><h4 class="content__title">Noting  here</h4></li>
+        <li class="courses__item"><h4 class="content__title">Noting here...</h4></li>
     {% endfor %}
 </ul>
 
