@@ -10,8 +10,8 @@ namespace CryptoPolice\CryptoPolice\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;
-// TODO:: nazvanie classov s bolsoj bukvi
-class customUploader extends ComponentBase
+
+class CustomUploader extends ComponentBase
 {
 
     public function componentDetails()
@@ -25,12 +25,14 @@ class customUploader extends ComponentBase
 
     function onInit()
     {
+
         $user = Auth::getUser();
-        if($user){
+
+        if ($user) {
             $component = $this->addComponent(
                 'NetSTI\Uploader\Components\ImageUploader',
                 'imageUploader',
-                ['modelClass'=>'RainLab\User\Models\User','modelKeyColumn'=>'avatar', 'deferredBinding' => false]
+                ['modelClass' => 'RainLab\User\Models\User', 'modelKeyColumn' => 'avatar', 'deferredBinding' => false]
             );
 
             $component->bindModel('avatar', $user);

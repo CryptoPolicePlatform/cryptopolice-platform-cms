@@ -9,6 +9,8 @@ use CryptoPolice\newAcademy\Models\Training;
 class TrainingsUnconfirmed extends ComponentBase
 {
 
+    public $trainingsUnc;
+
     public function componentDetails()
     {
         return [
@@ -16,22 +18,6 @@ class TrainingsUnconfirmed extends ComponentBase
             'description' => 'Training List of (Unconfirmed) tasks.'
         ];
     }
-
-    public function defineProperties()
-    {
-        return [
-            'max' => [
-                'description'       => 'The most amount of todo items allowed',
-                'title'             => 'Max items',
-                'default'           => 10,
-                'type'              => 'string',
-                'validationPattern' => '^[0-9]+$',
-                'validationMessage' => 'The Max Items value is required and should be integer.'
-            ]
-        ];
-    }
-
-    public $trainingsUnc;
 
     public function onRun() {
 

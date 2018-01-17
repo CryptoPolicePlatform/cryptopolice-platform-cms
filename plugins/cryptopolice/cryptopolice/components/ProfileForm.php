@@ -39,7 +39,8 @@ class ProfileForm extends ComponentBase
         $rules = [
             'eth_address' => 'min:42|max:42|unique:users',
         ];
-        $validator = Validator::make(['eth_address' => post('eth_address')], $rules);
+        $validator = Validator::make([
+            'eth_address' => post('eth_address')], $rules);
 
         if ($validator->fails()) {
 

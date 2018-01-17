@@ -8,6 +8,9 @@ use Cryptopolice\Cryptopolice\Models\TraningCategory as TraningCategory;
 class TrainingTask extends ComponentBase
 {
 
+    public $task;
+    public $categorySlug;
+
     public function componentDetails()
     {
         return [
@@ -15,23 +18,6 @@ class TrainingTask extends ComponentBase
             'description' => 'Training Task for officer.'
         ];
     }
-
-    public function defineProperties()
-    {
-        return [
-            'max' => [
-                'description' => 'The most amount of todo items allowed',
-                'title' => 'Max items',
-                'default' => 10,
-                'type' => 'string',
-                'validationPattern' => '^[0-9]+$',
-                'validationMessage' => 'The Max Items value is required and should be integer.'
-            ]
-        ];
-    }
-
-    public $task;
-    public $categorySlug;
 
     public function onAcceptTraining()
     {

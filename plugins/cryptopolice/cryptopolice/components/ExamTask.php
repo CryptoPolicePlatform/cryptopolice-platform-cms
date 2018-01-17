@@ -27,14 +27,6 @@ class ExamTask extends ComponentBase
         ];
     }
 
-
-    /**
-     * Complete current Exam Task
-     * - Get user identifier
-     * - Get task details from Cache
-     * - Update record
-     */
-
     public function onNextQuestion()
     {
         return true;
@@ -44,6 +36,14 @@ class ExamTask extends ComponentBase
     {
         return true;
     }
+
+
+    /**
+     * Complete current Exam Task
+     * - Get user identifier
+     * - Get task details from Cache
+     * - Update record
+     */
 
     public function onCompleteTask()
     {
@@ -100,7 +100,7 @@ class ExamTask extends ComponentBase
         $selectedAnswer = 0;
         $selectedQuestion = 0;
 
-        $user = $this->getUser();
+        $user = Auth::getUser();
         $selectedExam = $this->getSelectedExam();
 
         $userID = $user->id;
@@ -159,9 +159,7 @@ class ExamTask extends ComponentBase
     }
 
     /**
-     *
      * Start Officer Exam
-     *
      * - Get User identifier
      * - Prepare full task (questions + answers)
      * - Trying to verify if officer have completed previous exam
@@ -172,7 +170,7 @@ class ExamTask extends ComponentBase
     public function onRun()
     {
 
-        $user = $this->getUser();
+        $user = Auth::getUser();
         $selectedExam = $this->getSelectedExam();
 
         $userID = $user->id;
@@ -241,7 +239,7 @@ class ExamTask extends ComponentBase
 
                 // If interval less then retake time
                 if ($left < $selectedExam->retake_time) {
-                    Flash::error('You can retake your Exam again but you must wait!');
+                    Flash::error('You can retake your certification test again but you must wait!');
                     return Redirect::to('/exam');
                 }
             }
@@ -262,7 +260,7 @@ class ExamTask extends ComponentBase
                 ->first();
 
             // if there was no previous attempt, so will be the first
-            $try = $try->try ? $try->try + 1 : '1';
+            $try = isset($try->try) && !empty($try->try) ? $try->try + 1 : '1';
 
             // Adding information about the beginning of the exam
             FinalScore::insert([
@@ -279,25 +277,10 @@ class ExamTask extends ComponentBase
         $this->fullTask = $selectedExam;
     }
 
-    /**
-     * Officer Exam
-     * - Get Exam
-     * - Return single row or null
-     */
-
     public function getSelectedExam()
     {
         $slug = $this->param('slug');
         return Exam::where('exam_slug', $slug)->first();
-    }
-
-    /**
-     * Get UserID
-     */
-
-    public function getUser()
-    {
-        return Auth::getUser();
     }
 
 }

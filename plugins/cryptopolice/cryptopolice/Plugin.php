@@ -2,11 +2,14 @@
 
 use Auth;
 use Event;
+use Redirect;
 use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
+use RainLab\Notify\Classes\Notifier as Notifier;
 use RainLab\User\Controllers\Users as UsersController;
 use CryptoPolice\CryptoPolice\Components\Recaptcha as Recaptcha;
+use RainLab\User\NotifyRules\UserActivatedEvent as UserActivatedEvent;
 
 
 class Plugin extends PluginBase
@@ -25,7 +28,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Cryptopolice\Components\Trainings' => 'Trainings',
             'CryptoPolice\Cryptopolice\Components\ProfileForm' => 'ProfileForm',
             'CryptoPolice\Cryptopolice\Components\TrainingTask' => 'TrainingTask',
-            'CryptoPolice\Cryptopolice\Components\customUploader' => 'customUploader',
+            'CryptoPolice\Cryptopolice\Components\CustomUploader' => 'CustomUploader',
         ];
     }
 
@@ -36,6 +39,7 @@ class Plugin extends PluginBase
 
     public function boot()
     {
+
         $this->extendUserModel();
         $this->extendUsersController();
 
@@ -59,7 +63,9 @@ class Plugin extends PluginBase
         });
 
         Event::listen('rainlab.user.beforeAuthenticate', function () {
+
             Recaptcha::verifyCaptcha();
+
         });
 
     }
