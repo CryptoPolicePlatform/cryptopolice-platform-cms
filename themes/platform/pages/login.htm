@@ -38,15 +38,13 @@ forceSecure = 0
                     training system.
                 </p>
             </div>
-
-            {% if not user %}
-                {% component 'userLogin' %}
-            {% elseif active is not empty %}
-                <div class="content__title">
-                    Congratulations! You have successfully activated
-                </div>
-            {% endif %}
-
         </div>
+        {% if not user %}
+            {% component 'userLogin' %}
+        {% elseif active is not empty %}
+            <div class="content__title">
+                Congratulations! You have successfully activated
+            </div>
+        {% endif %}
     </div>
 </div>
