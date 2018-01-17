@@ -23,8 +23,8 @@ navigation:
                 url: cryptopolice/cryptopolice/trainings
                 icon: icon-slack
             side-menu-item:
-                label: 'Tranings category'
-                url: cryptopolice/cryptopolice/traningscategory
+                label: 'Trainings category'
+                url: cryptopolice/cryptopolice/trainingscategory
                 icon: icon-sitemap
     main-menu-item4:
         label: 'Final Results'

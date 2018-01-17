@@ -11,8 +11,8 @@ forceSecure = 0
 <?php
 
     function onStart() {
-
-        $this['active']  = isset($_GET['activate']) && !empty($_GET['activate']) ? $_GET['activate'] : '';
+        // TODO::
+        $this['active']  = get('activate');
 
         if(Auth::check()) {
            return Redirect::to('/academy');

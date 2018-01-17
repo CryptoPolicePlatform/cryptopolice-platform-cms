@@ -1,12 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: lenovo
- * Date: 18.11.1
- * Time: 11:44
- */
-
-namespace CryptoPolice\CryptoPolice\Components;
+<?php namespace CryptoPolice\CryptoPolice\Components;
 
 use Auth;
 use Flash;
@@ -35,10 +27,10 @@ class ProfileForm extends ComponentBase
 
         $user = Auth::getUser();
 
-
         $rules = [
             'eth_address' => 'min:42|max:42|unique:users',
         ];
+
         $validator = Validator::make([
             'eth_address' => post('eth_address')], $rules);
 
@@ -53,7 +45,5 @@ class ProfileForm extends ComponentBase
             $user->update(input());
             Flash::success('Profile has been successfully updated');
         }
-
     }
-
 }

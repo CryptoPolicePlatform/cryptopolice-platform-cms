@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('cryptopolice/cryptopolice/traningscategory') ?>">TraningsCategory</a></li>
+        <li><a href="<?= Backend::url('cryptopolice/cryptopolice/trainingscategory') ?>">TrainingsCategory</a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -42,7 +42,7 @@
                 </button>
 
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('cryptopolice/cryptopolice/traningscategory') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('cryptopolice/cryptopolice/trainingscategory') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -50,5 +50,5 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('cryptopolice/cryptopolice/traningscategory') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
+    <p><a href="<?= Backend::url('cryptopolice/cryptopolice/trainingscategory') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
 <?php endif ?>

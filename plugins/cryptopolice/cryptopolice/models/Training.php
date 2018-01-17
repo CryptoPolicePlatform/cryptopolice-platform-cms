@@ -23,7 +23,7 @@ class Training extends Model
 
     public $belongsTo = [
         'category' => [
-            'CryptoPolice\CryptoPolice\Models\TraningCategory',
+            'CryptoPolice\CryptoPolice\Models\TrainingCategory',
             'key' => 'category_id'
         ],
     ];

@@ -19,13 +19,13 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'CryptoPolice\Cryptopolice\Components\Exams' => 'Exams',
-            'CryptoPolice\Cryptopolice\Components\ExamTask' => 'ExamTask',
-            'CryptoPolice\Cryptopolice\Components\Recaptcha' => 'reCaptcha',
-            'CryptoPolice\Cryptopolice\Components\Trainings' => 'Trainings',
-            'CryptoPolice\Cryptopolice\Components\ProfileForm' => 'ProfileForm',
-            'CryptoPolice\Cryptopolice\Components\TrainingTask' => 'TrainingTask',
-            'CryptoPolice\Cryptopolice\Components\CustomUploader' => 'CustomUploader',
+            'CryptoPolice\Cryptopolice\Components\Exams'            => 'Exams',
+            'CryptoPolice\Cryptopolice\Components\ExamTask'         => 'ExamTask',
+            'CryptoPolice\Cryptopolice\Components\Recaptcha'        => 'reCaptcha',
+            'CryptoPolice\Cryptopolice\Components\Trainings'        => 'Trainings',
+            'CryptoPolice\Cryptopolice\Components\ProfileForm'      => 'ProfileForm',
+            'CryptoPolice\Cryptopolice\Components\TrainingTask'     => 'TrainingTask',
+            'CryptoPolice\Cryptopolice\Components\CustomUploader'   => 'CustomUploader',
         ];
     }
 
@@ -60,7 +60,6 @@ class Plugin extends PluginBase
             }
 
         });
-
 
         // For login form
 

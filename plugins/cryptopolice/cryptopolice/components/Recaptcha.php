@@ -1,18 +1,11 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: lenovo
- * Date: 18.11.1
- * Time: 11:44
- */
-
-namespace CryptoPolice\CryptoPolice\Components;
+<?php namespace CryptoPolice\CryptoPolice\Components;
 
 use ValidationException;
 use Cms\Classes\ComponentBase;
 
 class Recaptcha extends ComponentBase
 {
+
     public function componentDetails()
     {
         return [
@@ -31,7 +24,7 @@ class Recaptcha extends ComponentBase
 
         if ($captcha_success->success == false) {
             throw new ValidationException([
-                'recaptcha' =>'reCAPTCHA is not solved'
+                'recaptcha' => 'reCAPTCHA is not solved'
             ]);
         }
     }

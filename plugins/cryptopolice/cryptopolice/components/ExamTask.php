@@ -3,8 +3,8 @@
 use Auth;
 use Cache;
 use Flash;
-use DateTime;
 use Redirect;
+use DateTime;
 use DateInterval;
 use Cms\Classes\ComponentBase;
 use Illuminate\Support\Facades\Input;
@@ -27,136 +27,6 @@ class ExamTask extends ComponentBase
         ];
     }
 
-    public function onNextQuestion()
-    {
-        return true;
-    }
-
-    public function onClickQuestion()
-    {
-        return true;
-    }
-
-
-    /**
-     * Complete current Exam Task
-     * - Get user identifier
-     * - Get task details from Cache
-     * - Update record
-     */
-
-    public function onCompleteTask()
-    {
-
-        $user = Auth::getUser();
-        $selectedExam = $this->getSelectedExam();
-
-        $userID = $user->id;
-        $examID = $selectedExam->id;
-
-        // Get the number of the current attempt
-        $userTry = FinalScore::where('exam_id', $examID)
-            ->where('user_id', $userID)
-            ->where('complete_status', '0')
-            ->first();
-
-        $try = $userTry->try;
-
-        // get correct answers for current exam
-        $scores = Score::where('user_id', $userID)
-            ->where('try', $try)
-            ->where('exam_id', $examID)
-            ->where('is_correct', '1')
-            ->get();
-
-        $correctAnswers = sizeof($scores);
-
-        // Complete the current exam
-        FinalScore::where('user_id', $userID)
-            ->where('exam_id', $examID)
-            ->where('try', $try)
-            ->update([
-                'complete_status' => '1',
-                'score' => $correctAnswers,
-                'try' => $try,
-                'completed_at' => new DateTime('now')
-            ]);
-
-        return Redirect::to('/exam');
-    }
-
-
-    /**
-     * Check question "is correct?"
-     * - Get question ID
-     * - Get answer ID
-     * - Get user ID
-     * - Check if current question is correct?
-     * - Insert row
-     */
-
-    public function onCheckQuestion()
-    {
-        $selectedAnswer = 0;
-        $selectedQuestion = 0;
-
-        $user = Auth::getUser();
-        $selectedExam = $this->getSelectedExam();
-
-        $userID = $user->id;
-        $examID = $selectedExam->id;
-
-        // get from field question and selected answer
-        $questionID = Input::get('question_title');
-        if (!empty($questionID)) {
-            $data = explode("_", $questionID);
-            $selectedQuestion = $data[0] ? $data[0] : 0;
-            $selectedAnswer = $data[1] ? $data[1] : 0;
-        }
-
-        // Check the answer
-        foreach ($selectedExam['question'] as $key => $questions) {
-            if ($selectedQuestion == $key + 1) {
-                foreach ($questions['answers'] as $ansKey => $answer) {
-                    if ($selectedAnswer == $answer['answer_number']) {
-                        $answerCorrect = $answer['answer_correct'];
-                        $answerNumber = $answer['answer_number'];
-                    }
-                }
-            }
-        }
-
-        // get users try
-        $userTry = FinalScore::where('exam_id', $examID)
-            ->where('user_id', $userID)
-            ->where('complete_status', '0')
-            ->orderBy('created_at', 'desc')
-            ->first();
-
-        // Check for unique answer
-        $answeredQuestion = Score::where('exam_id', $examID)
-            ->where('user_id', $userID)
-            ->where('question_num', $selectedQuestion)
-            ->where('try', $userTry->try)
-            ->first();
-
-        // Insert new row if not unique
-        if (!$answeredQuestion) {
-            Score::insert([
-                'user_id' => $userID,
-                'exam_id' => $examID,
-                'answer_num' => $answerNumber,
-                'question_num' => $selectedQuestion,
-                'is_correct' => $answerCorrect,
-                'try' => $userTry->try,
-                'created_at' => new DateTime('now')
-            ]);
-        }
-
-        return [
-            $selectedQuestion, $selectedAnswer, $answerCorrect
-        ];
-    }
 
     /**
      * Start Officer Exam
@@ -173,18 +43,14 @@ class ExamTask extends ComponentBase
         $user = Auth::getUser();
         $selectedExam = $this->getSelectedExam();
 
-        $userID = $user->id;
-        $examID = $selectedExam->id;
-
         // Get the status of a non-finished exam
-        $currentExamStatus = FinalScore::where('exam_id', $examID)
-            ->where('user_id', $userID)
+        $currentExamStatus = FinalScore::where('exam_id', $selectedExam->id)
+            ->where('user_id', $user->id)
             ->where('complete_status', '0')
             ->first();
 
         // if non-finished exam
         if (($currentExamStatus)) {
-
             $now = new DateTime('now');
             $completeAt = new DateTime($currentExamStatus->completed_at);
 
@@ -194,16 +60,16 @@ class ExamTask extends ComponentBase
                 $try = $currentExamStatus->try;
 
                 // Get the number of correct answers from query
-                $scores = Score::where('user_id', $userID)
+                $scores = Score::where('user_id', $user->id)
                     ->where('try', $try)
-                    ->where('exam_id', $examID)
+                    ->where('exam_id', $selectedExam->id)
                     ->where('is_correct', '1')
                     ->get();
                 $correctAnsCounter = sizeof($scores);
 
                 // Complete the current exam
-                FinalScore::where('user_id', $userID)
-                    ->where('exam_id', $examID)
+                FinalScore::where('user_id', $user->id)
+                    ->where('exam_id', $selectedExam->id)
                     ->where('try', $try)
                     ->update([
                         'complete_status' => '1',
@@ -216,8 +82,8 @@ class ExamTask extends ComponentBase
         } else {
 
             // Get the previous passed exam
-            $previousPassedExam = FinalScore::where('exam_id', $examID)
-                ->where('user_id', $userID)
+            $previousPassedExam = FinalScore::where('exam_id', $selectedExam->id)
+                ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->first();
 
@@ -253,8 +119,8 @@ class ExamTask extends ComponentBase
             $completeAt->add(new DateInterval("PT{$selectedExam->timer}S"));
 
             // Get the number of the previous attempt
-            $try = FinalScore::where('exam_id', $examID)
-                ->where('user_id', $userID)
+            $try = FinalScore::where('exam_id', $selectedExam->id)
+                ->where('user_id', $user->id)
                 ->where('complete_status', '1')
                 ->orderBy('created_at', 'desc')
                 ->first();
@@ -266,8 +132,8 @@ class ExamTask extends ComponentBase
             FinalScore::insert([
                     'completed_at' => $completeAt,
                     'created_at' => $now,
-                    'exam_id' => $examID,
-                    'user_id' => $userID,
+                    'exam_id' => $selectedExam->id,
+                    'user_id' => $user->id,
                     'try' => $try
                 ]
             );
@@ -277,10 +143,135 @@ class ExamTask extends ComponentBase
         $this->fullTask = $selectedExam;
     }
 
+    public function onNextQuestion()
+    {
+        return true;
+    }
+
+    public function onClickQuestion()
+    {
+        return true;
+    }
+
+
+    /**
+     * Complete current Exam Task
+     * - Get user identifier
+     * - Get task details from Cache
+     * - Update record
+     */
+
+    public function onCompleteTask()
+    {
+
+        $user = Auth::getUser();
+        $selectedExam = $this->getSelectedExam();
+
+        // Get the number of the current attempt
+        $userTry = FinalScore::where('exam_id', $selectedExam->id)
+            ->where('user_id', $user->id)
+            ->where('complete_status', '0')
+            ->first();
+
+        $try = $userTry->try;
+
+        // get correct answers for current exam
+        $scores = Score::where('user_id', $user->id)
+            ->where('try', $try)
+            ->where('exam_id', $selectedExam->id)
+            ->where('is_correct', '1')
+            ->get();
+
+        $correctAnswers = sizeof($scores);
+
+        // Complete the current exam
+        FinalScore::where('user_id', $user->id)
+            ->where('exam_id', $selectedExam->id)
+            ->where('try', $try)
+            ->update([
+                'complete_status' => '1',
+                'score' => $correctAnswers,
+                'try' => $try,
+                'completed_at' => new DateTime('now')
+            ]);
+
+        return Redirect::to('/exam');
+    }
+
+
+    /**
+     * Check question "is correct?"
+     * - Get question ID
+     * - Get answer ID
+     * - Get user ID
+     * - Check if current question is correct?
+     * - Insert row
+     */
+
+    public function onCheckQuestion()
+    {
+        $selectedAnswer = 0;
+        $selectedQuestion = 0;
+
+        $user = Auth::getUser();
+        $selectedExam = $this->getSelectedExam();
+
+        // get from field question and selected answer
+        $questionID = Input::get('question_title');
+        if (!empty($questionID)) {
+            $data = explode("_", $questionID);
+            $selectedQuestion = $data[0] ? $data[0] : 0;
+            $selectedAnswer = $data[1] ? $data[1] : 0;
+        }
+
+        // Check the answer
+        foreach ($selectedExam['question'] as $key => $questions) {
+            if ($selectedQuestion == $key + 1) {
+                foreach ($questions['answers'] as $ansKey => $answer) {
+                    if ($selectedAnswer == $answer['answer_number']) {
+                        $answerCorrect = $answer['answer_correct'];
+                        $answerNumber = $answer['answer_number'];
+                    }
+                }
+            }
+        }
+
+        // get users try
+        $userTry = FinalScore::where('exam_id', $selectedExam->id)
+            ->where('user_id', $user->id)
+            ->where('complete_status', '0')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        // Check for unique answer
+        $answeredQuestion = Score::where('exam_id', $selectedExam->id)
+            ->where('user_id', $user->id)
+            ->where('question_num', $selectedQuestion)
+            ->where('try', $userTry->try)
+            ->first();
+
+        // Insert new row if not unique
+        if (!$answeredQuestion) {
+
+            Score::insert([
+                'created_at' => new DateTime('now'),
+                'question_num' => $selectedQuestion,
+                'is_correct' => $answerCorrect,
+                'answer_num' => $answerNumber,
+                'exam_id' => $selectedExam->id,
+                'user_id' => $user->id,
+                'try' => $userTry->try
+            ]);
+        }
+
+        return [
+            $selectedQuestion, $selectedAnswer, $answerCorrect
+        ];
+    }
+
     public function getSelectedExam()
     {
-        $slug = $this->param('slug');
-        return Exam::where('exam_slug', $slug)->first();
+        return Exam::where('exam_slug', $this->param('slug'))->first();
     }
 
 }

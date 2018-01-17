@@ -31,19 +31,14 @@ class Exams extends ComponentBase
 
     public function onRun()
     {
-
-        $examList = Exam::paginate(10);
-
         $user = Auth::getUser();
-        $userID = $user->id;
-
-        $userScores = FinalScore::where('user_id', $userID)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $examList = Exam::paginate(10);
 
         if ($examList) {
             $this->exams = $examList;
-            $this->scores = $userScores;
+            $this->scores = FinalScore::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
         } else {
             $this->exams = false;
         }
@@ -62,20 +57,16 @@ class Exams extends ComponentBase
 
         $user = Auth::getUser();
 
-        $userID = $user->id;
-        $examID = post('id');
-        $slug = post('slug');
+        $selectedExam = Exam::where('id', post('id'))->first();
 
-        $selectedExam = Exam::where('id', $examID)->first();
-
-        $selectedExamStatus = FinalScore::where('exam_id', $examID)
-            ->where('user_id', $userID)
+        $selectedExamStatus = FinalScore::where('exam_id', post('id'))
+            ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
         // if latest exam not passed
         if (isset($selectedExamStatus->complete_status) && ($selectedExamStatus->complete_status == '0')) {
-            return Redirect::to('/exam-task/' . $slug);
+            return Redirect::to('/exam-task/' . post('slug'));
         }
 
         // if can start new one
@@ -91,10 +82,10 @@ class Exams extends ComponentBase
                 Flash::error('You can retake your certification test again but you must wait! <br>' . $this->getDate($timeLeft));
 
             } else {
-                return Redirect::to('/exam-task/' . $slug);
+                return Redirect::to('/exam-task/' . post('slug'));
             }
         } else {
-            return Redirect::to('/exam-task/' . $slug);
+            return Redirect::to('/exam-task/' . post('slug'));
         }
     }
 

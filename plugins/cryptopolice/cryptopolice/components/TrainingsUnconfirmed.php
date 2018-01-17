@@ -4,7 +4,7 @@ use Auth;
 use Redirect;
 use Response;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\newAcademy\Models\Training;
+use CryptoPolice\CryptoPolice\Models\Training;
 
 class TrainingsUnconfirmed extends ComponentBase
 {
@@ -19,16 +19,11 @@ class TrainingsUnconfirmed extends ComponentBase
         ];
     }
 
-    public function onRun() {
-
-        $loggedIn = Auth::check();
-        if(!$loggedIn) {
-            return Redirect::to('/login');
-        }
-
+    public function onRun()
+    {
         $training = Training::where('status','=','0')->orderBy('likes','desc')->paginate(10);
        
-        if(!$training) {
+        if($training->isEmpty()) {
            return $this->controller->run('404');
         } else {
             $this->trainingsUnc = $training;

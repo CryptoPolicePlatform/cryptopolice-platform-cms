@@ -3,7 +3,7 @@
 use Flash;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\CryptoPolice\Models\Training;
-use Cryptopolice\Cryptopolice\Models\TraningCategory as TraningCategory;
+use Cryptopolice\Cryptopolice\Models\TrainingCategory as TrainingCategory;
 
 class TrainingTask extends ComponentBase
 {
@@ -19,25 +19,18 @@ class TrainingTask extends ComponentBase
         ];
     }
 
-    public function onAcceptTraining()
-    {
-        Flash::success('test');
-    }
-
     public function onRun()
     {
-
-        $slug = $this->param('slug');
-        $task = Training::where('slug', $slug)->first();
-
-        $categorySlug = TraningCategory::where('id', $task->category_id)->value('slug');
+        $task = Training::where('slug', $this->param('slug'))->first();
 
         if (!$task) {
             return $this->controller->run('404');
-        } else {
-            $this->task = $task;
-            $this->categorySlug = $categorySlug;
         }
+
+        $categorySlug = TrainingCategory::where('id', $task->category_id)->value('slug');
+
+        $this->task = $task;
+        $this->categorySlug = $categorySlug;
     }
 
 }
