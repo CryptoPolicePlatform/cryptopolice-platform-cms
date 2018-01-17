@@ -8,8 +8,8 @@ use Model;
 class TraningCategory extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
     use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Traits\Sortable;
 
     protected $dates = ['deleted_at'];
 

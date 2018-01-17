@@ -1,0 +1,4 @@
+title: TrainingsCategories
+modelClass: CryptoPolice\CryptoPolice\Models\TraningCategory
+toolbar:
+    buttons: reorder_toolbar

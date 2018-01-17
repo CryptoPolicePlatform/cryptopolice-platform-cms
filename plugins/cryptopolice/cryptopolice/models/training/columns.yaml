@@ -29,11 +29,6 @@ columns:
         type: number
         searchable: true
         sortable: true
-    description:
-        label: description
-        type: text
-        searchable: true
-        sortable: true
     status:
         label: status
         type: text

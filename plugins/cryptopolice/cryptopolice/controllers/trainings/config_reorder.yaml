@@ -1,4 +1,4 @@
 title: Trainings
-modelClass: Academy\CryptoPolice\Models\Training
+modelClass: CryptoPolice\CryptoPolice\Models\Training
 toolbar:
     buttons: reorder_toolbar

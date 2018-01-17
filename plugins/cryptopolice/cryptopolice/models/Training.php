@@ -2,14 +2,15 @@
 
 use Model;
 
+
 /**
  * Model
  */
 class Training extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
     use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Traits\Sortable;
 
     protected $dates = ['deleted_at'];
 

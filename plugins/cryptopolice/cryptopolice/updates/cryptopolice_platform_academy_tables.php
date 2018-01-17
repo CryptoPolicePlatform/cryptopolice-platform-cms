@@ -76,6 +76,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->integer('user_id')->default(0);
                 $table->boolean('status')->default(0);
                 $table->integer('likes')->default(0);
+                $table->integer('sort_order')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
@@ -91,7 +92,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->text('slug')->nullable();
                 $table->text('description')->nullable();
                 $table->integer('user_id')->default(0);
-                $table->integer('nest_left')->default(0);
+                $table->integer('sort_order')->default(0);
                 $table->boolean('status');
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
