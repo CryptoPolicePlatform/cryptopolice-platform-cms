@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class TraningsCategory extends Controller
+class TrainingsCategory extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
     

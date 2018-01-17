@@ -1,12 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: lenovo
- * Date: 18.12.1
- * Time: 12:33
- */
-
-namespace CryptoPolice\CryptoPolice\Components;
+<?php namespace CryptoPolice\CryptoPolice\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;

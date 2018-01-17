@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class TraningCategory extends Model
+class TrainingCategory extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
@@ -20,7 +20,7 @@ class TraningCategory extends Model
     ];
 
     public $hasMany = [
-        'Traning' => ['CryptoPolice\CryptoPolice\Models\Traning'],
+        'Training' => ['CryptoPolice\CryptoPolice\Models\Training'],
     ];
 
     /**
