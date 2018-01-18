@@ -1,0 +1,11 @@
+columns:
+    ID:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    reward_title:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true

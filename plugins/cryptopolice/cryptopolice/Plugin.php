@@ -26,6 +26,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Cryptopolice\Components\Trainings'        => 'Trainings',
             'CryptoPolice\Cryptopolice\Components\ProfileForm'      => 'ProfileForm',
             'CryptoPolice\Cryptopolice\Components\TrainingTask'     => 'TrainingTask',
+            'CryptoPolice\Cryptopolice\Components\UsersBounties'    => 'UsersBounties',
             'CryptoPolice\Cryptopolice\Components\CustomUploader'   => 'CustomUploader',
         ];
     }

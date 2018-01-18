@@ -1,7 +1,7 @@
 <?php namespace CryptoPolice\CryptoPolice\Controllers;
 
-use Backend\Classes\Controller;
 use BackendMenu;
+use Backend\Classes\Controller;
 
 class Exams extends Controller
 {

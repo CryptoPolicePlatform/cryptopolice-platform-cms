@@ -2,11 +2,10 @@
 
 use Model;
 
-class Training extends Model
+class Reward extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
-    use \October\Rain\Database\Traits\Sortable;
 
     protected $dates = ['deleted_at'];
 
@@ -16,17 +15,18 @@ class Training extends Model
     public $rules = [
     ];
 
-
+    /**
+     * @var array Relations
+     */
     public $belongsTo = [
-        'category' => [
-            'CryptoPolice\CryptoPolice\Models\TrainingCategory',
-            'key' => 'category_id'
+        'bounty_campaigns' => [
+            'CryptoPolice\CryptoPolice\Models\Bounty',
+            'key' => 'bounty_campaigns_id'
         ],
     ];
-
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cryptopolice_cryptopolice_trainings';
+    public $table = 'cryptopolice_cryptopolice_rewards';
 }

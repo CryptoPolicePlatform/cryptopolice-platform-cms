@@ -35,3 +35,8 @@ navigation:
         label: 'Bounty Campaigns'
         url: cryptopolice/cryptopolice/bounties
         icon: icon-dollar
+        sideMenu:
+            side-menu-item:
+                label: Rewards
+                url: cryptopolice/cryptopolice/rewards
+                icon: icon-star

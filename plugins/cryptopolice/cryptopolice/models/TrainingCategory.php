@@ -2,9 +2,6 @@
 
 use Model;
 
-/**
- * Model
- */
 class TrainingCategory extends Model
 {
     use \October\Rain\Database\Traits\Validation;
