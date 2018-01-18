@@ -1,0 +1,21 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    title:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Created At'
+        type: text
+        searchable: true
+        sortable: true
+    updated_at:
+        label: 'Updated At'
+        type: text
+        searchable: true
+        sortable: true

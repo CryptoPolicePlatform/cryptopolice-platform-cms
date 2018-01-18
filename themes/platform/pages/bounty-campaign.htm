@@ -1,0 +1,77 @@
+title = "Bounty Campaign"
+url = "/bounty-campaign/:slug?"
+layout = "platform"
+is_hidden = 0
+
+[Bounties]
+==
+<!-- Content -->
+<main class="content">
+    <div class="content__inner">
+
+        <div class="content__left">
+
+            <div class="breadcrumbs">
+                <a class="breadcrumbs__item" href="#">Home</a>
+                <span class="breadcrumbs__item  active">Bounty Campaign</span>
+            </div>
+
+
+            <div class="profile__sidebar">
+
+                <img class="profile__ava"
+                     src="http://newacademy.vladimirs.cunami.cloud/storage/app/uploads/public/5a5/f6b/1f4/5a5f6b1f453d8748782899.png"
+                     width="79" height="79" title="Avatar" alt="Avatar">
+
+                <div class="profile__name"> Vladimirs Vorobjovs</div>
+
+
+                <div class="profile__block">
+                    <p>Role: <b>Officer</b></p>
+                    <p>Balance: <b>3152 OFC</b></p>
+                </div>
+                <div class="profile__block">
+                    <p>Statistics:</p>
+
+                    <div class="profile__block-item">
+                        <p>Total reviewed issues: <b>231</b></p>
+                        <div class="profile__stat">
+                            <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db"
+                                 data-empty="#c6bbec" data-value="0.75" data-size="60" data-thickness="10">
+                                <canvas width="60" height="60"></canvas>
+                            </div>
+
+                            <ul class="profile__stat-list">
+                                <li class="purple">Approved: <b>117</b></li>
+                                <li class="light-purple">Declined: <b>5</b></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="profile__block-item">
+                        <p>Total reviewed projects: <b>12</b></p>
+                        <div class="profile__stat">
+                            <div class="stat__pie  stat__pie--big" data-circle="" data-color="#48cdd0"
+                                 data-empty="#a3e6e7" data-value="0.50" data-size="60" data-thickness="10">
+                                <canvas width="60" height="60"></canvas>
+                            </div>
+
+                            <ul class="profile__stat-list">
+                                <li class="teal">Approved: <b>8</b></li>
+                                <li class="light-teal">Declined: <b>8</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            
+                    {% component 'Bounties' %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

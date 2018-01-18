@@ -1,0 +1,144 @@
+<div class="profile__content">
+    {% if this.param.slug %}
+        <div class="grid__col  w3">
+            <div class="breadcrumbs">
+                <span class="breadcrumbs__item  active"> {{ this.param.slug }} </span>
+            </div>
+            <form action="" data-request-success="console.log(data)" data-request="onAdd">
+                <div class="form__group">
+                    <input class="input" type="text" name="title" placeholder="Default">
+                </div>
+                <div class="form__group">
+                    <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
+                </div>
+                <div class="form__group">
+                    <button class="btn  btn--gpink" type="button">add new</button>
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="content__block">
+            <div class="content__block">
+                <h3 class="content__title">New </h3>
+
+                <div class="issues">
+
+                    <div class="issues__item  issues__item--history">
+                        <div class="issues__type">Twitter</div>
+                        <div class="issues__title">Retweets on Twitter</div>
+                        <div class="issues__view">
+                            <a href="#">View details</a>
+                        </div>
+                        <div class="issues__amount">
+                            <span class="text-orange">-</span>
+                        </div>
+                        <div class="issues__status  issues__status--big  issues__status--orange">
+                            <span>pending</span>
+                        </div>
+                    </div>
+
+                    <div class="issues__item  issues__item--history">
+                        <div class="issues__type">FB</div>
+                        <div class="issues__title">Like and share group</div>
+                        <div class="issues__view">
+                            <a href="#">View details</a>
+                        </div>
+                        <div class="issues__amount">
+                            <span class="text-orange">-</span>
+                        </div>
+                        <div class="issues__status  issues__status--big  issues__status--orange">
+                            <span>pending</span>
+                        </div>
+                    </div>
+
+                    <div class="issues__item  issues__item--history">
+                        <div class="issues__type">FB</div>
+                        <div class="issues__title">Repost announcement</div>
+                        <div class="issues__view">
+                            <a href="#">View details</a>
+                        </div>
+                        <div class="issues__amount">
+                            <span class="text-orange">-</span>
+                        </div>
+                        <div class="issues__status  issues__status--big  issues__status--orange">
+                            <span>pending</span>
+                        </div>
+                    </div>
+
+                    <div class="issues__item  issues__item--history">
+                        <div class="issues__type">Bug</div>
+                        <div class="issues__title">Bug in smart contract</div>
+                        <div class="issues__view">
+                            <a href="#">View details</a>
+                        </div>
+                        <div class="issues__amount">
+                            <span class="text-orange">-</span>
+                        </div>
+                        <div class="issues__status  issues__status--big  issues__status--orange">
+                            <span>pending</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="content__block">
+            <h3 class="content__title">Bounty history</h3>
+
+            <div class="issues">
+                <div class="issues__item  issues__item--history">
+                    <div class="issues__type">FB</div>
+                    <div class="issues__title">Phishing of site Exchange.com</div>
+                    <div class="issues__view">
+                        <a href="#">View status</a>
+                    </div>
+                    <div class="issues__amount">
+                        <span class="text-green">+ 75 OFC</span>
+                    </div>
+                    <div class="issues__status  issues__status--big  issues__status--green">
+                        <span>approved</span>
+                    </div>
+                </div>
+
+                <div class="issues__item  issues__item--history">
+                    <div class="issues__type">FB</div>
+                    <div class="issues__title">Phishing of site Exchange.com</div>
+                    <div class="issues__view">
+                        <a href="#">View status</a>
+                    </div>
+                    <div class="issues__amount">
+                        <span class="text-green">+ 75 OFC</span>
+                    </div>
+                    <div class="issues__status  issues__status--big  issues__status--green">
+                        <span>approved</span>
+                    </div>
+                </div>
+
+                <div class="issues__item  issues__item--history">
+                    <div class="issues__type">BT</div>
+                    <div class="issues__title">Phishing of site Exchange.com</div>
+                    <div class="issues__view">
+                        <a href="#">View status</a>
+                    </div>
+                    <div class="issues__amount">
+                        <span class="text-gray">0 OFC</span>
+                    </div>
+                    <div class="issues__status  issues__status--big  issues__status--gray">
+                        <span>disaproved</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<div class="content__sidebar">
+    <div class="btn__group">
+        {% for bounty in Bounties.bounty %}
+        <a class="btn  btn--black  btn--partner"
+           href="{{'bounty-campaign'|page({slug: bounty.slug})}}">{{bounty.title}}</a>
+        {% endfor %}
+    </div>
+</div>
