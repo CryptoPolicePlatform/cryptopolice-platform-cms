@@ -142,6 +142,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->integer('given_reward')->default(0);
                 $table->boolean('status')->default(0);
                 $table->text('description')->nullable();
+                $table->string('title', 255)->nullable();
                 $table->string('comment', 255)->nullable();
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();

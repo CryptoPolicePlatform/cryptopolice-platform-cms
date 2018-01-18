@@ -40,3 +40,7 @@ navigation:
                 label: Rewards
                 url: cryptopolice/cryptopolice/rewards
                 icon: icon-star
+            side-menu-item2:
+                label: 'Bounty Users'
+                url: cryptopolice/cryptopolice/bountyusers
+                icon: icon-ticket
