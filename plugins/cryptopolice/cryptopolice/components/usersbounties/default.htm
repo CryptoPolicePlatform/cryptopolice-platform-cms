@@ -1,26 +1,28 @@
-{% set bountyList = __SELF__.usersBounty %}
+{% set bountyList = __SELF__.usersBounties %}
 
 
 <div class="content__block">
     <div class="content__block">
-        <h3 class="content__title">New </h3>
+        <h3 class="content__title">Bounty New </h3>
 
         <div class="issues">
 
             {% for bounty in bountyList %}
-                <div class="issues__item  issues__item--history">
-                    <div class="issues__type">Twitter</div>
-                    <div class="issues__title"> {{ bounty.title }}</div>
-                    <div class="issues__view">
-                        <a href="#">View details</a>
-                    </div>
-                    <div class="issues__amount">
-                        <span class="text-orange">-</span>
-                    </div>
-                    <div class="issues__status  issues__status--big  issues__status--orange">
-                        <span>pending</span>
-                    </div>
+            {% if bounty.status == 0 %}
+            <div class="issues__item  issues__item--history">
+                <div class="issues__type">Twitter</div>
+                <div class="issues__title"> {{ bounty.title }}</div>
+                <div class="issues__view">
+                    <a href="#">View details</a>
                 </div>
+                <div class="issues__amount">
+                    <span class="text-orange">-</span>
+                </div>
+                <div class="issues__status  issues__status--big  issues__status--orange">
+                    <span>pending</span>
+                </div>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -30,47 +32,36 @@
     <h3 class="content__title">Bounty history</h3>
 
     <div class="issues">
-        <div class="issues__item  issues__item--history">
-            <div class="issues__type">FB</div>
-            <div class="issues__title">Phishing of site Exchange.com</div>
-            <div class="issues__view">
-                <a href="#">View status</a>
-            </div>
-            <div class="issues__amount">
-                <span class="text-green">+ 75 OFC</span>
-            </div>
-            <div class="issues__status  issues__status--big  issues__status--green">
-                <span>approved</span>
-            </div>
-        </div>
 
-        <div class="issues__item  issues__item--history">
-            <div class="issues__type">FB</div>
-            <div class="issues__title">Phishing of site Exchange.com</div>
-            <div class="issues__view">
-                <a href="#">View status</a>
-            </div>
-            <div class="issues__amount">
-                <span class="text-green">+ 75 OFC</span>
-            </div>
-            <div class="issues__status  issues__status--big  issues__status--green">
-                <span>approved</span>
-            </div>
-        </div>
+        {% for bounty in bountyList %}
+            {% if bounty.status != 0 %}
+                <div class="issues__item  issues__item--history">
+                    <div class="issues__type">{{ bounty.bounty_title }}</div>
+                    <div class="issues__title"> {{ bounty.title }}</div>
+                    <div class="issues__view">
+                        <a href="#">View details</a>
+                    </div>
+                    <div class="issues__amount">
+                        <span class="text-orange">
+                            {% if bounty.given_reward %} {{ bounty.given_reward }} {% else %} 0 {% endif %}
+                        </span>
+                    </div>
 
-        <div class="issues__item  issues__item--history">
-            <div class="issues__type">BT</div>
-            <div class="issues__title">Phishing of site Exchange.com</div>
-            <div class="issues__view">
-                <a href="#">View status</a>
-            </div>
-            <div class="issues__amount">
-                <span class="text-gray">0 OFC</span>
-            </div>
-            <div class="issues__status  issues__status--big  issues__status--gray">
-                <span>disaproved</span>
-            </div>
-        </div>
 
+                    {% if bounty.status == 1 %}
+                    <div class="issues__status  issues__status--big  issues__status--green">
+                        <span>approved</span>
+                    </div>
+                    {% endif %}
+
+                    {% if bounty.status == 2 %}
+                    <div class="issues__status  issues__status--big  issues__status--gray">
+                        <span>disaproved</span>
+                    </div>
+                    {% endif %}
+
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 </div>

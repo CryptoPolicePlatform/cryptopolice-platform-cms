@@ -6,13 +6,25 @@ is_hidden = 0
 [Bounties]
 [UsersBounties]
 ==
+
+{% set bountyCampaignTile = "" %}
+{% for bounty in Bounties.bounty %}
+    {% if bounty.slug == this.param.slug %}
+        {% set bountyCampaignTile = bounty.title %}
+            {{ bounty.title }}
+    {% endif %}
+{% endfor %}
+
 <!-- Content -->
 <main class="content">
     <div class="content__inner">
         <div class="content__left">
             <div class="breadcrumbs">
                 <a class="breadcrumbs__item" href="#">Home</a>
-                <span class="breadcrumbs__item  active">Bounty Campaign</span>
+                <a class="breadcrumbs__item" href="{{'bounty-campaign'|page({slug : ''})}}"><span class="breadcrumbs__item  active">Bounty</span></a>
+                {% if bountyCampaignTile is not empty %}
+                    <span class="breadcrumbs__item  active">{{bountyCampaignTile}}</span>
+                {% endif %}
             </div>
 
             <div class="profile__sidebar">
@@ -60,24 +72,35 @@ is_hidden = 0
 
             <div class="profile__content">
 
-                {% if this.param.slug %}
-                    <div class="grid__col  w3">
-                        <div class="breadcrumbs">
-                            <span class="breadcrumbs__item  active"> {{ this.param.slug }} </span>
+                {% set flag = true %}
+
+                {% for bounty in Bounties.bounty %}
+                    {% if bounty.slug == this.param.slug %}
+                        <div class="grid__col  w6">
+                            <div class="breadcrumbs">
+                                <span class="breadcrumbs__item  active"> {{ bounty.title }} </span>
+                            </div>
+                            <div class="card  mb-15">
+                                <p>{{ bounty.description|raw}}</p>
+                            </div>
+                            <form action="" data-request-success="console.log(data)" data-request="onAdd">
+                                <div class="form__group">
+                                    <input class="input" type="text" name="title" placeholder="Default">
+                                </div>
+                                <div class="form__group">
+                                    <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
+                                </div>
+                                <div class="form__group">
+                                    <button class="btn  btn--gpink" type="button">add new</button>
+                                    <a class="btn  btn--gpink" href="{{'bounty-campaign'|page({slug : ''})}}">back</a>
+                                </div>
+                            </form>
                         </div>
-                        <form action="" data-request-success="console.log(data)" data-request="onAdd">
-                            <div class="form__group">
-                                <input class="input" type="text" name="title" placeholder="Default">
-                            </div>
-                            <div class="form__group">
-                                <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
-                            </div>
-                            <div class="form__group">
-                                <button class="btn  btn--gpink" type="button">add new</button>
-                            </div>
-                        </form>
-                    </div>
-                {% else %}
+                        {% set flag = false %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if flag == true %}
                     {% component 'UsersBounties' %}
                 {% endif %}
             </div>

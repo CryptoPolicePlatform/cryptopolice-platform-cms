@@ -18,7 +18,7 @@ class Bounties extends ComponentBase
 
     public function onRun()
     {
-        $this->bounty = Bounty::get();
+        $this->bounty = Bounty::where('status', 1)->get();
     }
 
 }

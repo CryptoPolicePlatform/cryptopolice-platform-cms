@@ -210,6 +210,9 @@ class ExamTask extends ComponentBase
 
     public function onCheckQuestion()
     {
+        $answerNumber = 0;
+        $answerCorrect = 0;
+
         $selectedAnswer = 0;
         $selectedQuestion = 0;
 

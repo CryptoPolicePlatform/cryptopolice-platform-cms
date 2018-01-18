@@ -69,6 +69,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
             });
         }
 
+
         if (!Schema::hasTable('cryptopolice_cryptopolice_trainings')) {
 
             Schema::create('cryptopolice_cryptopolice_trainings', function ($table) {
@@ -97,8 +98,8 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->string('slug', 255)->nullable();
                 $table->text('description')->nullable();
                 $table->integer('user_id')->default(0);
-                $table->integer('sort_order')->default(0);
                 $table->boolean('status');
+                $table->integer('sort_order')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
@@ -176,28 +177,28 @@ class CryptoPolicePlatformAcademyTables extends Migration
          * Academy tables
          */
 
-        Schema::dropIfExists('cryptopolice_cryptopolice_trainings_category');
-        Schema::dropIfExists('cryptopolice_cryptopolice_final_exam_score');
-        Schema::dropIfExists('cryptopolice_cryptopolice_trainings');
-        Schema::dropIfExists('cryptopolice_cryptopolice_scores');
-        Schema::dropIfExists('cryptopolice_cryptopolice_exams');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_trainings_category');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_final_exam_score');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_trainings');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_scores');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_exams');
 
         /*
          * Bounty tables
          */
 
-        Schema::dropIfExists('cryptopolice_cryptopolice_bounty_campaigns');
-        Schema::dropIfExists('cryptopolice_cryptopolice_bounty_users');
-        Schema::dropIfExists('cryptopolice_cryptopolice_rewards');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_bounty_campaigns');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_bounty_users');
+        // Schema::dropIfExists('cryptopolice_cryptopolice_rewards');
 
         /*
          * Bounty tables
          */
 
-        if (Schema::hasTable('users')) {
-            Schema::table('users', function ($table) {
-                $table->dropColumn(['eth_address']);
-            });
-        }
+        // if (Schema::hasTable('users')) {
+        //     Schema::table('users', function ($table) {
+        //         $table->dropColumn(['eth_address']);
+        //     });
+        // }
     }
 }
