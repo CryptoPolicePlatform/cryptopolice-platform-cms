@@ -20,6 +20,16 @@ class FinalScore extends Model
     ];
 
     /**
+     * @var array Relations
+     */
+    public $belongsTo = [
+        'Exam' => [
+            'CryptoPolice\CryptoPolice\Models\Exam',
+            'key' => 'exam_id'
+        ],
+    ];
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'cryptopolice_cryptopolice_final_exam_score';
