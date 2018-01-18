@@ -21,10 +21,6 @@ class Trainings extends ComponentBase
         ];
     }
 
-    public function defineProperties()
-    {
-    }
-
     public function onRun()
     {
         $this->slug = $slug = $this->param('slug');
