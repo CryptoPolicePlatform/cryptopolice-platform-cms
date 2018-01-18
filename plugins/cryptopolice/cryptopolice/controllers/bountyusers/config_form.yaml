@@ -1,0 +1,10 @@
+name: BountyUsers
+form: $/cryptopolice/cryptopolice/models/bountyuser/fields.yaml
+modelClass: CryptoPolice\CryptoPolice\Models\BountyUser
+defaultRedirect: cryptopolice/cryptopolice/bountyusers
+create:
+    redirect: 'cryptopolice/cryptopolice/bountyusers/update/:id'
+    redirectClose: cryptopolice/cryptopolice/bountyusers
+update:
+    redirect: cryptopolice/cryptopolice/bountyusers
+    redirectClose: cryptopolice/cryptopolice/bountyusers

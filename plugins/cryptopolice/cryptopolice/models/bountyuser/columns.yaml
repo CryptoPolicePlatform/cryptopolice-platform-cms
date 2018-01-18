@@ -1,0 +1,21 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    status:
+        label: Status
+        type: text
+        searchable: true
+        sortable: true
+    given_reward:
+        label: 'Given Reward'
+        type: text
+        searchable: true
+        sortable: true
+    comment:
+        label: Comment
+        type: text
+        searchable: true
+        sortable: true
