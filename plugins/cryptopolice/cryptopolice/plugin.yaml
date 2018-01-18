@@ -9,10 +9,6 @@ navigation:
         label: Exams
         url: cryptopolice/cryptopolice/exams
         icon: icon-graduation-cap
-    main-menu-item2:
-        label: Scores
-        url: cryptopolice/cryptopolice/scores
-        icon: icon-area-chart
     main-menu-item3:
         label: Trainings
         url: cryptopolice/cryptopolice/trainings
@@ -30,3 +26,12 @@ navigation:
         label: 'Final Results'
         url: cryptopolice/cryptopolice/finalscores
         icon: icon-star-o
+        sideMenu:
+            side-menu-item:
+                label: Scores
+                url: cryptopolice/cryptopolice/scores
+                icon: icon-spinner
+    main-menu-item5:
+        label: 'Bounty Campaigns'
+        url: cryptopolice/cryptopolice/bounties
+        icon: icon-dollar

@@ -20,6 +20,7 @@ class Plugin extends PluginBase
     {
         return [
             'CryptoPolice\Cryptopolice\Components\Exams'            => 'Exams',
+            'CryptoPolice\Cryptopolice\Components\Bounties'         => 'Bounties',
             'CryptoPolice\Cryptopolice\Components\ExamTask'         => 'ExamTask',
             'CryptoPolice\Cryptopolice\Components\Recaptcha'        => 'reCaptcha',
             'CryptoPolice\Cryptopolice\Components\Trainings'        => 'Trainings',

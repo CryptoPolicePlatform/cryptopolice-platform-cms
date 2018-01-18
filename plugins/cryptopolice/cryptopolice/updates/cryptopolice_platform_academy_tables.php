@@ -190,7 +190,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
         Schema::dropIfExists('cryptopolice_cryptopolice_rewards');
 
         /*
-         * User tables
+         * Bounty tables
          */
 
         if (Schema::hasTable('users')) {
