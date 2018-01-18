@@ -9,8 +9,13 @@ class CryptoPolicePlatformAcademyTables extends Migration
     /*
      * CryptoPolice Academy Tables
      */
+
     public function up()
     {
+
+        /*
+         * Academy tables
+         */
 
         if (!Schema::hasTable('cryptopolice_cryptopolice_exams')) {
 
@@ -38,12 +43,12 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->integer('user_id')->default(0);
                 $table->integer('exam_id')->default(0);
                 $table->integer('score')->default(0);
-                $table->timestamp('created_at')->nullable();
-                $table->timestamp('updated_at')->nullable();
-                $table->timestamp('deleted_at')->nullable();
                 $table->dateTime('completed_at');
                 $table->boolean('complete_status')->default(0);
                 $table->integer('try')->default(0);
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
             });
         }
 
@@ -69,8 +74,8 @@ class CryptoPolicePlatformAcademyTables extends Migration
             Schema::create('cryptopolice_cryptopolice_trainings', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
-                $table->string('title')->nullable();
-                $table->string('slug')->nullable();
+                $table->string('title', 255)->nullable();
+                $table->string('slug', 255)->nullable();
                 $table->integer('category_id')->nullable();
                 $table->text('description')->nullable();
                 $table->integer('user_id')->default(0);
@@ -88,8 +93,8 @@ class CryptoPolicePlatformAcademyTables extends Migration
             Schema::create('cryptopolice_cryptopolice_trainings_category', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
-                $table->text('title')->nullable();
-                $table->text('slug')->nullable();
+                $table->string('title', 255)->nullable();
+                $table->string('slug', 255)->nullable();
                 $table->text('description')->nullable();
                 $table->integer('user_id')->default(0);
                 $table->integer('sort_order')->default(0);
@@ -106,15 +111,87 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->string('eth_address', 42)->nullable()->unique();
             });
         }
+
+        /*
+         * Bounty tables
+         */
+
+        if (!Schema::hasTable('cryptopolice_cryptopolice_bounty_campaigns')) {
+
+            Schema::create('cryptopolice_cryptopolice_bounty_campaigns', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->unsigned();
+                $table->string('title', 255)->nullable();
+                $table->string('slug', 255)->nullable();
+                $table->text('description')->nullable();
+                $table->boolean('status')->default(0);
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
+            });
+        }
+
+        if (!Schema::hasTable('cryptopolice_cryptopolice_bounty_users')) {
+
+            Schema::create('cryptopolice_cryptopolice_bounty_users', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->unsigned();
+                $table->integer('user_id')->default(0);
+                $table->integer('rewards_id')->default(0);
+                $table->integer('bounty_campaigns_id')->default(0);
+                $table->integer('given_reward')->default(0);
+                $table->boolean('status')->default(0);
+                $table->text('description')->nullable();
+                $table->string('comment', 255)->nullable();
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
+
+            });
+        }
+
+        if (!Schema::hasTable('cryptopolice_cryptopolice_rewards')) {
+
+            Schema::create('cryptopolice_cryptopolice_rewards', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->unsigned();
+                $table->integer('bounty_campaigns_id')->default(0);
+                $table->string('reward_title', 255)->nullable();
+                $table->string('reward_description', 255)->nullable();
+                $table->boolean('reward_type', 255)->default(0);
+                $table->integer('reward_amount')->default(0);
+                $table->boolean('status')->default(0);
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
+            });
+        }
     }
 
     public function down()
     {
-        Schema::dropIfExists('cryptopolice_cryptopolice_exams');
-        Schema::dropIfExists('cryptopolice_cryptopolice_final_exam_score');
-        Schema::dropIfExists('cryptopolice_cryptopolice_scores');
-        Schema::dropIfExists('cryptopolice_cryptopolice_trainings');
+
+        /*
+         * Academy tables
+         */
+
         Schema::dropIfExists('cryptopolice_cryptopolice_trainings_category');
+        Schema::dropIfExists('cryptopolice_cryptopolice_final_exam_score');
+        Schema::dropIfExists('cryptopolice_cryptopolice_trainings');
+        Schema::dropIfExists('cryptopolice_cryptopolice_scores');
+        Schema::dropIfExists('cryptopolice_cryptopolice_exams');
+
+        /*
+         * Bounty tables
+         */
+
+        Schema::dropIfExists('cryptopolice_cryptopolice_bounty_campaigns');
+        Schema::dropIfExists('cryptopolice_cryptopolice_bounty_users');
+        Schema::dropIfExists('cryptopolice_cryptopolice_rewards');
+
+        /*
+         * User tables
+         */
 
         if (Schema::hasTable('users')) {
             Schema::table('users', function ($table) {
