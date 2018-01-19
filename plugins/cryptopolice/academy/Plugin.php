@@ -20,13 +20,11 @@ class Plugin extends PluginBase
     {
         return [
             'CryptoPolice\Academy\Components\Exams'            => 'Exams',
-            'CryptoPolice\Academy\Components\Bounties'         => 'Bounties',
             'CryptoPolice\Academy\Components\ExamTask'         => 'ExamTask',
             'CryptoPolice\Academy\Components\Recaptcha'        => 'reCaptcha',
             'CryptoPolice\Academy\Components\Trainings'        => 'Trainings',
             'CryptoPolice\Academy\Components\ProfileForm'      => 'ProfileForm',
             'CryptoPolice\Academy\Components\TrainingTask'     => 'TrainingTask',
-            'CryptoPolice\Academy\Components\UsersBounties'    => 'UsersBounties',
             'CryptoPolice\Academy\Components\CustomUploader'   => 'CustomUploader',
         ];
     }

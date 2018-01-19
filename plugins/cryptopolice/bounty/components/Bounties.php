@@ -1,7 +1,7 @@
-<?php namespace CryptoPolice\CryptoPolice\Components;
+<?php namespace CryptoPolice\Bounty\Components;
 
 use Cms\Classes\ComponentBase;
-use CryptoPolice\CryptoPolice\Models\Bounty;
+use CryptoPolice\Bounty\Models\Bounty;
 
 class Bounties extends ComponentBase
 {
@@ -21,7 +21,4 @@ class Bounties extends ComponentBase
         $this->bounty = Bounty::where('status', 1)->orderBy('sort_order', 'asc')->get();
     }
 
-    public function onAddMessage() {
-        Flash::error('test');
-    }
 }
