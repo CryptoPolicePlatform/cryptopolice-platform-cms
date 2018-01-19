@@ -1,0 +1,6 @@
+plugin:
+    name: 'cryptopolice.platform::lang.plugin.name'
+    description: 'cryptopolice.platform::lang.plugin.description'
+    author: CryptoPolice
+    icon: oc-icon-adjust
+    homepage: ''
