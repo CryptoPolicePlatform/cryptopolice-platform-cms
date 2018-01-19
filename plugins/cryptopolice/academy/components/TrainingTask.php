@@ -3,7 +3,7 @@
 use Flash;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Academy\Models\Training;
-use Academy\Academy\Models\TrainingCategory as TrainingCategory;
+use CryptoPolice\Academy\Models\TrainingCategory as TrainingCategory;
 
 class TrainingTask extends ComponentBase
 {
