@@ -2,8 +2,10 @@
 
 use Auth;
 use Flash;
+use Validator;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\CryptoPolice\Models\BountyUser;
+use CryptoPolice\CryptoPolice\Models\BountyUser as BountyUser;;
+use CryptoPolice\CryptoPolice\Components\UsersBounties;
 
 class UsersBounties extends ComponentBase
 {
@@ -27,5 +29,38 @@ class UsersBounties extends ComponentBase
             ->join('cryptopolice_cryptopolice_bounty_campaigns', 'cryptopolice_cryptopolice_bounty_users.bounty_campaigns_id', '=', 'cryptopolice_cryptopolice_bounty_campaigns.id')
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+
+    public function onAddMessage() {
+
+        $user = Auth::getUser();
+
+        $rules = [
+            'title' => 'required',
+            'description' => 'required',
+        ];
+
+        $validator = Validator::make(post(), $rules);
+
+        if ($validator->fails()) {
+
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                Flash::error($message);
+            }
+
+        } else {
+
+            BountyUser::insert([
+                    'description' => post('description'),
+                    'bounty_campaigns_id' => post('id'),
+                    'title' => post('title'),
+                    'user_id' => $user->id,
+                    'status' => 0,
+                ]
+            );
+
+            Flash::success('Report successfully sent');
+        }
     }
 }
