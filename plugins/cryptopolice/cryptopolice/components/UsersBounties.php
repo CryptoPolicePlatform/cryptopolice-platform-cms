@@ -16,7 +16,6 @@ class UsersBounties extends ComponentBase
             'description' => 'Users Bounties List'
         ];
     }
-
     public function onRun()
     {
         $user = Auth::getUser();
@@ -25,5 +24,4 @@ class UsersBounties extends ComponentBase
             ->select('cryptopolice_cryptopolice_bounty_users.*', 'cryptopolice_cryptopolice_bounty_campaigns.title as bounty_title')
             ->get();
     }
-
 }

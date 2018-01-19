@@ -21,4 +21,7 @@ class Bounties extends ComponentBase
         $this->bounty = Bounty::where('status', 1)->get();
     }
 
+    public function onAddMessage() {
+        Flash::error('test');
+    }
 }
