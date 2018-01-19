@@ -20,6 +20,16 @@ class BountyUser extends Model
     ];
 
     /**
+     * @var array Relations
+     */
+    public $belongsTo = [
+        'rewards' => [
+            'CryptoPolice\CryptoPolice\Models\Reward',
+            'key' => 'rewards_id'
+        ],
+    ];
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'cryptopolice_cryptopolice_bounty_users';

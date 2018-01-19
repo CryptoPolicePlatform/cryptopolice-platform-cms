@@ -120,12 +120,14 @@ class CryptoPolicePlatformAcademyTables extends Migration
         if (!Schema::hasTable('cryptopolice_cryptopolice_bounty_campaigns')) {
 
             Schema::create('cryptopolice_cryptopolice_bounty_campaigns', function ($table) {
+
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
                 $table->string('title', 255)->nullable();
                 $table->string('slug', 255)->nullable();
                 $table->text('description')->nullable();
                 $table->boolean('status')->default(0);
+                $table->integer('sort_order')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();

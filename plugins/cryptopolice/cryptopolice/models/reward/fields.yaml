@@ -1,32 +1,36 @@
 fields:
-    reward_title:
-        label: Text
-        oc.commentPosition: ''
-        span: auto
-        type: text
-    reward_type:
-        label: 'Tokens / Stakes'
-        span: auto
-        type: switch
-    reward_amount:
-        label: 'Reward Amount'
-        oc.commentPosition: ''
-        span: auto
-        type: number
-    status:
-        label: Status
-        span: auto
-        type: switch
-    reward_description:
-        label: 'Rich editor'
-        size: large
-        oc.commentPosition: ''
-        span: full
-        type: richeditor
     bounty_campaigns:
         label: 'Bounty Campaigns'
         oc.commentPosition: ''
         nameFrom: title
         descriptionFrom: description
-        span: auto
+        span: full
+        required: 1
         type: relation
+    reward_title:
+        label: Title
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: text
+    reward_amount:
+        label: 'Reward Amount'
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: number
+    reward_type:
+        label: 'Tokens / Stakes'
+        span: auto
+        required: 1
+        type: switch
+    status:
+        label: Status
+        span: auto
+        type: switch
+    reward_description:
+        label: 'Reward Description'
+        size: large
+        oc.commentPosition: ''
+        span: full
+        type: richeditor

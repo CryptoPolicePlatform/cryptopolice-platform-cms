@@ -21,17 +21,11 @@ class UsersBounties extends ComponentBase
     public function onRun()
     {
         $user = Auth::getUser();
+
         $this->usersBounties = BountyUser::where('user_id', $user->id)
             ->select('cryptopolice_cryptopolice_bounty_users.*', 'cryptopolice_cryptopolice_bounty_campaigns.title as bounty_title')
             ->join('cryptopolice_cryptopolice_bounty_campaigns', 'cryptopolice_cryptopolice_bounty_users.bounty_campaigns_id', '=', 'cryptopolice_cryptopolice_bounty_campaigns.id')
+            ->orderBy('created_at', 'desc')
             ->get();
-//            ->where('cryptopolice_cryptopolice_bounty_users.status', '=', 0)
-//            ->paginate(2);
-//        $this->historyBounty = BountyUser::where('user_id', $user->id)
-//            ->select('cryptopolice_cryptopolice_bounty_users.*', 'cryptopolice_cryptopolice_bounty_campaigns.title as bounty_title')
-//            ->join('cryptopolice_cryptopolice_bounty_campaigns', 'cryptopolice_cryptopolice_bounty_users.bounty_campaigns_id', '=', 'cryptopolice_cryptopolice_bounty_campaigns.id')
-//            ->where('cryptopolice_cryptopolice_bounty_users.status', '=', 1)
-//            ->paginate(2);
     }
-
 }
