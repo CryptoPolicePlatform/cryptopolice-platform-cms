@@ -19,3 +19,6 @@ columns:
         type: text
         searchable: true
         sortable: true
+    created_at:
+        label: 'Created At'
+        type: date
