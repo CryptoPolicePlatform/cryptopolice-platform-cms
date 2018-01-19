@@ -1,0 +1,9 @@
+# ===================================
+# Filter Bounty
+# ===================================
+
+scopes:
+  bounty_end_date_time:
+          label: Date
+          type: daterange
+          conditions: created_at >= ':after' AND created_at <= ':before'
