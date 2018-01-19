@@ -1,0 +1,10 @@
+name: Rewards
+form: $/cryptopolice/bounty/models/reward/fields.yaml
+modelClass: CryptoPolice\bounty\Models\Reward
+defaultRedirect: cryptopolice/bounty/rewards
+create:
+    redirect: cryptopolice/bounty/rewards/update/:id
+    redirectClose: cryptopolice/bounty/rewards
+update:
+    redirect: cryptopolice/bounty/rewards
+    redirectClose: cryptopolice/bounty/rewards

@@ -1,0 +1,41 @@
+plugin:
+    name: Academy
+    description: CrypoPolice Academy Plugin
+    author: CryptoPolice
+    icon: oc-icon-book
+    homepage: https://platform.cryptopolice.com
+
+navigation:
+
+    exams:
+        label: Exams
+        url: cryptopolice/academy/exams
+        icon: icon-group
+
+    trainings:
+        label: Trainings
+        url: cryptopolice/academy/trainings
+        icon: icon-book
+        sideMenu:
+            training-categories:
+                label: Training Categories
+                url: cryptopolice/academy/trainingscategory
+                icon: icon-sliders
+            trainings-task:
+                label: Training Tasks
+                url: cryptopolice/academy/trainings
+                icon: icon-signal
+
+    final-results:
+        label: Final Results
+        url: cryptopolice/academy/finalscores
+        icon: icon-bar-chart-o
+        sideMenu:
+            results:
+                label: Final Results
+                url: cryptopolice/academy/finalscores
+                icon: icon-signal
+            scores:
+                label: Scores
+                url: cryptopolice/academy/scores
+                icon: icon-yelp

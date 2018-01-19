@@ -1,4 +1,0 @@
-title: Rewards
-modelClass: CryptoPolice\CryptoPolice\Models\Reward
-toolbar:
-    buttons: reorder_toolbar

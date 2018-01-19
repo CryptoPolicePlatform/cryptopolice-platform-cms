@@ -1,0 +1,10 @@
+name: FinalScores
+form: $/cryptopolice/academy/models/finalscore/fields.yaml
+modelClass: CryptoPolice\Academy\Models\FinalScore
+defaultRedirect: cryptopolice/academy/finalscores
+create:
+    redirect: cryptopolice/academy/finalscores/update/:id
+    redirectClose: cryptopolice/academy/finalscores
+update:
+    redirect: cryptopolice/academy/finalscores
+    redirectClose: cryptopolice/academy/finalscores

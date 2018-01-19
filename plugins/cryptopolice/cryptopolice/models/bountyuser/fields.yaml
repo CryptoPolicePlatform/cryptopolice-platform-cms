@@ -1,6 +1,0 @@
-fields:
-    comment:
-        label: Comment
-        oc.commentPosition: ''
-        span: auto
-        type: text

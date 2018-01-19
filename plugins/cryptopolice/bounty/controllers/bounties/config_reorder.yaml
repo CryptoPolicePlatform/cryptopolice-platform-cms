@@ -1,0 +1,5 @@
+title: Bounties
+modelClass: CryptoPolice\bounty\Models\Bounty
+nameFrom: title
+toolbar:
+    buttons: reorder_toolbar

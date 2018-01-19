@@ -1,0 +1,26 @@
+columns:
+    reward_title:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true
+    reward_type:
+        label: Type
+        type: number
+        searchable: true
+        sortable: true
+    reward_amount:
+        label: Amount
+        type: number
+        searchable: true
+        sortable: true
+    status:
+        label: Status
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Created At'
+        type: datetime
+        searchable: true
+        sortable: true

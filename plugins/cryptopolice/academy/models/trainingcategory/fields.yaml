@@ -1,0 +1,28 @@
+fields:
+    title:
+        label: Category title
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: text
+    slug:
+        label: Slug
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        preset:
+            field: title
+            type: slug
+        type: text
+    description:
+        label: Description
+        size: large
+        oc.commentPosition: ''
+        span: full
+        required: 1
+        type: textarea
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch

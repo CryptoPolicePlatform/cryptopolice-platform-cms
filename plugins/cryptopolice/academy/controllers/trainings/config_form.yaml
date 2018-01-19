@@ -1,0 +1,10 @@
+name: Trainings
+form: $/cryptopolice/academy/models/training/fields.yaml
+modelClass: CryptoPolice\Academy\Models\Training
+defaultRedirect: cryptopolice/academy/trainings
+create:
+    redirect: cryptopolice/academy/trainings/update/:id
+    redirectClose: cryptopolice/academy/trainings
+update:
+    redirect: cryptopolice/academy/trainings
+    redirectClose: cryptopolice/academy/trainings

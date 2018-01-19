@@ -1,0 +1,11 @@
+name: TrainingsCategory
+modelClass: CryptoPolice\Academy\Models\TrainingCategory
+form: $/cryptopolice/academy/models/trainingcategory/fields.yaml
+defaultRedirect: cryptopolice/academy/trainingscategory
+create:
+    redirect: cryptopolice/academy/trainingscategory/update/:id
+    redirectClose: cryptopolice/academy/trainingscategory
+update:
+    redirect: cryptopolice/academy/trainingscategory
+    redirectClose: cryptopolice/academy/trainingscategory
+preview: {  }

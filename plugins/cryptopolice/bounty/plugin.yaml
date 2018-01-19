@@ -1,0 +1,24 @@
+plugin:
+    name: Bounty
+    description: CryptoPolice Bounty Plugin
+    author: CryptoPolice
+    icon: oc-icon-dollar
+    homepage: https://bounty.cryptopolice.com
+navigation:
+    bounty-campaign:
+        label: Bounty Campaign
+        url: cryptopolice/bounty/bounties
+        icon: icon-asterisk
+        sideMenu:
+            bounty-campaign:
+                label: Campaings
+                url: cryptopolice/bounty/bounties
+                icon: icon-skyatlas
+            rewards:
+                label: Rewards
+                url: cryptopolice/bounty/rewards
+                icon: icon-star
+            users-bounties:
+                label: Users Bounties
+                url: cryptopolice/bounty/bountyusers
+                icon: icon-sitemap

@@ -1,0 +1,8 @@
+<div class="content__sidebar">
+    <div class="btn__group">
+        {% for bounty in Bounties.bounty %}
+        <a class="btn  btn--black  btn--partner"
+           href="{{'bounty-campaign'|page({slug: bounty.slug})}}">{{bounty.title}}</a>
+        {% endfor %}
+    </div>
+</div>

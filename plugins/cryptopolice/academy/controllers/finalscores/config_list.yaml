@@ -1,0 +1,12 @@
+list: $/cryptopolice/academy/models/finalscore/columns.yaml
+modelClass: CryptoPolice\Academy\Models\FinalScore
+title: FinalScores
+noRecordsMessage: backend::lang.list.no_records
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt
+recordUrl: cryptopolice/academy/finalscores/update/:id
