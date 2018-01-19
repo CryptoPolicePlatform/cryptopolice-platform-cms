@@ -20,10 +20,14 @@ fields:
         required: 1
         type: number
     reward_type:
-        label: 'Tokens / Stakes'
+        label: 'Reward type'
+        oc.commentPosition: ''
+        options:
+            - Token
+            - Stake
         span: auto
         required: 1
-        type: switch
+        type: radio
     status:
         label: Status
         span: auto
