@@ -32,5 +32,5 @@ class BountyUser extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cryptopolice_bounty_bounty_users';
+    public $table = 'cryptopolice_bounty_user_reports';
 }

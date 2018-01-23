@@ -23,8 +23,8 @@ class UsersBounties extends ComponentBase
         $user = Auth::getUser();
 
         $this->usersBounties = BountyUser::where('user_id', $user->id)
-            ->select('cryptopolice_bounty_bounty_users.*', 'cryptopolice_bounty_bounty_campaigns.title as bounty_title')
-            ->join('cryptopolice_bounty_bounty_campaigns', 'cryptopolice_bounty_bounty_users.bounty_campaigns_id', '=', 'cryptopolice_bounty_bounty_campaigns.id')
+            ->select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
+            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->orderBy('created_at', 'desc')
             ->get();
     }
