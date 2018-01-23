@@ -1,0 +1,7 @@
+<div class="breadcrumbs">
+    <a class="breadcrumbs__item" href="#">Home</a>
+    <a class="breadcrumbs__item" href="{{'bounty-campaign'|page({slug : ''})}}"><span class="breadcrumbs__item  active">Bounty</span></a>
+    {% if bountyCampaignTile is not empty %}
+        <span class="breadcrumbs__item  active">{{bountyCampaignTile}}</span>
+    {% endif %}
+</div>

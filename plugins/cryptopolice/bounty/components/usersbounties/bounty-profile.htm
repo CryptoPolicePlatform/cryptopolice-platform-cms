@@ -1,0 +1,37 @@
+<div class="profile__sidebar">
+
+    {% if user.avatar.path %}
+        <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% else %}
+        <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% endif %}
+
+    <div class="profile__name">
+        {% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {{ user.surname }} {% endif %}
+    </div>
+
+    <div class="profile__block">
+        <p>Balance: <b> {{ bountySum }} OFC </b></p>
+    </div>
+
+    <div class="profile__block">
+        <p>Statistics:</p>
+        <div class="profile__block-item">
+            <p>Total reports: <b> {{ bountyCounter }} </b></p>
+            <div class="profile__stat">
+
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db"
+                     data-empty="#c6bbec" data-value="0.50" data-size="60" data-thickness="10">
+                    <canvas width="60" height="60"></canvas>
+                </div>
+
+                <ul class="profile__stat-list">
+                    <li class="purple">Pending: <b> {{ bountyPending }} </b></li>
+                    <li class="light-purple">Approved: <b> {{ bountyApproved }} </b></li>
+                    <li class="light-purple">Disapproved: <b> {{ bountyDisapproved }} </b></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
