@@ -13,7 +13,7 @@ class CryptoPolicebountyBountyTables extends Migration
     public function up()
     {
 
-        if (!Schema::hasTable('cryptopolice_bounty_bounty_campaigns')) {
+//        if (!Schema::hasTable('cryptopolice_bounty_bounty_campaigns')) {
 
             Schema::create('cryptopolice_bounty_bounty_campaigns', function ($table) {
 
@@ -24,11 +24,12 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->text('description')->nullable();
                 $table->boolean('status')->default(0);
                 $table->integer('sort_order')->default(0);
+                $table->text('fields');
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
             });
-        }
+//        }
 
         if (!Schema::hasTable('cryptopolice_bounty_bounty_users')) {
 

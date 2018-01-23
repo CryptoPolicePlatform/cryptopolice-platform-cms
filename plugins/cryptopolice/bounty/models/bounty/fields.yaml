@@ -1,11 +1,9 @@
 fields:
-
     title:
         label: Title
         oc.commentPosition: ''
         span: auto
         type: text
-
     slug:
         label: Slug
         oc.commentPosition: ''
@@ -14,15 +12,63 @@ fields:
             field: title
             type: slug
         type: text
-
     status:
         label: Status
         span: auto
         type: switch
-
     description:
         label: Description
         size: large
         oc.commentPosition: ''
         span: full
         type: richeditor
+    fields:
+        label: Fields
+        oc.commentPosition: ''
+        prompt: 'Add new item'
+        span: auto
+        type: repeater
+        form:
+            fields:
+                title:
+                    label: Title
+                    oc.commentPosition: ''
+                    span: auto
+                    required: 1
+                    type: text
+                input_type:
+                    label: 'Input Type'
+                    oc.commentPosition: ''
+                    options:
+                        1: string
+                        2: radio
+                        3: select
+                        4: checkbox
+                        5: textarea
+                        6: number
+                    span: auto
+                    required: 1
+                    type: dropdown
+                    comment: 'Input, select, radio ....'
+                action_type:
+                    label: 'Action Type'
+                    oc.commentPosition: ''
+                    options:
+                        1: Registration
+                        2: Reports
+                        3: Bouth
+                    span: auto
+                    hidden: 0
+                    required: 1
+                    type: dropdown
+                status:
+                    label: Status
+                    span: auto
+                    default: 1
+                    type: switch
+                description:
+                    label: Description
+                    size: ''
+                    oc.commentPosition: ''
+                    span: full
+                    type: textarea
