@@ -10,41 +10,34 @@
 
 
 {% for bounty in Bounties.bounty %}
-{% if bounty.slug == this.param.slug %}
-{% set bountyCampaignTile = bounty.title %}
-{% set bountyID = bounty.id %}
-{% endif %}
+    {% if bounty.slug == this.param.slug %}
+        {% set bountyCampaignTile = bounty.title %}
+        {% set bountyID = bounty.id %}
+    {% endif %}
 {% endfor %}
 
 {% for bounty in UsersBounties.usersBounties %}
-{% set bountyCounter = bountySum + 1 %}
-
-{% if bounty.status == 1 %}
-{% set bountySum = bountySum + bounty.given_reward %}
-{% set bountyApproved = bountyApproved + 1 %}
-
-
-{% elseif bounty.status == 2 %}
-{% set bountyDisapproved = bountyDisapproved + 1 %}
-
-{% else %}
-{% set bountyPending = bountyPending + 1 %}
-{% endif %}
+    {%set bountyCounter = bountySum + 1 %}
+    {% if bounty.status == 1 %}
+        {% set bountySum = bountySum + bounty.given_reward %}
+        {% set bountyApproved = bountyApproved + 1 %}
+    {% elseif bounty.status == 2 %}
+        {% set bountyDisapproved = bountyDisapproved + 1 %}
+    {% else %}
+        {% set bountyPending = bountyPending + 1 %}
+    {% endif %}
 {% endfor %}
 
 
 <div class="content__left">
+
     {% partial __SELF__ ~ '::bounty-bar' %}
     {% partial __SELF__ ~ '::bounty-profile' %}
+
 </div>
 
 <div class="profile__content">
 
-    {% set flag = true %}
-    {% partial __SELF__ ~ '::bounty-form' %}
-
-    {% if flag == true %}
-        {% partial __SELF__ ~ '::bounty-reports' %}
-    {% endif %}
+    {% partial __SELF__ ~ '::bounty-reports' %}
 
 </div>
