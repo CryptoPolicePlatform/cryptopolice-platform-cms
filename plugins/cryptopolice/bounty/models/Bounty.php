@@ -23,6 +23,8 @@ class Bounty extends Model
         'Reward' => ['CryptoPolice\bounty\Models\Reward'],
     ];
 
+    protected $jsonable = ['fields'];
+
     /**
      * @var string The database table used by the model.
      */

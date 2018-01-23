@@ -1,6 +1,6 @@
 plugin:
-    name: 'cryptopolice.platform::lang.plugin.name'
-    description: 'cryptopolice.platform::lang.plugin.description'
+    name: Platform
+    description: CrypoPolice Platform Plugin
     author: CryptoPolice
     icon: oc-icon-adjust
     homepage: ''

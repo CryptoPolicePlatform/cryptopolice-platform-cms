@@ -19,18 +19,14 @@ class CryptoPolicebountyBountyTables extends Migration
 
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
-                $table->integer('user_id')->default(0);
-                $table->integer('rewards_id')->default(0);
                 $table->integer('bounty_campaigns_id')->default(0);
-                $table->integer('given_reward')->default(0);
-                $table->boolean('status')->default(0);
-                $table->text('description')->nullable();
-                $table->string('title', 255)->nullable();
-                $table->string('comment', 255)->nullable();
+                $table->integer('user_id')->default(0);
+                $table->boolean('status')->default(1);
+                $table->boolean('approval_type')->default(0);
+                $table->text('fields_data')->nullable();
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
-
             });
         }
 
@@ -83,10 +79,11 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
                 $table->integer('bounty_campaigns_id')->default(0);
-                $table->integer('user_id')->default(0);
-                $table->boolean('status')->default(1);
-                $table->boolean('approval_type')->default(0);
-                $table->text('fields_data')->nullable();
+                $table->string('reward_title', 255)->nullable();
+                $table->string('reward_description', 255)->nullable();
+                $table->boolean('reward_type', 255)->default(0);
+                $table->integer('reward_amount')->default(0);
+                $table->boolean('status')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
