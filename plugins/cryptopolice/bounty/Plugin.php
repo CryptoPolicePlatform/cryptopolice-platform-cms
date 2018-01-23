@@ -8,7 +8,7 @@ class Plugin extends PluginBase
     {
         return [
             'CryptoPolice\Bounty\Components\Bounties'         => 'Bounties',
-            'CryptoPolice\Bounty\Components\UsersBounties'    => 'UsersBounties',
+            'CryptoPolice\Bounty\Components\UsersReports'     => 'UsersReports',
         ];
     }
 
