@@ -19,7 +19,7 @@
 
         <div class="form__group">
             <label for="eth-address">Ethereum Wallet address</label>
-            <input class="input" type="text" name="eth_address" id="eth-address" placeholder="{{ user.eth_address}}">
+            <input class="input" type="text" name="eth_address" id="eth-address" value="{{ user.eth_address}}">
         </div>
 
         {% set countryId = user.country_id %}
