@@ -1,0 +1,159 @@
+{% set userReportList = __SELF__.userReports %}
+{% set access = __SELF__.userAccess %}
+
+{% set flag = true %}
+{% set bountyID = "" %}
+
+{% for bounty in Bounties.bounty %}
+    {% if bounty.slug == this.param.slug %}
+        {% set bountyID = bounty.id %}
+    {% endif %}
+{% endfor %}
+
+{% for bounty in Bounties.bounty %}
+    {% if bounty.slug == this.param.slug %}
+        <div class="tabs" id="tabs1">
+
+            <div class="tabs__nav" data-tabs-for="#tabs1" role="tablist">
+                <a class="tabs__nav-item  active" href="#tab-1" role="tab">Rewards</a>
+                <a class="tabs__nav-item" href="#tab-2" role="tab">Report List</a>
+                <a class="tabs__nav-item" href="#tab-3" role="tab">Report</a>
+            </div>
+
+            <div class="tabs__content">
+
+                <!--Rules and Description-->
+                <div class="tabs__item  active" id="tab-1" role="tabpanel">
+                    <div class="card  mb-15">
+                        <p>{{ bounty.description|raw}}</p>
+                    </div>
+                </div>
+
+                <!--Reports in current category  -->
+                <div class="tabs__item" id="tab-2" role="tabpanel">
+                    <h3 class="content__title"> Bounty Reports</h3>
+                    <div class="issues">
+                        {% for bounty in UsersReports.userReports %}
+                            {% if bounty.bounty_campaigns_id == bountyID %}
+                                <div class="issues__item  issues__item--history">
+                                    <div class="issues__type">{{ bounty.bounty_title }}</div>
+                                    <div class="issues__title"> {{ bounty.title }}</div>
+                                    <div class="issues__view">
+                                        <a href="#">View details</a>
+                                    </div>
+                                    <div class="issues__amount">
+                                        <span class="text-orange">  {% if bounty.given_reward %} {{ bounty.given_reward }} {% else %} 0 {% endif %}</span>
+                                    </div>
+
+                                    {% if bounty.status == 0 %}
+                                        <div class="issues__status  issues__status--big  issues__status--orange">
+                                            <span>pending</span>
+                                        </div>
+                                    {% elseif bounty.status == 1 %}
+                                        <div class="issues__status  issues__status--big  issues__status--green">
+                                            <span>approved</span>
+                                        </div>
+                                    {% else %}
+                                        <div class="issues__status  issues__status--big  issues__status--gray">
+                                            <span>disapproved</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!--Add new report form-->
+                <div class="tabs__item" id="tab-3" role="tabpanel">
+                    <div class="grid__col  w6">
+                        <form data-request-data="id: {{ bountyID }}" data-request-flash data-request="onAddMessage">
+                            <div class="form__group"><label>Title</label>
+                                <input class="input" type="text" name="title" placeholder="Title">
+                            </div>
+                            <div class="form__group"><label>Description</label>
+                                <textarea style="height:300px" class="textarea" name="description"
+                                          placeholder="Message"></textarea>
+                            </div>
+                            <div class="form__group">
+                                <button class="btn  btn--gpink" type="submit">add message</button>
+                                <a class="btn  btn--gpink" href="{{'bounty-campaign'|page({slug : ''})}}">back</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% set flag = false %}
+    {% endif %}
+{% endfor %}
+
+
+
+{% if flag == true %}
+
+    <!--Users Report List-->
+    <div class="content__block">
+        <div class="content__block">
+            <h3 class="content__title"> My Bounty Reports</h3>
+            <div class="issues">
+                {% for bounty in userReportList %}
+                    {% if bounty.status == 0 %}
+                        <div class="issues__item  issues__item--history">
+                            <div class="issues__type">{{ bounty.bounty_title }}</div>
+                            <div class="issues__title"> {{ bounty.title }}</div>
+                            <div class="issues__view">
+                                <a href="#">View details</a>
+                            </div>
+                            <div class="issues__amount">
+                                <span class="text-orange">-</span>
+                            </div>
+                            <div class="issues__status  issues__status--big  issues__status--orange">
+                                <span>pending</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!--Users History List-->
+    <div class="content__block">
+        <h3 class="content__title">Bounty Reports History</h3>
+        <div class="issues">
+            {% for bounty in userReportList %}
+                {% if bounty.status != 0 %}
+                    <div class="issues__item  issues__item--history">
+                        <div class="issues__type"> {{ bounty.bounty_title }}</div>
+                        <div class="issues__title"> {{ bounty.title }}</div>
+                        <div class="issues__view">
+                            <a class="bounty-details" href="#">View details</a>
+                        </div>
+                        <div class="issues__amount">
+                            <span class="text-orange">
+                                {% if bounty.given_reward %} {{ bounty.given_reward }} {% else %} 0 {% endif %}
+                            </span>
+                        </div>
+
+                        {% if bounty.status == 1 %}
+                        <div class="issues__status  issues__status--big  issues__status--green">
+                            <span>approved</span>
+                        </div>
+                        {% else %}
+                        <div class="issues__status  issues__status--big  issues__status--gray">
+                            <span>disapproved</span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div style="display:none" class="bounty_num_{{bounty.id}} issues__item  issues__item--history">
+                        {{ bounty.comment|raw }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endif %}
