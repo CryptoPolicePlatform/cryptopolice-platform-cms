@@ -13,7 +13,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
     public function up()
     {
 
-        if (!Schema::hasTable('cryptopolice_academy_exams')) {
+//        if (!Schema::hasTable('cryptopolice_academy_exams')) {
 
             Schema::create('cryptopolice_academy_exams', function ($table) {
                 $table->engine = 'InnoDB';
@@ -25,11 +25,12 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->integer('timer');
                 $table->integer('retake_time')->unsigned(false)->default(0);
                 $table->boolean('status')->default(0);
+                $table->integer('question_count')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
             });
-        }
+//        }
 
         if (!Schema::hasTable('cryptopolice_academy_final_exam_score')) {
 

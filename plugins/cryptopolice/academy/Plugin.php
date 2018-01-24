@@ -13,7 +13,11 @@ class Plugin extends PluginBase
 {
 
     public $require = [
-        'RainLab.User', 'RainLab.Location', 'RainLab.Notify', 'Netsti.Uploader'
+        'VojtaSvoboda.TwigExtensions',
+        'RainLab.Location',
+        'Netsti.Uploader',
+        'RainLab.Notify',
+        'RainLab.User',
     ];
 
     public function registerComponents()

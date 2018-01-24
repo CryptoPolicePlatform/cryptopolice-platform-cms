@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class BountyUsers extends Controller
+class BountyReports extends Controller
 {
     public $implement = [
         'Backend\Behaviors\ListController',

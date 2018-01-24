@@ -28,5 +28,5 @@ class Bounty extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cryptopolice_bounty_bounty_campaigns';
+    public $table = 'cryptopolice_bounty_campaigns';
 }

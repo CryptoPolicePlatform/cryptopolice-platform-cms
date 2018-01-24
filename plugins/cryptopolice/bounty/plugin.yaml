@@ -20,5 +20,5 @@ navigation:
                 icon: icon-star
             users-bounties:
                 label: Users Bounties
-                url: cryptopolice/bounty/bountyusers
+                url: cryptopolice/bounty/bountyreports
                 icon: icon-sitemap

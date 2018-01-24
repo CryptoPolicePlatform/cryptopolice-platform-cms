@@ -1,6 +1,6 @@
 list: $/cryptopolice/bounty/models/bountyuser/columns.yaml
-modelClass: CryptoPolice\bounty\Models\BountyUser
-title: BountyUsers
+modelClass: CryptoPolice\bounty\Models\BountyReports
+title: BountyReports
 noRecordsMessage: backend::lang.list.no_records
 showSetup: true
 showCheckboxes: true
@@ -9,6 +9,6 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: backend::lang.list.search_prompt
-recordUrl: cryptopolice/bounty/bountyusers/update/:id
+recordUrl: cryptopolice/bounty/bountyreports/update/:id
 
 filter: config_filter.yaml

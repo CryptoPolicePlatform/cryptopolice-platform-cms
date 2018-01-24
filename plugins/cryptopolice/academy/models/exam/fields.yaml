@@ -1,19 +1,18 @@
 fields:
     exam_title:
-        label: Exam Title
+        label: 'Exam Title'
         oc.commentPosition: ''
         span: auto
         type: text
     exam_slug:
-        label: Exam Slug
-        oc.commentPosition: above
+        label: 'Exam Slug'
         span: auto
         preset:
             field: exam_title
             type: slug
         type: text
     retake_time:
-        label: Retake Time
+        label: 'Retake Time'
         oc.commentPosition: ''
         span: auto
         type: text
@@ -26,6 +25,12 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: number
+    question_count:
+        label: 'Question Count'
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: number
     exam_description:
         label: Description
         size: large
@@ -35,26 +40,26 @@ fields:
     question:
         label: Questions
         oc.commentPosition: ''
-        prompt: Add new item
+        prompt: 'Add new item'
         span: full
         type: repeater
         form:
             fields:
                 question_title:
-                    label: Question Title
+                    label: 'Question Title'
                     oc.commentPosition: ''
                     span: auto
                     type: text
                 answers:
                     label: Answers
                     oc.commentPosition: ''
-                    prompt: Add new item
+                    prompt: 'Add new item'
                     span: auto
                     type: repeater
                     form:
                         fields:
                             answer_number:
-                                label: Answer Number
+                                label: 'Answer Number'
                                 oc.commentPosition: ''
                                 span: auto
                                 default: '0'
@@ -64,7 +69,7 @@ fields:
                                 span: auto
                                 type: switch
                             answer_title:
-                                label: Answer Title
+                                label: 'Answer Title'
                                 oc.commentPosition: ''
                                 span: auto
                                 type: text
