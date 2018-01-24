@@ -28,7 +28,7 @@ class ProfileForm extends ComponentBase
         $user = Auth::getUser();
 
         $rules = [
-            'eth_address' => 'min:42|max:42|unique:users',
+            'eth_address' => 'min:42|max:42',
         ];
 
         $validator = Validator::make([
@@ -42,7 +42,11 @@ class ProfileForm extends ComponentBase
             }
 
         } else {
-            $user->update(input());
+            if((string)input('eth_address') === (string)'') {
+                $user->update(['eth_address' => null]);
+            } else {
+                $user->update(input());
+            }
             Flash::success('Profile has been successfully updated');
         }
     }
