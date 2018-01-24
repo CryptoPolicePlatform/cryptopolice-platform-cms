@@ -26,7 +26,7 @@
                     {% if score.exam_id == exam.id %}
                         {% set break = true %}
                             {% if score.complete_status == 1 %}
-                            <span class="courses__score  in-progress"><span> {{score.score}}/{{ exam.question|length }}</span></span>
+                            <span class="courses__score  in-progress"><span> {{score.score}}/{{ exam.question_count }}</span></span>
                             {% else %}
                             <span class="courses__score  in-progress"><span> In Progress </span></span>
                             {% endif %}
@@ -34,7 +34,7 @@
                 {% endfor %}
 
             {% if not break %}
-            <span class="courses__score"><span> 0 / {{ exam.question|length }}</span></span>
+            <span class="courses__score"><span> 0 / {{ exam.question_count }}</span></span>
             {% endif %}
 
         </a>

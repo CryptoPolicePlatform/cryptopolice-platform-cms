@@ -1,5 +1,6 @@
 {% set timer = ExamTask.fullTask.timer %}
 {% set examQuestions = ExamTask.fullTask.question|length %}
+{% set questionCount = ExamTask.fullTask.question_count %}
 
 <div class="content">
     <div class="content__inner">
@@ -7,14 +8,14 @@
             <div class="exam__inner">
 
                 <div class="exam__progress">
-                    <div id="qst_progress">Question 1/{{examQuestions}}</div>
+                    <div id="qst_progress">Question 1/{{questionCount}}</div>
                     <div id="qst_progress-bar" class="exam__progress-bar">
                         <span style="width: 10%;"></span>
                     </div>
                 </div>
 
                 <div id="question_slider">
-                    {% for question in ExamTask.fullTask.question %}
+                    {% for question in ExamTask.fullTask.question|shuffle|slice(0, questionCount)  %}
                         {% set currentQuestion = loop.index %}
                         {% set totalQuestion = loop.length %}
                             <form data-request="onCheckQuestion"
