@@ -25,7 +25,7 @@
     {% else %}
         <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
     {% endif %}
-git pull origin
+
     <div class="profile__name">
         {% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {{ user.surname }} {% endif %}
     </div>

@@ -43,7 +43,7 @@ class ProfileForm extends ComponentBase
 
         } else {
             if((string)input('eth_address') === (string)'') {
-                $user->update(['eth_address' => null]);
+                $user->update(input(), ['eth_address' => null]);
             } else {
                 $user->update(input());
             }

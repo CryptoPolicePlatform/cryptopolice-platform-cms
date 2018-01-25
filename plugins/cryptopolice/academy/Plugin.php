@@ -38,6 +38,13 @@ class Plugin extends PluginBase
 
     }
 
+    /*
+     *  UserModel::extend(function($model) {
+
+            $model->hasMany['instruments'] = ['Cunami\InventoryManagement\Models\InstrumentsHoldersTransfere', 'key' => 'holder_id'];
+
+        });
+     */
     public function boot()
     {
 
@@ -72,9 +79,18 @@ class Plugin extends PluginBase
     protected function extendUserModel()
     {
         UserModel::extend(function ($model) {
+
             $model->addFillable([
                 'eth_address'
             ]);
+
+            $model->belongsToMany['bountyCampaigns'] = ['CryptoPolice\Bounty\Models\Bounty',
+                'table'     => 'cryptopolice_bounty_user_registration',
+                'pivot'     => ['approval_type', 'status'],
+                'otherKey'  => 'bounty_campaigns_id',
+                'key'       => 'user_id'
+            ];
+
         });
     }
 
