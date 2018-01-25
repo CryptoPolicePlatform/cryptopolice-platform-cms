@@ -1,8 +1,7 @@
 <div class="content__sidebar">
     <div class="btn__group">
-        {% for bounty in Bounties.bounty %}
-        <a class="btn  btn--black  btn--partner"
-           data-request-data="id: {{ bounty.id }}" data-request="onCheckRegistration" data-request-flash href="{{'bounty-campaign'|page({slug: bounty.slug})}}">{{bounty.title}}</a>
+        {% for bounty in Bounties.bountyList %}
+            <a class="btn  btn--black  btn--partner" href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}"> {{ bounty.title }} </a>
         {% endfor %}
     </div>
 </div>

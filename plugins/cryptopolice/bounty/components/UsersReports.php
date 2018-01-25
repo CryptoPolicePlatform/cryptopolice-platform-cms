@@ -9,8 +9,10 @@ use CryptoPolice\Bounty\Models\BountyReports;
 
 class UsersReports extends ComponentBase
 {
-    public $userAccess;
-    public $userReports;
+    public $access;
+    public $reportList;
+    public $campaignID;
+    public $profileStatistic;
 
 
     public function componentDetails()
@@ -20,23 +22,42 @@ class UsersReports extends ComponentBase
             'description' => 'Users Bounties List'
         ];
     }
+
     public function onRun()
     {
+
         $user = Auth::getUser();
 
-        $this->userReports = BountyReports::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
+        // Get users report list
+        $reports = BountyReports::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        $this->userAccess = DB::table('cryptopolice_bounty_user_registration')
-            ->where('user_id', '=', $user->id)
-            ->get();
+        $this->reportList = $reports;
+
+        // Get users statistic
+        $this->profileStatistic = [
+            'reward_sum'    => $reports->sum->given_reward,
+            'approved'      => $reports->where('status', 0)->count(),
+            'pending'       => $reports->where('status', 1)->count(),
+            'disapproved'   => $reports->where('status', 2)->count(),
+            'report_count'  => $reports->count(),
+        ];
+
+        $this->campaignID = $this->param('id');
+
+        // Check if user is registered in current Bounty Campaign
+        if (!empty($this->param('slug'))) {
+            $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
+            $this->access = $access ? $access->pivot->approval_type : null;
+        }
 
     }
 
-    public function onAddMessage() {
+    public function onAddReport()
+    {
 
         $user = Auth::getUser();
 
