@@ -1,0 +1,18 @@
+<form data-request-flash data-request="onUpdateWalletAddress">
+
+    <div style="margin-top:20px" class="profile__card">
+        <h3 class="content__title">Wallet Address</h3>
+
+        <div class="form__group">
+            <label for="eth-address">Ethereum address for participation in Bounty Campaign</label>
+            <input class="input" type="text" name="eth_address" id="eth-address" value="{{ user.eth_address}}">
+        </div>
+
+        {% set countryId = user.country_id %}
+        {% set stateId = stateId|default(form_value('state_id')) %}
+
+        <button class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Address</button>
+
+    </div>
+
+</form>
