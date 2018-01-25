@@ -1,0 +1,20 @@
+{% if UsersCampaign.access == 1 %}
+    <div class="grid__col  w6">
+        <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request-flash data-request="onAddReport">
+            <div class="form__group"><label>Title</label>
+                <input class="input" type="text" name="title" placeholder="Title">
+            </div>
+            <div class="form__group"><label>Description</label>
+                <textarea style="height:300px" class="textarea" name="description" placeholder="Message"></textarea>
+            </div>
+            <div class="form__group">
+                <button class="btn  btn--gpink">add report</button>
+            </div>
+        </form>
+    </div>
+{% else %}
+<div class="card  mb-15">
+    <p></p>You need wait until we confirm your account to participate in current bounty<p></p>
+</div>
+{% endif %}
+

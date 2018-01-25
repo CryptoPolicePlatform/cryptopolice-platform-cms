@@ -1,0 +1,12 @@
+list: $/cryptopolice/bounty/models/bountyregistration/columns.yaml
+modelClass: CryptoPolice\Bounty\Models\BountyRegistration
+title: BountyRegistrations
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'cryptopolice/bounty/bountyregistrations/update/:id'

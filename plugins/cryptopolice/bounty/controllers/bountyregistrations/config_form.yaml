@@ -1,0 +1,10 @@
+name: BountyRegistrations
+form: $/cryptopolice/bounty/models/bountyregistration/fields.yaml
+modelClass: CryptoPolice\Bounty\Models\BountyRegistration
+defaultRedirect: cryptopolice/bounty/bountyregistrations
+create:
+    redirect: 'cryptopolice/bounty/bountyregistrations/update/:id'
+    redirectClose: cryptopolice/bounty/bountyregistrations
+update:
+    redirect: cryptopolice/bounty/bountyregistrations
+    redirectClose: cryptopolice/bounty/bountyregistrations

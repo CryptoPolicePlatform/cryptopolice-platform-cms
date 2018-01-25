@@ -1,0 +1,48 @@
+fields:
+
+    title:
+        label: Users Title
+        oc.commentPosition: ''
+        span: full
+        disabled: 1
+        type: text
+
+    description:
+        label: Users Description
+        size: large
+        oc.commentPosition: ''
+        span: full
+        disabled: 1
+        type: richeditor
+
+    rewards:
+        label: Select Reward
+        oc.commentPosition: ''
+        nameFrom: reward_title
+        descriptionFrom: reward_title
+        span: auto
+        type: relation
+
+    given_reward:
+        label: Given Reward ( Tokens / Stake )
+        oc.commentPosition: ''
+        span: auto
+        required: 1
+        type: number
+
+    status:
+        label: Status
+        oc.commentPosition: ''
+        options:
+            1: Approved
+            2: Disapproved
+        span: auto
+        required: 1
+        type: radio
+
+    comment:
+        label: Comment
+        size: large
+        oc.commentPosition: ''
+        span: full
+        type: richeditor

@@ -1,0 +1,4 @@
+title: BountyRegistrations
+modelClass: CryptoPolice\Bounty\Models\BountyRegistration
+toolbar:
+    buttons: reorder_toolbar
