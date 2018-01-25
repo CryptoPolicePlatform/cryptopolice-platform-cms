@@ -1,24 +1,28 @@
 plugin:
     name: Bounty
-    description: CryptoPolice Bounty Plugin
+    description: 'CryptoPolice Bounty Plugin'
     author: CryptoPolice
     icon: oc-icon-dollar
-    homepage: https://bounty.cryptopolice.com
+    homepage: 'https://bounty.cryptopolice.com'
 navigation:
     bounty-campaign:
-        label: Bounty Campaign
+        label: 'Bounty Campaign'
         url: cryptopolice/bounty/bounties
         icon: icon-asterisk
         sideMenu:
             bounty-campaign:
-                label: Campaings
+                label: Campaigns
                 url: cryptopolice/bounty/bounties
                 icon: icon-skyatlas
+            campaigns-registration:
+                label: Campaigns Registration
+                url: cryptopolice/bounty/bountyregistrations
+                icon: icon-sitemap
             rewards:
                 label: Rewards
                 url: cryptopolice/bounty/rewards
                 icon: icon-star
             users-bounties:
-                label: Users Bounties
+                label: Reports
                 url: cryptopolice/bounty/bountyreports
                 icon: icon-sitemap
