@@ -1,17 +1,17 @@
 {% set userReportList = __SELF__.userReports %}
 {% set access = __SELF__.userAccess %}
 
-{% set flag = true %}
 {% set bountyID = "" %}
-
 {% for bounty in Bounties.bounty %}
     {% if bounty.slug == this.param.slug %}
         {% set bountyID = bounty.id %}
     {% endif %}
 {% endfor %}
 
+{% set flag = true %}
 {% for bounty in Bounties.bounty %}
     {% if bounty.slug == this.param.slug %}
+
         <div class="tabs" id="tabs1">
 
             <div class="tabs__nav" data-tabs-for="#tabs1" role="tablist">
@@ -80,10 +80,29 @@
                                 <a class="btn  btn--gpink" href="{{'bounty-campaign'|page({slug : ''})}}">back</a>
                             </div>
                         </form>
+
+                        <form data-request-data="id: {{ bountyID }}" data-request-flash data-request="onAddMessage">
+
+                            {% for bounty in Bounties.bounty %}
+                                {% if bounty.slug == this.param.slug %}
+                                    {% for filed in bounty.fields %}
+                                        <div class="form__group"><label>{{filed.title}}</label>
+                                            <input class="input" type="text" name="title" placeholder="Title">
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <div class="form__group">
+                                <button class="btn  btn--gpink" type="submit">Register in campaign</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
 
             </div>
+
         </div>
         {% set flag = false %}
     {% endif %}
