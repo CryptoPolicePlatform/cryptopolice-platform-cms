@@ -24,15 +24,24 @@ class ProfileForm extends ComponentBase
     {
 
         Recaptcha::verifyCaptcha();
+        $user = Auth::getUser();
+        $user->update(post());
+        Flash::success('Profile has been successfully updated');
+
+    }
+
+    public function onUpdateWalletAddress()
+    {
 
         $user = Auth::getUser();
 
         $rules = [
-            'eth_address' => 'min:42|max:42',
+            'eth_address' => 'min:42|max:42|unique:users',
         ];
 
         $validator = Validator::make([
-            'eth_address' => post('eth_address')], $rules);
+            'eth_address' => post('eth_address')
+        ], $rules);
 
         if ($validator->fails()) {
 
@@ -42,12 +51,8 @@ class ProfileForm extends ComponentBase
             }
 
         } else {
-            if((string)input('eth_address') === (string)'') {
-                $user->update(input(), ['eth_address' => null]);
-            } else {
-                $user->update(input());
-            }
-            Flash::success('Profile has been successfully updated');
+            $user->update(['eth_address' => post('eth_address')]);
+            Flash::success('You\'re ethereum wallet address has been updated');
         }
     }
 }

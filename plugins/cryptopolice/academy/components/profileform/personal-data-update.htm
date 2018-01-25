@@ -1,6 +1,7 @@
-<form data-request-flash data-request-files data-request="onUpdateProfile">
+<form data-request-flash data-request="onUpdateProfile">
 
     <div class="profile__card">
+
         <h3 class="content__title">User Profile</h3>
         <div class="form__group">
             <label for="name">Name</label>
@@ -15,11 +16,6 @@
         <div class="form__group">
             <label for="email">Email</label>
             <input class="input" type="email" name="email" id="email" placeholder="" value="{{ user.email }}">
-        </div>
-
-        <div class="form__group">
-            <label for="eth-address">Ethereum Wallet address</label>
-            <input class="input" type="text" name="eth_address" id="eth-address" value="{{ user.eth_address}}">
         </div>
 
         {% set countryId = user.country_id %}
@@ -38,8 +34,7 @@
             </div>
         </div>
 
-        <button id="captcha_profile" class="btn  btn--gpink g-recaptcha" type="submit">Update Profile</button>
+        <button id="captcha_profile" class="btn  btn--gpink g-recaptcha">Update Profile</button>
 
     </div>
-
 </form>
