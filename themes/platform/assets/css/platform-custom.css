@@ -1,0 +1,7 @@
+.warning select {
+    border-color: #f6bb42;
+    background: #fff url(../images/warning-ico.png) no-repeat right 10px center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none!important;
+}
