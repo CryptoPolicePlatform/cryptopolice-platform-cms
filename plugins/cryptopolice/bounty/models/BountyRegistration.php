@@ -19,6 +19,8 @@ class BountyRegistration extends Model
     public $rules = [
     ];
 
+    protected $jsonable = ['fields_data'];
+
     /**
      * @var string The database table used by the model.
      */
