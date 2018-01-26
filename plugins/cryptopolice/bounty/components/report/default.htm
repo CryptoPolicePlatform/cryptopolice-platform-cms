@@ -1,0 +1,60 @@
+<div class="card">
+    <div class="card__header">
+        <div class="card__date">{{Report.report.created_at}}</div>
+        <h3 class="card__title">
+            {{Report.report.title}}
+        </h3>
+        <span class="mark  mark--gray">Report</span>
+    </div>
+
+    <div class="card__content">{{Report.report.description}}
+    </div>
+
+    <div class="card__footer">
+        <div class="card__footer-left">
+            <ul class="card__ava-list">
+                <li class="card__ava  card__ava--author">
+                    <a href="#">
+                        <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                    </a>
+                </li>
+                <li class="card__ava">
+                    <a href="#">
+                        <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                    </a>
+                </li>
+                <li class="card__ava">
+                    <a href="#">
+                        <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                    </a>
+                </li>
+                <li class="card__ava">
+                    <a href="#">
+                        <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card__footer-right">
+            <ul class="card__social">
+                <li class="card__social-item  c-share">
+                    <a href="#">share</a>
+                </li>
+                <li class="card__social-item  c-comment">
+                    <a href="#">comment</a>
+                </li>
+                <li class="card__social-item  c-follow">
+                    <a href="#">follow</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {% if Report.report.status == 1 %}
+    <div class="card__status  high"></div>
+    {% elseif Report.report.status == 2%}
+    <div class="card__status  low">low</div>
+    {% else %}
+    <div class="card__status  medium"></div>
+    {% endif %}
+</div>
