@@ -2,3 +2,15 @@ columns:
     id:
         label: 'Campaign ID'
         type: number
+        searchable: true
+        sortable: true
+    status:
+        label: Status
+        type: number
+        searchable: true
+        sortable: true
+    approval_type:
+        label: Approve
+        type: number
+        searchable: true
+        sortable: true

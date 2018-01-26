@@ -1,6 +1,6 @@
 fields:
     fields_data:
-        label: 'Fields Data'
+        label: 'User Registered data'
         oc.commentPosition: ''
         prompt: 'Add new item'
         span: auto
@@ -8,12 +8,17 @@ fields:
         form:
             fields:
                 title:
-                    label: Title
+                    label: 'Row Title'
                     oc.commentPosition: ''
                     span: auto
+                    disabled: 1
                     type: text
                 value:
                     label: Value
-                    oc.commentPosition: ''
+                    oc.commentPosition: above
                     span: auto
                     type: text
+    approval_type:
+        label: Approve
+        span: auto
+        type: checkbox

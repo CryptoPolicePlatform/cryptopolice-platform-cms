@@ -1,25 +1,26 @@
 columns:
-
     status:
         label: Status
         type: text
         searchable: true
         sortable: true
-
-    given_reward:
-        label: Given Reward
+    title:
+        label: 'Report Title'
         type: text
         searchable: true
         sortable: true
-
     comment:
         label: Comment
         type: text
         searchable: true
         sortable: true
-
     created_at:
-        label: Created At
+        label: 'Created At'
         type: date
+        searchable: true
+        sortable: true
+    given_reward:
+        label: 'Given Reward'
+        type: number
         searchable: true
         sortable: true
