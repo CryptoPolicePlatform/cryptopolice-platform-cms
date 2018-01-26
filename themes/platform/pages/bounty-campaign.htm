@@ -3,48 +3,29 @@ url = "/bounty-campaign/:id?/:slug?"
 layout = "platform"
 is_hidden = 0
 
-[Bounties]
-
 [UsersCampaign]
+
+[Bounties]
 ==
 <!-- Content -->
 <main class="content">
     <div class="content__inner">
         <div class="content__left">
-            <div class="breadcrumbs">
-                <a class="breadcrumbs__item" href="#">Home</a>
-                <span class="breadcrumbs__item  active">Bounty</span>
-            </div>
+
+            {% partial __SELF__ ~ '::bounty-bar' %}
+
             <div class="profile">
+
                 {% partial UsersCampaign ~ '::bounty-profile' %}
+
                 <div class="profile__content">
-                    <div class="content__header">
-                        <div class="select  select--filter">
-                            <select name="">
-                                <option value="" selected>All</option>
-                                <option value="">option</option>
-                                <option value="">option</option>
-                                <option value="">option</option>
-                            </select>
-                        </div>
-                        <div class="select  select--filter">
-                            <select name="">
-                                <option value="" selected>Type</option>
-                                <option value="">option</option>
-                                <option value="">option</option>
-                                <option value="">option</option>
-                            </select>
-                        </div>
-                    </div>
 
                     {% partial UsersCampaign ~ '::bounty-reports' %}
+                    {% component 'Bounties' %}
 
-                    <div class="content__sidebar">
-                        {% for bounty in Bounties.bountyList %}
-                        <a class="btn  btn--black  btn--partner"href="{{'bounty-campaign'|page({ id: bounty.id, slug: bounty.slug })}}"> {{ bounty.title }} </a>
-                        {% endfor %}
-                    </div>
                 </div>
+
             </div>
         </div>
+    </div>
 </main>

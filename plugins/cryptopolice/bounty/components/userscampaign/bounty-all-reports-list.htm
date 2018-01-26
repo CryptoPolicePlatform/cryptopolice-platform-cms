@@ -6,7 +6,7 @@
                 <div class="issues__type">{{ report.bounty_title }}</div>
                 <div class="issues__title"> {{ report.title }}</div>
                 <div class="issues__view">
-                    <a href="#">View details</a>
+                    <a href="{{'bounty-report'|page({id:bounty.id})}}">View details</a>
                 </div>
                 <div class="issues__amount">
                     <span class="text-orange">  {% if report.given_reward %} {{ report.given_reward }} {% else %} 0 {% endif %}</span>

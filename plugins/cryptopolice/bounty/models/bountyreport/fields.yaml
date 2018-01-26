@@ -1,12 +1,10 @@
 fields:
-
     title:
         label: Users Title
         oc.commentPosition: ''
         span: full
         disabled: 1
         type: text
-
     description:
         label: Users Description
         size: large
@@ -14,7 +12,6 @@ fields:
         span: full
         disabled: 1
         type: richeditor
-
     rewards:
         label: Select Reward
         oc.commentPosition: ''
@@ -22,14 +19,13 @@ fields:
         descriptionFrom: reward_title
         span: auto
         type: relation
-
+        select: concat(reward_amount, '' ('', reward_type ,'') -> '', reward_title)
     given_reward:
         label: Given Reward ( Tokens / Stake )
         oc.commentPosition: ''
         span: auto
         required: 1
-        type: number
-
+        dependsOn: rewards
     status:
         label: Status
         oc.commentPosition: ''
@@ -39,7 +35,6 @@ fields:
         span: auto
         required: 1
         type: radio
-
     comment:
         label: Comment
         size: large
