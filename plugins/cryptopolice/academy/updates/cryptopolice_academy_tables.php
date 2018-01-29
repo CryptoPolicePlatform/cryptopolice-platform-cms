@@ -13,7 +13,46 @@ class CryptoPolicePlatformAcademyTables extends Migration
     public function up()
     {
 
-        //  Special update for version 0.9
+        // Special update for version 0.9
+        // Social Networks
+
+        if (!Schema::hasColumns('users', ['eth_address'])) {
+            Schema::table('users', function ($table) {
+                $table->string('eth_address', 42)->nullable();
+            });
+        }
+
+        if (!Schema::hasColumns('users', ['twitter_link'])) {
+            Schema::table('users', function ($table) {
+                $table->string('twitter_link', 255)->nullable();
+            });
+        }
+
+        if (!Schema::hasColumns('users', ['facebook_link'])) {
+            Schema::table('users', function ($table) {
+                $table->string('facebook_link', 255)->nullable();
+            });
+        }
+
+        if (!Schema::hasColumns('users', ['telegram_username'])) {
+            Schema::table('users', function ($table) {
+                $table->string('telegram_username', 255)->nullable();
+            });
+        }
+
+        if (!Schema::hasColumns('users', ['btc_link'])) {
+            Schema::table('users', function ($table) {
+                $table->string('btc_link', 255)->nullable();
+            });
+        }
+        
+        if (!Schema::hasColumns('users', ['youtube_link'])) {
+            Schema::table('users', function ($table) {
+                $table->string('youtube_link', 255)->nullable();
+            });
+        }
+
+        // Academy Tables Rename
 
         Schema::rename('cryptopolice_cryptopolice_exams', 'cryptopolice_academy_exams');
         Schema::rename('cryptopolice_cryptopolice_scores', 'cryptopolice_academy_scores');
@@ -117,15 +156,6 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->timestamp('deleted_at')->nullable();
             });
         }
-
-        if (!Schema::hasColumns('users', ['eth_address'])) {
-
-            Schema::table('users', function ($table) {
-                $table->string('eth_address', 42)->nullable()->unique();
-            });
-        }
-
-
     }
 
     public function down()

@@ -88,7 +88,12 @@ class Plugin extends PluginBase
         UserModel::extend(function ($model) {
 
             $model->addFillable([
-                'eth_address'
+                'telegram_username',
+                'facebook_link',
+                'youtube_link',
+                'twitter_link',
+                'eth_address',
+                'btc_link',
             ]);
 
             $model->belongsToMany['bountyCampaigns'] = ['CryptoPolice\Bounty\Models\Bounty',

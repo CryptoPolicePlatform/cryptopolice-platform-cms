@@ -35,10 +35,12 @@ class ProfileForm extends ComponentBase
 
         $user = Auth::getUser();
 
-        $rules = [
-            'eth_address' => 'min:42|max:42|unique:users',
-        ];
-
+        if($user->eth_address == post('eth_address')) {
+            $rules['eth_address'] = 'min:42|max:42';
+        } else {
+            $rules['eth_address'] = 'min:42|max:42|unique:users';
+        }
+        
         $validator = Validator::make([
             'eth_address' => post('eth_address')
         ], $rules);
@@ -53,6 +55,32 @@ class ProfileForm extends ComponentBase
         } else {
             $user->update(['eth_address' => post('eth_address')]);
             Flash::success('You\'re ethereum wallet address has been updated');
+        }
+    }
+
+    public function onUpdateSocialNetworks() 
+    {
+
+        $user = Auth::getUser();
+        foreach(post() as $key => $value ) {
+            if($user[$key] == post($key)) { 
+                $rules[$key] = 'min:0|max:255';
+            } else {
+                $rules[$key] = 'min:0|max:255|unique:users';
+            }
+        }
+        
+        $validator = Validator::make(post(), $rules);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                Flash::error($message);
+            }
+
+        } else {
+            $user->update(post());
+            Flash::success('You\'re profile has been updated');
         }
     }
 }

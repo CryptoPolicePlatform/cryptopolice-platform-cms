@@ -35,16 +35,15 @@ class UsersCampaign extends ComponentBase
         $this->campaignID = $this->param('id');
 
         // Get users report list
-        $reports = $this->onFilterReports();
-        $this->reportList = $reports;
+        $this->onFilterReports();
 
         // Get users statistic
         $this->profileStatistic = [
-            'report_count'      => $reports->count(),
-            'reward_sum'        => $reports->sum->given_reward,
-            'disapproved'       => $reports->where('status', 2)->count(),
-            'approved'          => $reports->where('status', 1)->count(),
-            'pending'           => $reports->where('status', 0)->count(),
+            'report_count'      => $this->reportList->count(),
+            'reward_sum'        => $this->reportList->sum->given_reward,
+            'disapproved'       => $this->reportList->where('status', 2)->count(),
+            'approved'          => $this->reportList->where('status', 1)->count(),
+            'pending'           => $this->reportList->where('status', 0)->count(),
         ];
 
 
@@ -63,13 +62,12 @@ class UsersCampaign extends ComponentBase
     {
 
         $user = Auth::getUser();
-
-        if (post('campaing_type')) {
+        if (post('campaing_type') && !empty(post('campaing_type'))) {
 
             $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
                 ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('user_id', $user->id)
                 ->where('cryptopolice_bounty_campaigns.id', post('campaing_type'))
+                ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -77,12 +75,12 @@ class UsersCampaign extends ComponentBase
 
             $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
                 ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('user_id', $user->id)
                 ->where('cryptopolice_bounty_user_reports.status', post('status'))
+                ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
         } else {
-            return BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
+            $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
                 ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
                 ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
