@@ -13,7 +13,22 @@ class CryptoPolicePlatformAcademyTables extends Migration
     public function up()
     {
 
-//        if (!Schema::hasTable('cryptopolice_academy_exams')) {
+        //  Special update for version 0.9
+
+        Schema::rename('cryptopolice_cryptopolice_exams', 'cryptopolice_academy_exams');
+        Schema::rename('cryptopolice_cryptopolice_scores', 'cryptopolice_academy_scores');
+        Schema::rename('cryptopolice_cryptopolice_trainings', 'cryptopolice_academy_trainings');
+        Schema::rename('cryptopolice_cryptopolice_final_exam_score', 'cryptopolice_academy_final_exam_score');
+        Schema::rename('cryptopolice_cryptopolice_trainings_category', 'cryptopolice_academy_trainings_category');
+
+        if (!Schema::hasColumns('cryptopolice_academy_exams', ['question_count'])) {
+
+            Schema::table('cryptopolice_academy_exams', function ($table) {
+                $table->string('question_count', 2)->default(0);
+            });
+        }
+
+        if (!Schema::hasTable('cryptopolice_academy_exams')) {
 
             Schema::create('cryptopolice_academy_exams', function ($table) {
                 $table->engine = 'InnoDB';
@@ -30,7 +45,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
             });
-//        }
+        }
 
         if (!Schema::hasTable('cryptopolice_academy_final_exam_score')) {
 
@@ -110,16 +125,11 @@ class CryptoPolicePlatformAcademyTables extends Migration
             });
         }
 
+
     }
 
     public function down()
     {
-
-        Schema::dropIfExists('cryptopolice_academy_trainings_category');
-        Schema::dropIfExists('cryptopolice_academy_final_exam_score');
-        Schema::dropIfExists('cryptopolice_academy_trainings');
-        Schema::dropIfExists('cryptopolice_academy_scores');
-        Schema::dropIfExists('cryptopolice_academy_exams');
 
     }
 }

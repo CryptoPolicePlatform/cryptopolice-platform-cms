@@ -1,7 +1,7 @@
 <!--Filters-->
 <div class="content__header">
     <div class="select  select--filter">
-        <select data-request="onFilterReprots" data-request-update="'UsersCampaign::reports-filtered-list': '#report_list'" name="campaing_type">
+        <select data-request="onFilterReports" data-request-update="'UsersCampaign::reports-filtered-list': '#report_list'" name="campaing_type">
             <option value="">Type</option>
                 {% for bounty in Bounties.bountyList %}
                 <option value="{{bounty.id}}">{{bounty.title}}</option>
@@ -10,8 +10,7 @@
     </div>
 
     <div class="select  select--filter">
-        <select data-request="onFilterReprots" data-request-success="console.log(data);"
-                data-request-update="'UsersCampaign::reports-filtered-list': '#report_list'" name="status">
+        <select data-request="onFilterReports" data-request-update="'UsersCampaign::reports-filtered-list': '#report_list'" name="status">
             <option value="" selected>Status</option>
             <option value="0">Pending</option>
             <option value="1">Approved</option>

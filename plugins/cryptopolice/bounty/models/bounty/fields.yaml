@@ -15,6 +15,7 @@ fields:
     status:
         label: Status
         span: auto
+        default: 1
         type: switch
     description:
         label: Description

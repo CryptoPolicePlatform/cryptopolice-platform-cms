@@ -28,16 +28,15 @@ class UsersCampaign extends ComponentBase
     public function onRun()
     {
 
-        $user = Auth::getUser();
+        // TODO :: Reports Mails (one mail each week)
 
+        $user = Auth::getUser();
 
         $this->campaignID = $this->param('id');
 
-
         // Get users report list
-        $reports = $this->onFilterReprots();
+        $reports = $this->onFilterReports();
         $this->reportList = $reports;
-
 
         // Get users statistic
         $this->profileStatistic = [
@@ -59,7 +58,7 @@ class UsersCampaign extends ComponentBase
     }
 
 
-    public function onFilterReprots()
+    public function onFilterReports()
     {
 
         $user = Auth::getUser();

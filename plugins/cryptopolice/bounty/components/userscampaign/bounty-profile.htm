@@ -22,9 +22,7 @@
         <div class="profile__block-item">
             <p> Total reports: <b> {{ statistic.report_count }} </b></p>
             <div class="profile__stat">
-                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec"
-                     data-value="{{ ( statistic.report_count / 10 * statistic.pending ) }}" data-size="60"
-                     data-thickness="10">
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ ( statistic.report_count / 10 * statistic.pending ) }}" data-size="60" data-thickness="10">
                     <canvas width="60" height="60"></canvas>
                 </div>
                 <ul class="profile__stat-list">

@@ -1,6 +1,6 @@
 fields:
     bounty_campaigns:
-        label: Bounty Campaigns
+        label: 'Bounty Campaigns'
         oc.commentPosition: ''
         nameFrom: title
         descriptionFrom: description
@@ -14,13 +14,13 @@ fields:
         required: 1
         type: text
     reward_amount:
-        label: Reward Amount
+        label: 'Reward Amount'
         oc.commentPosition: ''
         span: auto
         required: 1
         type: number
     reward_type:
-        label: Reward type
+        label: 'Reward type'
         oc.commentPosition: ''
         options:
             - Token
@@ -34,7 +34,7 @@ fields:
         default: 1
         type: switch
     reward_description:
-        label: Reward Description
+        label: 'Reward Description'
         size: large
         oc.commentPosition: ''
         span: full

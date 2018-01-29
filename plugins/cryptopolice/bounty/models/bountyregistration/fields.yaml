@@ -8,7 +8,7 @@ fields:
         form:
             fields:
                 title:
-                    label: 'Row Title'
+                    label: Title
                     oc.commentPosition: ''
                     span: auto
                     disabled: 1
@@ -24,4 +24,5 @@ fields:
     status:
         label: Status
         span: auto
+        default: 1
         type: switch
