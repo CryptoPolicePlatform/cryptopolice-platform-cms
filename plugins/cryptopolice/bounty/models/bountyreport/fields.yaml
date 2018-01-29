@@ -13,10 +13,9 @@ fields:
         type: repeater
         form:
             fields:
-                description:
-                    label: Description
+                title:
+                    label: Title
                     oc.commentPosition: ''
-                    prompt: 'Add new item'
                     span: auto
                     type: text
                 value:
@@ -29,9 +28,9 @@ fields:
         oc.commentPosition: ''
         nameFrom: reward_title
         descriptionFrom: reward_title
+        select: 'concat(''['',reward_title,''] '', reward_amount)'
         span: auto
         type: relation
-        select: 'concat(''['',reward_title,''] '', reward_amount)'
     given_reward:
         label: 'Given Reward ( Tokens / Stake )'
         oc.commentPosition: ''

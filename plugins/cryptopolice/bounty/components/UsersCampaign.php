@@ -10,8 +10,9 @@ use CryptoPolice\Bounty\Models\BountyReport;
 
 class UsersCampaign extends ComponentBase
 {
-    public $access;
     public $reportList;
+    public $access;
+    public $status;
     public $campaignID;
     public $profileStatistic;
 
@@ -52,6 +53,7 @@ class UsersCampaign extends ComponentBase
         if (!empty($this->param('slug'))) {
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
             $this->access = $access ? $access->pivot->approval_type : null;
+            $this->status = $access ? $access->pivot->status : null;
         }
 
     }
@@ -61,24 +63,22 @@ class UsersCampaign extends ComponentBase
     {
 
         $user = Auth::getUser();
-        $type = post('campaing_type');
-        $status = post('status');
 
-        if ($type) {
+        if (post('campaing_type')) {
 
             $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
                 ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
                 ->where('user_id', $user->id)
-                ->where('cryptopolice_bounty_campaigns.id', $type)
+                ->where('cryptopolice_bounty_campaigns.id', post('campaing_type'))
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-        } elseif ($status) {
+        } elseif (post('status')) {
 
             $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
                 ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
                 ->where('user_id', $user->id)
-                ->where('cryptopolice_bounty_user_reports.status', $status)
+                ->where('cryptopolice_bounty_user_reports.status', post('status'))
                 ->orderBy('created_at', 'desc')
                 ->get();
         } else {
@@ -129,12 +129,20 @@ class UsersCampaign extends ComponentBase
             }
         }
 
-        $user->bountyCampaigns()->attach(post('id'), [
-            'fields_data' => json_encode($json),
-            'created_at' => new DateTime(),
-            'status' => 0,
-        ]);
-        $user->save();
-        Flash::success('Successfully registered');
+        $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+
+        if ($access->isEmpty()) {
+
+            $user->bountyCampaigns()->attach(post('id'), [
+                'fields_data' => json_encode($json),
+                'created_at' => new DateTime(),
+                'status' => 0,
+            ]);
+            $user->save();
+            Flash::success('Successfully registered');
+
+        } else {
+            Flash::warning('You are already registered');
+        }
     }
 }
