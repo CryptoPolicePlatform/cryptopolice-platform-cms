@@ -1,0 +1,32 @@
+# ===================================
+# Filter Bounty Campaing Registrations
+# ===================================
+
+scopes:
+
+  bounty_end_date_time:
+      label: Date
+      type: daterange
+      conditions: created_at >= ':after' AND created_at <= ':before'
+
+  bounty_campaign:
+      label: Bounty Campaign
+      modelClass: Cryptopolice\bounty\Models\Bounty
+      nameFrom: title
+      conditions: bounty_campaigns_id in (:filtered)
+
+  bounty_status:
+      label: Status
+      type: group
+      conditions: status in (:filtered)
+      options:
+          0: Not active
+          1: Active  
+  approval_type:
+      label: Approval Type
+      type: group
+      conditions: status in (:filtered)
+      options:
+          0: Not Approved
+          1: Approved
+

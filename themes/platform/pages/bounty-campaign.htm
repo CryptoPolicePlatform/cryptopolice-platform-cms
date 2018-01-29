@@ -1,18 +1,32 @@
 title = "Bounty Campaign"
-url = "/bounty-campaign/:slug?"
+url = "/bounty-campaign/:id?/:slug?"
 layout = "platform"
 is_hidden = 0
 
+[UsersCampaign]
+
 [Bounties]
-[UsersReports]
 ==
 <!-- Content -->
 <main class="content">
     <div class="content__inner">
+        <div class="content__left">
 
-        {% component 'UsersReports' %}
+            {% partial UsersCampaign ~ '::bounty-bar' %}
 
-        {% component 'Bounties' %}
+            <div class="profile">
 
+                {% partial UsersCampaign ~ '::bounty-profile' %}
+
+                <div class="profile__content">
+
+                    {% partial UsersCampaign ~ '::main-menu' %}
+                    
+                    {% component 'Bounties' %}
+
+                </div>
+
+            </div>
+        </div>
     </div>
 </main>

@@ -1,0 +1,27 @@
+fields:
+    fields_data:
+        label: 'User Registered data'
+        oc.commentPosition: ''
+        prompt: 'Add new item'
+        span: full
+        type: repeater
+        form:
+            fields:
+                title:
+                    label: 'Row Title'
+                    oc.commentPosition: ''
+                    span: auto
+                    disabled: 1
+                    type: text
+                value:
+                    label: Value
+                    span: auto
+                    type: text
+    approval_type:
+        label: Approve
+        span: auto
+        type: checkbox
+    status:
+        label: Status
+        span: auto
+        type: switch

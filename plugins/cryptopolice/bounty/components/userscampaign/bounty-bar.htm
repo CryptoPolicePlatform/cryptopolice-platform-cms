@@ -1,0 +1,15 @@
+{% set campaignTitle = "" %}
+
+{% for bounty in Bounties.bountyList %}
+    {% if bounty.slug == this.param.slug %}
+        {% set campaignTitle = bounty.title %}
+    {% endif %}
+{% endfor %}
+
+<div class="breadcrumbs">
+    <a class="breadcrumbs__item" href="#">Home</a>
+    <a class="breadcrumbs__item" href="{{'bounty-campaign'|page({slug : ''})}}"><span class="breadcrumbs__item  active"> Bounty </span></a>
+    {% if campaignTitle is not empty %}
+        <span class="breadcrumbs__item  active"> {{ campaignTitle }} </span>
+    {% endif %}
+</div>

@@ -1,0 +1,24 @@
+{% if UsersCampaign.access == 1 %}
+    <div class="grid__col  w6">
+        <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request-flash data-request="onAddReport">
+                {% for bounty in Bounties.bountyList %}
+                    {% if bounty.slug == this.param.slug %}
+                        {% for field in bounty.fields %}
+                            {% if field.action_type == 'report' and field.status %}
+                                <div class="form__group"><label>{{field.title}}</label>
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            <div class="form__group">
+                <button class="btn  btn--gpink">add new report</button>
+            </div>
+        </form>
+    </div>
+{% else %}
+    <div class="card  mb-15">
+        <p></p>You need to wait until we confirm your account to participate in current bounty<p></p>
+    </div>
+{% endif %}

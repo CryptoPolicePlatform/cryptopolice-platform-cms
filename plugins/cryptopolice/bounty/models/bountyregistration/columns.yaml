@@ -1,0 +1,30 @@
+columns:
+    approval_type:
+        label: 'Approved?'
+        type: partial
+        sortable: true
+        clickable: 'false'
+        cssClass: column-button
+        width: 150px
+    status:
+        label: Status
+        type: partial
+        searchable: true
+        sortable: true
+        cssClass: column-button
+        width: 50px
+    id:
+        label: 'Campaign ID'
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Created At'
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: 'Update At'
+        type: datetime
+        searchable: true
+        sortable: true

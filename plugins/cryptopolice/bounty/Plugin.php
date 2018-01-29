@@ -7,8 +7,9 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
+            'CryptoPolice\Bounty\Components\Report'           => 'Report',
             'CryptoPolice\Bounty\Components\Bounties'         => 'Bounties',
-            'CryptoPolice\Bounty\Components\UsersReports'     => 'UsersReports',
+            'CryptoPolice\Bounty\Components\UsersCampaign'    => 'UsersCampaign',
         ];
     }
 

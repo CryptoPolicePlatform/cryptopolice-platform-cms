@@ -1,25 +1,28 @@
 columns:
-
     status:
         label: Status
+        type: partial
+        searchable: true
+        sortable: true
+        cssClass: column-button
+        width: 50px
+    title:
+        label: Report Title
         type: text
         searchable: true
         sortable: true
-
-    given_reward:
-        label: Given Reward
-        type: text
-        searchable: true
-        sortable: true
-
     comment:
         label: Comment
         type: text
         searchable: true
         sortable: true
-
     created_at:
         label: Created At
         type: date
+        searchable: true
+        sortable: true
+    given_reward:
+        label: Given Reward
+        type: number
         searchable: true
         sortable: true

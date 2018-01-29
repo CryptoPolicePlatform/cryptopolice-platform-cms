@@ -1,5 +1,5 @@
-list: $/cryptopolice/bounty/models/bountyuser/columns.yaml
-modelClass: CryptoPolice\bounty\Models\BountyReports
+list: $/cryptopolice/bounty/models/bountyreport/columns.yaml
+modelClass: CryptoPolice\bounty\Models\BountyReport
 title: BountyReports
 noRecordsMessage: backend::lang.list.no_records
 showSetup: true

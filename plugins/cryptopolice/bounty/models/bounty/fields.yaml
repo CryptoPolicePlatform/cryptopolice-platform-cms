@@ -38,14 +38,13 @@ fields:
                     type: text
                 input_type:
                     label: 'Input Type'
-                    oc.commentPosition: ''
                     options:
-                        1: string
-                        2: radio
-                        3: select
-                        4: checkbox
-                        5: textarea
-                        6: number
+                        text: String
+                        radio: Radio
+                        select: Select
+                        checkbox: Checkbox
+                        textarea: Textarea
+                        number: Number
                     span: auto
                     required: 1
                     type: dropdown
@@ -54,9 +53,9 @@ fields:
                     label: 'Action Type'
                     oc.commentPosition: ''
                     options:
-                        1: Registration
-                        2: Reports
-                        3: Bouth
+                        registration: Registration
+                        report: Reports
+                        bouth: Bouth
                     span: auto
                     hidden: 0
                     required: 1

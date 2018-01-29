@@ -1,6 +1,6 @@
 name: BountyReports
-form: $/cryptopolice/bounty/models/bountyuser/fields.yaml
-modelClass: CryptoPolice\bounty\Models\BountyReports
+form: $/cryptopolice/bounty/models/bountyreport/fields.yaml
+modelClass: CryptoPolice\bounty\Models\BountyReport
 defaultRedirect: cryptopolice/bounty/bountyreports
 create:
     redirect: cryptopolice/bounty/bountyreports/update/:id

@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class BountyReports extends Model
+class BountyRegistration extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
@@ -19,18 +19,10 @@ class BountyReports extends Model
     public $rules = [
     ];
 
-    /**
-     * @var array Relations
-     */
-    public $belongsTo = [
-        'rewards' => [
-            'CryptoPolice\bounty\Models\Reward',
-            'key' => 'rewards_id'
-        ],
-    ];
+    protected $jsonable = ['fields_data'];
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cryptopolice_bounty_user_reports';
+    public $table = 'cryptopolice_bounty_user_registration';
 }
