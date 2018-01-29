@@ -1,0 +1,13 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    settings_label:
+      label: ReCaptcha
+      type: section
+
+    recaptcha-key:
+          label: reCaptcha Key
+          type: text
+          required: true

@@ -11,7 +11,7 @@ fields:
                     label: Title
                     oc.commentPosition: ''
                     span: auto
-                    disabled: 1
+                    disabled: 0
                     type: text
                 value:
                     label: Value

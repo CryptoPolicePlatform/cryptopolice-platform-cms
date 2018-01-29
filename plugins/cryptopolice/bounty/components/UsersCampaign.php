@@ -10,9 +10,9 @@ use CryptoPolice\Bounty\Models\BountyReport;
 
 class UsersCampaign extends ComponentBase
 {
-    public $reportList;
     public $access;
     public $status;
+    public $reportList;
     public $campaignID;
     public $profileStatistic;
 
@@ -40,17 +40,18 @@ class UsersCampaign extends ComponentBase
 
         // Get users statistic
         $this->profileStatistic = [
-            'reward_sum' => $reports->sum->given_reward,
-            'pending' => $reports->where('status', 0)->count(),
-            'approved' => $reports->where('status', 1)->count(),
-            'disapproved' => $reports->where('status', 2)->count(),
-            'report_count' => $reports->count(),
+            'report_count'      => $reports->count(),
+            'reward_sum'        => $reports->sum->given_reward,
+            'disapproved'       => $reports->where('status', 2)->count(),
+            'approved'          => $reports->where('status', 1)->count(),
+            'pending'           => $reports->where('status', 0)->count(),
         ];
 
 
         // Check if user is registered in current Bounty Campaign
         if (!empty($this->param('slug'))) {
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
+
             $this->access = $access ? $access->pivot->approval_type : null;
             $this->status = $access ? $access->pivot->status : null;
         }
@@ -124,15 +125,9 @@ class UsersCampaign extends ComponentBase
 
         foreach ($data as $key => $value) {
             if ($key != 'id') {
-
-                array_push($json, [
-                    'title' => $key,
-                    'value' => $value
-                ]);
-
+                array_push($json, ['title' => $key, 'value' => $value]);
                 $rules[$key] = 'required';
                 $input[$key] = $value;
-
             }
         }
 

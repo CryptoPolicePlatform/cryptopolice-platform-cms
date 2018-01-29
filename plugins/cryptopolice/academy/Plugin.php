@@ -35,7 +35,14 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
-
+        return [
+            'settings' => [
+                'label'       => 'Academy Plugin',
+                'description' => 'CryptoPolice Academy Plugin',
+                'icon'        => 'icon-users',
+                'class'       => 'CryptoPolice\Academy\Models\Settings',
+            ]
+        ];
     }
 
     /*

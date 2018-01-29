@@ -5,11 +5,10 @@
                 {% if bounty.slug == this.param.slug %}
                     {% for field in bounty.fields %}
                         {% if field.action_type == 'registration' and field.status %}
-
                             <div class="form__group"><label>{{field.title}}</label>
 
                                 {% if field.title == 'Email'%}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" value="{{user.email}}">
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.email}}">
                                 {% else %}
                                     <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}">
                                 {% endif %}

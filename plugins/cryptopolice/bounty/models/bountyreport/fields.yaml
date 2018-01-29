@@ -1,6 +1,6 @@
 fields:
     title:
-        label: 'Users Title'
+        label: Users Title
         oc.commentPosition: ''
         span: full
         disabled: 1
@@ -8,7 +8,7 @@ fields:
     description:
         label: Description
         oc.commentPosition: ''
-        prompt: 'Add new item'
+        prompt: Add new item
         span: full
         type: repeater
         form:
@@ -24,7 +24,7 @@ fields:
                     span: auto
                     type: text
     rewards:
-        label: 'Select Reward'
+        label: Select Reward
         oc.commentPosition: ''
         nameFrom: reward_title
         descriptionFrom: reward_title
@@ -32,11 +32,11 @@ fields:
         span: auto
         type: relation
     given_reward:
-        label: 'Given Reward ( Tokens / Stake )'
+        label: Rew
         oc.commentPosition: ''
         span: auto
-        required: 1
-        dependsOn: rewards
+        dependsOn:
+            - rewards_id
         type: text
     status:
         label: Status
@@ -53,3 +53,4 @@ fields:
         oc.commentPosition: ''
         span: full
         type: richeditor
+
