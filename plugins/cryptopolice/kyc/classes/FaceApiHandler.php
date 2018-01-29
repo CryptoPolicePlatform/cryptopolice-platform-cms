@@ -23,14 +23,15 @@ class FaceApiHandler
         return $this->execute($endpoint, $data, $parameters);
     }
 
-    public function verify(array $data)
+    public function verify($one, $another)
     {
-        $request_body = [];
+        $face1 = $this->detect($one);
+        $face2 = $this->detect($another);
 
-        for ($i=0; $i <= 1; $i++) {
-            $face = $this->detect($data[$i]);
-            $request_body['faceId' . ($i + 1)] = $face[0]->faceId;
-        }
+        $request_body = [
+            'faceId1' => $face1[0]->faceId,
+            'faceId2' => $face2[0]->faceId,
+        ];
 
         $endpoint = $this->getUrl() . '/face/v1.0/verify';
         return $this->execute($endpoint, json_encode($request_body));

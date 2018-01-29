@@ -5,7 +5,7 @@ use October\Rain\Support\Facades\Flash;
 
 use HTTP_Request2;
 
-use Validator, Storage, Auth, Event;
+use Validator, Storage, Auth, Event, Log, Exception;
 use October\Rain\Exception\ValidationException;
 
 use CryptoPolice\KYC\Classes\FaceApiHandler;
@@ -49,21 +49,30 @@ class KYC extends ComponentBase
             $fp2 = fopen($files['doc_front_side']->getRealPath(), 'rb');
             $fp3 = fopen($files['doc_back_side']->getRealPath(), 'rb');
 
-            $verify = $this->getFaceApiHandler()->verify([$fp1, $fp2]);
+            try {
 
-            Event::fire('cryptopolice.kyc.verify', [&$verify]);
+                $verify = $this->getFaceApiHandler()->verify($fp1, $fp2);
 
-            $success = $this->saveToS3([
-                'selfie_with_document'  => $fp1,
-                'doc_front_side'        => $fp2,
-                'doc_back_side'         => $fp3,
-                ]);
+                Event::fire('cryptopolice.kyc.verify', [&$verify]);
 
-            fclose($fp1);
-            fclose($fp2);
-            fclose($fp3);
+                $success = $this->saveToS3([
+                    'selfie_with_document'  => $fp1,
+                    'doc_front_side'        => $fp2,
+                    'doc_back_side'         => $fp3,
+                    ]);
 
-            return $success;
+                fclose($fp1);
+                fclose($fp2);
+                fclose($fp3);
+
+                return $success;
+                
+            }   catch (Exception $e) {
+
+                Log::error($e);
+
+                Flash::error('Oops! Something went wrong! Try again or contact support!');
+            }
         }
     }
 
