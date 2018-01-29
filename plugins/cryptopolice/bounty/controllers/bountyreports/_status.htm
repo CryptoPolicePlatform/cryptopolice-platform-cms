@@ -1,0 +1,7 @@
+<?php if(!$value) { ?>
+		<a style="background: #EFFF00;" class="btn btn-success"> Pending   </a>
+<?php } elseif($value == 1) { ?>
+		<a style="background: #84c01b;" class="btn btn-danger"> Approved </a>
+<?php } else { ?>
+		<a style="background: #a7a7a7;" class="btn btn-danger"> Disapproved </a>
+<?php } ?>

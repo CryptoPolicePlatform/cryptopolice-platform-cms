@@ -1,29 +1,8 @@
-<div class="content__header">
-    <div class="select  select--filter">
-        <select name="">
-            <option value="" selected>All</option>
-            <option value="">option</option>
-            <option value="">option</option>
-            <option value="">option</option>
-        </select>
-    </div>
-    <div class="select  select--filter">
-        <select name="">
-            <option value="" selected>Type</option>
-            <option value="">option</option>
-            <option value="">option</option>
-            <option value="">option</option>
-        </select>
-    </div>
-</div>
-
-
-
 {% set flag = true %}
 
 {% for bounty in Bounties.bountyList %}
-<!-- Bounty Campaign is selected by user -->
-{% if bounty.slug == this.param.slug %}
+    <!-- Bounty Campaign is selected by user -->
+    {% if bounty.slug == this.param.slug %}
     {% set flag = false %}
         <div class="tabs" id="tabs1">
             <div class="tabs__nav" data-tabs-for="#tabs1" role="tablist">
@@ -47,7 +26,7 @@
 
                 <!-- Tab 2 All Reports in current campaign -->
                 <div class="tabs__item" id="tab-2" role="tabpanel">
-                    {% partial 'UsersCampaign::bounty-all-reports-list' %}
+                    {% partial 'UsersCampaign::bounty-campaign-reports' %}
                 </div>
 
                 <!-- Tab 3 Report or Registration form -->
@@ -65,5 +44,5 @@
 {% endfor %}
 
 {% if flag == true %}
-    {% partial 'UsersCampaign::bounty-users-report-list' %}
+    {% partial 'UsersCampaign::reports-users' %}
 {% endif %}

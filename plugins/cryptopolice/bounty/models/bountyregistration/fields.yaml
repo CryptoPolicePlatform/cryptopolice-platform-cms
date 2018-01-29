@@ -3,7 +3,7 @@ fields:
         label: 'User Registered data'
         oc.commentPosition: ''
         prompt: 'Add new item'
-        span: auto
+        span: full
         type: repeater
         form:
             fields:
@@ -15,10 +15,13 @@ fields:
                     type: text
                 value:
                     label: Value
-                    oc.commentPosition: above
                     span: auto
                     type: text
     approval_type:
         label: Approve
         span: auto
         type: checkbox
+    status:
+        label: Status
+        span: auto
+        type: switch

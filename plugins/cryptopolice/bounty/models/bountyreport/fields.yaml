@@ -1,31 +1,44 @@
 fields:
     title:
-        label: Users Title
+        label: 'Users Title'
         oc.commentPosition: ''
         span: full
         disabled: 1
         type: text
     description:
-        label: Users Description
-        size: large
+        label: Description
         oc.commentPosition: ''
+        prompt: 'Add new item'
         span: full
-        disabled: 1
-        type: richeditor
+        type: repeater
+        form:
+            fields:
+                description:
+                    label: Description
+                    oc.commentPosition: ''
+                    prompt: 'Add new item'
+                    span: auto
+                    type: text
+                value:
+                    label: Value
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
     rewards:
-        label: Select Reward
+        label: 'Select Reward'
         oc.commentPosition: ''
         nameFrom: reward_title
         descriptionFrom: reward_title
         span: auto
         type: relation
-        select: concat(reward_amount, '' ('', reward_type ,'') -> '', reward_title)
+        select: 'concat(''['',reward_title,''] '', reward_amount)'
     given_reward:
-        label: Given Reward ( Tokens / Stake )
+        label: 'Given Reward ( Tokens / Stake )'
         oc.commentPosition: ''
         span: auto
         required: 1
         dependsOn: rewards
+        type: text
     status:
         label: Status
         oc.commentPosition: ''

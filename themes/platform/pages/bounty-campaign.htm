@@ -12,7 +12,7 @@ is_hidden = 0
     <div class="content__inner">
         <div class="content__left">
 
-            {% partial __SELF__ ~ '::bounty-bar' %}
+            {% partial UsersCampaign ~ '::bounty-bar' %}
 
             <div class="profile">
 
@@ -20,7 +20,8 @@ is_hidden = 0
 
                 <div class="profile__content">
 
-                    {% partial UsersCampaign ~ '::bounty-reports' %}
+                    {% partial UsersCampaign ~ '::main-menu' %}
+                    
                     {% component 'Bounties' %}
 
                 </div>

@@ -29,6 +29,8 @@ class BountyReport extends Model
         ],
     ];
 
+    protected $jsonable = ['description'];
+
     /**
      * @var string The database table used by the model.
      */

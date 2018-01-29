@@ -11,7 +11,12 @@
         </h3>
     </div>
 
-    <div class="card__content"> {{ Report.report.description }} </div>
+    <div class="card__content"> {{ Report.report.title }}</div>
+        {% for field in Report.report.description %}
+            <p> <strong> {{ field.title }} </strong> </p>
+            <p> {{ field.value }} </p>
+        {% endfor %}
+
     <div class="card__footer">
         <div class="card__footer-left">
             <ul class="card__ava-list">
