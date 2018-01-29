@@ -124,24 +124,42 @@ class UsersCampaign extends ComponentBase
 
         foreach ($data as $key => $value) {
             if ($key != 'id') {
-                array_push($json, ['title' => $key, 'value' => $value]);
+
+                array_push($json, [
+                    'title' => $key,
+                    'value' => $value
+                ]);
+
+                $rules[$key] = 'required';
+                $input[$key] = $value;
+
             }
         }
 
-        $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+        $validator = Validator::make($input, $rules);
 
-        if ($access->isEmpty()) {
-
-            $user->bountyCampaigns()->attach(post('id'), [
-                'fields_data' => json_encode($json),
-                'created_at' => new DateTime(),
-                'status' => 0,
-            ]);
-            $user->save();
-            Flash::success('Successfully registered');
-
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                Flash::error($message);
+            }
         } else {
-            Flash::warning('You are already registered');
+
+            $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+
+            if ($access->isEmpty()) {
+
+                $user->bountyCampaigns()->attach(post('id'), [
+                    'fields_data' => json_encode($json),
+                    'created_at' => new DateTime(),
+                    'status' => 1,
+                ]);
+                $user->save();
+                Flash::success('Successfully registered');
+
+            } else {
+                Flash::warning('You are already registered');
+            }
         }
     }
 }

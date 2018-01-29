@@ -51,33 +51,28 @@ class ExamTask extends ComponentBase
 
         // if non-finished exam
         if (($currentExamStatus)) {
-            $now = new DateTime('now');
-            $completeAt = new DateTime($currentExamStatus->completed_at);
 
-            if ($now > $completeAt) {
+            // Get the current attempt
+            $try = $currentExamStatus->try;
 
-                // Get the current attempt
-                $try = $currentExamStatus->try;
+            // Get the number of correct answers from query
+            $scores = Score::where('user_id', $user->id)
+                ->where('exam_id', $selectedExam->id)
+                ->where('is_correct', '1')
+                ->where('try', $try)
+                ->get();
+            $correctAnsCounter = sizeof($scores);
 
-                // Get the number of correct answers from query
-                $scores = Score::where('user_id', $user->id)
-                    ->where('try', $try)
-                    ->where('exam_id', $selectedExam->id)
-                    ->where('is_correct', '1')
-                    ->get();
-                $correctAnsCounter = sizeof($scores);
+            // Complete the current exam
+            FinalScore::where('user_id', $user->id)
+                ->where('exam_id', $selectedExam->id)
+                ->where('try', $try)
+                ->update([
+                    'score' => $correctAnsCounter,
+                    'complete_status' => '1'
+                ]);
 
-                // Complete the current exam
-                FinalScore::where('user_id', $user->id)
-                    ->where('exam_id', $selectedExam->id)
-                    ->where('try', $try)
-                    ->update([
-                        'complete_status' => '1',
-                        'score' => $correctAnsCounter
-                    ]);
-
-                return Redirect::to('/exam');
-            }
+            return Redirect::to('/exam');
 
         } else {
 
@@ -91,14 +86,6 @@ class ExamTask extends ComponentBase
 
                 $now = new DateTime('now');
                 $completeAt = new DateTime($previousPassedExam->completed_at);
-
-                // $createdAt = new DateTime($previousPassedExam->created_at);
-                // Get a period in seconds from the beginning of the exam
-                // $left = $now->getTimestamp() - $createdAt->getTimestamp();
-                // if ($left < $selectedExam->retake_time) {
-                //     Flash::error('You can retake your Exam again but you must wait!');
-                //     return Redirect::to('/exam');
-                // }
 
                 //  Get time interval in seconds from the end of the exam
                 $left = $now->getTimestamp() - $completeAt->getTimestamp();
