@@ -6,9 +6,30 @@ columns:
         sortable: true
         cssClass: column-button
         width: 50px
-    title:
-        label: Report Title
+    bounty_campaigns_id:
+        label: Bounty
         type: text
+        searchable: true
+        sortable: true
+        select: title
+        relation: bounty_campaign
+    user_id:
+        label: 'Email & Name'
+        type: text
+        searchable: true
+        sortable: true
+        select: 'concat(''['',name,''] '', email)'
+        relation: user
+    rewards_id:
+        label: 'Bug Type'
+        type: text
+        searchable: true
+        sortable: true
+        select: 'concat(''['',reward_title,''] '', reward_amount)'
+        relation: rewards
+    given_reward:
+        label: 'Given Reward'
+        type: number
         searchable: true
         sortable: true
     comment:
@@ -17,12 +38,7 @@ columns:
         searchable: true
         sortable: true
     created_at:
-        label: Created At
+        label: 'Created At'
         type: date
-        searchable: true
-        sortable: true
-    given_reward:
-        label: Given Reward
-        type: number
         searchable: true
         sortable: true

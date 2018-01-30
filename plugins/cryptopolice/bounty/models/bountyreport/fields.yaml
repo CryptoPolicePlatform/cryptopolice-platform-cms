@@ -1,14 +1,26 @@
 fields:
-    title:
-        label: Users Title
+    bounty_campaign:
+        label: Bounty
         oc.commentPosition: ''
-        span: full
-        disabled: 1
-        type: text
+        nameFrom: title
+        span: auto
+        type: relation
+    user:
+        label: User
+        oc.commentPosition: ''
+        select: 'concat(''['',name,''] '', email)'
+        span: auto
+        type: relation
+    bounty_user_registration:
+        label: Registred data
+        oc.commentPosition: ''
+        select: fields_data
+        span: auto
+        type: relation
     description:
         label: Description
         oc.commentPosition: ''
-        prompt: Add new item
+        prompt: 'Add new item'
         span: full
         type: repeater
         form:
@@ -24,7 +36,7 @@ fields:
                     span: auto
                     type: text
     rewards:
-        label: Select Reward
+        label: 'Select Reward'
         oc.commentPosition: ''
         nameFrom: reward_title
         descriptionFrom: reward_title
@@ -53,4 +65,3 @@ fields:
         oc.commentPosition: ''
         span: full
         type: richeditor
-

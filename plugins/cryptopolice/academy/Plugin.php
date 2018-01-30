@@ -96,14 +96,43 @@ class Plugin extends PluginBase
                 'btc_link',
             ]);
 
-            $model->belongsToMany['bountyCampaigns'] = ['CryptoPolice\Bounty\Models\Bounty',
-                'table'     => 'cryptopolice_bounty_user_registration',
-                'pivot'     => ['approval_type', 'status'],
-                'otherKey'  => 'bounty_campaigns_id',
-                'key'       => 'user_id'
+            // Extended Relations, pivot tables
+
+            $model->belongsToMany = [
+
+                'bountyCampaigns' => ['CryptoPolice\Bounty\Models\Bounty',
+                    'table' => 'cryptopolice_bounty_user_registration',
+                    'pivot' => [
+                        'approval_type', 'status'
+                    ],
+                    'otherKey' => 'bounty_campaigns_id',
+                    'key' => 'user_id'
+                ],
+
+                'bountyReports' => ['CryptoPolice\Bounty\Models\Bounty',
+                    'table' => 'cryptopolice_bounty_user_reports',
+                    'pivot' => [
+                        'status', 'description', 'title', 'comment', 'fields_data'
+                    ],
+                    'otherKey' => 'bounty_campaigns_id',
+                    'key' => 'user_id'
+                ]
             ];
 
+            $model->hasMany = [
+
+                'userReportList' => ['CryptoPolice\Bounty\Models\BountyReport',
+                    'table' => 'bounty_users_reports',
+                    'key' => 'user_id',
+                ],
+
+                'userRegistrationList' => ['CryptoPolice\Bounty\Models\BountyRegistration',
+                    'table' => 'bounty_users_registration',
+                    'key' => 'user_id',
+                ],
+            ];
         });
+
     }
 
     protected function extendUsersController()

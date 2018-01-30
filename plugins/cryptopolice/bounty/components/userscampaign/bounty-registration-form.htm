@@ -1,12 +1,24 @@
 <div class="grid__col  w6">
+    <h3>Registration </h3>
     <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request="onCampaignRegistration" data-request-flash>
             {% for bounty in Bounties.bountyList %}
                 {% if bounty.slug == this.param.slug %}
                     {% for field in bounty.fields %}
                         {% if field.action_type == 'registration' and field.status %}
                             <div class="form__group"><label>{{field.title}}</label>
+
                                 {% if field.title == 'Email'%}
                                     <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.email}}">
+                                {% elseif field.title == 'Twitter Profile Link'%}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.twitter_link}}">
+                                {% elseif field.title == 'Facebook Profile Link'%}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.facebook_link}}">
+                                {% elseif field.title == 'Telegram Username'%}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
+                                {% elseif field.title == 'BitcoinTalk Profile link'%}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
+                                {% elseif field.title == 'Youtube Username'%}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.youtube_link}}">
                                 {% else %}
                                     <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}">
                                 {% endif %}

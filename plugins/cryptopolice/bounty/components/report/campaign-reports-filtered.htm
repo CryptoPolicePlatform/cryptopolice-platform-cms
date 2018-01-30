@@ -2,10 +2,10 @@
 <div id="report_list">
     <h3 class="content__title"> Bounty Reports</h3>
     <div class="issues">
-        {% for report in Report.reportList %}
+        {% for report in UsersCampaign.reportList %}
                 <div class="issues__item  issues__item--history">
-                    <div class="issues__type">{{ report.bounty_title }}</div>
-                    <div class="issues__title"> {{ report.title }}</div>
+                    <div class="issues__type">{{ report.title }}</div>
+                    <div class="issues__title"> {{ report }}</div>
                     <div class="issues__view">
                         <a href="{{'bounty-report'|page({ id: report.id })}}">View details</a>
                     </div>
@@ -28,10 +28,10 @@
                     {% endif %}
                 </div>
 
-            {% else %}
-                <div class="issues__item  issues__item--history">
-                    Not found
-                </div>
+        {% else %}
+            <div class="issues__item  issues__item--history">
+                Not found
+            </div>
         {% endfor %}
     </div>
 </div>

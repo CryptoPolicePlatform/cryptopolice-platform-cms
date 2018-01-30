@@ -30,32 +30,20 @@ class Report extends ComponentBase
         $user = Auth::getUser();
 
         if (post('campaign_type') && !empty(post('campaign_type'))) {
-
-            $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('cryptopolice_bounty_campaigns.id', post('campaign_type'))
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
+            $this->reportList = $user->bountyReports()
+                ->wherePivot('bounty_campaigns_id', post('campaign_type'))
                 ->get();
 
         } elseif (post('status')) {
 
-            $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.* as report', 'cryptopolice_bounty_campaigns.title as bounty_title')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('cryptopolice_bounty_user_reports.status', post('status'))
-                ->where('user_id', $user->id)
-                ->where('cryptopolice_bounty_user_reports.bounty_campaigns_id', $this->param('id'))
-                ->orderBy('created_at', 'desc')
+            $this->reportList = $user->bountyReports()
+                ->wherePivot('status', post('campaign_type'))
                 ->get();
+
         } else {
-            $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('user_id', $user->id)
-                ->where('cryptopolice_bounty_user_reports.bounty_campaigns_id', $this->param('id'))
+            $this->reportList = $user->userReportList()
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
     }
-
-
 }

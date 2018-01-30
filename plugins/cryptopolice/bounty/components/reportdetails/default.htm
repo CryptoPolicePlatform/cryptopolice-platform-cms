@@ -5,20 +5,11 @@
 
 <div class="card">
 
-    <div class="card__header">
-        <h3 class="card__title">
-            {{ ReportDetails.report.title }}
-        </h3>
-    </div>
+    {% for field in ReportDetails.report.description %}
+        <div class="card__header"> <strong> {{ field.title|replace({'_': ' '}) }} </strong> </div>
+        <div class="card__content"> {{ field.value }} </div>
+    {% endfor %}
 
-    <div class="card__content">
-        {{ ReportDetails.report.title }}
-    </div>
-
-        {% for field in ReportDetails.report.description %}
-            <p> <strong> {{ field.title }} </strong> </p>
-            <p> {{ field.value }} </p>
-        {% endfor %}
     <div class="card__footer">
         <div class="card__footer-left">
             <ul class="card__ava-list">

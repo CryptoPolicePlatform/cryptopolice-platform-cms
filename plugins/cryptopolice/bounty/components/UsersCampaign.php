@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Bounty\Components;
 
+use CryptoPolice\Bounty\Models\Bounty;
 use DB;
 use Auth;
 use Flash;
@@ -47,23 +48,20 @@ class UsersCampaign extends ComponentBase
 
         // Check if user is registered in current Bounty Campaign
         if (!empty($this->param('slug'))) {
+
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
+
             $this->access = $access ? $access->pivot->approval_type : null;
             $this->status = $access ? $access->pivot->status : null;
         }
 
     }
 
-
     public function getAllUsersReports()
     {
 
         $user = Auth::getUser();
-        $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
-            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-            ->where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $this->reportList = $user->bountyReports()->get();
     }
 
 
@@ -88,6 +86,8 @@ class UsersCampaign extends ComponentBase
                 'user_id' => $user->id,
             ]
         );
+
+
         Flash::success('Report successfully sent');
         return redirect()->back();
     }
@@ -117,8 +117,6 @@ class UsersCampaign extends ComponentBase
         } else {
 
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
-
-            trace_log($access);
 
             if ($access->isEmpty()) {
 

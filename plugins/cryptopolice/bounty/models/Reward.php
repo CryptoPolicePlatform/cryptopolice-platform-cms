@@ -25,6 +25,10 @@ class Reward extends Model
         ],
     ];
 
+    public $hasMany = [
+        'BountyReport' => ['CryptoPolice\bounty\Models\BountyReport']
+    ];
+
     /**
      * @var string The database table used by the model.
      */
