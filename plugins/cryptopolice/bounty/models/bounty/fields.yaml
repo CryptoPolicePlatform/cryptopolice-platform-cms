@@ -27,7 +27,7 @@ fields:
         label: Fields
         oc.commentPosition: ''
         prompt: 'Add new item'
-        span: auto
+        span: left
         type: repeater
         form:
             fields:
@@ -66,6 +66,16 @@ fields:
                     span: auto
                     default: 1
                     type: switch
+                name:
+                    label: Name
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                regex:
+                    label: Regex
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
                 description:
                     label: Description
                     size: ''

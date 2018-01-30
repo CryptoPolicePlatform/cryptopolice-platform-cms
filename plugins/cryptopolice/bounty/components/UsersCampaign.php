@@ -33,9 +33,7 @@ class UsersCampaign extends ComponentBase
         $user = Auth::getUser();
 
         $this->campaignID = $this->param('id');
-
-        // Get users report list
-        $this->onFilterReports();
+        $this->getAllUsersReports();
 
         // Get users statistic
         $this->profileStatistic = [
@@ -50,7 +48,6 @@ class UsersCampaign extends ComponentBase
         // Check if user is registered in current Bounty Campaign
         if (!empty($this->param('slug'))) {
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
-
             $this->access = $access ? $access->pivot->approval_type : null;
             $this->status = $access ? $access->pivot->status : null;
         }
@@ -58,34 +55,15 @@ class UsersCampaign extends ComponentBase
     }
 
 
-    public function onFilterReports()
+    public function getAllUsersReports()
     {
 
         $user = Auth::getUser();
-        if (post('campaing_type') && !empty(post('campaing_type'))) {
-
-            $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('cryptopolice_bounty_campaigns.id', post('campaing_type'))
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-        } elseif (post('status')) {
-
-            $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('cryptopolice_bounty_user_reports.status', post('status'))
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
-                ->get();
-        } else {
-            $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
-                ->get();
-        }
+        $this->reportList = BountyReport::select('cryptopolice_bounty_user_reports.*', 'cryptopolice_bounty_campaigns.title as bounty_title')
+            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
+            ->where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
 
@@ -111,7 +89,7 @@ class UsersCampaign extends ComponentBase
             ]
         );
         Flash::success('Report successfully sent');
-
+        return redirect()->back();
     }
 
     public function onCampaignRegistration()
@@ -140,6 +118,8 @@ class UsersCampaign extends ComponentBase
 
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
 
+            trace_log($access);
+
             if ($access->isEmpty()) {
 
                 $user->bountyCampaigns()->attach(post('id'), [
@@ -147,8 +127,10 @@ class UsersCampaign extends ComponentBase
                     'created_at' => new DateTime(),
                     'status' => 1,
                 ]);
+
                 $user->save();
                 Flash::success('Successfully registered');
+                return redirect()->back();
 
             } else {
                 Flash::warning('You are already registered');

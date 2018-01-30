@@ -1,0 +1,27 @@
+<!-- Filters-->
+<div class="content__header">
+
+    <div class="select  select--filter">
+        <select data-request="onFilterReports" data-request-update="'Report::users-reports-filtered': '#users_reports'" name="campaign_type">
+            <option value="">All</option>
+            {% for bounty in Bounties.bountyList %}
+            <option value="{{bounty.id}}">{{bounty.title}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="select  select--filter">
+        <select data-request="onFilterReports" data-request-update="'Report::users-reports-filtered': '#users_reports'" name="status">
+            <option value="" selected>All</option>
+            <option value="1">Approved</option>
+            <option value="2">Disapproved</option>
+        </select>
+    </div>
+</div>
+<!-- End Filters-->
+
+<div id="users_reports">
+    {% partial 'Report::users-reports-filtered' %}
+</div>
+
+

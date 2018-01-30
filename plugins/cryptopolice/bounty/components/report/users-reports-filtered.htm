@@ -1,16 +1,15 @@
- <!--Users Pending List-->
- <div class="content__block">
+<!--Users Pending List-->
+<div class="content__block">
     <div class="content__block">
         <h3 class="content__title"> My Bounty Reports</h3>
         <div class="issues">
-            {% for bounty in UsersCampaign.reportList %}
-                
-                {% if bounty.status == 0 %}
+            {% for report in Report.reportList %}
+                {% if report.status == 0 %}
                     <div class="issues__item  issues__item--history">
-                        <div class="issues__type">{{ bounty.bounty_title }}</div>
-                        <div class="issues__title"> {{ bounty.title }}</div>
+                        <div class="issues__type">{{ report.bounty_title }}</div>
+                        <div class="issues__title"> {{ report.title }}</div>
                         <div class="issues__view">
-                            <a href="{{'bounty-report'|page({id:bounty.id})}}">View details</a>
+                            <a href="{{'bounty-report'|page({id:report.id})}}">View details</a>
                         </div>
                         <div class="issues__amount">
                             <span class="text-orange">-</span>
@@ -20,7 +19,6 @@
                         </div>
                     </div>
                 {% endif %}
-            
             {% else %}
                 <div class="issues__item  issues__item--history">
                     New reports not found
@@ -34,22 +32,21 @@
 <div class="content__block">
     <h3 class="content__title">Bounty Reports History</h3>
     <div class="issues">
-        {% for bounty in UsersCampaign.reportList %}
-            
-            {% if bounty.status != 0 %}
+        {% for report in Report.reportList %}
+            {% if report.status != 0 %}
                 <div class="issues__item  issues__item--history">
-                    <div class="issues__type"> {{ bounty.bounty_title }}</div>
-                    <div class="issues__title"> {{ bounty.title }}</div>
+                    <div class="issues__type"> {{ report.bounty_title }}</div>
+                    <div class="issues__title"> {{ report.title }}</div>
                     <div class="issues__view">
-                        <a class="bounty-details" href="{{'bounty-report'|page({id:bounty.id})}}">View details</a>
+                        <a class="bounty-details" href="{{'bounty-report'|page({id:report.id})}}">View details</a>
                     </div>
                     <div class="issues__amount">
                         <span class="text-orange">
-                            {% if bounty.given_reward %} {{ bounty.given_reward }} {% else %} 0 {% endif %}
+                            {% if report.given_reward %} {{ report.given_reward }} {% else %} 0 {% endif %}
                         </span>
                     </div>
 
-                    {% if bounty.status == 1 %}
+                    {% if report.status == 1 %}
                         <div class="issues__status  issues__status--big  issues__status--green">
                             <span>approved</span>
                         </div>
@@ -60,7 +57,6 @@
                     {% endif %}
                 </div>
             {% endif %}
-
         {% else %}
             <div class="issues__item  issues__item--history">
                 History is empty

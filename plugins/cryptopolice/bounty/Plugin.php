@@ -10,6 +10,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Bounty\Components\Report'           => 'Report',
             'CryptoPolice\Bounty\Components\Bounties'         => 'Bounties',
             'CryptoPolice\Bounty\Components\UsersCampaign'    => 'UsersCampaign',
+            'CryptoPolice\Bounty\Components\ReportDetails'    => 'ReportDetails',
         ];
     }
 

@@ -1,50 +1,50 @@
 <div class="breadcrumbs">
     <a class="breadcrumbs__item" href="{{'bounty-campaign'|page}}">Home</a>
-    <span class="breadcrumbs__item  active">Report</span>
+    <span class="breadcrumbs__item  active">ReportDetails</span>
 </div>
 
 <div class="card">
 
     <div class="card__header">
         <h3 class="card__title">
-            {{ Report.report.title }}
+            {{ ReportDetails.report.title }}
         </h3>
     </div>
 
-    <div class="card__content"> {{ Report.report.title }}</div>
-        {% for field in Report.report.description %}
+    <div class="card__content">
+        {{ ReportDetails.report.title }}
+    </div>
+
+        {% for field in ReportDetails.report.description %}
             <p> <strong> {{ field.title }} </strong> </p>
             <p> {{ field.value }} </p>
         {% endfor %}
-
     <div class="card__footer">
         <div class="card__footer-left">
             <ul class="card__ava-list">
                 <li class="card__ava  card__ava--author">
-                    {% if not Report.report.name %} {{ Report.report.email }} {% else %} {{ Report.report.name }} {% endif %}
+                    {% if not ReportDetails.report.name %} {{ ReportDetails.report.email }} {% else %} {{ ReportDetails.report.name }} {% endif %}
                 </li>
             </ul>
         </div>
         <div class="card__footer-right">
-            <div class="card__date">{{ Report.report.created_at }}</div>
+            <div class="card__date">{{ ReportDetails.report.created_at }}</div>
         </div>
     </div>
-
-    {% if Report.report.status == 1 %}
+    {% if ReportDetails.report.status == 1 %}
         <div class="card__status  low"></div>
-    {% elseif Report.report.status == 2%}
+    {% elseif ReportDetails.report.status == 2%}
         <div class="card__status  high"></div>
     {% else %}
         <div class="card__status  medium"></div>
     {% endif %}
-
 </div>
 
 <hr>
 
 <div class="card">
     <div class="card__header"></div>
-    <div class="card__content"> {{ Report.report.comment|raw }}</div>
+    <div class="card__content"> {{ ReportDetails.report.comment|raw }}</div>
     <div class="card__footer">
         <div class="card__footer-left">
             <ul class="card__ava-list">
@@ -52,7 +52,7 @@
                     Reward
                 </li>
                 <li class="card__ava">
-                    {{ Report.report.given_reward }}
+                    {{ ReportDetails.report.given_reward }}
                 </li>
             </ul>
         </div>
