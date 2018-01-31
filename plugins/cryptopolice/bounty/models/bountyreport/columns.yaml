@@ -1,5 +1,5 @@
 columns:
-    status:
+    report_status:
         label: Status
         type: partial
         searchable: true

@@ -42,7 +42,7 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->integer('bounty_campaigns_id')->default(0);
                 $table->integer('bounty_user_registration_id')->default(0);
                 $table->integer('given_reward')->default(0);
-                $table->boolean('status')->default(0);
+                $table->boolean('report_status')->default(0);
                 $table->text('description')->nullable();
                 $table->string('title', 255)->nullable();
                 $table->string('comment', 255)->nullable();

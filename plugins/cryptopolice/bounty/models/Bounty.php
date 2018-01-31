@@ -21,17 +21,17 @@ class Bounty extends Model
      */
     public $hasMany = [
 
-        'Reward' => [
+        'rewards' => [
             'CryptoPolice\bounty\Models\Reward',
             'key' => 'bounty_campaigns_id'
         ],
 
-        'BountyReport' => [
+        'bountyReports' => [
             'CryptoPolice\bounty\Models\BountyReport',
             'key' => 'bounty_campaigns_id'
         ],
 
-        'BountyRegistration' => [
+        'bountyRegistrations' => [
             'CryptoPolice\bounty\Models\BountyRegistration',
             'key' => 'bounty_campaigns_id'
         ]

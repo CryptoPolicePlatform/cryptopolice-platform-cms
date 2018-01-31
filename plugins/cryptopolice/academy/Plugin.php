@@ -45,13 +45,6 @@ class Plugin extends PluginBase
         ];
     }
 
-    /*
-     *  UserModel::extend(function($model) {
-
-            $model->hasMany['instruments'] = ['Cunami\InventoryManagement\Models\InstrumentsHoldersTransfere', 'key' => 'holder_id'];
-
-        });
-     */
     public function boot()
     {
 
@@ -112,7 +105,7 @@ class Plugin extends PluginBase
                 'bountyReports' => ['CryptoPolice\Bounty\Models\Bounty',
                     'table' => 'cryptopolice_bounty_user_reports',
                     'pivot' => [
-                        'status', 'description', 'title', 'comment', 'fields_data'
+                        'report_status', 'description', 'title', 'comment', 'fields_data'
                     ],
                     'otherKey' => 'bounty_campaigns_id',
                     'key' => 'user_id'

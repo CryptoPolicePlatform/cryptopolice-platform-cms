@@ -1,7 +1,7 @@
 <!-- Filters-->
 <div class="content__header">
     <div class="select  select--filter">
-        <select data-request="onFilterReports" data-request-update="'Report::campaign-reports-filtered': '#campaign_reports'" name="status">
+        <select data-request="onFilterCampaignReports" data-request-update="'UsersCampaign::campaign-reports-filtered': '#campaign_reports'" name="status">
             <option value="" selected>All</option>
             <option value="1">Approved</option>
             <option value="2">Disapproved</option>
@@ -11,5 +11,5 @@
 <!-- End Filters -->
 
 <div id="campaign_reports">
-    {% partial 'Report::campaign-reports-filtered' %}
+    {% partial 'UsersCampaign::campaign-reports-filtered' %}
 </div>

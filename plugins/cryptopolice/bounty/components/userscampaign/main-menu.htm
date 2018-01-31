@@ -29,7 +29,7 @@
 
                 <!-- Tab 2 Reports list in current campaign -->
                 <div class="tabs__item" id="tab-2" role="tabpanel">
-                    {% partial 'Report::campaign-reports' %}
+                    {% partial 'UsersCampaign::campaign-reports' %}
                 </div>
 
             </div>
@@ -43,7 +43,7 @@
 {% if flag == true %}
 
     <!-- Tab 2 Users reports -->
-    {% partial 'Report::users-reports' %}
+    {% partial 'UsersCampaign::users-reports' %}
 {% endif %}
 <!-- End User Section-->
 

@@ -50,7 +50,7 @@ fields:
         dependsOn:
             - rewards_id
         type: text
-    status:
+    report_status:
         label: Status
         oc.commentPosition: ''
         options:

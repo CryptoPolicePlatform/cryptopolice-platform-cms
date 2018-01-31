@@ -2,10 +2,12 @@
 <div id="report_list">
     <h3 class="content__title"> Bounty Reports</h3>
     <div class="issues">
-        {% for report in UsersCampaign.reportList %}
+        {% for report in UsersCampaign.campaignReports.bountyReports %}
                 <div class="issues__item  issues__item--history">
-                    <div class="issues__type">{{ report.title }}</div>
-                    <div class="issues__title"> {{ report }}</div>
+
+                    <div class="issues__type">{{ UsersCampaign.campaignReports.title }}</div>
+
+                    <div class="issues__title"> {{ report.description|json_encode}} </div>
                     <div class="issues__view">
                         <a href="{{'bounty-report'|page({ id: report.id })}}">View details</a>
                     </div>
@@ -13,11 +15,11 @@
                         <span class="text-orange">  {% if report.given_reward %} {{ report.given_reward }} {% else %} 0 {% endif %}</span>
                     </div>
 
-                    {% if report.status == 0 %}
+                    {% if report.report_status == 0 %}
                         <div class="issues__status  issues__status--big  issues__status--orange">
                             <span>pending</span>
                         </div>
-                    {% elseif report.status == 1 %}
+                    {% elseif report.report_status == 1 %}
                         <div class="issues__status  issues__status--big  issues__status--green">
                             <span>approved</span>
                         </div>
@@ -32,7 +34,7 @@
             <div class="issues__item  issues__item--history">
                 Not found
             </div>
-        {% endfor %}
+        {% endfor%}
     </div>
 </div>
 <!-- End bounty report list -->

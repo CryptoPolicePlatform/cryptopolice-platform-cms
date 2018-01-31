@@ -3,11 +3,11 @@
     <div class="content__block">
         <h3 class="content__title"> My Bounty Reports</h3>
         <div class="issues">
-            {% for report in Report.reportList %}
-                {% if report.status == 0 %}
+            {% for report in UsersCampaign.reportList %}
+                {% if report.pivot.report_status == 0 %}
                     <div class="issues__item  issues__item--history">
-                        <div class="issues__type">{{ report.bounty_title }}</div>
-                        <div class="issues__title"> {{ report.title }}</div>
+                        <div class="issues__type">{{ report.title }}</div>
+                        <div class="issues__title"> ... </div>
                         <div class="issues__view">
                             <a href="{{'bounty-report'|page({id:report.id})}}">View details</a>
                         </div>
@@ -32,11 +32,11 @@
 <div class="content__block">
     <h3 class="content__title">Bounty Reports History</h3>
     <div class="issues">
-        {% for report in Report.reportList %}
-            {% if report.status != 0 %}
+        {% for report in UsersCampaign.reportList %}
+            {% if report.pivot.report_status != 0 %}
                 <div class="issues__item  issues__item--history">
-                    <div class="issues__type"> {{ report.bounty_title }}</div>
-                    <div class="issues__title"> {{ report.title }}</div>
+                    <div class="issues__type"> {{ report.title }}</div>
+                    <div class="issues__title"> {{report.pivot.description|json_encode}} </div>
                     <div class="issues__view">
                         <a class="bounty-details" href="{{'bounty-report'|page({id:report.id})}}">View details</a>
                     </div>
@@ -46,7 +46,7 @@
                         </span>
                     </div>
 
-                    {% if report.status == 1 %}
+                    {% if report.pivot.report_status == 1 %}
                         <div class="issues__status  issues__status--big  issues__status--green">
                             <span>approved</span>
                         </div>

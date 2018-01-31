@@ -23,22 +23,27 @@ class BountyReport extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'rewards' => [
+        
+        'reward' => [
             'CryptoPolice\bounty\Models\Reward',
             'key' => 'rewards_id'
         ],
+
         'user' => [
             'Rainlab\user\Models\User',
             'key' => 'user_id'
         ],
-        'bounty_campaign' => [
+
+        'bounty' => [
             'CryptoPolice\bounty\Models\Bounty',
             'key' => 'bounty_campaigns_id'
         ],
-        'bounty_user_registration' => [
+
+        'userRegistration' => [
             'CryptoPolice\bounty\Models\BountyRegistration',
             'key' => 'bounty_user_registration_id'
-        ],
+        ]
+
     ];
 
     protected $jsonable = ['description'];
