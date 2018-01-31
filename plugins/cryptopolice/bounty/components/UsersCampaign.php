@@ -94,14 +94,14 @@ class UsersCampaign extends ComponentBase
         if (post('campaign_type') && !empty(post('campaign_type'))) {
 
             $this->reportList = $user->bountyReports()
-                ->wherePivot('bounty_campaigns_id', post('campaign_type'))
-                ->get();
+            ->wherePivot('bounty_campaigns_id', post('campaign_type'))
+            ->get();
 
         } elseif (post('status')) {
 
             $this->reportList = $user->bountyReports()
-                ->wherePivot('report_status', post('status'))
-                ->get();
+            ->wherePivot('report_status', post('status'))
+            ->get();
 
         } else {
             $this->reportList = $this->getAllUsersReports();
@@ -132,22 +132,28 @@ class UsersCampaign extends ComponentBase
         $user = Auth::getUser();
         $data = input();
 
+        $registraionData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
+
         foreach ($data as $key => $value) {
             if ($key != 'id') {
                 array_push($json, ['title' => $key, 'value' => $value]);
             }
         }
 
-        BountyReport::insert([
-                'description' => json_encode($json),
-                'bounty_campaigns_id' => post('id'),
-                'created_at' => new DateTime(),
-                'title' => post('title'),
-                'user_id' => $user->id,
-            ]
-        );
+        if($registraionData->pivot->approval_type == 1 && $registraionData->pivot->status == 1) {
 
-        Flash::success('Report successfully sent');
+            $user->bountyReports()->attach(post('id'), [
+                'bounty_user_registration_id' => $registraionData->pivot->id,
+                'description' => json_encode($json),
+                'created_at' => new DateTime(),
+            ]);
+            $user->save();
+            
+            Flash::success('Report successfully sent');
+
+        } else {
+            Flash::error('You are not allowed to send reports');
+        }
         return redirect()->back();
     }
 

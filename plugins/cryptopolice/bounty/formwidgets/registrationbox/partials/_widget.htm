@@ -1,5 +1,8 @@
-<div>
-	{% for field in registrationData %}
-		{{ field }}
-	{% endfor %}
-</div>
+<input type="hidden" name="BountyReport[userRegistration]" id="Form-field-BountyReport-userRegistration" value="<?php echo $registration_id; ?>" placeholder="" class="form-control" autocomplete="off" maxlength="255">
+<?php if(!empty($registration_data)) { foreach ($registration_data as $key => $value ): ?>
+	<p>
+		<label><strong><?php echo $value['title']; ?></strong></label>
+		<input class="form-control" type="text" value="<?php echo $value['value']; ?>" readonly="readonly">
+		<a target="_blank" href="<?php echo $value['value']; ?>"> Link </a>
+	</p>
+<?php endforeach; }?>

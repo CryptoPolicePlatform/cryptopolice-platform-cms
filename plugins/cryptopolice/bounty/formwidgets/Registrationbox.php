@@ -16,10 +16,12 @@ class RegistrationBox extends FormWidgetBase
 
     public function render(){
         $this->prepareVars();
+        dump($this->vars['registration_id']);
         return $this->makePartial('widget');
     }
 
     public function prepareVars() {
-        $this->vars['registrationData'] = BountyRegistration::where('id', $this->model->bounty_user_registration_id)->value('fields_data');
+        $this->vars['registration_id'] = $this->model->bounty_user_registration_id;
+        $this->vars['registration_data'] = BountyRegistration::where('id', $this->model->bounty_user_registration_id)->value('fields_data');
     }
 }

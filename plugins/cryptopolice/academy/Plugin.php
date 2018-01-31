@@ -96,7 +96,7 @@ class Plugin extends PluginBase
                 'bountyCampaigns' => ['CryptoPolice\Bounty\Models\Bounty',
                     'table' => 'cryptopolice_bounty_user_registration',
                     'pivot' => [
-                        'approval_type', 'status'
+                        'approval_type', 'status', 'id'
                     ],
                     'otherKey' => 'bounty_campaigns_id',
                     'key' => 'user_id'
