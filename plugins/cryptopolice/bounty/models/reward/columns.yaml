@@ -1,4 +1,16 @@
 columns:
+    id:
+        label: ID
+        type: text
+        searchable: true
+        sortable: true
+    bounty_campaigns_id:
+        label: Bounty
+        type: text
+        searchable: true
+        sortable: true
+        select: title
+        relation: bounty
     reward_title:
         label: Title
         type: text

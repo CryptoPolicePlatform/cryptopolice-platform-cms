@@ -5,9 +5,9 @@
         {% for report in UsersCampaign.campaignReports.bountyReports %}
                 <div class="issues__item  issues__item--history">
 
-                    <div class="issues__type">{{ UsersCampaign.campaignReports.title }}</div>
+                    <div class="issues__type">#{{ loop.index }}</div>
 
-                    <div class="issues__title"> {{ report.description|json_encode}} </div>
+                    <div class="issues__title">  Report to {{ UsersCampaign.campaignReports.title }} campaign</div>
                     <div class="issues__view">
                         <a href="{{'bounty-report'|page({ id: report.id })}}">View details</a>
                     </div>

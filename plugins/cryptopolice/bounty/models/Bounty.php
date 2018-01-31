@@ -23,18 +23,22 @@ class Bounty extends Model
 
         'rewards' => [
             'CryptoPolice\bounty\Models\Reward',
-            'key' => 'bounty_campaigns_id'
+            'key'   => 'bounty_campaigns_id',
+            'order' => 'created_at'
         ],
 
         'bountyReports' => [
             'CryptoPolice\bounty\Models\BountyReport',
-            'key' => 'bounty_campaigns_id'
+            'key'   => 'bounty_campaigns_id',
+            'order' => 'created_at'
         ],
 
         'bountyRegistrations' => [
             'CryptoPolice\bounty\Models\BountyRegistration',
-            'key' => 'bounty_campaigns_id'
+            'key'   => 'bounty_campaigns_id',
+            'order' => 'created_at'
         ]
+
     ];
 
     protected $jsonable = ['fields'];

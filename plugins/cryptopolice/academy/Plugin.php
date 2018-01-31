@@ -105,7 +105,7 @@ class Plugin extends PluginBase
                 'bountyReports' => ['CryptoPolice\Bounty\Models\Bounty',
                     'table' => 'cryptopolice_bounty_user_reports',
                     'pivot' => [
-                        'report_status', 'description', 'title', 'comment', 'fields_data'
+                        'report_status', 'description', 'title', 'comment', 'fields_data','given_reward'
                     ],
                     'otherKey' => 'bounty_campaigns_id',
                     'key' => 'user_id'

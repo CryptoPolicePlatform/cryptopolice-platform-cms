@@ -7,21 +7,38 @@
                         {% if field.action_type == 'registration' and field.status %}
                             <div class="form__group"><label>{{field.title}}</label>
 
-                                {% if field.title == 'Email'%}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.email}}">
-                                {% elseif field.title == 'Twitter Profile Link'%}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.twitter_link}}">
-                                {% elseif field.title == 'Facebook Profile Link'%}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.facebook_link}}">
-                                {% elseif field.title == 'Telegram Username'%}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
-                                {% elseif field.title == 'BitcoinTalk Profile link'%}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
-                                {% elseif field.title == 'Youtube Username'%}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}" value="{{user.youtube_link}}">
+                                {% if field.name == 'email' %}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.email}}">
+                                {% elseif field.name == 'twitter_profile_link' %}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.twitter_link}}">
+                                {% elseif field.name == 'facebook_profile_link' %}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.facebook_link}}">
+                                {% elseif field.name == 'telegram_username' %}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
+                                {% elseif field.name == 'bitcointalk_profile_link' %}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
+                                {% elseif field.name == 'youtube_link' %}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.youtube_link}}">
+                                {% elseif field.name == 'full_name' %}
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.name}}">
                                 {% else %}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}">
+
+                                    {% if field.input_type == 'textarea' %}
+                                        <textarea class="textarea" name="{{ field.name }}" placeholder="{{ field.description }}"></textarea>
+                                    {% elseif field.input_type == 'select' %}
+                                        <div class="select">
+                                            <select name="{{ field.name }}">
+                                                {% for select in field.select %}
+                                                    <option value="{{select.options}}">{{select.options}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    {% else %}
+                                        <input class="input" type="{{ field.input_type }}" name="{{ field.title }}" placeholder="{{ field.description }}">
+                                    {% endif %}
+
                                 {% endif %}
+
                             </div>
                         {% endif %}
                     {% endfor %}

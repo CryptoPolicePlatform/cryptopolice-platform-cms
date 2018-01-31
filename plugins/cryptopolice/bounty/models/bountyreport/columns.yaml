@@ -1,4 +1,9 @@
 columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
     report_status:
         label: Status
         type: partial
@@ -12,7 +17,7 @@ columns:
         searchable: true
         sortable: true
         select: title
-        relation: bounty_campaign
+        relation: bounty
     user_id:
         label: 'Email & Name'
         type: text
@@ -26,15 +31,10 @@ columns:
         searchable: true
         sortable: true
         select: 'concat(''['',reward_title,''] '', reward_amount)'
-        relation: rewards
+        relation: reward
     given_reward:
         label: 'Given Reward'
         type: number
-        searchable: true
-        sortable: true
-    comment:
-        label: Comment
-        type: text
         searchable: true
         sortable: true
     created_at:

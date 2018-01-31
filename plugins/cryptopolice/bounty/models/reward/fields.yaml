@@ -1,5 +1,5 @@
 fields:
-    bounty_campaigns:
+    bounty:
         label: 'Bounty Campaigns'
         oc.commentPosition: ''
         nameFrom: title

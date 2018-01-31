@@ -4,6 +4,8 @@ fields:
         oc.commentPosition: ''
         prompt: 'Add new item'
         span: full
+        readOnly: 1
+        hidden: 0
         type: repeater
         form:
             fields:
@@ -11,11 +13,14 @@ fields:
                     label: Title
                     oc.commentPosition: ''
                     span: auto
-                    disabled: 0
+                    readOnly: 1
+                    hidden: 0
                     type: text
                 value:
                     label: Value
+                    oc.commentPosition: ''
                     span: auto
+                    readOnly: 1
                     type: text
     approval_type:
         label: Approve

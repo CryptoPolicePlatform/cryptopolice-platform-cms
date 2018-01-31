@@ -37,6 +37,17 @@ fields:
                     span: auto
                     required: 1
                     type: text
+                action_type:
+                    label: 'Action Type'
+                    oc.commentPosition: ''
+                    options:
+                        registration: Registration
+                        report: Reports
+                        bouth: Bouth
+                    span: auto
+                    hidden: 0
+                    required: 1
+                    type: dropdown
                 input_type:
                     label: 'Input Type'
                     options:
@@ -50,17 +61,19 @@ fields:
                     required: 1
                     type: dropdown
                     comment: 'Input, select, radio ....'
-                action_type:
-                    label: 'Action Type'
+                select:
+                    label: 'Input Select'
                     oc.commentPosition: ''
-                    options:
-                        registration: Registration
-                        report: Reports
-                        bouth: Bouth
+                    prompt: 'Add new item'
                     span: auto
-                    hidden: 0
-                    required: 1
-                    type: dropdown
+                    type: repeater
+                    form:
+                        fields:
+                            options:
+                                label: Options
+                                oc.commentPosition: ''
+                                span: full
+                                type: text
                 status:
                     label: Status
                     span: auto
@@ -76,6 +89,10 @@ fields:
                     oc.commentPosition: ''
                     span: auto
                     type: text
+                multiple:
+                    label: 'Multiple Field'
+                    span: auto
+                    type: checkbox
                 description:
                     label: Description
                     size: ''

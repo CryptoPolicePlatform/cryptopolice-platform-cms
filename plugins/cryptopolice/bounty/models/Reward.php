@@ -19,10 +19,12 @@ class Reward extends Model
      * @var array Relations
      */
     public $belongsTo = [
-        'bounty_campaigns' => [
+
+        'bounty' => [
             'CryptoPolice\bounty\Models\Bounty',
             'key' => 'bounty_campaigns_id'
         ],
+
     ];
 
     public $hasMany = [

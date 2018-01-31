@@ -34,12 +34,13 @@ class BountyRegistration extends Model
             'Rainlab\user\Models\User',
             'key' => 'user_id'
         ],
+
         'Bounty' => [
             'CryptoPolice\bounty\Models\Bounty',
             'key' => 'bounty_campaigns_id'
         ]
-    ];
 
+    ];
 
     /**
      * @var string The database table used by the model.

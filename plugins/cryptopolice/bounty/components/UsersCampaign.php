@@ -29,18 +29,38 @@ class UsersCampaign extends ComponentBase
 
     public function onRun()
     {
-        // TODO :: Reports Mails (one mail each week)
+
+        // TODO : Reports Mails (one mail each week)
 
         $this->campaignID = $this->param('id');
-
         $this->reportList = $this->getAllUsersReports();
 
+        $sum = 0;
+        $counter = 0;
+        $pendingCounter = 0;
+        $approvedCounter = 0;
+        $disapprovedCounter = 0;
+
+        foreach ($this->reportList as $val) {
+
+            $counter += 1;
+            $sum += $val->pivot->given_reward;
+
+            if ($val->pivot->report_status == 0) {
+                $pendingCounter += 1;
+            } elseif ($val->pivot->report_status == 1) {
+                $approvedCounter += 1;
+            } elseif ($val->pivot->report_status == 2) {
+                $disapprovedCounter += 1;
+            }
+        }
+
         $this->profileStatistic = [
-            'report_count' => $this->reportList->count(),
-            'reward_sum' => $this->reportList->sum->given_reward,
-            'disapproved' => $this->reportList->where('report_status', 2)->count(),
-            'approved' => $this->reportList->where('report_status', 1)->count(),
-            'pending' => $this->reportList->where('report_status', 0)->count(),
+            'disapproved'       => $disapprovedCounter,
+            'approved'          => $approvedCounter,
+            'pending'           => $pendingCounter,
+            'report_count'      => $counter,
+            'reward_sum'        => $sum,
         ];
 
         // Check if user is registered in current Bounty Campaign
@@ -50,21 +70,16 @@ class UsersCampaign extends ComponentBase
             $this->access = $access ? $access->pivot->approval_type : null;
             $this->status = $access ? $access->pivot->status : null;
             $this->campaignReports = $this->getAllCampaignReports();
+
         }
 
     }
 
     public function onFilterCampaignReports()
     {
-
+        // TODO : fix filter
         if (post('status') && !empty(post('status'))) {
-
-            $this->campaignReports = Bounty::with([
-                'bountyReports' => function ($query) {
-                    return $query->where('report_status', post('status'));
-                }
-            ])->first();
-
+            $this->campaignReports = Bounty::with('bountyReports')->find($this->param('id'));
         } else {
             $this->campaignReports = Bounty::with('bountyReports')->find($this->param('id'));
         }
@@ -73,16 +88,21 @@ class UsersCampaign extends ComponentBase
     public function onFilterReports()
     {
 
+        // TODO : filter time
         $user = Auth::getUser();
 
         if (post('campaign_type') && !empty(post('campaign_type'))) {
+
             $this->reportList = $user->bountyReports()
                 ->wherePivot('bounty_campaigns_id', post('campaign_type'))
                 ->get();
+
         } elseif (post('status')) {
+
             $this->reportList = $user->bountyReports()
                 ->wherePivot('report_status', post('status'))
                 ->get();
+
         } else {
             $this->reportList = $this->getAllUsersReports();
         }
@@ -91,7 +111,7 @@ class UsersCampaign extends ComponentBase
     public function getAllUsersReports()
     {
         $user = Auth::getUser();
-        return $user->bountyReports()->withPivot('report_status')->get();
+        return $user->bountyReports()->get();
     }
 
     public function getAllCampaignReports()
@@ -156,7 +176,6 @@ class UsersCampaign extends ComponentBase
         } else {
 
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
-            dd($access);
             if ($access->isEmpty()) {
 
                 $user->bountyCampaigns()->attach(post('id'), [

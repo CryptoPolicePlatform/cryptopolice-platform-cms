@@ -17,6 +17,20 @@ class Exam extends Model
 
     protected $jsonable = ['question'];
 
+    public $belongsTo = [
+
+        'scores' => [
+            'CryptoPolice\Academy\Models\Score',
+            'key' => 'exam_id'
+        ],
+
+        'finalScore' => [
+            'CryptoPolice\Academy\Models\FinalScore',
+            'key' => 'exam_id'
+        ],
+
+    ];
+
     /**
      * @var string The database table used by the model.
      */
