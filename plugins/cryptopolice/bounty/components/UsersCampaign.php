@@ -30,6 +30,20 @@ class UsersCampaign extends ComponentBase
     public function onRun()
     {
 
+
+        $registraionData = Bounty::where('id', $this->param('id'))->first();
+
+        // create array of validation rules
+        foreach ($registraionData->fields as $key => $value) {
+            if($value['action_type'] == 'registration') {
+                $rules[$value['name']] = $value['regex'];
+            }
+        }
+
+
+dump( $rules);
+dump( $registraionData);
+
         // TODO : Reports Mails (one mail each week)
 
         $this->campaignID = $this->param('id');
@@ -134,27 +148,46 @@ class UsersCampaign extends ComponentBase
 
         $registraionData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
 
-        foreach ($data as $key => $value) {
-            if ($key != 'id') {
-                array_push($json, ['title' => $key, 'value' => $value]);
+        // create array of validation rules
+        foreach ($registraionData->fields as $key => $value) {
+            if($value['action_type'] == 'report') {
+                $rules[$value['name']] = $value['regex'];
             }
         }
 
-        if($registraionData->pivot->approval_type == 1 && $registraionData->pivot->status == 1) {
-
-            $user->bountyReports()->attach(post('id'), [
-                'bounty_user_registration_id' => $registraionData->pivot->id,
-                'description' => json_encode($json),
-                'created_at' => new DateTime(),
-            ]);
-            $user->save();
-            
-            Flash::success('Report successfully sent');
-
+        // check validation 
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                Flash::error($message);
+            }
         } else {
-            Flash::error('You are not allowed to send reports');
+
+            // create json from input data
+            foreach ($data as $key => $value) {
+                if ($key != 'id') {
+                    array_push($json, ['title' => $key, 'value' => $value]);
+                }
+            }
+
+            // check if user has access to report
+            if($registraionData->pivot->approval_type == 1 && $registraionData->pivot->status == 1) {
+
+                $user->bountyReports()->attach(post('id'), [
+                    'bounty_user_registration_id' => $registraionData->pivot->id,
+                    'description' => json_encode($json),
+                    'created_at' => new DateTime(),
+                ]);
+                $user->save();
+
+                Flash::success('Report successfully sent');
+
+            } else {
+                Flash::error('You are not allowed to send reports');
+            }
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 
     public function onCampaignRegistration()
@@ -164,15 +197,16 @@ class UsersCampaign extends ComponentBase
         $data = input();
         $user = Auth::getUser();
 
-        foreach ($data as $key => $value) {
-            if ($key != 'id') {
-                array_push($json, ['title' => $key, 'value' => $value]);
-                $rules[$key] = 'required';
-                $input[$key] = $value;
+        $registraionData = Bounty::where('id', $this->param('id'))->first();
+
+        // create array of validation rules
+        foreach ($registraionData->fields as $key => $value) {
+            if($value['action_type'] == 'registration') {
+                $rules[$value['name']] = $value['regex'];
             }
         }
 
-        $validator = Validator::make($input, $rules);
+        $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -180,6 +214,12 @@ class UsersCampaign extends ComponentBase
                 Flash::error($message);
             }
         } else {
+
+            foreach ($data as $key => $value) {
+                if ($key != 'id') {
+                    array_push($json, ['title' => $key, 'value' => $value]);
+                }
+            }
 
             $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
             if ($access->isEmpty()) {

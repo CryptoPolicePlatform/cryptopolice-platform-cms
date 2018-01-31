@@ -16,7 +16,6 @@ class RegistrationBox extends FormWidgetBase
 
     public function render(){
         $this->prepareVars();
-        dump($this->vars['registration_id']);
         return $this->makePartial('widget');
     }
 
