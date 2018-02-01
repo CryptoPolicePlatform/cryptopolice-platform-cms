@@ -30,12 +30,12 @@ class BountyRegistration extends Model
 
     public $belongsTo = [
 
-        'User' => [
+        'user' => [
             'Rainlab\user\Models\User',
             'key' => 'user_id'
         ],
 
-        'Bounty' => [
+        'bounty' => [
             'CryptoPolice\bounty\Models\Bounty',
             'key' => 'bounty_campaigns_id'
         ]

@@ -30,20 +30,6 @@ class UsersCampaign extends ComponentBase
     public function onRun()
     {
 
-
-        $registraionData = Bounty::where('id', $this->param('id'))->first();
-
-        // create array of validation rules
-        foreach ($registraionData->fields as $key => $value) {
-            if($value['action_type'] == 'registration') {
-                $rules[$value['name']] = $value['regex'];
-            }
-        }
-
-
-dump( $rules);
-dump( $registraionData);
-
         // TODO : Reports Mails (one mail each week)
 
         $this->campaignID = $this->param('id');

@@ -1,4 +1,10 @@
 columns:
+    id:
+        label: 'Report ID'
+        type: number
+        searchable: true
+        sortable: true
+        width: 30px
     approval_type:
         label: 'Approved?'
         type: partial
@@ -13,18 +19,22 @@ columns:
         sortable: true
         cssClass: column-button
         width: 50px
-    id:
-        label: 'Campaign ID'
-        type: number
+    bounty_campaigns_id:
+        label: Campaign
+        type: text
         searchable: true
         sortable: true
+        select: title
+        relation: bounty
+    user_id:
+        label: User
+        type: text
+        searchable: true
+        sortable: true
+        select: 'concat(''['',name,''] '', email)'
+        relation: user
     created_at:
         label: 'Created At'
-        type: datetime
-        searchable: true
-        sortable: true
-    updated_at:
-        label: 'Update At'
         type: datetime
         searchable: true
         sortable: true

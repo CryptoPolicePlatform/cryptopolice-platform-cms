@@ -7,18 +7,24 @@ fields:
         span: full
         required: 1
         type: relation
+    reward_amount_min:
+        label: 'Reward Amount Min'
+        oc.commentPosition: ''
+        span: left
+        required: 1
+        type: number
+    reward_amount_max:
+        label: 'Reward Amount Max'
+        oc.commentPosition: ''
+        span: right
+        required: 1
+        type: number
     reward_title:
         label: Title
         oc.commentPosition: ''
         span: auto
         required: 1
         type: text
-    reward_amount:
-        label: 'Reward Amount'
-        oc.commentPosition: ''
-        span: auto
-        required: 1
-        type: number
     reward_type:
         label: 'Reward type'
         oc.commentPosition: ''

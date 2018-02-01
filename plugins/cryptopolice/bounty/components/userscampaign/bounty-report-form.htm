@@ -19,17 +19,17 @@
                             <div class="form__group"><label>{{field.title}}</label>
 
                                 {% if field.name == 'email' %}
-                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.email}}">
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.email}}">
                                 {% elseif field.name == 'twitter_profile_link' %}
-                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.twitter_link}}">
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.twitter_link}}">
                                 {% elseif field.name == 'facebook_profile_link' %}
-                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.facebook_link}}">
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.facebook_link}}">
                                 {% elseif field.name == 'telegram_username' %}
-                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
                                 {% elseif field.name == 'bitcointalk_profile_link' %}
-                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
                                 {% elseif field.name == 'full_name' %}
-                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.name}}">
+                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.name}}">
                                 {% else %}
 
 
@@ -45,7 +45,7 @@
                                         </div>
                                     {% else %}
                                         <div id="mul_{{ field.name }}">
-                                            <input class="input" type="{{ field.input_type }}" id="{{ field.name }}" name="{{ field.title }}" placeholder="{{ field.description }}">
+                                            <input class="input" type="{{ field.input_type }}" id="{{ field.name }}" name="{{ field.name }}" placeholder="{{ field.description }}">
                                         </div>
                                             {% if field.multiple %}
                                                 <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="setMultipleField('{{ field.name }}', '{{ field.description }}', 0)">+</a>

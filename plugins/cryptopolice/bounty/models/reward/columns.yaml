@@ -21,8 +21,13 @@ columns:
         type: number
         searchable: true
         sortable: true
-    reward_amount:
-        label: Amount
+    reward_amount_min:
+        label: Min
+        type: number
+        searchable: true
+        sortable: true
+    reward_amount_max:
+        label: Max
         type: number
         searchable: true
         sortable: true

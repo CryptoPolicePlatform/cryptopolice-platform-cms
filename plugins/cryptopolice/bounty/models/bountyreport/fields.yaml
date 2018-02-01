@@ -12,7 +12,7 @@ fields:
         span: auto
         type: relation
     userRegistration:
-        label: Registration Data
+        label: 'Registration Data'
         span: left
         type: registrationbox
     description:
@@ -36,18 +36,14 @@ fields:
                     span: auto
                     type: text
     reward:
-        label: 'Select Reward'
-        oc.commentPosition: ''
-        nameFrom: reward_title
-        descriptionFrom: reward_title
-        select: 'concat(''['',reward_title,''] '', reward_amount)'
-        span: auto
-        type: relation
+        label: Type
+        type: dropdown
+        span: left
     given_reward:
-        label: Reward
-        oc.commentPosition: ''
-        span: auto
+        label: Reward (Tokens / Stakes)
         type: text
+        span: right
+        dependsOn: reward
     report_status:
         label: Status
         oc.commentPosition: ''

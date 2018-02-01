@@ -30,7 +30,7 @@ columns:
         type: text
         searchable: true
         sortable: true
-        select: 'concat(''['',reward_title,''] '', reward_amount)'
+        select: 'concat(reward_title, '' ( '', reward_amount_max,'' ) '')'
         relation: reward
     given_reward:
         label: 'Given Reward'

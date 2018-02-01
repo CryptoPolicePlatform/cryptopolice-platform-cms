@@ -6,7 +6,7 @@
             {% for report in UsersCampaign.reportList %}
                 {% if report.pivot.report_status == 0 %}
                     <div class="issues__item  issues__item--history">
-                        <div class="issues__type">#{{ loop.index }}</div>
+                        <div class="issues__type">#{{report.title|upper|slice(0, 2)}}{{ report.id }} </div>
                         <div class="issues__title">   Report to {{ report.title }} campaign </div>
                         <div class="issues__view">
                             <a href="{{'bounty-report'|page({id:report.id})}}">View details</a>
@@ -35,7 +35,7 @@
         {% for report in UsersCampaign.reportList %}
             {% if report.pivot.report_status != 0 %}
                 <div class="issues__item  issues__item--history">
-                    <div class="issues__type">#{{ loop.index }}</div>
+                    <div class="issues__type">#{{report.title|upper|slice(0, 2)}}{{ report.id }}</div>
                     <div class="issues__title">   Report to {{ report.title }} campaign </div>
                     <div class="issues__view">
                         <a class="bounty-details" href="{{'bounty-report'|page({id:report.id})}}">View details</a>

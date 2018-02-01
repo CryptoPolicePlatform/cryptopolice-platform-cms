@@ -84,7 +84,8 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->string('reward_title', 255)->nullable();
                 $table->string('reward_description', 255)->nullable();
                 $table->boolean('reward_type', 255)->default(0);
-                $table->integer('reward_amount')->default(0);
+                $table->integer('reward_amount_min')->default(0);
+                $table->integer('reward_amount_max')->default(0);
                 $table->boolean('status')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
