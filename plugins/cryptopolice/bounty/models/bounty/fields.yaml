@@ -4,6 +4,11 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    percentage:
+        label: Percentage
+        oc.commentPosition: ''
+        span: auto
+        type: number
     slug:
         label: Slug
         oc.commentPosition: ''

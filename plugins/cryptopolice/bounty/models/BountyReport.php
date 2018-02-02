@@ -2,7 +2,6 @@
 
 use Model;
 use ValidationException;
-use CryptoPolice\Bounty\Models\Bounty;
 
 /**
  * Model
@@ -61,12 +60,17 @@ class BountyReport extends Model
 
         $options = [];
         $rewards = Reward::where('bounty_campaigns_id', $this->bounty_campaigns_id)->get();
-        
+
+        $options[0] = 'None';
         if ($rewards->isNotEmpty()) {
             foreach ($rewards as $key => $value) {
-                $type = $value->reward_type ? 'Stakes' : 'Tokens';
-                $interval = $value->reward_amount_min ? $value->reward_amount_min . ' - ' . $value->reward_amount_max : $value->reward_amount_max;
-                $options[$value->id] = $value->reward_title . " [ " . $type . ' ' . $interval . " ] ";
+                if($value->status) {
+
+                    $type = $value->reward_type ? 'Stakes' : 'Tokens';
+                    $interval = $value->reward_amount_min ? $value->reward_amount_min . ' - ' . $value->reward_amount_max : $value->reward_amount_max;
+                    $options[$value->id] = $value->reward_title . " [ " . $type . ' ' . $interval . " ] ";
+
+                }
             }
         }
         return $options;
@@ -108,7 +112,7 @@ class BountyReport extends Model
 
         if ($data['BountyReport']['report_status'] == 2 && $data['BountyReport']['given_reward'] != 0) {
             throw new ValidationException([
-                'message' => 'Reprot status is disapproved, given reward shoud be 0'
+                'message' => 'Report status is disapproved, given reward should be 0'
             ]);
         }
     }
@@ -120,13 +124,13 @@ class BountyReport extends Model
     	if($this->original['given_reward']) {
     		return $this->original['given_reward'];
     	}
-
+        
         if(isset($this->reward->reward_amount_max)) {
 			return $this->reward->reward_amount_max;
         } else {
             return;
         }
-		
+
         if (!empty($this->reward->reward_amount_max)) {
             return $this->reward->reward_amount_max;
         }

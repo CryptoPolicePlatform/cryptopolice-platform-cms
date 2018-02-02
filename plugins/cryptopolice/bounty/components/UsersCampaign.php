@@ -34,7 +34,6 @@ class UsersCampaign extends ComponentBase
 
         $this->campaignID = $this->param('id');
         $this->reportList = $this->getAllUsersReports();
-
         $sum = 0;
         $counter = 0;
         $pendingCounter = 0;
@@ -91,17 +90,25 @@ class UsersCampaign extends ComponentBase
         // TODO : filter time
         $user = Auth::getUser();
 
-        if (post('campaign_type') && !empty(post('campaign_type'))) {
+        if (post('campaign_type') && post('status')) {
 
             $this->reportList = $user->bountyReports()
-            ->wherePivot('bounty_campaigns_id', post('campaign_type'))
-            ->get();
+                ->wherePivot('bounty_campaigns_id', post('campaign_type'))
+                ->wherePivot('report_status', post('status'))
+                ->get();
 
         } elseif (post('status')) {
 
             $this->reportList = $user->bountyReports()
-            ->wherePivot('report_status', post('status'))
-            ->get();
+                ->wherePivot('report_status', post('status'))
+                ->get();
+
+        }
+         elseif (post('campaign_type')) {
+
+            $this->reportList = $user->bountyReports()
+                ->wherePivot('bounty_campaigns_id', post('campaign_type'))
+                ->get();
 
         } else {
             $this->reportList = $this->getAllUsersReports();
@@ -183,10 +190,10 @@ class UsersCampaign extends ComponentBase
         $data = input();
         $user = Auth::getUser();
 
-        $registraionData = Bounty::where('id', $this->param('id'))->first();
+        $registrationData = Bounty::where('id', $this->param('id'))->first();
 
         // create array of validation rules
-        foreach ($registraionData->fields as $key => $value) {
+        foreach ($registrationData->fields as $key => $value) {
             if($value['action_type'] == 'registration') {
                 $rules[$value['name']] = $value['regex'];
             }

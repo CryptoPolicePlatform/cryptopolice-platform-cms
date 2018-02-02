@@ -21,6 +21,11 @@ columns:
         type: number
         searchable: true
         sortable: true
+    reward_description:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true
     reward_amount_min:
         label: Min
         type: number

@@ -67,6 +67,8 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->boolean('status')->default(0);
                 $table->integer('sort_order')->default(0);
                 $table->text('fields')->nullable();
+                // TODO: Check tinyInteger size
+                $table->tinyInteger('percentage', 2)->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();

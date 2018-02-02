@@ -18,7 +18,7 @@ scopes:
   bounty_status:
       label: Status
       type: group
-      conditions: status in (:filtered)
+      conditions: report_status in (:filtered)
       options:
           0: Pending
           1: Approved
