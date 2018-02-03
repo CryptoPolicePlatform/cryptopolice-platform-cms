@@ -42,9 +42,12 @@ forceSecure = 0
         {% if not user %}
             {% component 'userLogin' %}
         {% elseif active is not empty %}
-            <div class="content__title">
-                Congratulations! You have successfully activated
-            </div>
+        <div class="content__title">
+            Congratulations! You have successfully activated
+        </div>
+        <!-- TODO: change to main page -->
+        <a class="btn" href="{{'profile'|page}}">START WITH YOUR PROFILE</a>
         {% endif %}
+
     </div>
 </div>
