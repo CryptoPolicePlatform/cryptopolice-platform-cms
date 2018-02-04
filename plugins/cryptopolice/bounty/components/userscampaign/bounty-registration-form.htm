@@ -1,8 +1,10 @@
 <div class="grid__col  w6">
-    <h3>Registration to campaign</h3>
+
+
     <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request="onCampaignRegistration" data-request-flash>
             {% for bounty in Bounties.bountyList %}
                 {% if bounty.slug == this.param.slug %}
+                 <h3><i class="fa fa-user-plus"></i> Registration to {{ bounty.title }} bounty campaign</h3>
                     {% for field in bounty.fields %}
                         {% if field.action_type == 'registration' and field.status %}
                             <div class="form__group"><label>{{field.title}}</label>
@@ -45,7 +47,7 @@
                 {% endif %}
             {% endfor %}
         <div class="form__group">
-            <button class="btn  btn--gpink">Register in campaign</button>
+            <button class="btn  btn--gpink">Submit registration</button>
         </div>
     </form>
 </div>
