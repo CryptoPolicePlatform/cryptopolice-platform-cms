@@ -2195,6 +2195,10 @@ html.remodal-is-locked {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
+@media (max-width: 800px) {
+    .choose2 {
+        -ms-flex-direction: column;
+        flex-direction: column; } }
 
 
 .choose__item {
@@ -2234,7 +2238,15 @@ html.remodal-is-locked {
     background: linear-gradient(170deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.2) 100%);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset;
     text-align: center;
+}@media (max-width: 800px) {
+    .choose__item3 {
+        width: 100%;
+        max-width: 100%;
+         }
 }
+
+
+
 
 
 .choose__content {
