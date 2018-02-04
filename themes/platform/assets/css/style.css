@@ -2006,9 +2006,20 @@ html.remodal-is-locked {
   height: 100%;
   padding: 25px 15px; }
 
+.content__inner2 {
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 25px 15px;
+}
+
 .content__header {
-  margin-bottom: 40px;
-  text-align: center; }
+    max-width: 898px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    text-align: center;
+}
 
 .content__title {
   margin: 20px 0;
@@ -2175,6 +2186,17 @@ html.remodal-is-locked {
       -ms-flex-direction: column;
           flex-direction: column; } }
 
+.choose2 {
+    margin: 0 auto;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+
 .choose__item {
   width: 48%;
   padding: 40px;
@@ -2201,6 +2223,17 @@ html.remodal-is-locked {
   background: linear-gradient(170deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.2) 100%);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset;
   text-align: center;
+}
+.choose__item3{
+    width: 30%;
+    padding: 25px;
+    max-width: 370px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: linear-gradient(170deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.2) 100%);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset;
+    text-align: center;
 }
 
 
