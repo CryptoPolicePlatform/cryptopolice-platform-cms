@@ -1,8 +1,9 @@
-<div class="content__sidebar">
-    <h3 style="text-align: center; margin-bottom: -10px;">BOUNTY CAMPAIGNS</h3>
+<div class="content__sidebar sidebar--white">
+    <h3 style="text-align: center; margin-bottom: -10px;"><i class="fa fa-gift"></i> BOUNTY CAMPAIGNS</h3>
     <div class="profile__block">
-        {% for bounty in Bounties.bountyList %}
-            <a class="btn  btn--gpink  btn--officer" href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}"> {{ bounty.title }} </a>
-        {% endfor %}
-    </div>
+        <!--TODO: add custom icon to bounty compaigns -->
+     {% for bounty in Bounties.bountyList %}
+         <a class="btn btn--bounty"  href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}"><i class="fa fa-gift"></i> {{ bounty.title }} </a>
+     {% endfor %}
+ </div>
 </div>
