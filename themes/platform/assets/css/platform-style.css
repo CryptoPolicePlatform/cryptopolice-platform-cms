@@ -4408,10 +4408,24 @@ html.remodal-is-locked {
 
 }
 
+
 .btn--bounty:hover{
     background: linear-gradient(to bottom, #a45cba 50%, #724081 50%, #41254a);
     color: #ffffff;
 
+}
+
+.bounty-filter{
+    background: none;
+    color: #292E38;
+    border: 1px solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.bounty-filter:hover{
+    background: linear-gradient(to bottom, #5855c8 50%, #403eb0 50%, #403eb0);
+    color: #ffffff;
 }
 
 

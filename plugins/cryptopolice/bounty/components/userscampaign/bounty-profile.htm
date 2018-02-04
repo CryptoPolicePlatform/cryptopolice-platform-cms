@@ -1,12 +1,13 @@
 {% set statistic = UsersCampaign.profileStatistic %}
 
 <div class="profile__sidebar">
-
+    <a href="{{ 'profile'|page }}">
     {% if user.avatar.path %}
-        <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
+      <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
     {% else %}
         <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
     {% endif %}
+    </a>
 
     <div class="profile__name">
         {% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {{ user.surname }} {% endif %}

@@ -1,25 +1,25 @@
 <!-- Filters-->
 <div class="content__header">
     <form data-request="onFilterReports"  data-request-update="'UsersCampaign::users-reports-filtered': '#users_reports'" id="filter">
-
-        <div class="dropdown-wrapper">
-            <select class="btn  btn--icon-after  btn--blue" name="campaign_type">
-                <option class="dropdown__link" value="" selected>Campaign</option>
-                    {% for bounty in Bounties.bountyList %}
-                        <option class="dropdown__link" value="{{bounty.id}}">{{bounty.title}}</option>
-                    {% endfor %}
+        <div class="select  select--filter">
+            <select name="campaign_type">
+                <option selected="">Bounties</option>
+                {% for bounty in Bounties.bountyList %}
+                <option class="dropdown__link" value="{{bounty.id}}">{{bounty.title}}</option>
+                {% endfor %}
             </select>
         </div>
 
-        <div class="dropdown-wrapper">
-            <select class="btn  btn--icon-after  btn--blue" name="status">
+
+        <div class="select  select--filter">
+            <select name="status">
                 <option class="dropdown__link"  value="" selected>Status</option>
                 <option class="dropdown__link"  value="1">Approved</option>
                 <option class="dropdown__link" value="2">Disapproved</option>
             </select>
         </div>
 
-        <input type="submit" class="btn  btn--gpink" value="Filter">
+        <input type="submit" class="btn bounty-filter" value="Filter">
 
     </form>
 </div>
