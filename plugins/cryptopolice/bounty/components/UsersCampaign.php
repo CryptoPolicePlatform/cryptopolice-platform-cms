@@ -134,6 +134,7 @@ class UsersCampaign extends ComponentBase
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
+            ->orderBy('cryptopolice_bounty_user_reports.created_at', 'desc')
             ->get();
 	}
 

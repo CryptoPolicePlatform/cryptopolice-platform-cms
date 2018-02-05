@@ -20,7 +20,7 @@ class FinalScore extends Model
      */
     public $belongsTo = [
 
-        'Exam' => [
+        'exam' => [
             'CryptoPolice\Academy\Models\Exam',
             'key' => 'exam_id'
         ],

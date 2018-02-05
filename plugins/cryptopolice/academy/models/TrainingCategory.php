@@ -17,7 +17,7 @@ class TrainingCategory extends Model
     ];
 
     public $hasMany = [
-        'Training' => ['CryptoPolice\Academy\Models\Training'],
+        'training' => ['CryptoPolice\Academy\Models\Training'],
     ];
 
     /**

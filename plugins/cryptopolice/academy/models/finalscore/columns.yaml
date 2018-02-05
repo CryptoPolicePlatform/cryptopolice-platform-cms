@@ -12,10 +12,12 @@ columns:
         select: 'concat(''['',name,''] '', email)'
         relation: user
     exam_id:
-        label: Exam ID
+        label: Exam Title
         type: number
         searchable: true
         sortable: true
+        select: exam_title
+        relation: exam
     created_at:
         label: Created At
         type: datetime

@@ -45,7 +45,7 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->boolean('report_status')->default(0);
                 $table->text('description')->nullable();
                 $table->string('title', 255)->nullable();
-                $table->string('comment', 255)->nullable();
+                $table->string('comment', 1000)->nullable();
                 $table->text('fields_data')->nullable();
                 $table->text('report_files')->nullable();
                 $table->timestamp('created_at')->nullable();

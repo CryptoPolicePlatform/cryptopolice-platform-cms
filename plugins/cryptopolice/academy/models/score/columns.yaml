@@ -1,14 +1,18 @@
 columns:
     user_id:
-        label: User ID
+        label: User
+        type: text
+        searchable: true
+        sortable: true
+        select: 'concat(''['',name,''] '', email)'
+        relation: user
+    exam_id:
+        label: Exam Title
         type: number
         searchable: true
         sortable: true
-    exam_id
-        label: 'Exam ID
-        type: number
-        searchable: true
-        sortable: true
+        select: exam_title
+        relation: exam
     question_num:
         label: Question Number
         type: number

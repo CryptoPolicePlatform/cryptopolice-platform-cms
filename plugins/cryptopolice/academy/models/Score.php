@@ -20,9 +20,14 @@ class Score extends Model
      */
     public $belongsTo = [
 
-        'Exam' => [
+        'exam' => [
             'CryptoPolice\Academy\Models\Exam',
             'key' => 'exam_id'
+        ],
+
+        'user' => [
+            'Rainlab\user\Models\User',
+            'key' => 'user_id'
         ],
 
     ];

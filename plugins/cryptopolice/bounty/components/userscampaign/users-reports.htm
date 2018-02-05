@@ -6,7 +6,7 @@
             <select name="campaign_type">
                 <option selected="">Bounties</option>
                 {% for bounty in Bounties.bountyList %}
-                <option class="dropdown__link" value="{{bounty.id}}">{{bounty.title}}</option>
+                    <option class="dropdown__link" value="{{bounty.id}}">{{bounty.title}}</option>
                 {% endfor %}
             </select>
         </div>

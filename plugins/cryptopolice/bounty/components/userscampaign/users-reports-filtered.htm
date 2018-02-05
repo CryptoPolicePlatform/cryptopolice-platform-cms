@@ -34,44 +34,36 @@
     <div class="issues">
 
         {% for report in UsersCampaign.reportList %}
-        {% if report.report_status != 0 %}
-        <div class="issues__item  issues__item--history">
-            <div class="issues__type">#{{report.campaign_title|upper|slice(0, 2)}}{{ report.id }}</div>
-            <div class="issues__title">   Report to {{ report.campaign_title }} campaign </div>
-            <div class="issues__view">
-                <a class="bounty-details" href="{{'bounty-report'|page({id:report.id})}}">View details</a>
-            </div>
-            <div class="issues__amount">
-                <span class="text-orange">
+            {% if report.report_status != 0 %}
+                <div class="issues__item  issues__item--history">
+                    <div class="issues__type">#{{report.campaign_title|upper|slice(0, 2)}}{{ report.id }}</div>
+                    <div class="issues__title">   Report to {{ report.campaign_title }} campaign </div>
+                    <div class="issues__view">
+                        <a class="bounty-details" href="{{'bounty-report'|page({id:report.id})}}">View details</a>
+                    </div>
+                    <div class="issues__amount">
+                        <span class="text-orange">
 
-                    {% if report.type == 0 %}
-                        {% if report.given_reward != 0 %}
-                            {{ report.given_reward }} OFC
-                        {% else %}
-                            0
-                        {% endif %}
+                            {% if report.type == 0 %}
+                                {% if report.given_reward != 0 %} {{ report.given_reward }} OFC {% else %} 0 {% endif %}
+                            {% else %}
+                                {% if report.given_reward != 0 %} {{ report.given_reward }} STAKES {% else %} 0 {% endif %}
+                            {% endif%}
+
+                        </span>
+                    </div>
+
+                    {% if report.report_status == 1 %}
+                        <div class="issues__status  issues__status--big  issues__status--green">
+                            <span>approved</span>
+                        </div>
                     {% else %}
-                        {% if report.given_reward != 0 %}
-                            {{ report.given_reward }} STAKES
-                        {% else %}
-                            0
-                        {% endif %}
-                    {% endif%}
-
-                </span>
-            </div>
-
-            {% if report.report_status == 1 %}
-            <div class="issues__status  issues__status--big  issues__status--green">
-                <span>approved</span>
-            </div>
-            {% else %}
-            <div class="issues__status  issues__status--big  issues__status--gray">
-                <span>disapproved</span>
-            </div>
+                        <div class="issues__status  issues__status--big  issues__status--gray">
+                            <span>disapproved</span>
+                        </div>
+                    {% endif %}
+                </div>
             {% endif %}
-        </div>
-        {% endif %}
         {% else %}
         <div class="issues__item  issues__item--history">
             History is empty
