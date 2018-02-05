@@ -19,10 +19,17 @@ class FinalScore extends Model
      * @var array Relations
      */
     public $belongsTo = [
+
         'Exam' => [
             'CryptoPolice\Academy\Models\Exam',
             'key' => 'exam_id'
         ],
+
+        'user' => [
+            'Rainlab\user\Models\User',
+            'key' => 'user_id'
+        ],
+
     ];
 
     /**

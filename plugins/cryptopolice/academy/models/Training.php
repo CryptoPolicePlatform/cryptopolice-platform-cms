@@ -16,14 +16,17 @@ class Training extends Model
     public $rules = [
     ];
 
-
+    /**
+     * @var array Relations
+     */
     public $belongsTo = [
+
         'category' => [
             'CryptoPolice\Academy\Models\TrainingCategory',
             'key' => 'category_id'
         ],
-    ];
 
+    ];
 
     /**
      * @var string The database table used by the model.

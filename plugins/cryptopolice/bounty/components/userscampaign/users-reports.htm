@@ -1,6 +1,7 @@
 <!-- Filters-->
 <div class="content__header">
     <form data-request="onFilterReports"  data-request-update="'UsersCampaign::users-reports-filtered': '#users_reports'" id="filter">
+
         <div class="select  select--filter">
             <select name="campaign_type">
                 <option selected="">Bounties</option>
@@ -9,7 +10,6 @@
                 {% endfor %}
             </select>
         </div>
-
 
         <div class="select  select--filter">
             <select name="status">

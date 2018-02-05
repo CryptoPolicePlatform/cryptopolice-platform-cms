@@ -5,10 +5,12 @@ columns:
         searchable: true
         sortable: true
     user_id:
-        label: User ID
-        type: number
+        label: User
+        type: text
         searchable: true
         sortable: true
+        select: 'concat(''['',name,''] '', email)'
+        relation: user
     exam_id:
         label: Exam ID
         type: number

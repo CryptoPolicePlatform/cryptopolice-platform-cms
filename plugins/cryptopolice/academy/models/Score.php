@@ -19,10 +19,12 @@ class Score extends Model
      * @var array Relations
      */
     public $belongsTo = [
+
         'Exam' => [
             'CryptoPolice\Academy\Models\Exam',
             'key' => 'exam_id'
         ],
+
     ];
 
     /**
