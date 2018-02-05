@@ -1,67 +1,68 @@
 {% if UsersCampaign.access == 0 %}
-    <div class="alert  alert--green">
-        <p><strong>You need to wait until we confirm your account to participate in current bounty</strong></p>
-        <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
-    </div>
+<div class="alert  alert--green">
+    <p><strong>You need to wait until we confirm your account to participate in current bounty</strong></p>
+    <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+</div>
 {% elseif UsersCampaign.status == 0 %}
-    <div class="alert  alert--red">
-        <p><strong>You are blocked to participate in current bounty campaign</strong></p>
-        <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
-    </div>
+<div class="alert  alert--red">
+    <p><strong>You are blocked to participate in current bounty campaign</strong></p>
+    <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+</div>
 {% else %}
-    <div class="grid__col  w6">
-        <h3>Report</h3>
-        <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request-flash data-request="onAddReport">
-            {% for bounty in Bounties.bountyList %}
-                {% if bounty.slug == this.param.slug %}
-                    {% for field in bounty.fields %}
-                        {% if field.action_type == 'report' and field.status %}
-                            <div class="form__group"><label>{{field.title}}</label>
+<div class="grid__col  w6">
+    <h3>Report</h3>
+    <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request-flash data-request="onAddReport">
+        {% for bounty in Bounties.bountyList %}
+            {% if bounty.slug == this.param.slug %}
+                {% for field in bounty.fields %}
+                    {% if field.action_type == 'report' and field.status %}
+                        <div class="form__group"><label>{{field.title}}</label>
 
-                                {% if field.name == 'email' %}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.email}}">
-                                {% elseif field.name == 'twitter_profile_link' %}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.twitter_link}}">
-                                {% elseif field.name == 'facebook_profile_link' %}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.facebook_link}}">
-                                {% elseif field.name == 'telegram_username' %}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
-                                {% elseif field.name == 'bitcointalk_profile_link' %}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
-                                {% elseif field.name == 'full_name' %}
-                                    <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.name}}">
+                            {% if field.name == 'email' %}
+                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.email}}">
+                            {% elseif field.name == 'twitter_profile_link' %}
+                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.twitter_link}}">
+                            {% elseif field.name == 'facebook_profile_link' %}
+                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.facebook_link}}">
+                            {% elseif field.name == 'telegram_username' %}
+                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
+                            {% elseif field.name == 'bitcointalk_profile_link' %}
+                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
+                            {% elseif field.name == 'full_name' %}
+                                <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.name}}">
+                            {% else %}
+
+                                {% if field.input_type == 'textarea' %}
+                                    <textarea class="textarea" name="{{ field.name }}" placeholder="{{ field.description }}"></textarea>
+                                {% elseif field.input_type == 'select' %}
+                                    <div class="select">
+                                        <select name="{{ field.name }}">
+                                            {% for select in field.select %}
+                                            <option value="{{select.options}}">{{select.options}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 {% else %}
-
-
-                                    {% if field.input_type == 'textarea' %}
-                                        <textarea class="textarea" name="{{ field.name }}" placeholder="{{ field.description }}"></textarea>
-                                    {% elseif field.input_type == 'select' %}
-                                        <div class="select">
-                                            <select name="{{ field.name }}">
-                                                {% for select in field.select %}
-                                                    <option value="{{select.options}}">{{select.options}}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    {% else %}
-                                        <div id="mul_{{ field.name }}">
-                                            <input class="input" type="{{ field.input_type }}" id="{{ field.name }}" name="{{ field.name }}" placeholder="{{ field.description }}">
-                                        </div>
-                                            {% if field.multiple %}
-                                                <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="setMultipleField('{{ field.name }}', '{{ field.description }}', 0)">+</a>
-                                            {% endif %}
+                                    <div id="mul_{{ field.name }}" class="multiple_fields">
+                                        <input class="input" type="{{ field.input_type }}" id="{{ field.name }}" name="{{ field.name }}"
+                                               placeholder="{{ field.description }}">
+                                    </div>
+                                    {% if field.multiple %}
+                                        <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="setMultipleField('mul_{{ field.name }}')">+</a>
                                     {% endif %}
                                 {% endif %}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
 
-            <div class="form__group">
-                <button class="btn  btn--gpink">add new report</button>
-            </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
 
-        </form>
-    </div>
+        <div class="form__group">
+            <button class="btn  btn--gpink">add new report</button>
+        </div>
+
+    </form>
+</div>
 {% endif %}

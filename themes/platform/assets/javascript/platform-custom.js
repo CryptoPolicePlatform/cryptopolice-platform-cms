@@ -7,24 +7,17 @@ $(function () {
     });
 });
 
-function setMultipleField(title, description) {
+function setMultipleField(block) {
 
-    var buf = Math.random().toString(3);
     event.preventDefault();
-    $('#mul_' + title).append('<input style="margin-top:20px" class="input" type="text" name="' + title + '_' + randomString() + '" placeholder="' + ' New ' + description + '">');
 
-}
+    var div = $('#' + block);
+    var input = div.find("input");
 
-function randomString() {
+    var count = input.length + 1;
+    var title = input.first().attr('id');
+    var placeholder = input.last().attr('placeholder');
 
-    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-    var string_length = 4;
-    var randomstring = '';
+    div.append('<input style="margin-top:20px" class="input" type="text" name="' + title + '_' + count + '" placeholder="' + placeholder + '">');
 
-    for (var i = 0; i < string_length; i++) {
-        var rnum = Math.floor(Math.random() * chars.length);
-        randomstring += chars.substring(rnum, rnum + 1);
-    }
-
-    return randomstring;
 }

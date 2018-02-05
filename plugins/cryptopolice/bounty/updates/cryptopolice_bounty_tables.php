@@ -38,7 +38,7 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
                 $table->integer('user_id')->default(0);
-                $table->integer('rewards_id')->default(0);
+                $table->integer('reward_id')->default(1);
                 $table->integer('bounty_campaigns_id')->default(0);
                 $table->integer('bounty_user_registration_id')->default(0);
                 $table->integer('given_reward')->default(0);

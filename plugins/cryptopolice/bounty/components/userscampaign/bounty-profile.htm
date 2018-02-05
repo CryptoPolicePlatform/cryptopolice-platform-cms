@@ -3,9 +3,9 @@
 <div class="profile__sidebar">
 
     {% if user.avatar.path %}
-        <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
+    <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
     {% else %}
-        <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+    <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
     {% endif %}
 
     <div class="profile__name">
@@ -13,15 +13,25 @@
     </div>
 
     <div class="profile__block">
-        <p> Balance: <b> {{ statistic.reward_sum }} OFC </b></p>
+        <p> Balance: <b> {{ statistic.total_tokens }} OFC </b></p>
+        <p> Balance: <b> {{ statistic.total_stakes }} STAKES </b></p>
     </div>
+
+
+    <div class="profile__block">
+        {% for stake in statistic.stake_list %}
+        <p> {{ stake.campaign_title }}: <b> {{ stake.stake_amount }} STAKES </b></p>
+        {% endfor %}
+    </div>
+
 
     <div class="profile__block">
         <p> Statistics: </p>
         <div class="profile__block-item">
             <p> Total reports: <b> {{ statistic.report_count }} </b></p>
             <div class="profile__stat">
-                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ ( statistic.report_count / 10 * statistic.pending ) }}" data-size="60" data-thickness="10">
+
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{statistic.report_count / 100 * statistic.pending}}" data-size="60" data-thickness="10">
                     <canvas width="60" height="60"></canvas>
                 </div>
                 <ul class="profile__stat-list">
