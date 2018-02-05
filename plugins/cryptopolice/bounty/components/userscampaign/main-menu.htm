@@ -4,7 +4,7 @@
 
     <!-- selected Bounty Campaign -->
     {% if bounty.slug == this.param.slug %}
-    {% set flag = false %}
+        {% set flag = false %}
         <div class="tabs" id="tabs1">
             <div class="tabs__nav" data-tabs-for="#tabs1" role="tablist">
                 <a class="tabs__nav-item  active" href="#tab-1" role="tab"> {% if UsersCampaign.access is empty %} Registration {% else %} Report {% endif %} </a>
@@ -49,8 +49,11 @@
 <!-- User Section-->
 {% if flag == true %}
 
-    <!-- Tab 2 Users reports -->
+    <!-- Users reports -->
     {% partial 'UsersCampaign::users-reports' %}
+    <!-- Campaign list -->
+    {% partial 'UsersCampaign::bounty-list' %}
+
 {% endif %}
 <!-- End User Section-->
 

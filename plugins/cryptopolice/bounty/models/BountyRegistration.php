@@ -2,6 +2,7 @@
 
 use Mail;
 use Model;
+use Flash;
 use RainLab\User\Models\User;
 
 /**

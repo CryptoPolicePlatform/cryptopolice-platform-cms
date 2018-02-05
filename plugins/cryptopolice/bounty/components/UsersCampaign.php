@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Bounty\Components;
 
+use CryptoPolice\Bounty\Models\BountyRegistration;
 use DB;
 use Auth;
 use Flash;
@@ -15,6 +16,7 @@ class UsersCampaign extends ComponentBase
 	public $rewards;
 	public $reportList;
 	public $campaignID;
+	public $registeredList;
 	public $campaignReports;
 	public $profileStatistic;
 
@@ -34,11 +36,21 @@ class UsersCampaign extends ComponentBase
         $this->profileStatistic = $this->getUsersStats();
 
         if (!empty($this->param('slug'))) {
+
             $this->getUsersAccess();
+
             $this->campaignReports = $this->getCampaignReports();
         } else {
             $this->reportList = $this->getUsersReports();
+            $this->registeredList = $this->getCampaigns();
         }
+    }
+
+    public function getCampaigns () {
+
+	    $user = Auth::getUser();
+	    return BountyRegistration::where('user_id', $user->id)->get();
+
     }
 
 	public function onFilterCampaignReports()
