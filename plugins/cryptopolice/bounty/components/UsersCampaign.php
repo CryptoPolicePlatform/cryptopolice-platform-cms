@@ -122,8 +122,7 @@ class UsersCampaign extends ComponentBase
                         }
                     }
                 }
-            })
-            ->get();
+            })->get();
     }
 
 	public function getUsersReports()
