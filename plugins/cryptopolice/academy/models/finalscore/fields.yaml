@@ -1,5 +1,29 @@
 fields:
-    text1:
-        label: Text
+    user:
+        label: 'User'
+        oc.commentPosition: ''
+        nameFrom: user
+        span: left
+        required: 1
+        select: 'concat(''['',name,''] '', email)'
+        type: relation
+    exam:
+        label: 'Exam'
+        oc.commentPosition: ''
+        nameFrom: exam
+        span: right
+        required: 1
+        select: exam_title
+        type: relation
+    try:
+        label: Try
+        span: right
+        type: number
+    score:
+        label: Score
+        span: left
+        type: number
+    status:
+        label: Complete Status
         span: auto
-        type: text
+        type: switch
