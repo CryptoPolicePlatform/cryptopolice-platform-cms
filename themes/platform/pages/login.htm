@@ -25,8 +25,7 @@ forceSecure = 0
 <div class="content">
     <div class="content__inner">
         <div class="content__header">
-            <img src="{{'assets/images/cryptopolice-logo-white.png'|theme}}" width="261" height="120"
-                 alt="CryptoPolice">
+            <img src="{{'assets/images/cryptopolice-logo-white.png'|theme}}" width="261" height="120" alt="CryptoPolice">
 
             <h1 class="content__title">Early bird Officer registration is now open!</h1>
             <div class="content__text">
@@ -42,9 +41,12 @@ forceSecure = 0
         {% if not user %}
             {% component 'userLogin' %}
         {% elseif active is not empty %}
-            <div class="content__title">
-                Congratulations! You have successfully activated
-            </div>
+        <div class="content__title">
+            Congratulations! You have successfully activated
+        </div>
+        <!-- TODO: change to main page -->
+        <a class="btn" href="{{'profile'|page}}">START WITH YOUR PROFILE</a>
         {% endif %}
+
     </div>
 </div>

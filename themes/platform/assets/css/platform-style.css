@@ -3944,6 +3944,15 @@ html.remodal-is-locked {
     z-index: 1;
 }
 
+.sidebar--white{
+    width: 215px;
+    padding: 10px 10px;
+    background: #fff url("../images/profile-sidebar-bg.png") no-repeat right top;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+}
+
+
 @media (max-width: 767px) {
     .content__sidebar {
         position: static;
@@ -4387,6 +4396,38 @@ html.remodal-is-locked {
 .btn--gblue:active {
     background: linear-gradient(to bottom, #5855c8 50%, #403eb0 50%, #403eb0);
 }
+
+
+.btn--bounty{
+    width: 100%;
+    background: none;
+    color: #724081;
+    border: 1px solid;
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+
+.btn--bounty:hover{
+    background: linear-gradient(to bottom, #a45cba 50%, #724081 50%, #41254a);
+    color: #ffffff;
+
+}
+
+.bounty-filter{
+    background: none;
+    color: #292E38;
+    border: 1px solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.bounty-filter:hover{
+    background: linear-gradient(to bottom, #5855c8 50%, #403eb0 50%, #403eb0);
+    color: #ffffff;
+}
+
 
 .btn--issue, .btn--project, .btn--publ, .btn--officer, .btn--partner {
     display: block;
