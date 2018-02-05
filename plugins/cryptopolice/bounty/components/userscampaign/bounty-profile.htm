@@ -15,30 +15,44 @@
 
     <div class="profile__block">
         <p> Balance: <b> {{ statistic.total_tokens }} OFC </b></p>
-        <p> Balance: <b> {{ statistic.total_stakes }} STAKES </b></p>
     </div>
 
-    <div class="profile__block">
-        {% for stake in statistic.stake_list %}
-            <p> {{ stake.campaign_title }}: <b> {{ stake.stake_amount }} STAKES </b></p>
-        {% endfor %}
-    </div>
+    {% if statistic.stake_list is not empty %}
+        <div class="profile__block">
+            <p>Stakes:</p>
+            <div class="profile__block-item">
+            {% for stake in statistic.stake_list %}
+            <p> {{ stake.campaign_title }}: <b> {{ stake.stake_amount }} <small>STAKES</small> </b></p>
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
+    {% if statistic.report_count %}
+        {% set value = ( 100 / (statistic.report_count - statistic.pending) * statistic.approved ) / 100 %}
+    {% else %}
+        {% set value = 0 %}
+    {% endif %}
+
 
     <div class="profile__block">
         <p> Statistics: </p>
         <div class="profile__block-item">
-            <p> Total reports: <b> {{ statistic.report_count }} </b></p>
+            <p> Total : <b> {{ statistic.report_count }} </b></p>
             <div class="profile__stat">
 
-                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ (statistic.report_count / 100 * statistic.pending) / 10 }}" data-size="60" data-thickness="10">
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ value }}" data-size="60" data-thickness="10">
                     <canvas width="60" height="60"></canvas>
                 </div>
                 <ul class="profile__stat-list">
-                    <li class="purple"> Pending: <b> {{ statistic.pending}} </b></li>
-                    <li class="light-purple"> Approved: <b> {{ statistic.approved}} </b></li>
+                    <li class="purple"> Approved: <b> {{ statistic.approved}} </b></li>
                     <li class="light-purple"> Disapproved: <b> {{ statistic.disapproved }} </b></li>
                 </ul>
             </div>
         </div>
     </div>
+
 </div>

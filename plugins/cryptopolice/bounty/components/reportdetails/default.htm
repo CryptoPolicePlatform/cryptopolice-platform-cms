@@ -2,16 +2,24 @@
 
 <div class="breadcrumbs">
     <a class="breadcrumbs__item" href="{{'bounty-campaign'|page}}">Home</a>
-    <span class="breadcrumbs__item  active">ReportDetails</span>
+    <span class="breadcrumbs__item  active">{{report.bounty.title}}</span>
 </div>
 
+
+
 <div class="card">
+
+    <div style="margin-bottom:0px;" class="card__header">
+        <h2>#{{report.bounty.title|upper|slice(0, 2)}}{{ report.id }}</h2>
+    </div>
+    
     {% for field in report.description %}
-        <div class="card__header"> <strong> {{ field.title|replace({'_': ' '}) }} </strong> </div>
-        <div class="card__content"> {{ field.value }} </div>
+        <div style="margin: 15px 0px 5px 0px;" class="card__header"> {{ field.title|replace({'_': ' '})|capitalize }}  </div>
+        <div style="height:auto" class="card__content"> {{ field.value }} </div>
     {% endfor %}
 
     <div class="card__footer">
+
         <div class="card__footer-left">
             <ul class="card__ava-list">
                 <li class="card__ava  card__ava--author">
@@ -19,37 +27,44 @@
                 </li>
             </ul>
         </div>
+
         <div class="card__footer-right">
             <div class="card__date">{{ report.created_at }}</div>
         </div>
+
     </div>
 
-    {% if report.status == 1 %}
-        <div class="card__status  low"></div>
-    {% elseif report.status == 2%}
-        <div class="card__status  high"></div>
+    {% if report.report_status == 1 %}
+        <div class="card__status  low">A</div>
+    {% elseif report.report_status == 2%}
+        <div class="card__status  high">D</div>
     {% else %}
-        <div class="card__status  medium"></div>
+        <div class="card__status  medium">P</div>
     {% endif %}
 </div>
 
-<hr>
 
-<div class="card">
-    <div class="card__header"></div>
-    <div class="card__content"> {{ report.comment|raw }}</div>
-    <div class="card__footer">
-        <div class="card__footer-left">
-            <ul class="card__ava-list">
-                <li class="card__ava  card__ava--author">
-                    Reward
-                </li>
-                <li class="card__ava">
-                    {{ report.given_reward }}
-                </li>
-            </ul>
+{% if report.report_status != 0 %}
+    <hr>
+    <div class="card">
+        <div style="margin-top: 15px;" class="card__header">Reports feedback</div>
+        <div style="height:auto" class="card__content"> {{ report.comment|raw }}</div>
+        <div class="card__footer">
+            <div class="card__footer-left">
+                <ul class="card__ava-list">
+                    <li class="card__ava  card__ava--author">
+                        Reward
+                    </li>
+                    <li class="card__ava">
+                        {% if report.type == 1 %}
+                            {% if report.given_reward != 0 %} {{ report.given_reward }} OFC {% else %} 0 {% endif %}
+                        {% else %}
+                            {% if report.given_reward != 0 %} {{ report.given_reward }} STAKES {% else %} 0 {% endif %}
+                        {% endif%}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-
+{% endif %}
 

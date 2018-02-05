@@ -92,7 +92,6 @@ class UsersCampaign extends ComponentBase
             'disapproved'   => $data->where('report_status', 2)->count(),
             'approved'      => $data->where('report_status', 1)->count(),
             'pending'       => $data->where('report_status', 0)->count(),
-            'total_stakes'  => $data->where('type', 1)->sum('given_reward'),
             'total_tokens'  => $data->where('type', 0)->sum('given_reward'),
         ];
     }
@@ -112,6 +111,7 @@ class UsersCampaign extends ComponentBase
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
+            ->where('cryptopolice_bounty_user_reports.created_at', 'asc')
             ->Where(function ($query) use ($arr) {
                 for ($i = 0; $i < count($arr); $i++) {
                     if (!empty($arr[$i])) {

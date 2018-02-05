@@ -1,6 +1,8 @@
 <?php namespace CryptoPolice\Bounty\Models;
 
+use Mail;
 use Model;
+use RainLab\User\Models\User;
 
 /**
  * Model
@@ -46,5 +48,24 @@ class BountyRegistration extends Model
      * @var string The database table used by the model.
      */
     public $table = 'cryptopolice_bounty_user_registration';
+
+    public function afterUpdate() {
+
+        if(isset($this->user_id) && !empty($this->user_id)) {
+
+            $user = User::where('id', $this->user_id)->first();
+
+            $vars = [
+                'name' => $user->full_name,
+                'mail' => $user->email,
+            ];
+
+            Mail::send('cryptopolice.bounty::mail.registration_bounty_message', $vars, function ($message) use ($user) {
+                $message->to($user->email, $user->full_name)->subject('Bounty Campaign Registration');
+            });
+        }
+        Flash::success('Mail ['.$user->email.'] has been send');
+    }
+
 
 }

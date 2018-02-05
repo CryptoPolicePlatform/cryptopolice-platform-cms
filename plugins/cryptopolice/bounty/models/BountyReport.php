@@ -1,7 +1,10 @@
 <?php namespace CryptoPolice\Bounty\Models;
 
 use Model;
+use Flash;
+use Mail;
 use ValidationException;
+use October\Rain\Auth\Models\User;
 
 /**
  * Model
@@ -105,7 +108,7 @@ class BountyReport extends Model
 
             // If selected reports status is approved
             if ($data['BountyReport']['report_status'] == 1) {
-                $message = 'Reports status should be selected as "Disapproved"';
+                $message = 'Reports status should be selected as "Disapproved", because selected reward type is "None"';
             }
         }
 
@@ -126,14 +129,14 @@ class BountyReport extends Model
         // Entered reward amount is greater than selected reward type minimum
         if(isset($this->reward->reward_amount_max)) {
             if ($data['BountyReport']['given_reward'] > $this->reward->reward_amount_max) {
-                $message = 'Entered reward amount (' . $data['BountyReport']['given_reward'] . ') is higher then Max (' . $this->reward->reward_amount_max . ')';
+                $message = 'Entered reward amount (' . $data['BountyReport']['given_reward'] . ') is higher then (' . $this->reward->reward_amount_max . ')';
             }
         }
 
         if(isset($this->reward->reward_amount_min)) {
             // Entered reward amount is greater than selected reward type maximum
             if ($data['BountyReport']['given_reward'] < $this->reward->reward_amount_min) {
-                $message = 'Given reward amount: ' . $data['BountyReport']['given_reward'] . ' is less then min (' . $this->reward->reward_amount_min . ')';
+                $message = 'Given reward amount: ' . $data['BountyReport']['given_reward'] . ' is less then (' . $this->reward->reward_amount_min . ')';
             }
         }
 
@@ -163,6 +166,25 @@ class BountyReport extends Model
         } else {
             return true;
         }
+    }
+
+
+    public function afterUpdate() {
+
+        if(isset($this->user_id) && !empty($this->user_id)) {
+
+            $user = User::where('id', $this->user_id)->first();
+
+            $vars = [
+                'name' => $user->full_name,
+                'mail' => $user->email,
+            ];
+
+            Mail::send('cryptopolice.bounty::mail.report_bounty_message', $vars, function ($message) use ($user) {
+                $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
+            });
+        }
+        Flash::success('Mail ['.$user->email.'] has been send');
     }
 
 }

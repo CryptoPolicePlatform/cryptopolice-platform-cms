@@ -21,7 +21,8 @@ fields:
                     oc.commentPosition: ''
                     span: auto
                     readOnly: 1
-                    type: text
+                    size: small
+                    type: textarea
     approval_type:
         label: Approve
         span: auto

@@ -8,6 +8,8 @@ fields:
     user:
         label: User
         oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
         select: 'concat(''['',name,''] '', email)'
         span: auto
         type: relation
@@ -30,17 +32,18 @@ fields:
                     span: auto
                     type: text
                 value:
-                    label: Value
+                    label: Data
+                    size: small
                     oc.commentPosition: ''
                     readOnly: 1
                     span: auto
-                    type: text
+                    type: textarea
     reward:
         label: Type
         type: dropdown
         span: left
     given_reward:
-        label: Reward (Tokens / Stakes)
+        label: 'Reward (Tokens / Stakes)'
         type: text
         span: right
         dependsOn: reward
