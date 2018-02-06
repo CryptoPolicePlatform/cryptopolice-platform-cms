@@ -67,6 +67,7 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->boolean('status')->default(0);
                 $table->integer('sort_order')->default(0);
                 $table->text('fields')->nullable();
+                $table->string('icon', 25)->nullable();
                 $table->tinyInteger('percentage')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();

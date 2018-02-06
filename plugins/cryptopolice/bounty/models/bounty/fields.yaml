@@ -22,6 +22,11 @@ fields:
         span: auto
         default: 1
         type: switch
+    icon:
+        label: Icon
+        span: auto
+        default: 1
+        type: dropdown
     description:
         label: Description
         size: large

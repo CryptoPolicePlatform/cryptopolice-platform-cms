@@ -3,7 +3,7 @@
     <div class="profile__block">
         <!--TODO: add custom icon to bounty compaigns -->
      {% for bounty in Bounties.bountyList %}
-         <a class="btn btn--bounty"  href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}"><i class="fa fa-gift"></i> {{ bounty.title }} </a>
+         <a class="btn btn--bounty"  href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}"><i class="fa {{bounty.icon}}"></i> {{ bounty.title }} </a>
      {% endfor %}
  </div>
 </div>

@@ -7,6 +7,7 @@ class ReportDetails extends ComponentBase
 {
 
     public $report;
+    public $numRegisteredUsers;
 
     public function componentDetails()
     {

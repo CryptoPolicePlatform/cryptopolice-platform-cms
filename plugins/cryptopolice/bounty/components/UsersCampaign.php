@@ -1,6 +1,5 @@
 <?php namespace CryptoPolice\Bounty\Components;
 
-use CryptoPolice\Bounty\Models\BountyRegistration;
 use DB;
 use Auth;
 use Flash;
@@ -8,6 +7,7 @@ use DateTime;
 use Validator;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Bounty\Models\Bounty;
+use CryptoPolice\Bounty\Models\BountyRegistration;
 
 class UsersCampaign extends ComponentBase
 {
@@ -19,6 +19,7 @@ class UsersCampaign extends ComponentBase
 	public $registeredList;
 	public $campaignReports;
 	public $profileStatistic;
+	public $numRegisteredUsers;
 
 
 	public function componentDetails()
@@ -38,7 +39,7 @@ class UsersCampaign extends ComponentBase
         if (!empty($this->param('slug'))) {
 
             $this->getUsersAccess();
-
+            $this->numRegisteredUsers = $this->getRegisteredUsersCount();
             $this->campaignReports = $this->getCampaignReports();
         } else {
             $this->reportList = $this->getUsersReports();
@@ -46,11 +47,15 @@ class UsersCampaign extends ComponentBase
         }
     }
 
+    public function getRegisteredUsersCount() {
+
+	    return BountyRegistration::where('bounty_campaigns_id', $this->param('id'))->count('user_id');
+    }
+
     public function getCampaigns () {
 
 	    $user = Auth::getUser();
 	    return BountyRegistration::where('user_id', $user->id)->get();
-
     }
 
 	public function onFilterCampaignReports()
@@ -168,7 +173,6 @@ class UsersCampaign extends ComponentBase
 	}
 
 	public function prepareValidationRules($query, $actionType) {
-
 
 		$data = input();
 
