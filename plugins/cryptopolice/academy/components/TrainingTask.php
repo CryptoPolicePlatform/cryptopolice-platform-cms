@@ -8,9 +8,6 @@ use CryptoPolice\Academy\Models\TrainingCategory as TrainingCategory;
 class TrainingTask extends ComponentBase
 {
 
-    public $task;
-    public $categorySlug;
-
     public function componentDetails()
     {
         return [
@@ -29,8 +26,8 @@ class TrainingTask extends ComponentBase
 
         $categorySlug = TrainingCategory::where('id', $task->category_id)->value('slug');
 
-        $this->task = $task;
-        $this->categorySlug = $categorySlug;
+        $this->page['task'] = $task;
+        $this->page['categorySlug'] = $categorySlug;
     }
 
 }

@@ -9,6 +9,7 @@ use RainLab\User\Models\User;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Bounty\Models\Bounty;
 use CryptoPolice\Bounty\Models\BountyRegistration;
+use CryptoPolice\Academy\Components\Recaptcha;
 
 class UsersCampaign extends ComponentBase
 {
@@ -21,25 +22,27 @@ class UsersCampaign extends ComponentBase
         ];
     }
 
+
     public function onRun()
     {
 
         $this->page['campaignID'] = $this->param('id');
-        $this->page['profileStatistic'] = $this->getUsersStats();
+        $this->page['profileStatistic'] = $this->getProfileStatistic();
 
         if (!empty($this->param('slug'))) {
 
             $this->getUsersAccess();
-            $this->page['totalCounter'] = $this->getRegisteredUsersCount();
+            $this->getRegisteredUsersCount();
             $this->page['campaignReports'] = $this->getCampaignReports();
 
         } else {
 
-            $this->page['reportList'] = $this->getUsersReports();
-            $this->page['registeredList'] = $this->getCampaigns();
+            $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
+            $this->page['usersReports'] = $this->getUsersReports();
 
         }
     }
+
 
     public function getRegisteredUsersCount()
     {
@@ -53,20 +56,18 @@ class UsersCampaign extends ComponentBase
             $percentage = 0;
         }
 
-        return [
-            'totalUserCampaignCount' => $totalUserCampaignCount,
-            'totalUserCount' => $totalUserCount,
-            'percentage' => $percentage
-        ];
-
+        $this->page['totalRegisteredInCampaign'] = $totalUserCampaignCount;
+        $this->page['bountyPercentage'] = $percentage;
     }
 
-    public function getCampaigns()
+
+    public function getRegisteredUsersCampaign()
     {
 
         $user = Auth::getUser();
         return BountyRegistration::where('user_id', $user->id)->get();
     }
+
 
     public function onFilterCampaignReports()
     {
@@ -87,10 +88,12 @@ class UsersCampaign extends ComponentBase
             })->get();
     }
 
-    public function getUsersStats()
+
+    public function getProfileStatistic()
     {
 
         $user = Auth::getUser();
+
         $data = DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
@@ -117,7 +120,7 @@ class UsersCampaign extends ComponentBase
         $approved = $data->where('report_status', 1)->count();
         $pending = $data->where('report_status', 0)->count();
 
-        if ($counter) {
+        if ($counter - $pending  && $approved ) {
             $value = (100 / ($counter - $pending) * $approved) / 100;
         } else {
             $value = 0;
@@ -134,6 +137,7 @@ class UsersCampaign extends ComponentBase
         ];
     }
 
+
     public function onFilterReports()
     {
 
@@ -144,12 +148,11 @@ class UsersCampaign extends ComponentBase
             post('status')
         ];
 
-        $this->page['reportList'] = DB::table('cryptopolice_bounty_user_reports')
+        $this->page['usersReports'] = DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
-            ->where('cryptopolice_bounty_user_reports.created_at', 'asc')
             ->Where(function ($query) use ($arr) {
                 for ($i = 0; $i < count($arr); $i++) {
                     if (!empty($arr[$i])) {
@@ -160,12 +163,17 @@ class UsersCampaign extends ComponentBase
                         }
                     }
                 }
-            })->get();
+            })
+            ->orderBy('cryptopolice_bounty_user_reports.created_at', 'asc')
+        ->get();
     }
+
 
     public function getUsersReports()
     {
+
         $user = Auth::getUser();
+
         return DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
@@ -175,8 +183,10 @@ class UsersCampaign extends ComponentBase
             ->get();
     }
 
+
     public function getCampaignReports()
     {
+
         return DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
@@ -184,6 +194,7 @@ class UsersCampaign extends ComponentBase
             ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
             ->get();
     }
+
 
     public function getUsersAccess()
     {
@@ -194,6 +205,7 @@ class UsersCampaign extends ComponentBase
         $this->page['access'] = $query ? $query->pivot->approval_type : null;
         $this->page['status'] = $query ? $query->pivot->status : null;
     }
+
 
     public function prepareValidationRules($query, $actionType)
     {
@@ -219,8 +231,11 @@ class UsersCampaign extends ComponentBase
         }
     }
 
+
     public function onAddReport()
     {
+
+        Recaptcha::verifyCaptcha();
 
         $json = [];
         $user = Auth::getUser();
@@ -254,8 +269,11 @@ class UsersCampaign extends ComponentBase
         }
     }
 
+
     public function onCampaignRegistration()
     {
+
+        Recaptcha::verifyCaptcha();
 
         $json = [];
         $user = Auth::getUser();

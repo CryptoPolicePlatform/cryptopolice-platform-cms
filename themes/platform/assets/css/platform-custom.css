@@ -3,5 +3,43 @@
     background: #fff url(../images/warning-ico.png) no-repeat right 10px center;
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none!important;
+    appearance: none !important;
+}
+
+.btn_report {
+    margin-top: 20px
+}
+
+.stat_block {
+    float: left;
+    margin-right: 20px;
+}
+
+.second_stat_block {
+    margin-left: 250px
+}
+
+.bounty_title {
+    text-align: center;
+    margin-bottom: -10px;
+}
+.empty_flash {
+    display: none;
+}
+
+
+.report_header {
+    margin-bottom: 0px;
+}
+
+.report_title {
+    margin: 15px 0px 5px 0px;
+}
+
+.report_content {
+    height: auto;
+}
+
+.report_message {
+    margin-top: 15px;
 }

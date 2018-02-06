@@ -2,7 +2,7 @@
 
 
     <form data-request-data="id: {{ campaignID }}" data-request="onCampaignRegistration" data-request-flash>
-            {% for bounty in Bounties.bountyList %}
+            {% for bounty in bountyList %}
                 {% if bounty.slug == this.param.slug %}
                  <h3><i class="fa fa-user-plus"></i> Registration to {{ bounty.title }} bounty campaign</h3>
                     {% for field in bounty.fields %}
@@ -47,7 +47,7 @@
                 {% endif %}
             {% endfor %}
         <div class="form__group">
-            <button class="btn  btn--gpink">Submit registration</button>
+            <button id="captcha_registration" class="btn  btn--gpink g-recaptcha">Submit registration</button>
         </div>
     </form>
 </div>

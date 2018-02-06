@@ -9,12 +9,12 @@
             </a>
         </li>
     {% else %}
-    <li class="courses__item">
-        <a class="courses__link  watched" href="{{ 'training'|page}}">
-            <span class="courses__num"><b> ... </b></span>
-            <span class="courses__title">No Found</span>
-        </a>
-    </li>
+        <li class="courses__item">
+            <a class="courses__link  watched" href="{{ 'training'|page}}">
+                <span class="courses__num"><b> ... </b></span>
+                <span class="courses__title">No Found</span>
+            </a>
+        </li>
     {% endfor %}
     <div class="courses__footer">
         <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>

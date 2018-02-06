@@ -1,29 +1,26 @@
-{% set task = __SELF__.task %}
-{% set cat_slug = __SELF__.categorySlug %}
-
 <div class="courses__open">
     <ul class="courses">
         {% if task %}
-        <li class="courses__item">
-            <div class="courses__link  watched">
-                <span class="courses__num">#<b>{{ task.id }}</b></span>
-                <span class="courses__title">{{ task.title }}</span>
-            </div>
-        </li>
-        <li>
-            <div class="courses__content"> {{ task.description|raw }}</div>
-        </li>
+            <li class="courses__item">
+                <div class="courses__link  watched">
+                    <span class="courses__num">#<b>{{ task.id }}</b></span>
+                    <span class="courses__title">{{ task.title }}</span>
+                </div>
+            </li>
+            <li>
+                <div class="courses__content"> {{ task.description|raw }}</div>
+            </li>
         {% else %}
-        <li class="courses__item">
-            <div class="courses__link  watched">
-                <span class="courses__num"><b> ... </b></span>
-                <span class="courses__title"> Task Not Found </span>
-            </div>
-        </li>
+            <li class="courses__item">
+                <div class="courses__link  watched">
+                    <span class="courses__num"><b> ... </b></span>
+                    <span class="courses__title"> Task Not Found </span>
+                </div>
+            </li>
         {% endif %}
     </ul>
 </div>
 
 <div class="courses__footer  text-left">
-    <a class="btn" href="{{'trainings'|page({slug: cat_slug})}}">back to course list</a>
+    <a class="btn" href="{{'trainings'|page({slug: categorySlug})}}">back to course list</a>
 </div>

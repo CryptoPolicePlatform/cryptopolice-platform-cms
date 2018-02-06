@@ -1,6 +1,6 @@
 {% set campaignTitle = "" %}
 
-{% for bounty in Bounties.bountyList %}
+{% for bounty in bountyList %}
     {% if bounty.slug == this.param.slug %}
         {% set campaignTitle = bounty.title %}
     {% endif %}

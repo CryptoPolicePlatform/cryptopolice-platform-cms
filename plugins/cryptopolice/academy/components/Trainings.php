@@ -10,8 +10,6 @@ class Trainings extends ComponentBase
 {
 
     public $slug;
-    public $trainings;
-    public $trainings_category;
 
     public function componentDetails()
     {
@@ -43,7 +41,7 @@ class Trainings extends ComponentBase
                 ->paginate(10);
         }
 
-        $this->trainings = $trainings;
+        $this->page['trainings'] = $trainings;
     }
 
 }

@@ -1,6 +1,6 @@
 <!--Campaign Section-->
 {% set flag = true %}
-{% for bounty in Bounties.bountyList %}
+{% for bounty in bountyList %}
 
     <!-- selected Bounty Campaign -->
     {% if bounty.slug == this.param.slug %}
@@ -18,16 +18,16 @@
                     <div class="profile__card  mb-15">
 
                         <h2>{{bounty.title|upper}} CAMPAIGN</h2>
-                        <div class="stat__item" style="float: left; margin-right: 20px;">
+                        <div class="stat__item stat_block" >
                             <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{bounty.percentage / 100 }}" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas></div>
                             <div class="stat__counter">{{bounty.percentage}}% </div>
                             <div class="stat__text">Reward amount {{ (20000000 / 100 * bounty.percentage)|number_format(0, '.', ',') }}  OFC </div>
                         </div>
 
-                        <div class="stat__item" style="margin-left: 250px">
-                            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{totalCounter.percentage / 100 }}" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas></div>
-                            <div class="stat__counter"> {{ totalCounter.percentage }}%</div>
-                            <div class="stat__text"> Registered in campaign {{ totalCounter.totalUserCampaignCount }} users</div>
+                        <div class="stat__item second_stat_block">
+                            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas></div>
+                            <div class="stat__counter"> {{ bountyPercentage }}%</div>
+                            <div class="stat__text"> Registered in campaign {{ totalRegisteredInCampaign }} users</div>
                         </div>
                         <p>{{ bounty.description|raw}}</p>
 
@@ -68,7 +68,7 @@
 
 <!--Hack with flash notification, remove text rendering before flash message -->
 {% if active is empty %}
-    <div style="display:none;">
+    <div class="empty_flash">
         {% flash %}
         <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
         {% endflash %}

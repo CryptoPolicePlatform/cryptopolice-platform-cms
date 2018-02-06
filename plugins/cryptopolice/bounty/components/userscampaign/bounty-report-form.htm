@@ -12,7 +12,7 @@
 <div class="grid__col  w6">
     <h3>Report</h3>
     <form data-request-data="id: {{ campaignID }}" data-request-flash data-request="onAddReport">
-        {% for bounty in Bounties.bountyList %}
+        {% for bounty in bountyList %}
             {% if bounty.slug == this.param.slug %}
                 {% for field in bounty.fields %}
                     {% if field.action_type == 'report' and field.status %}
@@ -48,8 +48,8 @@
                                                placeholder="{{ field.description }}">
                                     </div>
                                     {% if field.multiple %}
-                                        <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="setMultipleField('mul_{{ field.name }}')">Add field</a>
-                                        <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="removeField('mul_{{ field.name }}')">Remove field</a>
+                                        <a class="btn  btn--green btn_report" href="#" onclick="setMultipleField('mul_{{ field.name }}')">Add field</a>
+                                        <a class="btn  btn--green btn_report" href="#" onclick="removeField('mul_{{ field.name }}')">Remove field</a>
                                     {% endif %}
                                 {% endif %}
 
@@ -61,7 +61,7 @@
         {% endfor %}
 
         <div class="form__group">
-            <button class="btn  btn--gpink">add new report</button>
+            <button id="captcha_report" class="btn  btn--gpink g-recaptcha">add new report</button>
         </div>
 
     </form>
