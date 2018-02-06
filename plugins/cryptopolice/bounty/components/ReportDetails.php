@@ -19,7 +19,8 @@ class ReportDetails extends ComponentBase
 
     public function onRun()
     {
-        $this->report = BountyReport::where('cryptopolice_bounty_user_reports.id', $this->param('id'))
+        $this->report = BountyReport::select('cryptopolice_bounty_user_reports.id as report_id','cryptopolice_bounty_user_reports.*','users.*')
+            ->where('cryptopolice_bounty_user_reports.id', $this->param('id'))
             ->join('users', 'users.id', '=', 'cryptopolice_bounty_user_reports.user_id')
             ->first();
     }

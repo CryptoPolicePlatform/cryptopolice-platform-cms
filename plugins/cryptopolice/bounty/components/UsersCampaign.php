@@ -5,6 +5,7 @@ use Auth;
 use Flash;
 use DateTime;
 use Validator;
+use RainLab\User\Models\User;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Bounty\Models\Bounty;
 use CryptoPolice\Bounty\Models\BountyRegistration;
@@ -19,7 +20,7 @@ class UsersCampaign extends ComponentBase
 	public $registeredList;
 	public $campaignReports;
 	public $profileStatistic;
-	public $numRegisteredUsers;
+	public $totalCounter;
 
 
 	public function componentDetails()
@@ -39,17 +40,33 @@ class UsersCampaign extends ComponentBase
         if (!empty($this->param('slug'))) {
 
             $this->getUsersAccess();
-            $this->numRegisteredUsers = $this->getRegisteredUsersCount();
+            $this->totalCounter = $this->getRegisteredUsersCount();
             $this->campaignReports = $this->getCampaignReports();
+
         } else {
+
             $this->reportList = $this->getUsersReports();
             $this->registeredList = $this->getCampaigns();
+
         }
     }
 
     public function getRegisteredUsersCount() {
 
-	    return BountyRegistration::where('bounty_campaigns_id', $this->param('id'))->count('user_id');
+        $totalUserCampaignCount = BountyRegistration::where('bounty_campaigns_id', $this->param('id'))->count('user_id');
+        $totalUserCount = User::count('id');
+
+        if($totalUserCampaignCount) {
+            $percentage = 100 / $totalUserCount * $totalUserCampaignCount;
+        } else {
+            $percentage = 0;
+        }
+        return [
+	        'totalUserCampaignCount' => $totalUserCampaignCount,
+	        'totalUserCount' => $totalUserCount,
+	        'percentage' => $percentage
+        ];
+
     }
 
     public function getCampaigns () {

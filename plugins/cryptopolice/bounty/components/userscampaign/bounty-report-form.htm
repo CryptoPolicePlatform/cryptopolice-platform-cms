@@ -48,7 +48,8 @@
                                                placeholder="{{ field.description }}">
                                     </div>
                                     {% if field.multiple %}
-                                        <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="setMultipleField('mul_{{ field.name }}')">+</a>
+                                        <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="setMultipleField('mul_{{ field.name }}')">Add field</a>
+                                        <a style="margin-top:20px" class="btn  btn--green" href="#" onclick="removeField('mul_{{ field.name }}')">Remove field</a>
                                     {% endif %}
                                 {% endif %}
 

@@ -21,3 +21,11 @@ function setMultipleField(block) {
     div.append('<input style="margin-top:20px" class="input" type="text" name="' + title + '_' + count + '" placeholder="' + placeholder + '">');
 
 }
+
+function removeField(block) {
+
+    event.preventDefault();
+
+    var div = $('#' + block);
+    div.find("input").last().remove();
+}

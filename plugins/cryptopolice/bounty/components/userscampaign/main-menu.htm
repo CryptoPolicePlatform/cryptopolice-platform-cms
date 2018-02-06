@@ -16,13 +16,21 @@
                 <!-- Tab 1 Rules, Registration & Report forms -->
                 <div class="tabs__item  active" id="tab-1" role="tabpanel">
                     <div class="profile__card  mb-15">
+
                         <h2>{{bounty.title|upper}} CAMPAIGN</h2>
-                        <div class="stat__item">
+                        <div class="stat__item" style="float: left; margin-right: 20px;">
                             <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{bounty.percentage / 100 }}" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas></div>
-                            <div class="stat__counter">{{bounty.percentage}}% <span class="mark  mark--red">Registered users: {{ UsersCampaign.numRegisteredUsers }} </span> </div>
+                            <div class="stat__counter">{{bounty.percentage}}% </div>
                             <div class="stat__text">Reward amount {{ (20000000 / 100 * bounty.percentage)|number_format(0, '.', ',') }}  OFC </div>
                         </div>
+
+                        <div class="stat__item" style="margin-left: 250px">
+                            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{UsersCampaign.totalCounter.percentage / 100 }}" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas></div>
+                            <div class="stat__counter"> {{UsersCampaign.totalCounter.percentage}}%</div>
+                            <div class="stat__text"> Registered in campaign {{UsersCampaign.totalCounter.totalUserCampaignCount}} users</div>
+                        </div>
                         <p>{{ bounty.description|raw}}</p>
+
                     </div>
 
                     <div class="profile__card">

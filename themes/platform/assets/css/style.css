@@ -2197,6 +2197,7 @@ html.remodal-is-locked {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
+
 @media (max-width: 800px) {
     .choose2 {
         -ms-flex-direction: column;
