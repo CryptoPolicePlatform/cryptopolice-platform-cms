@@ -3,7 +3,7 @@
 use Auth;
 use Flash;
 use Input;
-use Redirect;
+use Session;
 use Validator;
 use ValidationException;
 use Cms\Classes\ComponentBase;

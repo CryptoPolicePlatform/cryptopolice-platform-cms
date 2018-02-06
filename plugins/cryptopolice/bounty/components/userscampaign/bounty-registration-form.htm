@@ -1,7 +1,7 @@
 <div class="grid__col  w6">
 
 
-    <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request="onCampaignRegistration" data-request-flash>
+    <form data-request-data="id: {{ campaignID }}" data-request="onCampaignRegistration" data-request-flash>
             {% for bounty in Bounties.bountyList %}
                 {% if bounty.slug == this.param.slug %}
                  <h3><i class="fa fa-user-plus"></i> Registration to {{ bounty.title }} bounty campaign</h3>

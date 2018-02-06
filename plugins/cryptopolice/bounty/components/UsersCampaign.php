@@ -12,77 +12,70 @@ use CryptoPolice\Bounty\Models\BountyRegistration;
 
 class UsersCampaign extends ComponentBase
 {
-	public $access;
-	public $status;
-	public $rewards;
-	public $reportList;
-	public $campaignID;
-	public $registeredList;
-	public $campaignReports;
-	public $profileStatistic;
-	public $totalCounter;
 
-
-	public function componentDetails()
-	{
-		return [
-			'name' => 'Users Campaign',
-			'description' => 'Users Campaign Details'
-		];
-	}
+    public function componentDetails()
+    {
+        return [
+            'name' => 'Users Campaign',
+            'description' => 'Users Campaign Details'
+        ];
+    }
 
     public function onRun()
     {
 
-        $this->campaignID = $this->param('id');
-        $this->profileStatistic = $this->getUsersStats();
+        $this->page['campaignID'] = $this->param('id');
+        $this->page['profileStatistic'] = $this->getUsersStats();
 
         if (!empty($this->param('slug'))) {
 
             $this->getUsersAccess();
-            $this->totalCounter = $this->getRegisteredUsersCount();
-            $this->campaignReports = $this->getCampaignReports();
+            $this->page['totalCounter'] = $this->getRegisteredUsersCount();
+            $this->page['campaignReports'] = $this->getCampaignReports();
 
         } else {
 
-            $this->reportList = $this->getUsersReports();
-            $this->registeredList = $this->getCampaigns();
+            $this->page['reportList'] = $this->getUsersReports();
+            $this->page['registeredList'] = $this->getCampaigns();
 
         }
     }
 
-    public function getRegisteredUsersCount() {
+    public function getRegisteredUsersCount()
+    {
 
         $totalUserCampaignCount = BountyRegistration::where('bounty_campaigns_id', $this->param('id'))->count('user_id');
         $totalUserCount = User::count('id');
 
-        if($totalUserCampaignCount) {
+        if ($totalUserCampaignCount) {
             $percentage = 100 / $totalUserCount * $totalUserCampaignCount;
         } else {
             $percentage = 0;
         }
+
         return [
-	        'totalUserCampaignCount' => $totalUserCampaignCount,
-	        'totalUserCount' => $totalUserCount,
-	        'percentage' => $percentage
+            'totalUserCampaignCount' => $totalUserCampaignCount,
+            'totalUserCount' => $totalUserCount,
+            'percentage' => $percentage
         ];
 
     }
 
-    public function getCampaigns () {
+    public function getCampaigns()
+    {
 
-	    $user = Auth::getUser();
-	    return BountyRegistration::where('user_id', $user->id)->get();
+        $user = Auth::getUser();
+        return BountyRegistration::where('user_id', $user->id)->get();
     }
 
-	public function onFilterCampaignReports()
-	{
+    public function onFilterCampaignReports()
+    {
 
         $arr = [
             post('status')
         ];
 
-        $this->campaignReports = DB::table('cryptopolice_bounty_user_reports')
+        $this->page['campaignReports'] = DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
@@ -92,7 +85,7 @@ class UsersCampaign extends ComponentBase
                     $query->where('cryptopolice_bounty_user_reports.report_status', $arr[0]);
                 }
             })->get();
-	}
+    }
 
     public function getUsersStats()
     {
@@ -115,18 +108,29 @@ class UsersCampaign extends ComponentBase
         $stakesList = [];
         foreach (array_unique($buf) as $key => $value) {
             array_push($stakesList, [
-                'campaign_title'    => $value,
-                'stake_amount'      => $data->where('campaign_title', $value)->sum('given_reward')
+                'campaign_title' => $value,
+                'stake_amount' => $data->where('campaign_title', $value)->sum('given_reward')
             ]);
         }
 
+        $counter = $data->count();
+        $approved = $data->where('report_status', 1)->count();
+        $pending = $data->where('report_status', 0)->count();
+
+        if ($counter) {
+            $value = (100 / ($counter - $pending) * $approved) / 100;
+        } else {
+            $value = 0;
+        }
+
         return [
-            'stake_list'    => $stakesList,
-            'report_count'  => $data->count(),
-            'disapproved'   => $data->where('report_status', 2)->count(),
-            'approved'      => $data->where('report_status', 1)->count(),
-            'pending'       => $data->where('report_status', 0)->count(),
-            'total_tokens'  => $data->where('type', 0)->sum('given_reward'),
+            'report_percentage'     => $value,
+            'total_tokens'          => $data->where('type', 0)->sum('given_reward'),
+            'report_count'          => $data->count(),
+            'disapproved'           => $data->where('report_status', 2)->count(),
+            'approved'              => $data->where('report_status', 1)->count(),
+            'pending'               => $data->where('report_status', 0)->count(),
+            'stake_list'            => $stakesList,
         ];
     }
 
@@ -140,7 +144,7 @@ class UsersCampaign extends ComponentBase
             post('status')
         ];
 
-        $this->reportList = DB::table('cryptopolice_bounty_user_reports')
+        $this->page['reportList'] = DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
@@ -159,125 +163,128 @@ class UsersCampaign extends ComponentBase
             })->get();
     }
 
-	public function getUsersReports()
-	{
-		$user = Auth::getUser();
-		return DB::table('cryptopolice_bounty_user_reports')
+    public function getUsersReports()
+    {
+        $user = Auth::getUser();
+        return DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
             ->orderBy('cryptopolice_bounty_user_reports.created_at', 'desc')
             ->get();
-	}
+    }
 
-	public function getCampaignReports()
-	{
+    public function getCampaignReports()
+    {
         return DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
             ->get();
-	}
+    }
 
-	public function getUsersAccess()
-	{
-		$user = Auth::getUser();
-		$access =  $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
-		$this->access = $access ? $access->pivot->approval_type : null;
-		$this->status = $access ? $access->pivot->status : null;
-	}
+    public function getUsersAccess()
+    {
 
-	public function prepareValidationRules($query, $actionType) {
+        $user = Auth::getUser();
+        $query = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
 
-		$data = input();
+        $this->page['access'] = $query ? $query->pivot->approval_type : null;
+        $this->page['status'] = $query ? $query->pivot->status : null;
+    }
 
-  	    // create array of validation rules
-		foreach ($query->fields as $key => $value) {
-			if($value['action_type'] == $actionType) {
-				$rules[$value['name']] = $value['regex'];
-			}
-		}
+    public function prepareValidationRules($query, $actionType)
+    {
+
+        $data = input();
+
+        // create array of validation rules
+        foreach ($query->fields as $key => $value) {
+            if ($value['action_type'] == $actionType) {
+                $rules[$value['name']] = $value['regex'];
+            }
+        }
 
         // check validation
-		$validator = Validator::make($data, $rules);
-		if ($validator->fails()) {
-			$messages = $validator->messages();
-			foreach ($messages->all() as $message) {
-				Flash::error($message);
-			}
-		} else {
-			return true;
-		}
-	}
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                Flash::error($message);
+            }
+        } else {
+            return true;
+        }
+    }
 
-	public function onAddReport()
-	{
+    public function onAddReport()
+    {
 
-		$json = [];
-		$user = Auth::getUser();
-		$registrationData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
+        $json = [];
+        $user = Auth::getUser();
+        $registrationData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
 
-		if($this->prepareValidationRules($registrationData, 'report')) {
+        if ($this->prepareValidationRules($registrationData, 'report')) {
 
-		    // check if user has access to report
-			if($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
+            // check if user has access to report
+            if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
 
-				// create json from input data
-				foreach (input() as $key => $value) {
-					if ($key != 'id') {
-						array_push($json, ['title' => $key, 'value' => $value]);
-					}
-				}
+                // create json from input data
+                foreach (input() as $key => $value) {
+                    if ($key != 'id') {
+                        array_push($json, ['title' => $key, 'value' => $value]);
+                    }
+                }
 
-				$user->bountyReports()->attach(post('id'), [
-					'bounty_user_registration_id' => $registrationData->pivot->id,
-					'description' => json_encode($json),
-					'created_at' => new DateTime(),
-				]);
+                $user->bountyReports()->attach(post('id'), [
+                    'bounty_user_registration_id' => $registrationData->pivot->id,
+                    'description' => json_encode($json),
+                    'created_at' => new DateTime(),
+                ]);
 
-				$user->save();
-				Flash::success('Report successfully sent');
+                $user->save();
+                Flash::success('Report successfully sent');
 
-			} else {
-				Flash::error('You are not allowed to send reports');
-			}
-			return redirect()->back();
-		}
-	}
+            } else {
+                Flash::error('You are not allowed to send reports');
+            }
+            return redirect()->back();
+        }
+    }
 
-	public function onCampaignRegistration()
-	{
+    public function onCampaignRegistration()
+    {
 
-		$json = [];
-		$user = Auth::getUser();
-		$registrationData = Bounty::where('id', $this->param('id'))->first();
+        $json = [];
+        $user = Auth::getUser();
+        $registrationData = Bounty::where('id', $this->param('id'))->first();
 
-		if($this->prepareValidationRules($registrationData, 'registration')) {
+        if ($this->prepareValidationRules($registrationData, 'registration')) {
 
-			$access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
-			if ($access->isEmpty()) {
+            $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+            if ($access->isEmpty()) {
 
-				foreach (input() as $key => $value) {
-					if ($key != 'id') {
-						array_push($json, ['title' => $key, 'value' => $value]);
-					}
-				}
+                foreach (input() as $key => $value) {
+                    if ($key != 'id') {
+                        array_push($json, ['title' => $key, 'value' => $value]);
+                    }
+                }
 
-				$user->bountyCampaigns()->attach(post('id'), [
-					'fields_data' => json_encode($json),
-					'created_at' => new DateTime(),
-					'status' => 1,
-				]);
+                $user->bountyCampaigns()->attach(post('id'), [
+                    'fields_data' => json_encode($json),
+                    'created_at' => new DateTime(),
+                    'status' => 1,
+                ]);
 
-				$user->save();
-				Flash::success('Successfully registered');
-				return redirect()->back();
+                $user->save();
+                Flash::success('Successfully registered');
+                return redirect()->back();
 
-			} else {
-				Flash::warning('You are already registered');
-			}
-		}
-	}
+            } else {
+                Flash::warning('You are already registered');
+            }
+        }
+    }
 }

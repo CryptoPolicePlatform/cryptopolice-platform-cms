@@ -1,9 +1,9 @@
-{% if UsersCampaign.access == 0 %}
+{% if access == 0 %}
 <div class="alert  alert--green">
     <p><strong>You need to wait until we confirm your account to participate in current bounty</strong></p>
     <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
 </div>
-{% elseif UsersCampaign.status == 0 %}
+{% elseif status == 0 %}
 <div class="alert  alert--red">
     <p><strong>You are blocked to participate in current bounty campaign</strong></p>
     <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
@@ -11,7 +11,7 @@
 {% else %}
 <div class="grid__col  w6">
     <h3>Report</h3>
-    <form data-request-data="id: {{ UsersCampaign.campaignID }}" data-request-flash data-request="onAddReport">
+    <form data-request-data="id: {{ campaignID }}" data-request-flash data-request="onAddReport">
         {% for bounty in Bounties.bountyList %}
             {% if bounty.slug == this.param.slug %}
                 {% for field in bounty.fields %}

@@ -7,7 +7,7 @@
         {% set flag = false %}
         <div class="tabs" id="tabs1">
             <div class="tabs__nav" data-tabs-for="#tabs1" role="tablist">
-                <a class="tabs__nav-item  active" href="#tab-1" role="tab"> {% if UsersCampaign.access is empty %} Registration {% else %} Report {% endif %} </a>
+                <a class="tabs__nav-item  active" href="#tab-1" role="tab"> {% if access is empty %} Registration {% else %} Report {% endif %} </a>
                 <a class="tabs__nav-item" href="#tab-2" role="tab">Report List</a>
             </div>
 
@@ -25,16 +25,16 @@
                         </div>
 
                         <div class="stat__item" style="margin-left: 250px">
-                            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{UsersCampaign.totalCounter.percentage / 100 }}" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas></div>
-                            <div class="stat__counter"> {{UsersCampaign.totalCounter.percentage}}%</div>
-                            <div class="stat__text"> Registered in campaign {{UsersCampaign.totalCounter.totalUserCampaignCount}} users</div>
+                            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{totalCounter.percentage / 100 }}" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas></div>
+                            <div class="stat__counter"> {{ totalCounter.percentage }}%</div>
+                            <div class="stat__text"> Registered in campaign {{ totalCounter.totalUserCampaignCount }} users</div>
                         </div>
                         <p>{{ bounty.description|raw}}</p>
 
                     </div>
 
                     <div class="profile__card">
-                        {% if UsersCampaign.access is empty %}
+                        {% if access is empty %}
                             {% partial 'UsersCampaign::bounty-registration-form' %}
                         {% else %}
                             {% partial 'UsersCampaign::bounty-report-form' %}

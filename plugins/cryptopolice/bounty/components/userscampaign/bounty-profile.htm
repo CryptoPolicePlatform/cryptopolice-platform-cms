@@ -1,4 +1,3 @@
-{% set statistic = UsersCampaign.profileStatistic %}
 
 <div class="profile__sidebar">
     <a href="{{ 'profile'|page }}">
@@ -14,42 +13,32 @@
     </div>
 
     <div class="profile__block">
-        <p> Balance: <b> {{ statistic.total_tokens }} OFC </b></p>
+        <p> Balance: <b> {{ profileStatistic.total_tokens }} OFC </b></p>
     </div>
 
-    {% if statistic.stake_list is not empty %}
+    {% if profileStatistic.stake_list is not empty %}
         <div class="profile__block">
             <p>Stakes:</p>
             <div class="profile__block-item">
-            {% for stake in statistic.stake_list %}
+            {% for stake in profileStatistic.stake_list %}
             <p> {{ stake.campaign_title }}: <b> {{ stake.stake_amount }} <small>STAKES</small> </b></p>
             {% endfor %}
             </div>
         </div>
     {% endif %}
 
-
-
-    <!--TODO : set formula in controller -->
-    {% if statistic.report_count %}
-        {% set value = ( 100 / (statistic.report_count - statistic.pending) * statistic.approved ) / 100 %}
-    {% else %}
-        {% set value = 0 %}
-    {% endif %}
-
-
     <div class="profile__block">
         <p> Statistics: </p>
         <div class="profile__block-item">
-            <p> Total : <b> {{ statistic.report_count }} </b></p>
+            <p> Total : <b> {{ profileStatistic.report_count }} </b></p>
             <div class="profile__stat">
 
-                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ value }}" data-size="60" data-thickness="10">
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ profileStatistic.report_percentage }}" data-size="60" data-thickness="10">
                     <canvas width="60" height="60"></canvas>
                 </div>
                 <ul class="profile__stat-list">
-                    <li class="purple"> Approved: <b> {{ statistic.approved}} </b></li>
-                    <li class="light-purple"> Disapproved: <b> {{ statistic.disapproved }} </b></li>
+                    <li class="purple"> Approved: <b> {{ profileStatistic.approved}} </b></li>
+                    <li class="light-purple"> Disapproved: <b> {{ profileStatistic.disapproved }} </b></li>
                 </ul>
             </div>
         </div>
