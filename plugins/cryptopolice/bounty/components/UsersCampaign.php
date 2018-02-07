@@ -246,9 +246,10 @@ class UsersCampaign extends ComponentBase
             // check if user has access to report
             if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
 
+                trace_log(input());
                 // create json from input data
                 foreach (input() as $key => $value) {
-                    if ($key != 'id') {
+                    if ($key != 'id' && $key != 'g-recaptcha-response') {
                         array_push($json, ['title' => $key, 'value' => $value]);
                     }
                 }
@@ -285,7 +286,7 @@ class UsersCampaign extends ComponentBase
             if ($access->isEmpty()) {
 
                 foreach (input() as $key => $value) {
-                    if ($key != 'id') {
+                    if ($key != 'id' && $key != 'g-recaptcha-response') {
                         array_push($json, ['title' => $key, 'value' => $value]);
                     }
                 }

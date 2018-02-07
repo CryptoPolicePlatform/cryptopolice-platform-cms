@@ -169,22 +169,23 @@ class BountyReport extends Model
     }
 
 
-    public function afterUpdate() {
-
-        if(isset($this->user_id) && !empty($this->user_id)) {
-
-            $user = User::where('id', $this->user_id)->first();
-
-            $vars = [
-                'name' => $user->full_name,
-                'mail' => $user->email,
-            ];
-
-            Mail::send('cryptopolice.bounty::mail.report_bounty_message', $vars, function ($message) use ($user) {
-                $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
-            });
-        }
-        Flash::success('Mail ['.$user->email.'] has been send');
-    }
+    //    public function afterUpdate()
+    //    {
+    //
+    //        if (isset($this->user_id) && !empty($this->user_id)) {
+    //
+    //            $user = User::where('id', $this->user_id)->first();
+    //
+    //            $vars = [
+    //                'name' => $user->full_name,
+    //                'mail' => $user->email,
+    //            ];
+    //
+    //            Mail::send('cryptopolice.bounty::mail.report_bounty_message', $vars, function ($message) use ($user) {
+    //                $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
+    //            });
+    //        }
+    //        Flash::success('Mail [' . $user->email . '] has been send');
+    //    }
 
 }

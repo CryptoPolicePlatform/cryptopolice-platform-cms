@@ -3,6 +3,10 @@
 	<p>
 		<label><strong><?php echo $value['title']; ?></strong></label>
 		<input class="form-control" type="text" value="<?php echo $value['value']; ?>" readonly="readonly">
-		<a target="_blank" href="<?php echo $value['value']; ?>"> Link </a>
+
+		<?php if (strpos($value['title'],'link') !== false) { ?>
+			<a target="_blank" href="http://<?php echo $value['value']; ?>"> Link </a>
+		<?php } ?>
+
 	</p>
 <?php endforeach; }?>
