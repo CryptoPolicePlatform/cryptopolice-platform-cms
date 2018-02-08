@@ -4,3 +4,13 @@ plugin:
     author: CryptoPolice
     icon: oc-icon-adjust
     homepage: ''
+navigation:
+    menu:
+        label: Community
+        url: cryptopolice/platform/communityposts
+        icon: icon-comments
+        sideMenu:
+            side-menu-item:
+                label: CommunityPosts
+                url: cryptopolice/platform/communityposts
+                icon: icon-sitemap

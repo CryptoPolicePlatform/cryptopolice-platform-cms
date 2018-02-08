@@ -6,6 +6,10 @@ class Plugin extends PluginBase
 {
     public function registerComponents()
     {
+        return [
+            'CryptoPolice\Platform\Components\Posts'         => 'CommunityPosts',
+            'CryptoPolice\Platform\Components\Users'         => 'CommunityUsers',
+        ];
     }
 
     public function registerSettings()

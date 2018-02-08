@@ -1,0 +1,10 @@
+name: CommunityPosts
+form: $/cryptopolice/platform/models/communitypost/fields.yaml
+modelClass: CryptoPolice\Platform\Models\CommunityPost
+defaultRedirect: cryptopolice/platform/communityposts
+create:
+    redirect: 'cryptopolice/platform/communityposts/update/:id'
+    redirectClose: cryptopolice/platform/communityposts
+update:
+    redirect: cryptopolice/platform/communityposts
+    redirectClose: cryptopolice/platform/communityposts

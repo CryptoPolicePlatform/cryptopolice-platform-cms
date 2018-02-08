@@ -1,0 +1,21 @@
+<div class="content__sidebar user_right_sidebar">
+    <div class="stat">
+        {% for communityUser in users %}
+            <div class="stat__item">
+                {% if communityUser.avatar.path %}
+                    <img class="header__ava user_sidebar" src="{{communityUser.avatar.path}}" width="30" height="30" alt="user-avatar">
+                {% else %}
+                    <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                {% endif %}
+                <div class="stat__counter">
+                    {% if not communityUser.name %}
+                        {{ communityUser.email|slice(0, 3)}}*****@****.com
+                    {% else %}
+                        {{ communityUser.name }} {{ communityUser.surname }}
+                    {% endif %}
+                </div>
+                <div class="stat__text"> {{ communityUser.last_seen }}</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
