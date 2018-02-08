@@ -26,20 +26,18 @@ fields:
         form:
             fields:
                 title:
-                    label: Title
                     oc.commentPosition: ''
                     readOnly: 1
                     span: auto
                     type: text
                 value:
-                    label: Data
                     size: small
                     oc.commentPosition: ''
                     readOnly: 1
                     span: auto
                     type: textarea
     reward:
-        label: Type
+        label: Reward
         type: dropdown
         span: left
     given_reward:

@@ -4,23 +4,21 @@ layout = "academy"
 is_hidden = 0
 
 [reCaptcha]
+
 [account userLogin]
 paramCode = "code"
 forceSecure = 0
 ==
 <?php
-
-    function onStart() {
+function onStart() {
         $this['active']  = get('activate');
 
         if(Auth::check()) {
-           return Redirect::to('/academy');
+           return Redirect::to('/');
         }
     }
-
 ?>
 ==
-
 <div class="content">
     <div class="content__inner">
         <div class="content__header">
