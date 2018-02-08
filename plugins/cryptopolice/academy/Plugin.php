@@ -7,7 +7,6 @@ use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UsersController;
-use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
 
 class Plugin extends PluginBase
 {
@@ -55,7 +54,7 @@ class Plugin extends PluginBase
 
         Event::listen('rainlab.user.beforeRegister', function () {
 
-            Recaptcha::verifyCaptcha();
+            //Recaptcha::verifyCaptcha();
 
             $userPassword = post('password');
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
@@ -70,7 +69,7 @@ class Plugin extends PluginBase
 
         Event::listen('rainlab.user.beforeAuthenticate', function () {
 
-            Recaptcha::verifyCaptcha();
+           // Recaptcha::verifyCaptcha();
 
         });
 
@@ -86,6 +85,7 @@ class Plugin extends PluginBase
                 'youtube_link',
                 'twitter_link',
                 'eth_address',
+                'nickname',
                 'btc_link',
             ]);
 
@@ -124,6 +124,11 @@ class Plugin extends PluginBase
 
                 'userRegistrationList' => ['CryptoPolice\Bounty\Models\BountyRegistration',
                     'table' => 'bounty_users_registration',
+                    'key' => 'user_id',
+                ],
+
+                'userCommunityPosts' => ['CryptoPolice\Platform\Models\CommunityPost',
+                    'table' => 'cryptopolice_platform_community_posts',
                     'key' => 'user_id',
                 ],
             ];

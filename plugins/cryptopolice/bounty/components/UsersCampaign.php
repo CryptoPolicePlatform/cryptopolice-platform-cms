@@ -235,7 +235,7 @@ class UsersCampaign extends ComponentBase
     public function onAddReport()
     {
 
-        Recaptcha::verifyCaptcha();
+        //Recaptcha::verifyCaptcha();
 
         $json = [];
         $user = Auth::getUser();
@@ -274,7 +274,7 @@ class UsersCampaign extends ComponentBase
     public function onCampaignRegistration()
     {
 
-        Recaptcha::verifyCaptcha();
+        //Recaptcha::verifyCaptcha();
 
         $json = [];
         $user = Auth::getUser();

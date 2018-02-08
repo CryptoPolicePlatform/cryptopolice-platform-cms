@@ -1,0 +1,16 @@
+<form data-request-flash data-request="onUpdateNickname">
+
+    <div class="profile__card">
+
+        <h3 class="content__title">User Nickname</h3>
+
+        <div class="form__group">
+            <label for="nickname">Nickname</label>
+            <input class="input" type="text" name="nickname" id="nickname" placeholder="" value="{{ user.nickname }}">
+        </div>
+
+        <button id="captcha_profile" class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Profile</button>
+
+    </div>
+</form>
+

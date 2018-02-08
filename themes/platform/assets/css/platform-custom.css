@@ -43,3 +43,59 @@
 .report_message {
     margin-top: 15px;
 }
+
+.user_sidebar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: absolute;
+    top: 4px;
+    left: 0;
+    z-index: 1;
+}
+
+
+.choose__post_item{
+    width: 30%;
+    padding: 25px;
+    max-width: 370px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    text-align: center;
+}@media (max-width: 800px) {
+    .choose__post_item {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+
+.choose_post {
+    margin: 0 auto;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.post_img {
+    float: left;
+    margin-right: 20px
+}
+
+@media (max-width: 800px) {
+    .choose_post {
+        -ms-flex-direction: column;
+        flex-direction: column; }
+    .post_img {
+        float: none;
+        margin-right: 0;
+        margin-bottom: 20px;
+        text-align: center;}  }
+
+.user_right_sidebar {
+    right: -30px;top: 0px;
+}
