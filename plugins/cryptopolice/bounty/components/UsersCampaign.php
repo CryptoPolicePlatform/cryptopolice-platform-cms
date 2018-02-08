@@ -249,7 +249,7 @@ class UsersCampaign extends ComponentBase
                 trace_log(input());
                 // create json from input data
                 foreach (input() as $key => $value) {
-                    if ($key != 'id' && $key != 'g-recaptcha-response') {
+                    if ($key != 'id' && $key != 'g-recaptcha-response' && !empty($value)) {
                         array_push($json, ['title' => $key, 'value' => $value]);
                     }
                 }

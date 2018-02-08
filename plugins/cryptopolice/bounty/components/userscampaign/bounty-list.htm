@@ -8,7 +8,7 @@
 
             <div class="issues__item  issues__item--history">
                 <div class="issues__type">#{{bounty.title|upper|slice(0, 2)}}</div>
-                <div class="issues__title"> {{ bounty.title }}</div>
+                <div class="issues__title">  <a style="color:black;" href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">{{ bounty.title }} </a></div>
                 <div class="issues__view">
                     <a href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">View details</a>
                 </div>

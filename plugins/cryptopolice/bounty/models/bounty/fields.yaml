@@ -29,7 +29,7 @@ fields:
         type: dropdown
     description:
         label: Description
-        size: large
+        size: Huge
         oc.commentPosition: ''
         span: full
         type: richeditor
