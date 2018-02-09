@@ -192,6 +192,7 @@ class UsersCampaign extends ComponentBase
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
+            ->orderBy('cryptopolice_bounty_campaigns.created_at', 'desc')
             ->get();
     }
 
@@ -200,8 +201,7 @@ class UsersCampaign extends ComponentBase
     {
 
         $user = Auth::getUser();
-        $query = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
-
+        $query = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at',null)->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
         $this->page['access'] = $query ? $query->pivot->approval_type : null;
         $this->page['status'] = $query ? $query->pivot->status : null;
     }
@@ -282,7 +282,7 @@ class UsersCampaign extends ComponentBase
 
         if ($this->prepareValidationRules($registrationData, 'registration')) {
 
-            $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+            $access = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at',null)->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
             if ($access->isEmpty()) {
 
                 foreach (input() as $key => $value) {
