@@ -29,7 +29,7 @@ identifierValue = "{{ :id }}"
 
     function onInit() {
         $this->imageUploader->bindModel('post_image', new CommunityPost);
-    }
+}
 ?>
 ==
 
@@ -44,13 +44,16 @@ identifierValue = "{{ :id }}"
                 <div class="profile__sidebar">
 
                     {% if user.avatar.path %}
-                        <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
+                    <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar"
+                         alt="Avatar">
                     {% else %}
-                        <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+                    <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79"
+                         title="Avatar" alt="Avatar">
                     {% endif %}
 
                     <div class="profile__name">
-                        {% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {{ user.surname }} {% endif %}
+                        {% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {{ user.surname }} {% endif
+                        %}
                     </div>
 
                     <div class="profile__block">
@@ -154,3 +157,12 @@ identifierValue = "{{ :id }}"
         </div><!-- /.content__left -->
     </div>
 </main>
+
+<!--Hack with flash notification, remove text rendering before flash message -->
+{% if active is empty %}
+    <div class="empty_flash">
+        {% flash %}
+            <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+        {% endflash %}
+    </div>
+{% endif %}

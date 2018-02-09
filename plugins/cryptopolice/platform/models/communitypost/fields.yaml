@@ -14,6 +14,11 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: switch
+    pin:
+        label: Pin
+        oc.commentPosition: ''
+        span: auto
+        type: switch
     post_image:
         label: Image
         oc.commentPosition: ''

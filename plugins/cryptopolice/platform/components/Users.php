@@ -23,15 +23,16 @@ class Users extends ComponentBase
     {
 
         $users = Db::table('users')
-            ->leftJoin('system_files as users_files', function ($join) {
-                $join->on('users.id', '=', 'users_files.attachment_id')
-                    ->where('users_files.attachment_type', 'RainLab\User\Models\User');
+            ->leftJoin('system_files', function ($join) {
+                $join->on('users.id', '=', 'system_files.attachment_id')
+                    ->where('system_files.attachment_type', 'RainLab\User\Models\User');
             })
-            ->select('users_files.disk_name as user_image', 'users.*')
+            ->select('system_files.disk_name as user_image', 'users.*')
             ->orderBy('last_seen', 'desc')
             ->get();
 
         foreach ($users as $key => $value) {
+
             if ($value->user_image) {
                 $users[$key]->user_image = $this->setPath($value->user_image);
             }

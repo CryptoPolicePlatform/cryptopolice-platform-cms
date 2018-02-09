@@ -19,6 +19,8 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->integer('user_id')->nullable();
                 $table->integer('comment_id')->nullable();
                 $table->boolean('status')->default(0);
+                $table->boolean('status')->default(0);
+                $table->boolean('pin')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
@@ -31,7 +33,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->engine = 'InnoDB';
                 $table->increments('id');
                 $table->string('post_id', 255)->nullable();
-                $table->string('description', 255)->nullable();
+                $table->string('description', 1000)->nullable();
                 $table->integer('user_id')->nullable();
                 $table->boolean('status')->default(0);
                 $table->timestamp('created_at')->nullable();
@@ -43,7 +45,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
     public function down()
     {
-            //        Schema::dropIfExists('cryptopolice_platform_community_posts');
-            //        Schema::dropIfExists('cryptopolice_platform_community_comment');
+        Schema::dropIfExists('cryptopolice_platform_community_posts');
+        Schema::dropIfExists('cryptopolice_platform_community_comment');
     }
 }

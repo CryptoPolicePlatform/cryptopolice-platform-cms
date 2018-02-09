@@ -1,5 +1,4 @@
-<!--<form data-request-flash data-request="onUpdateWalletAddress">-->
-    {{ form_ajax('onUpdateWalletAddress', { model: user }) }}
+{{ form_ajax('onUpdateWalletAddress', { flash : '', model: user }) }}
     <div style="margin-top:20px" class="profile__card">
         <h3 class="content__title">Wallet Address</h3>
 
@@ -11,5 +10,4 @@
         <button id="captcha_eth" class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Address</button>
 
     </div>
-    {{ form_close() }}
-<!--</form>-->
+{{ form_close() }}

@@ -19,3 +19,8 @@ columns:
         type: text
         searchable: true
         sortable: true
+    pin:
+        label: Pin
+        type: text
+        searchable: true
+        sortable: true
