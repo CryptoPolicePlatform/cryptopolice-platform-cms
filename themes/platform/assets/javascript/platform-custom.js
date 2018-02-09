@@ -25,7 +25,8 @@ function setMultipleField(block) {
 function removeField(block) {
 
     event.preventDefault();
-
     var div = $('#' + block);
-    div.find("input").last().remove();
+    if (div.find("input").length >= 2) {
+        div.find("input").last().remove();
+    }
 }

@@ -200,8 +200,7 @@ class UsersCampaign extends ComponentBase
     {
 
         $user = Auth::getUser();
-        $query = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
-
+        $query = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at',null)->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
         $this->page['access'] = $query ? $query->pivot->approval_type : null;
         $this->page['status'] = $query ? $query->pivot->status : null;
     }
@@ -274,7 +273,7 @@ class UsersCampaign extends ComponentBase
     public function onCampaignRegistration()
     {
 
-        Recaptcha::verifyCaptcha();
+        //Recaptcha::verifyCaptcha();
 
         $json = [];
         $user = Auth::getUser();
@@ -282,7 +281,7 @@ class UsersCampaign extends ComponentBase
 
         if ($this->prepareValidationRules($registrationData, 'registration')) {
 
-            $access = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+            $access = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
             if ($access->isEmpty()) {
 
                 foreach (input() as $key => $value) {

@@ -10,14 +10,12 @@ fields:
         form:
             fields:
                 title:
-                    label: Title
                     oc.commentPosition: ''
                     span: auto
                     readOnly: 1
                     hidden: 0
                     type: text
                 value:
-                    label: Value
                     oc.commentPosition: ''
                     span: auto
                     readOnly: 1
