@@ -9,12 +9,33 @@ redirect = "login"
 
 [CommunityPosts]
 [CommunityUsers]
+[imageUploader]
+
+deferredBinding = "1"
+placeholderText = "Click or drag images to upload"
+maxSize = 1
+fileTypes = ".gif,.jpg,.jpeg,.png"
+imageWidth = 100
+imageHeight = 100
+imageMode = "crop"
+modelClass = "CryptoPolice\Platform\Models\CommunityPost"
+modelKeyColumn = "post_image"
+identifierValue = "{{ :id }}"
 
 ==
+
+<?php
+    use CryptoPolice\Platform\Models\CommunityPost;
+
+    function onInit() {
+        $this->imageUploader->bindModel('post_image', new CommunityPost);
+    }
+?>
+==
+
 <!-- Content -->
 <main class="content">
     <div class="content__inner">
-
 
         <div class="content__left">
 
@@ -40,7 +61,7 @@ redirect = "login"
 
                     <div class="profile__block">
                         <p>Joined: <b> {{ user.created_at| date("m.d.Y") }} </b></p>
-                        <p>Last seen: <b> { user.last_seen | date("m.d.Y H:i:s")}} </b></p>
+                        <p>Last seen: <b> {{ user.last_seen | date("m.d.Y H:i:s")}} </b></p>
                     </div>
 
                     <div class="profile__block">

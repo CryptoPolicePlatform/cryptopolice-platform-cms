@@ -82,5 +82,4 @@ class Posts extends ComponentBase
             return redirect()->back();
         }
     }
-
 }

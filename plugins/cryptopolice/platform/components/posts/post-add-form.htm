@@ -1,10 +1,15 @@
-<div style="margin-bottom:10px;" class="card">
-    <form action="">
-        <div class="form__group">
-            <textarea class="textarea" name="" placeholder="Textarea"></textarea>
-        </div>
-        <div class="form__group">
-            <button class="btn  btn--gpink" type="button">Post</button>
-        </div>
-    </form>
-</div>
+{{ form_ajax('onAddPost', { model: CommunityPost }) }}
+    <div class="form__group">
+        <input type="text" class="input" name="title" placeholder="title"/>
+    </div>
+    <div class="form__group">
+        <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
+    </div>
+    <div class="form__group">
+        {% component 'imageUploader' %}
+    </div>
+    <div class="form__group">
+        <button class="btn  btn--gpink" type="submit">Post</button>
+    </div>
+{{ form_close() }}
+

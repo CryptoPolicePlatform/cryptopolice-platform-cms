@@ -2,8 +2,8 @@
     <div class="stat">
         {% for communityUser in users %}
             <div class="stat__item">
-                {% if communityUser.avatar.path %}
-                    <img class="header__ava user_sidebar" src="{{communityUser.avatar.path}}" width="30" height="30" alt="user-avatar">
+                {% if communityUser.user_image %}
+                    <img class="header__ava user_sidebar" src="{{communityUser.user_image}}" width="30" height="30" alt="user-avatar">
                 {% else %}
                     <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                 {% endif %}

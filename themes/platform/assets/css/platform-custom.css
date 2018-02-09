@@ -72,6 +72,7 @@
 
 
 .choose_post {
+    height: auto;
     margin: 0 auto;
     display: -ms-flexbox;
     display: flex;

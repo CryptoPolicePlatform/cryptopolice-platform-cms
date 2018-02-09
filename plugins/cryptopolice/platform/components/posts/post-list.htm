@@ -1,27 +1,23 @@
-<!-- Posts filters -->
 {% partial 'CommunityPosts::post-filters' %}
+{% partial 'CommunityPosts::post-add-form' %}
 
-<div style="width: auto;" class="grid__col  w3">
+{% for communityPost in posts %}
+    <div class="card choose_post">
+        <div class="choose__post">
 
-    <!-- Add new post form -->
-    {% partial 'CommunityPosts::post-add-form' %}
+            <div class="post_img">
+                {% if communityPost.posts_image %}
+                    <img src="{{communityPost.posts_image}}" width="125" height="125" alt="">
+                {% else %}
+                    <img src="http://igors.cunami.cloud/academy/themes/platform/assets/images/user.svg" width="125" height="125">
+                {% endif %}
+            </div>
 
-    {% for communityPost in posts %}
-        <div class="choose_post card">
-            <div class="choose__post">
-
-                <div class="post_img">
-                    {% if communityPost.post_image %}
-                        <img src="{{communityPost.post_image.thumb(125,125,{'mode':'crop'})}}" alt="">
-                    {% else %}
-                        <img src="http://igors.cunami.cloud/academy/themes/platform/assets/images/user.svg" width="125" height="125">
-                    {% endif %}
-                </div>
-
+            <a href="{{'post-details'|page( {id : communityPost.id} )}}">
                 <div class="card__header">
                     <div class="card__date">{{communityPost.created_at}}</div>
                     <h3 class="card__title">
-                        <a href="#">{{ communityPost.post_title }}</a>
+                        {{ communityPost.post_title }}
                     </h3>
                     <span class="mark  mark--gray"> ... </span>
                 </div>
@@ -29,52 +25,55 @@
                 <div class="card__content">
                     {{ communityPost.post_description|truncate(250) }}
                 </div>
+            </a>
 
-                <div class="card__footer">
+            <div class="card__footer">
+                <div class="card__footer-left">
+                    <ul class="card__ava-list">
+                        <li class="card__ava  card__ava--author">
+                            <a href="#">
 
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    <img src="{{communityPost.user.avatar.path}}" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                                {% if communityPost.users_image %}
+                                    <img src="{{communityPost.users_image}}" width="23" height="23" alt="Author">
+                                {% else %}
+                                    <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                                {% endif %}
 
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            <li class="card__social-item  c-share">
-                                <a href="#">share</a>
-                            </li>
-                            <li class="card__social-item  c-comment">
-                                <a href="#">comment</a>
-                            </li>
-                            <li class="card__social-item  c-follow">
-                                <a href="#">follow</a>
-                            </li>
-                        </ul>
-                    </div>
-
+                            </a>
+                        </li>
+                        <li class="card__ava">
+                            <a href="#">
+                                <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                            </a>
+                        </li>
+                        <li class="card__ava">
+                            <a href="#">
+                                <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                            </a>
+                        </li>
+                        <li class="card__ava">
+                            <a href="#">
+                                <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- NOTE: classes: low, medium, high -->
-                <div class="card__status  low">low</div>
+                <div class="card__footer-right">
+                    <ul class="card__social">
+                        <li class="card__social-item  c-share">
+                            <a href="#">share</a>
+                        </li>
+                        <li class="card__social-item  c-comment">
+                            <a href="#">comment</a>
+                        </li>
+                        <li class="card__social-item  c-follow">
+                            <a href="#">follow</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <!-- NOTE: classes: low, medium, high -->
+            <div class="card__status  low">low</div>
         </div>
-    {% endfor %}
-</div>
+    </div>
+{% endfor %}
