@@ -1,0 +1,4 @@
+title: CommunityPosts
+modelClass: CryptoPolice\Platform\Models\CommunityPost
+toolbar:
+    buttons: reorder_toolbar

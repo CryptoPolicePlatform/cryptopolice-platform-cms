@@ -192,6 +192,7 @@ class UsersCampaign extends ComponentBase
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
+            ->orderBy('cryptopolice_bounty_campaigns.created_at', 'desc')
             ->get();
     }
 
@@ -234,7 +235,7 @@ class UsersCampaign extends ComponentBase
     public function onAddReport()
     {
 
-        Recaptcha::verifyCaptcha();
+        //Recaptcha::verifyCaptcha();
 
         $json = [];
         $user = Auth::getUser();

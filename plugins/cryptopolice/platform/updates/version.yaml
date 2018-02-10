@@ -1,2 +1,5 @@
 1.0.1:
-    - Initialize plugin.
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created Cryptopolice platform tables'
+    - cryptopolice_platform_tables.php

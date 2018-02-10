@@ -23,7 +23,9 @@ class ProfileForm extends ComponentBase
     public function onUpdateProfile()
     {
 
-        Recaptcha::verifyCaptcha();
+        //Recaptcha::verifyCaptcha();
+
+        trace_log(post());
         $user = Auth::getUser();
         $user->update(post());
         Flash::success('Profile has been successfully updated');
@@ -56,6 +58,29 @@ class ProfileForm extends ComponentBase
             $user->update(['eth_address' => post('eth_address')]);
             Flash::success('You\'re ethereum wallet address has been updated');
         }
+    }
+
+    public function onUpdateNickname()
+    {
+
+        $user = Auth::getUser();
+
+        $rules['nickname'] = 'required|min:0|max:160';
+
+        $validator = Validator::make([
+            'nickname' => post('nickname')
+        ], $rules);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            foreach ($messages->all() as $message) {
+                Flash::error($message);
+            }
+        } else {
+            $user->update(['nickname' => post('nickname')]);
+            Flash::success('You\'re nickname has been updated');
+        }
+
     }
 
     public function onUpdateSocialNetworks() 
