@@ -83,20 +83,20 @@ class Posts extends ComponentBase
 
             if (isset($getLastPost->created_at) && !empty($getLastPost->created_at)) {
                 $diffInMinutes = Carbon::now()->diffInMinutes(Carbon::parse($getLastPost->created_at));
-                if($diffInMinutes < 1) {
+                if($diffInMinutes < 10) {
                     Flash::error('You will be able to post after ' . (10 - $diffInMinutes) . ' min(s)');
+                    return;
                 }
-            } else {
+            } 
 
-                $post = new CommunityPost;
-                $post->post_title = input('title');
-                $post->post_description = input('description');
-                $post->user_id = $user->id;
-                $post->save(null, post('_session_key'));
+            $post = new CommunityPost;
+            $post->post_title = input('title');
+            $post->post_description = input('description');
+            $post->user_id = $user->id;
+            $post->save(null, post('_session_key'));
 
-                Flash::success('Post has been successfully added');
-                return redirect()->back();
-            }
+            Flash::success('Post has been successfully added');
+            return redirect()->back();
         }
     }
 }
