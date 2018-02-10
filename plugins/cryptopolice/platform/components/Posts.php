@@ -4,6 +4,7 @@ use DB;
 use Auth;
 use Flash;
 use Validator;
+use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Models\CommunityPost;
 
@@ -28,16 +29,21 @@ class Posts extends ComponentBase
 
         $posts = Db::table('cryptopolice_platform_community_posts as posts')
             ->join('users', 'posts.user_id', 'users.id')
+
             ->leftJoin('system_files as users_files', function ($join) {
                 $join->on('users.id', '=', 'users_files.attachment_id')
                     ->where('users_files.attachment_type', 'RainLab\User\Models\User');
             })
+
             ->leftJoin('system_files as posts_files', function ($join) {
                 $join->on('posts.id', '=', 'posts_files.attachment_id')
                     ->where('posts_files.attachment_type', 'CryptoPolice\Platform\Models\CommunityPost');
             })
+
+
             ->select('users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
             ->where('posts.status', 1)
+            ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')
             ->get();
 
@@ -72,14 +78,25 @@ class Posts extends ComponentBase
             }
         } else {
 
-            $post = new CommunityPost;
-            $post->post_title = input('title');
-            $post->post_description = input('description');
-            $post->user_id = $user->id;
-            $post->save(null, post('_session_key'));
+            $getLastPost = CommunityPost::where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
 
-            Flash::success('You\'re nickname has been updated');
-            return redirect()->back();
+
+            if (isset($getLastPost->created_at) && !empty($getLastPost->created_at)) {
+                $diffInMinutes = Carbon::now()->diffInMinutes(Carbon::parse($getLastPost->created_at));
+                if($diffInMinutes < 1) {
+                    Flash::error('You will be able to post after ' . (10 - $diffInMinutes) . ' min(s)');
+                }
+            } else {
+
+                $post = new CommunityPost;
+                $post->post_title = input('title');
+                $post->post_description = input('description');
+                $post->user_id = $user->id;
+                $post->save(null, post('_session_key'));
+
+                Flash::success('Post has been successfully added');
+                return redirect()->back();
+            }
         }
     }
 }

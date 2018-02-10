@@ -1,15 +1,38 @@
-{{ form_ajax('onAddPost', { model: CommunityPost }) }}
-    <div class="form__group">
-        <input type="text" class="input" name="title" placeholder="title"/>
-    </div>
-    <div class="form__group">
-        <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
-    </div>
-    <div class="form__group">
-        {% component 'imageUploader' %}
-    </div>
-    <div class="form__group">
-        <button class="btn  btn--gpink" type="submit">Post</button>
-    </div>
-{{ form_close() }}
+<div class="card post_item">
+    <div style="width: 100%;" class="choose__post">
 
+        {{ form_ajax('onAddPost', { flash : '', model: CommunityPost }) }}
+
+            <div class="post_uploader">
+                {% component 'imageUploader' %}
+            </div>
+
+            <div class="card__header">
+                <input style="width:55%;" type="text" class="input" name="title" placeholder="title"/>
+            </div>
+
+            <div class="form__group">
+                <div style="height:auto" class="card__content">
+                    <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="card__footer">
+                <div class="card__footer-left">
+                    <ul class="card__ava-list">
+                        <li class="card__ava  card__ava--author">
+                            <a href="#">
+                                <img src="{{user.avatar.path}}" width="23" height="23" alt="Author">
+                            </a>
+                        </li>
+                        <li class="card__ava">
+                            <button class="btn  btn--gpink" type="submit">Post</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        {{ form_close() }}
+        
+    </div>
+</div>
