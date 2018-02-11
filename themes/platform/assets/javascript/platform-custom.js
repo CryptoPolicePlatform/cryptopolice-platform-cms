@@ -51,4 +51,10 @@ $(document).ready(function(){
             'scrollTop': $target.offset().top
         }, 900, 'swing');
     });
+
+    $('.card__date a[href^="#"]').on('click',function (e) {
+        e.preventDefault();
+        $('#comment_parent').val($(this).attr('id'));
+    });
+
 });

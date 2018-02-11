@@ -41,8 +41,32 @@ class PostComments extends ComponentBase
                 $comments[$key]->user_image = $this->setImagePath($value->user_image);
             }
         }
-        $this->page['comments'] = $comments;
+        $this->page['comments'] = $this->makeArrayTree($comments);
     }
+
+
+    private function makeArrayTree($comments){
+        
+        $childs=[];
+        
+        foreach($comments as $comment){
+            $childs[$comment->parent_id][]=$comment;
+        }
+
+        foreach($comments as $comment){
+            if(isset($childs[$comment->id])) {
+                $comment->childs=$childs[$comment->id];
+            }
+        }
+        
+        if(count($childs)>0){
+            $tree=$childs[0];
+        } else {
+            $tree=[];
+        }
+        return $tree;
+    }
+    
 
     public function onAddComment()
     {
@@ -66,6 +90,9 @@ class PostComments extends ComponentBase
             $comment->user_id = $user->id;
             $comment->post_id = $this->param('id');
             $comment->description = input('description');
+            if(!empty(input('parent_id'))) {
+                $comment->parent_id = input('parent_id');
+            }
             $comment->save();
 
             Flash::success('Your comment is add');

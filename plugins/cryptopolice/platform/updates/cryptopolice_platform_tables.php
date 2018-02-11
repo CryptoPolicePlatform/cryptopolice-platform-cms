@@ -32,7 +32,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->engine = 'InnoDB';
                 $table->increments('id');
                 $table->integer('post_id')->nullable();
-                $table->integer('parent_id')->nullable();
+                $table->integer('parent_id')->default(0);
                 $table->string('description', 1000)->nullable();
                 $table->integer('user_id')->nullable();
                 $table->boolean('status')->default(0);
