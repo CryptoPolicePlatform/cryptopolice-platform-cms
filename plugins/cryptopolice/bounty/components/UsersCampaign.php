@@ -282,7 +282,7 @@ class UsersCampaign extends ComponentBase
 
         if ($this->prepareValidationRules($registrationData, 'registration')) {
 
-            $access = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at',null)->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+            $access = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
             if ($access->isEmpty()) {
 
                 foreach (input() as $key => $value) {

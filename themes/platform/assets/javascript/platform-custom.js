@@ -29,6 +29,7 @@ function removeField(block) {
     if (div.find("input").length >= 2) {
         div.find("input").last().remove();
     }
+
 }
 
 
