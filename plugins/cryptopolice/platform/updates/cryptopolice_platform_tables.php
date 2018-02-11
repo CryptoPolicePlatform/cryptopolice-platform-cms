@@ -27,12 +27,13 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             });
         }
 
-        if (!Schema::hasTable('cryptopolice_platform_community_posts')) {
+        if (!Schema::hasTable('cryptopolice_platform_community_comment')) {
 
             Schema::create('cryptopolice_platform_community_comment', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
-                $table->string('post_id', 255)->nullable();
+                $table->integer('post_id')->nullable();
+                $table->integer('parent_id')->nullable();
                 $table->string('description', 1000)->nullable();
                 $table->integer('user_id')->nullable();
                 $table->boolean('status')->default(0);
