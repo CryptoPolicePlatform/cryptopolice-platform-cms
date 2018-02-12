@@ -3,6 +3,7 @@
 use DB;
 use Auth;
 use Flash;
+use Session;
 use DateTime;
 use Validator;
 use RainLab\User\Models\User;
@@ -235,38 +236,41 @@ class UsersCampaign extends ComponentBase
     public function onAddReport()
     {
 
-        //Recaptcha::verifyCaptcha();
+        Recaptcha::verifyCaptcha();
 
-        $json = [];
-        $user = Auth::getUser();
-        $registrationData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
+        if (input('_token') == Session::token()) {
 
-        if ($this->prepareValidationRules($registrationData, 'report')) {
+            $json = [];
+            $user = Auth::getUser();
+            $registrationData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
 
-            // check if user has access to report
-            if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
+            if ($this->prepareValidationRules($registrationData, 'report')) {
 
-                trace_log(input());
-                // create json from input data
-                foreach (input() as $key => $value) {
-                    if ($key != 'id' && $key != 'g-recaptcha-response' && !empty($value)) {
-                        array_push($json, ['title' => $key, 'value' => $value]);
+                // check if user has access to report
+                if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
+
+                    trace_log(input());
+                    // create json from input data
+                    foreach (input() as $key => $value) {
+                        if ($key != 'id' & $key != 'g-recaptcha-response'&& $key != '_session_key'&& $key != '_token') {
+                            array_push($json, ['title' => $key, 'value' => $value]);
+                        }
                     }
+
+                    $user->bountyReports()->attach(post('id'), [
+                        'bounty_user_registration_id' => $registrationData->pivot->id,
+                        'description' => json_encode($json),
+                        'created_at' => new DateTime(),
+                    ]);
+
+                    $user->save();
+                    Flash::success('Report successfully sent');
+
+                } else {
+                    Flash::error('You are not allowed to send reports');
                 }
-
-                $user->bountyReports()->attach(post('id'), [
-                    'bounty_user_registration_id' => $registrationData->pivot->id,
-                    'description' => json_encode($json),
-                    'created_at' => new DateTime(),
-                ]);
-
-                $user->save();
-                Flash::success('Report successfully sent');
-
-            } else {
-                Flash::error('You are not allowed to send reports');
+                return redirect()->back();
             }
-            return redirect()->back();
         }
     }
 
@@ -274,35 +278,38 @@ class UsersCampaign extends ComponentBase
     public function onCampaignRegistration()
     {
 
-        //Recaptcha::verifyCaptcha();
+        Recaptcha::verifyCaptcha();
 
-        $json = [];
-        $user = Auth::getUser();
-        $registrationData = Bounty::where('id', $this->param('id'))->first();
+        if (input('_token') == Session::token()) {
 
-        if ($this->prepareValidationRules($registrationData, 'registration')) {
+            $json = [];
+            $user = Auth::getUser();
+            $registrationData = Bounty::where('id', $this->param('id'))->first();
 
-            $access = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
-            if ($access->isEmpty()) {
+            if ($this->prepareValidationRules($registrationData, 'registration')) {
 
-                foreach (input() as $key => $value) {
-                    if ($key != 'id' && $key != 'g-recaptcha-response') {
-                        array_push($json, ['title' => $key, 'value' => $value]);
+                $access = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->get();
+                if ($access->isEmpty()) {
+
+                    foreach (input() as $key => $value) {
+                        if ($key != 'id' && $key != 'g-recaptcha-response'&& $key != '_session_key'&& $key != '_token') {
+                            array_push($json, ['title' => $key, 'value' => $value]);
+                        }
                     }
+
+                    $user->bountyCampaigns()->attach(post('id'), [
+                        'fields_data' => json_encode($json),
+                        'created_at' => new DateTime(),
+                        'status' => 1,
+                    ]);
+
+                    $user->save();
+                    Flash::success('Successfully registered');
+                    return redirect()->back();
+
+                } else {
+                    Flash::warning('You are already registered');
                 }
-
-                $user->bountyCampaigns()->attach(post('id'), [
-                    'fields_data' => json_encode($json),
-                    'created_at' => new DateTime(),
-                    'status' => 1,
-                ]);
-
-                $user->save();
-                Flash::success('Successfully registered');
-                return redirect()->back();
-
-            } else {
-                Flash::warning('You are already registered');
             }
         }
     }

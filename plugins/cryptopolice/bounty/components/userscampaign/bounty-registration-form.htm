@@ -1,7 +1,7 @@
 <div class="grid__col  w6">
 
+        {{ form_ajax('onCampaignRegistration', { flash : '',  data: { id: campaignID }, model: BountyRegistration }) }}
 
-    <form data-request-data="id: {{ campaignID }}" data-request="onCampaignRegistration" data-request-flash>
             {% for bounty in bountyList %}
                 {% if bounty.slug == this.param.slug %}
                  <h3><i class="fa fa-user-plus"></i> Registration to {{ bounty.title }} bounty campaign</h3>
@@ -49,5 +49,7 @@
         <div class="form__group">
             <button id="captcha_registration" class="btn  btn--gpink g-recaptcha">Submit registration</button>
         </div>
-    </form>
+
+    {{ form_close() }}
+
 </div>
