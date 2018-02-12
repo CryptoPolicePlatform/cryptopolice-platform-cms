@@ -3,6 +3,12 @@ description = "Academy layout"
 [session]
 security = "all"
 ==
+    function onStart()
+    {
+        header('x-frame-options:DENY');
+        header('referrer-policy:same-origin');
+    }
+==
 <!DOCTYPE html>
 <html>
     
