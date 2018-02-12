@@ -10,13 +10,15 @@ paramCode = "code"
 forceSecure = 0
 ==
 <?php
-function onStart() {
+
+    function onStart() {
         $this['active']  = get('activate');
 
         if(Auth::check()) {
-           return Redirect::to('/community');
+           return Redirect::to('/');
         }
     }
+
 ?>
 ==
 <div class="content">

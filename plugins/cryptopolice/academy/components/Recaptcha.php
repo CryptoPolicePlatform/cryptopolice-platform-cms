@@ -29,5 +29,4 @@ class Recaptcha extends ComponentBase
             ]);
         }
     }
-
 }

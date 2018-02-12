@@ -3,9 +3,12 @@
 use DB;
 use Auth;
 use Flash;
+use Session;
 use Validator;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Models\CommunityComment;
+use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
+
 
 class PostComments extends ComponentBase
 {
@@ -26,7 +29,7 @@ class PostComments extends ComponentBase
     public function onRun()
     {
         $comments = Db::table('cryptopolice_platform_community_comment as comment')
-            ->join('users','comment.user_id', 'users.id')
+            ->join('users', 'comment.user_id', 'users.id')
             ->leftJoin('system_files', function ($join) {
                 $join->on('comment.user_id', '=', 'system_files.attachment_id')
                     ->where('system_files.attachment_type', 'RainLab\User\Models\User');
@@ -45,58 +48,65 @@ class PostComments extends ComponentBase
     }
 
 
-    private function makeArrayTree($comments){
-        
-        $childs=[];
-        
-        foreach($comments as $comment){
-            $childs[$comment->parent_id][]=$comment;
+    private function makeArrayTree($comments)
+    {
+
+        $childs = [];
+
+        foreach ($comments as $comment) {
+            $childs[$comment->parent_id][] = $comment;
         }
 
-        foreach($comments as $comment){
-            if(isset($childs[$comment->id])) {
-                $comment->childs=$childs[$comment->id];
+        foreach ($comments as $comment) {
+            if (isset($childs[$comment->id])) {
+                $comment->childs = $childs[$comment->id];
             }
         }
-        
-        if(count($childs)>0){
-            $tree=$childs[0];
+
+        if (count($childs) > 0) {
+            $tree = $childs[0];
         } else {
-            $tree=[];
+            $tree = [];
         }
         return $tree;
     }
-    
+
 
     public function onAddComment()
     {
 
-        $rules = [
-            'description' => 'required|min:0|max:10000'
-        ];
+        Recaptcha::verifyCaptcha();
 
-        $validator = Validator::make(input(), $rules);
+        if (input('_token') == Session::token()) {
 
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-                Flash::error($message);
+            $rules = [
+                'description' => 'required|min:0|max:10000'
+            ];
+
+            $validator = Validator::make(input(), $rules);
+
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    Flash::error($message);
+                }
+            } else {
+
+                $user = Auth::getUser();
+
+                $comment = new CommunityComment;
+                $comment->user_id = $user->id;
+                $comment->post_id = $this->param('id');
+                $comment->description = input('description');
+
+                if (!empty(input('parent_id'))) {
+                    $comment->parent_id = input('parent_id');
+
+                }
+                $comment->save();
+                Flash::success('Your comment has been successfully added');
+                return redirect()->back();
             }
-        } else {
-
-            $user = Auth::getUser();
-
-            $comment = new CommunityComment;
-            $comment->user_id = $user->id;
-            $comment->post_id = $this->param('id');
-            $comment->description = input('description');
-            if(!empty(input('parent_id'))) {
-                $comment->parent_id = input('parent_id');
-            }
-            $comment->save();
-
-            Flash::success('Your comment is add');
-            return redirect()->back();
         }
     }
 }

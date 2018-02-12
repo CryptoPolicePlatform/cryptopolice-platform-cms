@@ -1,6 +1,6 @@
 plugin:
     name: Platform
-    description: CrypoPolice Platform Plugin
+    description: 'CrypoPolice Platform Plugin'
     author: CryptoPolice
     icon: oc-icon-adjust
     homepage: ''
@@ -11,6 +11,10 @@ navigation:
         icon: icon-comments
         sideMenu:
             side-menu-item:
-                label: CommunityPosts
+                label: Topics
                 url: cryptopolice/platform/communityposts
+                icon: icon-th-large
+            side-menu-item2:
+                label: Comments
+                url: cryptopolice/platform/CommunityComments
                 icon: icon-sitemap

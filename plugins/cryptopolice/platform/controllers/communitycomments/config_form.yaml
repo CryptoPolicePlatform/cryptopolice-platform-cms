@@ -1,0 +1,10 @@
+name: CommunityComments
+form: $/cryptopolice/platform/models/communitycomment/fields.yaml
+modelClass: CryptoPolice\Platform\Models\CommunityComment
+defaultRedirect: cryptopolice/platform/CommunityComments
+create:
+    redirect: 'cryptopolice/platform/CommunityComments/update/:id'
+    redirectClose: cryptopolice/platform/CommunityComments
+update:
+    redirect: cryptopolice/platform/CommunityComments
+    redirectClose: cryptopolice/platform/CommunityComments

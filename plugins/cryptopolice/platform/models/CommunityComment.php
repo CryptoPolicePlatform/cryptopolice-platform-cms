@@ -19,6 +19,20 @@ class CommunityComment extends Model
     public $rules = [
     ];
 
+    public $belongsTo = [
+
+        'user' => [
+            'Rainlab\user\Models\User',
+            'key' => 'user_id'
+        ],
+
+        'post' => [
+            'CryptoPolice\platform\Models\CommunityPost',
+            'key' => 'post_id'
+        ],
+
+    ];
+
     /**
      * @var string The database table used by the model.
      */

@@ -1,0 +1,169 @@
+title = "Post details"
+url = "/post/:id"
+layout = "platform"
+description = "Post details Page"
+is_hidden = 0
+[CommunityPostDetails]
+[CommunityPostComments]
+==
+<!--TODO : Needs refactoring -->
+<!-- Content -->
+<main class="content">
+    <div class="content__inner">
+        <div class="content__left">
+            <div class="profile">
+                <div class="profile__sidebar">
+                    {% if user.avatar.path %}
+                        <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
+                    {% else %}
+                        <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+                    {% endif %}
+                    <div class="profile__name">
+                        {% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {{ user.surname }} {% endif %}
+                    </div>
+                    <div class="profile__block">
+                        <p>Name: <b> {{ user.name }} </b></p>
+                        <p>Surname: <b> {{ user.surname }} </b></p>
+                        <p>E-mail: <b> {{ user.email }} </b></p>
+                    </div>
+                    <div class="profile__block">
+                        <p>Joined: <b> {{ user.created_at| date("m.d.Y") }} </b></p>
+                        <p>Last seen: <b> {{ user.last_seen | date("m.d.Y H:i:s") }} </b></p>
+                    </div>
+                    <div class="profile__block">
+                        <div style="width:auto;" class="">
+                            <div class="btn__group">
+                                <a class="btn btn--bounty" href="#">Send new issue</a>
+                                <a class="btn btn--bounty" href="#">Send new project</a>
+                                <a class="btn btn--bounty" href="#">Send new publication</a>
+                            </div>
+                            <div class="btn__group">
+                                <a class="btn btn--bounty" href="#">become an officer</a>
+                                <a class="btn btn--bounty" href="#">become a partner</a>
+                            </div>
+                            <h3 class="content__sidebar-title">Statistics</h3>
+                            <div class="stat">
+                                <div class="stat__item">
+                                    <div class="stat__pie  stat__pie--purple" data-circle="" data-color="#8f78db"
+                                         data-empty="#ffffff" data-value="0.25" data-size="34" data-thickness="6">
+                                        <canvas width="34" height="34"></canvas>
+                                        <canvas width="34" height="34"></canvas>
+                                    </div>
+                                    <div class="stat__counter">25</div>
+                                    <div class="stat__text">Waiting for review</div>
+                                </div>
+                                <div class="stat__item">
+                                    <div class="stat__pie  stat__pie--teal" data-circle="" data-color="#48cdd0"
+                                         data-empty="#ffffff" data-value="0.12" data-size="34" data-thickness="6">
+                                        <canvas width="34" height="34"></canvas>
+                                        <canvas width="34" height="34"></canvas>
+                                    </div>
+                                    <div class="stat__counter">12</div>
+                                    <div class="stat__text">Currently under review</div>
+                                </div>
+                                <div class="stat__item">
+                                    <div class="stat__pie  stat__pie--blue" data-circle="" data-color="#00acee"
+                                         data-empty="#ffffff" data-value="0.91" data-size="34" data-thickness="6">
+                                        <canvas width="34" height="34"></canvas>
+                                        <canvas width="34" height="34"></canvas>
+                                    </div>
+                                    <div class="stat__counter">91</div>
+                                    <div class="stat__text">Totally reviewed</div>
+                                </div>
+                                <div class="stat__item">
+                                    <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982"
+                                         data-empty="#ffffff" data-value="0.33" data-size="34" data-thickness="6">
+                                        <canvas width="34" height="34"></canvas>
+                                        <canvas width="34" height="34"></canvas>
+                                    </div>
+                                    <div class="stat__counter">33</div>
+                                    <div class="stat__text">Total officer count</div>
+                                </div>
+                                <div class="stat__item">
+                                    <div class="stat__pie  stat__pie--orange" data-circle="" data-color="#f7ba96"
+                                         data-empty="#ffffff" data-value="0.75" data-size="34" data-thickness="6">
+                                        <canvas width="34" height="34"></canvas>
+                                        <canvas width="34" height="34"></canvas>
+                                    </div>
+                                    <div class="stat__counter">75</div>
+                                    <div class="stat__text">Total officers online</div>
+                                </div>
+                                <div class="stat__item">
+                                    <div class="stat__pie  stat__pie--orange" data-circle="" data-color="#f7ba96"
+                                         data-empty="#ffffff" data-value="0.75" data-size="34" data-thickness="6">
+                                        <canvas width="34" height="34"></canvas>
+                                        <canvas width="34" height="34"></canvas>
+                                    </div>
+                                    <div class="stat__counter">75</div>
+                                    <div class="stat__text">Total officers online</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile__content">
+                    <div class="card">
+                        <div class="card__header report_header">
+                            <h2> {{ post.title }} </h2>
+                        </div>
+                            <img src="{{post.post_img}}" width="150" height="150" alt="Author">
+                        <h3> {{ post.post_title }} </h3>
+                        {{ post.post_description }}
+                        <div class="card__footer">
+                            <div class="card__footer-left">
+                                <ul class="card__ava-list">
+                                    <li class="card__ava  card__ava--author">
+                                        by {% if post.nickname %}
+                                        {{ post.nickname }}
+                                        {% else %}
+                                        {{ post.email|slice(0, 3)}}*****@****.com
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card__footer-right">
+                                <div class="card__date">{{ post.created_at }}</div>
+                            </div>
+                        </div>
+                        <div class="card__status low"></div>
+                        <br>
+                    </div>
+
+                    {% partial CommunityPostComments ~ '::add-comment-form' %}
+
+                    {% for comment in comments %}
+                        <div class="card post_item">
+                            <div style="width: 100%;" class="choose__post">
+                                <div class="post_img">
+                                    <img src="{{comment.user_image}}" width="55" height="55" alt="">
+                                </div>
+                                <div class="card__header">
+                                    <div class="card__date">
+                                        <strong>
+                                            {% if comment.nickname %}
+                                                {{ comment.nickname }}
+                                            {% else %}
+                                                {{ comment.email|slice(0, 3)}}*****@****.com
+                                            {% endif %}
+                                        </strong>
+                                        {{ comment.created_at }} <a id="{{comment.id}}" href="#">Reply</a>
+                                    </div>
+                                </div>
+                                <div style="height: auto" class="card__content">
+                                    {{ comment.description }}
+                                </div>
+                                <div class="card__footer">
+                                    <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
+                                        {% if comment.childs %}
+                                            {% partial CommunityPostComments ~ '::comments' childs=comment.childs %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
