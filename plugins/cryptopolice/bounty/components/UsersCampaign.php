@@ -73,20 +73,23 @@ class UsersCampaign extends ComponentBase
     public function onFilterCampaignReports()
     {
 
-        $arr = [
-            post('status')
-        ];
+        if (input('_token') == Session::token()) {
 
-        $this->page['campaignReports'] = DB::table('cryptopolice_bounty_user_reports')
-            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
-            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-            ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
-            ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
-            ->Where(function ($query) use ($arr) {
-                if (!empty($arr[0])) {
-                    $query->where('cryptopolice_bounty_user_reports.report_status', $arr[0]);
-                }
-            })->get();
+            $arr = [
+                post('status')
+            ];
+
+            $this->page['campaignReports'] = DB::table('cryptopolice_bounty_user_reports')
+                ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
+                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
+                ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
+                ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
+                ->Where(function ($query) use ($arr) {
+                    if (!empty($arr[0])) {
+                        $query->where('cryptopolice_bounty_user_reports.report_status', $arr[0]);
+                    }
+                })->get();
+        }
     }
 
 
@@ -142,31 +145,34 @@ class UsersCampaign extends ComponentBase
     public function onFilterReports()
     {
 
-        $user = Auth::getUser();
+        if (input('_token') == Session::token()) {
 
-        $arr = [
-            post('campaign_type'),
-            post('status')
-        ];
+            $user = Auth::getUser();
 
-        $this->page['usersReports'] = DB::table('cryptopolice_bounty_user_reports')
-            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
-            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-            ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
-            ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
-            ->Where(function ($query) use ($arr) {
-                for ($i = 0; $i < count($arr); $i++) {
-                    if (!empty($arr[$i])) {
-                        if ($i == 0) {
-                            $query->where('cryptopolice_bounty_user_reports.bounty_campaigns_id', $arr[$i]);
-                        } else {
-                            $query->where('cryptopolice_bounty_user_reports.report_status', $arr[$i]);
+            $arr = [
+                post('campaign_type'),
+                post('status')
+            ];
+
+            $this->page['usersReports'] = DB::table('cryptopolice_bounty_user_reports')
+                ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
+                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
+                ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
+                ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
+                ->Where(function ($query) use ($arr) {
+                    for ($i = 0; $i < count($arr); $i++) {
+                        if (!empty($arr[$i])) {
+                            if ($i == 0) {
+                                $query->where('cryptopolice_bounty_user_reports.bounty_campaigns_id', $arr[$i]);
+                            } else {
+                                $query->where('cryptopolice_bounty_user_reports.report_status', $arr[$i]);
+                            }
                         }
                     }
-                }
-            })
-            ->orderBy('cryptopolice_bounty_user_reports.created_at', 'asc')
-        ->get();
+                })
+                ->orderBy('cryptopolice_bounty_user_reports.created_at', 'asc')
+                ->get();
+        }
     }
 
 

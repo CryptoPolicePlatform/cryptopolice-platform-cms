@@ -1,6 +1,7 @@
 <!-- Filters-->
 <div class="content__header">
-    <form data-request="onFilterReports"  data-request-update="'UsersCampaign::users-reports-filtered': '#users_reports'" id="filter">
+
+    {{ form_ajax('onFilterReports', { update : { 'UsersCampaign::users-reports-filtered' : '#users_reports' } }) }}
 
         <div class="select  select--filter">
             <select name="campaign_type">
@@ -21,7 +22,8 @@
 
         <input type="submit" class="btn bounty-filter" value="Filter">
 
-    </form>
+    {{ form_close() }}
+
 </div>
 <!-- End Filters-->
 
