@@ -1,16 +1,20 @@
 description = "Platform Layout"
 
 [session]
-security = "all"
+security = "user"
+redirect = "login"
+
 
 [Notifications]
-
 ==
-    function onStart()
+<?php
+function onStart()
     {
+
         header('x-frame-options:DENY');
         header('referrer-policy:same-origin');
     }
+?>
 ==
 <!DOCTYPE html>
 <html>
