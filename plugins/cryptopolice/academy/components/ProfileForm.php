@@ -23,89 +23,104 @@ class ProfileForm extends ComponentBase
     public function onUpdateProfile()
     {
 
-        //Recaptcha::verifyCaptcha();
+        Recaptcha::verifyCaptcha();
 
-        trace_log(post());
-        $user = Auth::getUser();
-        $user->update(post());
-        Flash::success('Profile has been successfully updated');
+        if (input('_token') == Session::token()) {
 
+            $user = Auth::getUser();
+            $user->update(post());
+            Flash::success('Profile has been successfully updated');
+        }
     }
 
     public function onUpdateWalletAddress()
     {
 
-        $user = Auth::getUser();
+        Recaptcha::verifyCaptcha();
 
-        if($user->eth_address == post('eth_address')) {
-            $rules['eth_address'] = 'min:42|max:42';
-        } else {
-            $rules['eth_address'] = 'min:42|max:42|unique:users';
-        }
-        
-        $validator = Validator::make([
-            'eth_address' => post('eth_address')
-        ], $rules);
+        if (input('_token') == Session::token()) {
 
-        if ($validator->fails()) {
+            $user = Auth::getUser();
 
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-                Flash::error($message);
+            if ($user->eth_address == post('eth_address')) {
+                $rules['eth_address'] = 'min:42|max:42';
+            } else {
+                $rules['eth_address'] = 'min:42|max:42|unique:users';
             }
 
-        } else {
-            $user->update(['eth_address' => post('eth_address')]);
-            Flash::success('You\'re ethereum wallet address has been updated');
+            $validator = Validator::make([
+                'eth_address' => post('eth_address')
+            ], $rules);
+
+            if ($validator->fails()) {
+
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    Flash::error($message);
+                }
+
+            } else {
+                $user->update(['eth_address' => post('eth_address')]);
+                Flash::success('You\'re ethereum wallet address has been updated');
+            }
         }
     }
 
     public function onUpdateNickname()
     {
 
-        $user = Auth::getUser();
+        Recaptcha::verifyCaptcha();
 
-        $rules['nickname'] = 'required|min:0|max:160';
+        if (input('_token') == Session::token()) {
 
-        $validator = Validator::make([
-            'nickname' => post('nickname')
-        ], $rules);
+            $user = Auth::getUser();
 
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-                Flash::error($message);
+            $rules['nickname'] = 'required|min:0|max:160';
+
+            $validator = Validator::make([
+                'nickname' => post('nickname')
+            ], $rules);
+
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    Flash::error($message);
+                }
+            } else {
+                $user->update(['nickname' => post('nickname')]);
+                Flash::success('You\'re nickname has been updated');
             }
-        } else {
-            $user->update(['nickname' => post('nickname')]);
-            Flash::success('You\'re nickname has been updated');
         }
-
     }
 
-    public function onUpdateSocialNetworks() 
+    public function onUpdateSocialNetworks()
     {
 
-        $user = Auth::getUser();
-        foreach(post() as $key => $value ) {
-            if($user[$key] == post($key)) { 
-                $rules[$key] = 'min:0|max:255';
+        Recaptcha::verifyCaptcha();
+
+        if (input('_token') == Session::token()) {
+
+            $user = Auth::getUser();
+            foreach (post() as $key => $value) {
+                if ($user[$key] == post($key)) {
+                    $rules[$key] = 'min:0|max:255';
+                } else {
+                    $rules[$key] = 'min:0|max:255|unique:users';
+                }
+            }
+
+            $validator = Validator::make(post(), $rules);
+
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                foreach ($messages->all() as $message) {
+                    Flash::error($message);
+                }
+
             } else {
-                $rules[$key] = 'min:0|max:255|unique:users';
+                $user->update(post());
+                Flash::success('You\'re profile has been updated');
             }
-        }
-        
-        $validator = Validator::make(post(), $rules);
-
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-                Flash::error($message);
-            }
-
-        } else {
-            $user->update(post());
-            Flash::success('You\'re profile has been updated');
         }
     }
 }

@@ -1,5 +1,4 @@
-<form data-request-flash data-request="onUpdateProfile">
-
+{{ form_ajax('onUpdateProfile', { flash : '', model: user }) }}
     <div style="margin-top:20px" class="profile__card">
 
         <h3 class="content__title">User Profile</h3>
@@ -30,7 +29,7 @@
                         id: 'accountCountry',
                         class: 'form-control',
                         emptyOption: ''
-                    })
+                        })
                 }}
             </div>
         </div>
@@ -38,4 +37,4 @@
         <button id="captcha_profile" class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Profile</button>
 
     </div>
-</form>
+{{ form_close() }}

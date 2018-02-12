@@ -1,5 +1,4 @@
-<form data-request-flash data-request="onUpdateSocialNetworks">
-
+{{ form_ajax('onUpdateSocialNetworks', { flash : '', model: user }) }}
     <div style="margin-top:20px" class="profile__card">
         <h3 class="content__title">Social networks</h3>
 
@@ -15,7 +14,8 @@
 
         <div class="form__group">
             <label for="telegram_username">Telegram account</label>
-            <input class="input" type="text" name="telegram_username" id="telegram_username" value="{{user.telegram_username}}">
+            <input class="input" type="text" name="telegram_username" id="telegram_username"
+                   value="{{user.telegram_username}}">
         </div>
 
         <div class="form__group">
@@ -28,8 +28,6 @@
             <input class="input" type="text" name="youtube_link" id="youtube_link" value="{{user.youtube_link}}">
         </div>
 
-        <button class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Networks</button>
-
+        <button id="captcha_social" class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Networks</button>
     </div>
-
-</form>
+{ form_close() }}
