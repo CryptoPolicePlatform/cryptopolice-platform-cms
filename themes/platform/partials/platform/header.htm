@@ -8,15 +8,18 @@
     <div class="header__inner">
 
         <div class="header__nav" id="profile">
+
             <a class="header__ava" href="{{'profile'|page}}">
                 {% if user.avatar.path %}
-                <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
+                    <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
                 {% else %}
-                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30"
-                     alt="user-avatar">
+                    <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                 {% endif %}
             </a>
+
             <a class="header__name" href="{{'profile'|page}}">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }} {% endif %}</a>
+
+                {% partial 'Notifications::notify-modal' %}
 
             <a class="header__nav-item" href="https://support.cryptopolice.com" target="_blank">
                 <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon" aria-hidden="true"></i></span>
@@ -37,10 +40,10 @@
                 <span class="tool" data-tip="Logout" tabindex="1"><i class="fa fa-sign-out header-icon" aria-hidden="true"></i></span>
             </a>
 
-
         </div>
 
         <div class="header__mob">
+
             <a href="{{'profile'|page}}" id="profile_toggle">
                 <img src="{{'assets/images/user.svg'|theme}}" width="23" alt="User Name">
             </a>
@@ -52,9 +55,9 @@
             </a>
         </div>
 
-        <!--<form class="header__search" action="/" method="post" id="search">-->
-            <!--<input class="header__search-input" type="text" name="search" placeholder="Search">-->
-        <!--</form>-->
+        <form class="header__search" action="/" method="post" id="search">
+            <input class="header__search-input" type="text" name="search" placeholder="Search">
+        </form>
 
     </div>
 </header>

@@ -1,0 +1,10 @@
+name: Notifications
+form: $/cryptopolice/platform/models/notification/fields.yaml
+modelClass: CryptoPolice\Platform\Models\Notification
+defaultRedirect: cryptopolice/platform/notifications
+create:
+    redirect: 'cryptopolice/platform/notifications/update/:id'
+    redirectClose: cryptopolice/platform/notifications
+update:
+    redirect: cryptopolice/platform/notifications
+    redirectClose: cryptopolice/platform/notifications

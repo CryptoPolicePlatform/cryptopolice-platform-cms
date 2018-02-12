@@ -100,6 +100,7 @@ class ProfileForm extends ComponentBase
 
         if (input('_token') == Session::token()) {
 
+            trace_log(post());
             $user = Auth::getUser();
             foreach (post() as $key => $value) {
                 if ($user[$key] == post($key)) {
@@ -118,7 +119,14 @@ class ProfileForm extends ComponentBase
                 }
 
             } else {
-                $user->update(post());
+                $user->update([
+                    'telegram_username'  => post('telegram_username'),
+                    'facebook_link'      => post('facebook_link'),
+                    'youtube_link'       => post('youtube_link'),
+                    'twitter_link'       => post('twitter_link'),
+                    'btc_link'           => post('btc_link'),
+                ]);
+                
                 Flash::success('You\'re profile has been updated');
             }
         }

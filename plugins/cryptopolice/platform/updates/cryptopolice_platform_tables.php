@@ -26,6 +26,19 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             });
         }
 
+        if (!Schema::hasTable('cryptopolice_platform_notifications')) {
+
+            Schema::create('cryptopolice_platform_notifications', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id')->unsigned();
+                $table->string('title', 255);
+                $table->text('description');
+                $table->timestamp('created_at')->nullable();
+                $table->timestamp('updated_at')->nullable();
+                $table->timestamp('deleted_at')->nullable();
+            });
+        }
+
         if (!Schema::hasTable('cryptopolice_platform_community_comment')) {
 
             Schema::create('cryptopolice_platform_community_comment', function ($table) {
@@ -45,6 +58,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
     public function down()
     {
+        Schema::dropIfExists('cryptopolice_platform_notifications');
         Schema::dropIfExists('cryptopolice_platform_community_posts');
         Schema::dropIfExists('cryptopolice_platform_community_comment');
     }

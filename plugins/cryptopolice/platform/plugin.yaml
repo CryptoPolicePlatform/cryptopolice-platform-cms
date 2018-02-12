@@ -18,3 +18,7 @@ navigation:
                 label: Comments
                 url: cryptopolice/platform/CommunityComments
                 icon: icon-sitemap
+    main-menu-item:
+        label: Notify
+        url: cryptopolice/platform/notifications
+        icon: icon-bell
