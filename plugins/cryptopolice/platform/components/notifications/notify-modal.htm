@@ -10,15 +10,9 @@
     <div class="remodal remodal-is-initialized remodal-is-closed" id="my-modal" role="dialog" tabindex="-1">
         <button data-remodal-action="close" class="remodal-close"></button>
         <h1>Notifications</h1>
-        <p>
-            {% for notify in notifications %}
-            {{ notify.title }}
-            <p></p> {{ notify.description }}
-            <p><strong>{{ notify.created_at }}</strong></p>
-            {% endfor %}
-        </p>
+            <div id="result">
+                {% partial 'Notifications::notify-list' %}
+            </div>
         <br>
-        <button data-remodal-action="cancel" class="btn  btn--deep-orange">Cancel</button>
-        <button data-remodal-action="confirm" class="btn  btn--green">OK</button>
     </div>
 </div>

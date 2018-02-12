@@ -113,6 +113,7 @@ class Plugin extends PluginBase
                     'otherKey' => 'bounty_campaigns_id',
                     'key' => 'user_id',
                 ]
+
             ];
 
             $model->hasMany = [

@@ -9,4 +9,9 @@ fields:
         oc.commentPosition: ''
         span: full
         size: huge
-        type: textarea
+        type: richeditor
+    status:
+        label: Status
+        span: auto
+        default: 1
+        type: switch

@@ -1,0 +1,5 @@
+<p></p>
+{% for notify in notifications %}
+    <a href="#" data-request="onCheckNotification" data-request-data="id:{{ notify.id }}" data-request-update="'Notifications::notify-details': '#result'">{{ notify.title }} {% if notify.notification_id is null and notify.user_id is null %} <span class="mark  mark--green">New</span> {% else %} {% endif %} </a>
+    <p><strong>{{ notify.created_at }}</strong></p>
+{% endfor %}
