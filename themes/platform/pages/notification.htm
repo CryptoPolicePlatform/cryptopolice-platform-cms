@@ -1,0 +1,31 @@
+title = "Notifications"
+url = "/notification"
+layout = "platform"
+description = "Users notifications"
+is_hidden = 0
+
+[UserProfile]
+[CommunityUsers]
+==
+<!-- Content -->
+<main class="content">
+    <div class="content__inner">
+        <div class="content__left">
+            <div class="profile">
+
+                <!-- User profile section -->
+                {% partial UserProfile ~ '::profile' %}
+
+                <div class="profile__content">
+
+                    <!-- Users notification list -->
+                    {% partial 'Notifications::notify-list'%}
+
+                    <!-- User list sidebar section -->
+                    {% partial 'CommunityUsers::user-list-sidebar' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

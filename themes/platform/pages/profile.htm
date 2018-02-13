@@ -57,7 +57,7 @@ identifierValue = "{{ :id }}"
                         <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
                     {% endif %}
 
-                    <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.name }}  {{ user.surname }}{% endif %}</div>
+                    <div class="profile__name">{% if not user.name %}{{ user.email }}{% else %} {{ user.nickname }} {% endif %}</div>
                     <div class="profile__block">
                         <p>Name: <b>{{ user.name }}</b></p>
                         <p>Surname: <b>{{ user.surname }}</b></p>

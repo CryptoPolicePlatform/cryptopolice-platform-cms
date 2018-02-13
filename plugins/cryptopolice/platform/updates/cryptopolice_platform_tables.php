@@ -34,6 +34,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->string('title', 255);
                 $table->text('description');
                 $table->boolean('status')->default(1);
+                $table->timestamp('announcement_at')->nullable();
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();

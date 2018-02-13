@@ -5,6 +5,8 @@
 <!-- selected Bounty Campaign -->
 {% if bounty.slug == this.param.slug %}
 {% set flag = false %}
+
+
 <!--<div class="tabs" id="tabs1">-->
 <!--<div class="tabs__nav" data-tabs-for="#tabs1" role="tablist">-->
 <!--<a class="tabs__nav-item  active" href="#tab-1" role="tab"> {% if access is empty %} Registration {% else %} Report {% endif %} </a>-->
@@ -41,7 +43,7 @@
                      data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6">
                     <canvas width="34" height="34"></canvas>
                 </div>
-                <div class="stat__counter"> {{ bountyPercentage }}%</div>
+                <div class="stat__counter"> {{ bountyPercentage|number_format(2, '.', ',') }}%</div>
                 <div class="stat__text"> Registered in campaign {{ totalRegisteredInCampaign }} users</div>
             </div>
             <p>{{ bounty.description|raw}}</p>

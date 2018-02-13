@@ -1,4 +1,3 @@
-
 $(function () {
 
     $('.js-file').change(function () {
@@ -33,9 +32,9 @@ function removeField(block) {
 }
 
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $('.breadcrumbs a[href^="#"]').on('click',function (e) {
+    $('.breadcrumbs a[href^="#"]').on('click', function (e) {
         e.preventDefault();
 
         var target = this.hash;
@@ -52,9 +51,16 @@ $(document).ready(function(){
         }, 900, 'swing');
     });
 
-    $('.card__date a[href^="#"]').on('click',function (e) {
+    $('.card__date a[href^="#"]').on('click', function (e) {
         e.preventDefault();
         $('#comment_parent').val($(this).attr('id'));
+    });
+
+    $('.notify_title a[href^="#"]').on('click', function (e) {
+
+        e.preventDefault();
+        var element = $('#description_' + $(this).attr('id'));
+        ($(element).is(":visible")) ? element.hide(400) : element.show(400);
     });
 
 });

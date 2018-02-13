@@ -4,6 +4,10 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    announcement_at:
+        label: Announcement DateTime
+        span: auto
+        type: datepicker
     description:
         label: Description
         oc.commentPosition: ''

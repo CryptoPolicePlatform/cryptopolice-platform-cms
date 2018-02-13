@@ -146,7 +146,7 @@
     margin-left: -150%;
     content:attr(data-tip);
     transform:scale(.6) translateY(50%);
-    transition:all .65s cubic-bezier(.84, -.18, .31, 1.26) .2s;
+    transition:all .25s cubic-bezier(.84, -.18, .31, 1.26) .2s;
 }
 
 .tool:hover::after,

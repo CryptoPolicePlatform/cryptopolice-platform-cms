@@ -1,0 +1,5 @@
+{% if notify.notification_id is null and notify.user_id is null %}
+    <div class="issues__status-item  high">new</div>
+{% else %}
+    <div class="issues__status-item  low">Reded</div>
+{% endif %}
