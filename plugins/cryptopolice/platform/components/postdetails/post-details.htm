@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card__header report_header">
+        <h2> {{ post.title }} </h2>
+    </div>
+    <img src="{{post.post_img}}" width="150" height="150" alt="Author">
+    <h3> {{ post.post_title }} </h3>
+    {{ post.post_description }}
+    <div class="card__footer">
+        <div class="card__footer-left">
+            <ul class="card__ava-list">
+                <li class="card__ava  card__ava--author">
+                    by {% if post.nickname %}
+                    {{ post.nickname }}
+                    {% else %}
+                    {{ post.email|slice(0, 3)}}*****@****.com
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+        <div class="card__footer-right">
+            <div class="card__date">{{ post.created_at }}</div>
+        </div>
+    </div>
+    <div class="card__status low"></div>
+    <br>
+</div>

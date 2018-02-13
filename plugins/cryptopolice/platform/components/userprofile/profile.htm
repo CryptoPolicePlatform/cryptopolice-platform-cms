@@ -1,0 +1,35 @@
+<div class="profile__sidebar">
+    {% if user.avatar.path %}
+    <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% else %}
+    <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% endif %}
+    <div class="profile__name">
+        {% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {{ user.surname }} {% endif %}
+    </div>
+    <div class="profile__block">
+        <p>Name: <b> {{ user.name }} </b></p>
+        <p>Surname: <b> {{ user.surname }} </b></p>
+        <p>E-mail: <b> {{ user.email }} </b></p>
+    </div>
+    <div class="profile__block">
+        <p>Joined: <b> {{ user.created_at| date("m.d.Y") }} </b></p>
+        <p>Last seen: <b> {{ user.last_seen | date("m.d.Y H:i:s") }} </b></p>
+    </div>
+    <div class="profile__block">
+        <div style="width:auto;" class="">
+            <div class="btn__group">
+                <a class="btn btn--bounty" href="#">Send new issue</a>
+                <a class="btn btn--bounty" href="#">Send new project</a>
+                <a class="btn btn--bounty" href="#">Send new publication</a>
+            </div>
+            <div class="btn__group">
+                <a class="btn btn--bounty" href="#">become an officer</a>
+                <a class="btn btn--bounty" href="#">become a partner</a>
+            </div>
+
+            {% partial __SELF__ ~ '::statistic' %}
+
+        </div>
+    </div>
+</div>

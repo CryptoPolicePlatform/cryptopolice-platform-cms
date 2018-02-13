@@ -12,6 +12,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Platform\Components\PostDetails'      => 'CommunityPostDetails',
             'CryptoPolice\Platform\Components\PostComments'     => 'CommunityPostComments',
             'CryptoPolice\Platform\Components\Notifications'    => 'Notifications',
+            'CryptoPolice\Platform\Components\UserProfile'      => 'UserProfile',
         ];
     }
 

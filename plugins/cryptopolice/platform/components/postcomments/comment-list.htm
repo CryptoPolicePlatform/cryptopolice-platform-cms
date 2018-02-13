@@ -21,7 +21,7 @@
         <div class="card__footer">
             <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
                 {% if reply.childs %}
-                    {% partial CommunityPostComments ~ '::comments' childs =reply.childs %}
+                    {% partial CommunityPostComments ~ '::comment-list' childs =reply.childs %}
                 {% endif %}
             </div>
         </div>
