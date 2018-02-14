@@ -22,7 +22,11 @@
                     <ul class="card__ava-list">
                         <li class="card__ava  card__ava--author">
                             <a href="#">
-                                <img src="{{user.avatar.path}}" width="23" height="23" alt="Author">
+                                {% if user.avatar.path %}
+                                    <img src="{{user.avatar.path}}" width="23" height="23" title="Avatar" alt="Avatar">
+                                {% else %}
+                                    <img src="{{'assets/images/user.svg'|theme}}" width="23" height="23" title="Avatar" alt="Avatar">
+                                {% endif %}
                             </a>
                         </li>
                         <li class="card__ava">

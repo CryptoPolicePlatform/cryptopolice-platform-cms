@@ -2,6 +2,8 @@
 
     {{ form_ajax('onAddComment', { flash : '', model: CommunityComment }) }}
 
+    <p class="card__header" id="replies_to"></p>
+
         <div class="form__group">
             <textarea class="textarea" name="description" placeholder="Comment"></textarea>
         </div>
