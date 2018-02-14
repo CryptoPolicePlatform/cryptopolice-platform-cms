@@ -22,6 +22,14 @@
             <div class="card__date">{{ post.created_at }}</div>
         </div>
     </div>
-    <div class="card__status low"></div>
+
+    {% if post.views_count > 10 %}
+        <div class="card__status  high">high</div>
+    {% elseif  post.views_count %}
+        <div class="card__status  medium">medium</div>
+    {% else %}
+        <div class="card__status  low">low</div>
+    {% endif %}
+
     <br>
 </div>

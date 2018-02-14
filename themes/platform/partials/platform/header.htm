@@ -19,17 +19,16 @@
 
             <a class="header__name" href="{{'profile'|page}}">{% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {% endif %}</a>
 
-            <a class="header__nav-item" href="{{'notification'|page}}">
-                <span class="tool" data-tip="Notification" tabindex="1">
-                    {% if notifyCount %}
-                        <span class="header__mails-count"> {{ notifyCount }} </span>
-                    {% endif %}
+            <span class="tool" data-tip="Notification" tabindex="1">
+                    <a class="header__nav-item" href="{{'notification'|page}}">
+                        {% if notifyCount %} <span class="header__mails-count"> {{ notifyCount }} </span> {% endif %}
                     <img src="{{'assets/images/mail-ico.png'|theme}}" width="20" height="19" alt="">
+                    </a>
                 </span>
-            </a>
 
             <a class="header__nav-item" href="https://support.cryptopolice.com" target="_blank">
-                <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon" aria-hidden="true"></i></span>
+                <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon"
+                                                                      aria-hidden="true"></i></span>
             </a>
 
             <span class="tool" data-tip="Settings" tabindex="1">
@@ -45,8 +44,7 @@
                 </div>
             </span>
 
-            <a class="header__nav-item" data-request="onLogout" data-request-flash
-               data-request-data="redirect: '/login'">
+            <a class="header__nav-item" data-request="onLogout" data-request-flash data-request-data="redirect: '/login'">
                 <span class="tool" data-tip="Logout" tabindex="1"><i class="fa fa-sign-out header-icon" aria-hidden="true"></i></span>
             </a>
         </div>

@@ -31,6 +31,9 @@ $(function () {
 
         $('#replies_to').html('Reply to: <strong>' + $(this).closest('.card__date').find("strong").text() + '</strong> message');
         $('#comment_parent').val($(this).attr('id'));
+        $('html, body').stop().animate({
+            'scrollTop': $('#comment_form').offset().top - $(window).height()/2
+        }, 500);
 
     });
 

@@ -44,7 +44,7 @@ class Posts extends ComponentBase
                 $join->on('posts.id', '=', 'views.post_id');
             })
 
-            ->select(DB::raw('count(views.id) as post_views'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
+            ->select(DB::raw('count(views.id) as views_count'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
             ->where('posts.status', 1)
             ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')

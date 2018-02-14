@@ -6,16 +6,27 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 {
+
+    /*
+     * CryptoPolice Platform Tables
+     */
+
     public function up()
     {
+
+        // Update users nicknames
 
         $rows = DB::table('users')->get(['id', 'nickname', 'email']);
 
         foreach ($rows as $row) {
+
             $nickname = explode("@", $row->email);
-            DB::table('users')->where('id', $row->id)->update([
-                'nickname' => $nickname[0]
-            ]);
+
+            if($row->nickname == null) {
+                DB::table('users')->where('id', $row->id)->update([
+                    'nickname' => $nickname[0]
+                ]);
+            }
         }
 
         if (!Schema::hasTable('cryptopolice_platform_community_posts')) {
@@ -64,8 +75,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
         if (!Schema::hasTable('cryptopolice_platform_users_notifications')) {
 
-            Schema::create('cryptopolice_platform_users_notifications', function($table)
-            {
+            Schema::create('cryptopolice_platform_users_notifications', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
                 $table->integer('user_id');
@@ -94,9 +104,6 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
     public function down()
     {
-        //        Schema::dropIfExists('cryptopolice_platform_notifications');
-        //        Schema::dropIfExists('cryptopolice_platform_users_notifications');
-        //        Schema::dropIfExists('cryptopolice_platform_community_posts');
-        //        Schema::dropIfExists('cryptopolice_platform_community_comment');
+
     }
 }

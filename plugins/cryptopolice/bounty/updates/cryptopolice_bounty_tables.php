@@ -100,10 +100,5 @@ class CryptoPolicebountyBountyTables extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('cryptopolice_bounty_user_registration');
-        Schema::dropIfExists('cryptopolice_bounty_user_reports');
-        Schema::dropIfExists('cryptopolice_bounty_campaigns');
-        Schema::dropIfExists('cryptopolice_bounty_rewards');
-
     }
 }

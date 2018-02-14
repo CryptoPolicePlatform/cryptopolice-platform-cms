@@ -39,7 +39,7 @@
                             </a>
                         </li>
                         <li class="card__ava">
-                            Views: {{ communityPost.post_views }}
+                            Views: {{ communityPost.views_count }}
                         </li>
                     </ul>
                 </div>
@@ -54,8 +54,15 @@
                     </ul>
                 </div>
             </div>
-            <!-- NOTE: classes: low, medium, high -->
-            <div class="card__status  low">low</div>
+
+            {% if communityPost.views_count > 10 %}
+                    <div class="card__status  high">high</div>
+                {% elseif  communityPost.views_count %}
+                    <div class="card__status  medium">medium</div>
+                {% else %}
+                    <div class="card__status  low">low</div>
+            {% endif %}
+
         </div>
     </div>
 {% endfor %}
