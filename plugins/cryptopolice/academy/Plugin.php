@@ -54,7 +54,7 @@ class Plugin extends PluginBase
 
         Event::listen('rainlab.user.beforeRegister', function () {
 
-            //Recaptcha::verifyCaptcha();
+            Recaptcha::verifyCaptcha();
 
             $userPassword = post('password');
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
@@ -69,7 +69,7 @@ class Plugin extends PluginBase
 
         Event::listen('rainlab.user.beforeAuthenticate', function () {
 
-            // Recaptcha::verifyCaptcha();
+             Recaptcha::verifyCaptcha();
 
         });
 
@@ -98,46 +98,45 @@ class Plugin extends PluginBase
 
             // Extended Relations, pivot tables
 
-            $model->belongsToMany = [
+            $model->belongsToMany['bountyCampaigns'] = [
 
-                'bountyCampaigns' => ['CryptoPolice\Bounty\Models\Bounty',
-                    'table' => 'cryptopolice_bounty_user_registration',
-                    'pivot' => [
-                        'approval_type', 'status', 'id'
-                    ],
-                    'otherKey' => 'bounty_campaigns_id',
-                    'key' => 'user_id'
-                ],
+                'CryptoPolice\Bounty\Models\Bounty',
 
-                'bountyReports' => ['CryptoPolice\Bounty\Models\Bounty',
-                    'table' => 'cryptopolice_bounty_user_reports',
-                    'pivot' => [
-                        'report_status', 'reward_id', 'description', 'title', 'comment', 'fields_data', 'given_reward', 'id'
-                    ],
-                    'order' => [
-                        'cryptopolice_bounty_user_reports.created_at desc'
-                    ],
-                    'otherKey' => 'bounty_campaigns_id',
-                    'key' => 'user_id',
-                ]
+                'table'         => 'cryptopolice_bounty_user_registration',
+                'pivot'         => [ 'approval_type', 'status', 'id' ],
+                'otherKey'      => 'bounty_campaigns_id',
+                'key'           => 'user_id'
+            ];
 
+            $model->belongsToMany['bountyReports'] = [
+
+                'CryptoPolice\Bounty\Models\Bounty',
+
+                'table'         => 'cryptopolice_bounty_user_reports',
+                'pivot'         => [ 'report_status', 'reward_id', 'description', 'title', 'comment', 'fields_data', 'given_reward', 'id' ],
+                'order'         => [ 'cryptopolice_bounty_user_reports.created_at desc' ],
+                'otherKey'      => 'bounty_campaigns_id',
+                'key'           => 'user_id',
             ];
 
             $model->hasMany = [
 
-                'userReportList' => ['CryptoPolice\Bounty\Models\BountyReport',
-                    'table' => 'bounty_users_reports',
-                    'key' => 'user_id',
+                'userReportList' => [
+                    'CryptoPolice\Bounty\Models\BountyReport',
+                    'table'     => 'bounty_users_reports',
+                    'key'       => 'user_id',
                 ],
 
-                'userRegistrationList' => ['CryptoPolice\Bounty\Models\BountyRegistration',
-                    'table' => 'bounty_users_registration',
-                    'key' => 'user_id',
+                'userRegistrationList' => [
+                    'CryptoPolice\Bounty\Models\BountyRegistration',
+                    'table'     => 'bounty_users_registration',
+                    'key'       => 'user_id',
                 ],
 
-                'userCommunityPosts' => ['CryptoPolice\Platform\Models\CommunityPost',
-                    'table' => 'cryptopolice_platform_community_posts',
-                    'key' => 'user_id',
+                'userCommunityPosts' => [
+                    'CryptoPolice\Platform\Models\CommunityPost',
+                    'table'     => 'cryptopolice_platform_community_posts',
+                    'key'       => 'user_id',
                 ],
             ];
         });
@@ -160,10 +159,6 @@ class Plugin extends PluginBase
                     'tab' => 'Personal data'
                 ],
             ]);
-
-            // $configFile = plugins_path('rainlab/userplus/config/profile_fields.yaml');
-            // $config = Yaml::parse(File::get($configFile));
-            // $widget->addTabFields($config);
         });
     }
 }
