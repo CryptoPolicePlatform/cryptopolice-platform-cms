@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Platform\Updates;
 
+use DB;
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
@@ -7,6 +8,15 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 {
     public function up()
     {
+
+        $rows = DB::table('users')->get(['id', 'nickname', 'email']);
+
+        foreach ($rows as $row) {
+            $nickname = explode("@", $row->email);
+            DB::table('users')->where('id', $row->id)->update([
+                'nickname' => $nickname[0]
+            ]);
+        }
 
         if (!Schema::hasTable('cryptopolice_platform_community_posts')) {
 
@@ -23,6 +33,16 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();
+            });
+        }
+
+        if (!Schema::hasTable('cryptopolice_platform_community_post_views')) {
+
+            Schema::create('cryptopolice_platform_community_post_views', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id');
+                $table->integer('user_id')->nullable();
+                $table->integer('post_id')->nullable();
             });
         }
 
@@ -74,9 +94,9 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('cryptopolice_platform_notifications');
-        Schema::dropIfExists('cryptopolice_platform_users_notifications');
-        Schema::dropIfExists('cryptopolice_platform_community_posts');
-        Schema::dropIfExists('cryptopolice_platform_community_comment');
+        //        Schema::dropIfExists('cryptopolice_platform_notifications');
+        //        Schema::dropIfExists('cryptopolice_platform_users_notifications');
+        //        Schema::dropIfExists('cryptopolice_platform_community_posts');
+        //        Schema::dropIfExists('cryptopolice_platform_community_comment');
     }
 }

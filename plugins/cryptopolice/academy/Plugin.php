@@ -22,13 +22,13 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'CryptoPolice\Academy\Components\Exams'            => 'Exams',
-            'CryptoPolice\Academy\Components\ExamTask'         => 'ExamTask',
-            'CryptoPolice\Academy\Components\Recaptcha'        => 'reCaptcha',
-            'CryptoPolice\Academy\Components\Trainings'        => 'Trainings',
-            'CryptoPolice\Academy\Components\ProfileForm'      => 'ProfileForm',
-            'CryptoPolice\Academy\Components\TrainingTask'     => 'TrainingTask',
-            'CryptoPolice\Academy\Components\CustomUploader'   => 'CustomUploader',
+            'CryptoPolice\Academy\Components\Exams' => 'Exams',
+            'CryptoPolice\Academy\Components\ExamTask' => 'ExamTask',
+            'CryptoPolice\Academy\Components\Recaptcha' => 'reCaptcha',
+            'CryptoPolice\Academy\Components\Trainings' => 'Trainings',
+            'CryptoPolice\Academy\Components\ProfileForm' => 'ProfileForm',
+            'CryptoPolice\Academy\Components\TrainingTask' => 'TrainingTask',
+            'CryptoPolice\Academy\Components\CustomUploader' => 'CustomUploader',
         ];
     }
 
@@ -36,10 +36,10 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
-                'label'       => 'Academy Plugin',
+                'label' => 'Academy Plugin',
                 'description' => 'CryptoPolice Academy Plugin',
-                'icon'        => 'icon-users',
-                'class'       => 'CryptoPolice\Academy\Models\Settings',
+                'icon' => 'icon-users',
+                'class' => 'CryptoPolice\Academy\Models\Settings',
             ]
         ];
     }
@@ -69,7 +69,14 @@ class Plugin extends PluginBase
 
         Event::listen('rainlab.user.beforeAuthenticate', function () {
 
-           // Recaptcha::verifyCaptcha();
+            // Recaptcha::verifyCaptcha();
+
+        });
+
+        Event::listen('rainlab.user.register', function ($user) {
+
+            $nickname = explode("@", $user->email);
+            $user->update(['nickname' => $nickname[0]]);
 
         });
 
@@ -105,7 +112,7 @@ class Plugin extends PluginBase
                 'bountyReports' => ['CryptoPolice\Bounty\Models\Bounty',
                     'table' => 'cryptopolice_bounty_user_reports',
                     'pivot' => [
-                        'report_status', 'reward_id', 'description', 'title', 'comment', 'fields_data','given_reward', 'id'
+                        'report_status', 'reward_id', 'description', 'title', 'comment', 'fields_data', 'given_reward', 'id'
                     ],
                     'order' => [
                         'cryptopolice_bounty_user_reports.created_at desc'

@@ -28,23 +28,27 @@ class Posts extends ComponentBase
     {
 
         $posts = Db::table('cryptopolice_platform_community_posts as posts')
+
             ->join('users', 'posts.user_id', 'users.id')
 
             ->leftJoin('system_files as users_files', function ($join) {
                 $join->on('users.id', '=', 'users_files.attachment_id')
                     ->where('users_files.attachment_type', 'RainLab\User\Models\User');
             })
-
             ->leftJoin('system_files as posts_files', function ($join) {
                 $join->on('posts.id', '=', 'posts_files.attachment_id')
                     ->where('posts_files.attachment_type', 'CryptoPolice\Platform\Models\CommunityPost');
             })
 
+            ->leftJoin('cryptopolice_platform_community_post_views as views', function ($join) {
+                $join->on('posts.id', '=', 'views.post_id');
+            })
 
-            ->select('users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
+            ->select(DB::raw('count(views.id) as post_views'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
             ->where('posts.status', 1)
             ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')
+            ->groupBy('posts.id')
             ->get();
 
         foreach ($posts as $key => $value) {

@@ -100,7 +100,6 @@ class ProfileForm extends ComponentBase
 
         if (input('_token') == Session::token()) {
 
-            trace_log(post());
             $user = Auth::getUser();
             foreach (post() as $key => $value) {
                 if ($user[$key] == post($key)) {
