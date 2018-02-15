@@ -7,7 +7,13 @@
             <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
         {% endif %}
         <div class="profile__name">
-            {% if not user.name %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}
+
+            {% if user.nickname %}
+                {{ user.nickname }}
+            {% else %}
+                {{ user.email|slice(0, 3)}}*****@***{{ user.email|slice(user.email.length - 4, user.email.length) }}
+            {% endif %}
+
         </div>
         <div class="profile__block">
             <p>Name: <b> {{ user.name }} </b></p>

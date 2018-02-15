@@ -1,30 +1,16 @@
 <div class="content__block">
     <h3 class="content__title">Notifications</h3>
-
     <div class="issues">
-
         {% for notify in notifications %}
-        <div class="issues__item">
-
-            <div class="issues__type"> №{{ loop.index}}</div>
-            <div class="issues__title notify_title">
-                <a href="#" id="{{ notify.id }}" data-request="onCheckNotification" data-request-data="id:{{ notify.id }}" data-request-update="'Notifications::notify-status': '#status_{{notify.id }}'">
-                    {{ notify.title }}
-                </a>
+            <div class="issues__item">
+                <div class="issues__type"> №{{ loop.index}}</div>
+                <div class="issues__title notify_title">
+                    <a href="#" id="{{ notify.id }}" data-request="onCheckNotification" data-request-data="id:{{ notify.id }}" data-request-update="'Notifications::notify-status': '#status_{{notify.id }}'">{{ notify.title }}</a>
+                </div>
+                {{ notify.created_at }}
+                <div class="issues__status" id="status_{{ notify.id }}"> {% partial Notification ~ '::notify-status' notify = notify %} </div>
             </div>
-
-            {{ notify.created_at }}
-
-            <div class="issues__status" id="status_{{ notify.id }}">
-                {% partial Notification ~ '::notify-status' notify = notify %}
-            </div>
-
-        </div>
-
-        <div class="issues__item" id="description_{{ notify.id }}" style="display:none;">
-            {{ notify.description|raw }}
-        </div>
-
+            <div style="display:none;" class="issues__item" id="description_{{ notify.id }}">{{ notify.description|raw }} </div>
         {% endfor %}
     </div>
 </div>

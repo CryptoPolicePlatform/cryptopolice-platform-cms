@@ -1,16 +1,12 @@
 <div class="card post_item">
-    <div style="width: 100%;" class="choose__post">
-
+    <div class="choose__post">
         {{ form_ajax('onAddPost', { flash : '', model: CommunityPost }) }}
-
             <div class="post_uploader">
                 {% component 'imageUploader' %}
             </div>
-
             <div class="card__header">
-                <input style="width:55%;" type="text" class="input" name="title" placeholder="title"/>
+                <input style="width:55%;" class="input" name="title" placeholder="title"/>
             </div>
-
             <div class="form__group">
                 <div style="height:auto" class="card__content">
                     <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
@@ -30,13 +26,11 @@
                             </a>
                         </li>
                         <li class="card__ava">
-                            <button class="btn  btn--gpink" type="submit">Post</button>
+                            <button class="btn  btn--gpink">Post</button>
                         </li>
                     </ul>
                 </div>
             </div>
-
         {{ form_close() }}
-        
     </div>
 </div>

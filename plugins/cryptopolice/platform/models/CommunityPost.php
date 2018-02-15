@@ -19,7 +19,9 @@ class CommunityPost extends Model
     public $rules = [
     ];
 
-
+    /*
+     * Relations
+     */
     public $belongsTo = [
 
         'user' => [

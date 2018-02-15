@@ -36,7 +36,7 @@ class Posts extends ComponentBase
     public function onGetPosts()
     {
 
-        if(post('search')) {
+        if (post('search')) {
             if (input('_token') != Session::token()) {
                 return;
             }
@@ -94,21 +94,17 @@ class Posts extends ComponentBase
             $validator = Validator::make(input(), $rules);
 
             if ($validator->fails()) {
-                $messages = $validator->messages();
-                foreach ($messages->all() as $message) {
-                    Flash::error($message);
-                }
+                Flash::error($validator->messages()->first());
             } else {
 
-                $getLastPost = CommunityPost::where('user_id', $user->id)->orderBy('created_at', 'desc')->first();
+                $previousPost = CommunityPost::where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
 
-
-                if (isset($getLastPost->created_at) && !empty($getLastPost->created_at)) {
-                    $diffInMinutes = Carbon::now()->diffInMinutes(Carbon::parse($getLastPost->created_at));
-                    if ($diffInMinutes < 10) {
-                        Flash::error('You will be able to post after ' . (10 - $diffInMinutes) . ' min(s)');
-                        return;
-                    }
+                $minutes = $this->compareDates($previousPost->created_at);
+                if ($minutes < 10) {
+                    Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
+                    return false;
                 }
 
                 $html = Markdown::parse(strip_tags(input('description')));
@@ -117,11 +113,18 @@ class Posts extends ComponentBase
                 $post->post_title = input('title');
                 $post->post_description = $html;
                 $post->user_id = $user->id;
-                $post->save(null, post('_session_key'));
+                $post->save();
 
                 Flash::success('Post has been successfully added');
                 return redirect()->back();
             }
+        }
+    }
+
+    public function compareDates($date)
+    {
+        if (isset($date) && !empty($date)) {
+            return Carbon::now()->diffInMinutes(Carbon::parse($date));
         }
     }
 }

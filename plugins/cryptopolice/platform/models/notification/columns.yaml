@@ -9,8 +9,23 @@ columns:
         type: text
         searchable: true
         sortable: true
-    description:
-        label: Description
+    announcement_at:
+        label: Announcement at
+        type: datetime
+        searchable: true
+        sortable: true
+    status:
+        label: Status
         type: text
+        searchable: true
+        sortable: true
+    created_at:
+        label: Created at
+        type: datetime
+        searchable: true
+        sortable: true
+    update_at:
+        label: Updated at
+        type: datetime
         searchable: true
         sortable: true

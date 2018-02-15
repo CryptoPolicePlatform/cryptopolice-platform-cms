@@ -23,13 +23,12 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'CryptoPolice\Academy\Components\Exams' => 'Exams',
-            'CryptoPolice\Academy\Components\ExamTask' => 'ExamTask',
-            'CryptoPolice\Academy\Components\Recaptcha' => 'reCaptcha',
-            'CryptoPolice\Academy\Components\Trainings' => 'Trainings',
-            'CryptoPolice\Academy\Components\ProfileForm' => 'ProfileForm',
-            'CryptoPolice\Academy\Components\TrainingTask' => 'TrainingTask',
-            'CryptoPolice\Academy\Components\CustomUploader' => 'CustomUploader',
+            'CryptoPolice\Academy\Components\Exams'         => 'Exams',
+            'CryptoPolice\Academy\Components\ExamTask'      => 'ExamTask',
+            'CryptoPolice\Academy\Components\Recaptcha'     => 'reCaptcha',
+            'CryptoPolice\Academy\Components\Trainings'     => 'Trainings',
+            'CryptoPolice\Academy\Components\ProfileForm'   => 'ProfileForm',
+            'CryptoPolice\Academy\Components\TrainingTask'  => 'TrainingTask'
         ];
     }
 
@@ -37,10 +36,10 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
-                'label' => 'Academy Plugin',
-                'description' => 'CryptoPolice Academy Plugin',
-                'icon' => 'icon-users',
-                'class' => 'CryptoPolice\Academy\Models\Settings',
+                'label'         => 'Academy Plugin',
+                'description'   => 'CryptoPolice Academy Plugin',
+                'icon'          => 'icon-users',
+                'class'         => 'CryptoPolice\Academy\Models\Settings',
             ]
         ];
     }
@@ -51,34 +50,29 @@ class Plugin extends PluginBase
         $this->extendUserModel();
         $this->extendUsersController();
 
-        // For registration form
+        // Password validation before registraion
 
         Event::listen('rainlab.user.beforeRegister', function () {
-
             Recaptcha::verifyCaptcha();
-
             $userPassword = post('password');
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
                 throw new ValidationException([
                     'password' => 'Password should contain at least one letter character'
                 ]);
             }
-
         });
 
-        // For login form
+        // verify recaptcha before user try to login into paltform
 
         Event::listen('rainlab.user.beforeAuthenticate', function () {
-
-             Recaptcha::verifyCaptcha();
-
+            Recaptcha::verifyCaptcha();
         });
 
-        Event::listen('rainlab.user.register', function ($user) {
+        // set users nickname as a first part of an email addres
 
+        Event::listen('rainlab.user.register', function ($user) {
             $nickname = explode("@", $user->email);
             $user->update(['nickname' => $nickname[0]]);
-
         });
 
     }
@@ -86,6 +80,8 @@ class Plugin extends PluginBase
     protected function extendUserModel()
     {
         UserModel::extend(function ($model) {
+
+            // set fillable fields to User model
 
             $model->addFillable([
                 'telegram_username',
@@ -97,27 +93,23 @@ class Plugin extends PluginBase
                 'btc_link',
             ]);
 
-            // Extended Relations, pivot tables
+            // Extended Relations for user Model
 
             $model->belongsToMany['bountyCampaigns'] = [
-
                 'CryptoPolice\Bounty\Models\Bounty',
-
-                'table'         => 'cryptopolice_bounty_user_registration',
-                'pivot'         => [ 'approval_type', 'status', 'id' ],
-                'otherKey'      => 'bounty_campaigns_id',
-                'key'           => 'user_id'
+                'table'     => 'cryptopolice_bounty_user_registration',
+                'pivot'     => ['approval_type', 'status', 'id'],
+                'otherKey'  => 'bounty_campaigns_id',
+                'key'       => 'user_id'
             ];
 
             $model->belongsToMany['bountyReports'] = [
-
                 'CryptoPolice\Bounty\Models\Bounty',
-
-                'table'         => 'cryptopolice_bounty_user_reports',
-                'pivot'         => [ 'report_status', 'reward_id', 'description', 'title', 'comment', 'fields_data', 'given_reward', 'id' ],
-                'order'         => [ 'cryptopolice_bounty_user_reports.created_at desc' ],
-                'otherKey'      => 'bounty_campaigns_id',
-                'key'           => 'user_id',
+                'table'     => 'cryptopolice_bounty_user_reports',
+                'pivot'     => ['report_status', 'reward_id', 'description', 'title', 'comment', 'fields_data', 'given_reward', 'id'],
+                'order'     => ['cryptopolice_bounty_user_reports.created_at desc'],
+                'otherKey'  => 'bounty_campaigns_id',
+                'key'       => 'user_id',
             ];
 
             $model->hasMany = [
@@ -149,9 +141,12 @@ class Plugin extends PluginBase
         UsersController::extendFormFields(function ($widget) {
 
             // Prevent extending of related form instead of the intended User form
+
             if (!$widget->model instanceof UserModel) {
                 return;
             }
+
+            // Tab field for ehtereum waller address
 
             $widget->addTabFields([
                 'eth_address' => [

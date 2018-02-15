@@ -2,23 +2,8 @@ fields:
     post_title:
         label: 'Post Title'
         oc.commentPosition: ''
-        span: auto
+        span: left
         type: text
-    post_description:
-        label: Description
-        oc.commentPosition: ''
-        span: auto
-        type: richeditor
-    status:
-        label: Status
-        oc.commentPosition: ''
-        span: auto
-        type: switch
-    pin:
-        label: Pin
-        oc.commentPosition: ''
-        span: auto
-        type: switch
     post_image:
         label: Image
         oc.commentPosition: ''
@@ -32,10 +17,27 @@ fields:
         span: auto
         type: fileupload
     slug:
-        label: Text
+        label: Slug
         oc.commentPosition: ''
-        span: auto
+        span: left
         preset:
             field: post_title
             type: slug
         type: text
+    post_description:
+        label: Description
+        oc.commentPosition: ''
+        span: full
+        size: huge
+        type: richeditor
+    status:
+        label: Status
+        oc.commentPosition: ''
+        span: auto
+        type: switch
+    pin:
+        label: Pin
+        oc.commentPosition: ''
+        span: auto
+        type: switch
+

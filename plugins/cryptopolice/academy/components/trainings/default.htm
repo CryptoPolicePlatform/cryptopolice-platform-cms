@@ -1,5 +1,4 @@
 {% if this.param.slug %}
-
     <ul class="courses">
         {% for training in trainings %}
         <li class="courses__item">
@@ -12,9 +11,7 @@
         <li class="courses__item"><h4 class="content__title">Nothing here</h4></li>
         {% endfor %}
     </ul>
-
 {% else%}
-
     <ul class="courses">
         {% for trainingcat in trainings %}
         <li class="courses__item">
@@ -27,7 +24,6 @@
         <li class="courses__item"><h4 class="content__title">Nothing here...</h4></li>
         {% endfor %}
     </ul>
-
 {% endif %}
 
 {% if trainings|length == 10 %}

@@ -1,8 +1,6 @@
 <ul class="courses">
     {% for exam in Exams.exams %}
-
     <li class="courses__item">
-
         {% set break = false %}
 
             {% for score in Exams.scores if not break %}
@@ -22,7 +20,6 @@
 
             {% set break = false %}
                 {% for score in Exams.scores if not break %}
-
                     {% if score.exam_id == exam.id %}
                         {% set break = true %}
                             {% if score.complete_status == 1 %}
@@ -32,7 +29,6 @@
                             {% endif %}
                     {% endif %}
                 {% endfor %}
-
             {% if not break %}
             <span class="courses__score"><span> 0 / {{ exam.question_count }}</span></span>
             {% endif %}

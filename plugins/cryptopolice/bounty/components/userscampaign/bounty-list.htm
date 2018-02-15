@@ -5,53 +5,37 @@
         <div class="issues">
 
             {% for bounty in bountyList %}
-
             <div class="issues__item  issues__item--history">
                 <div class="issues__type">#{{bounty.title|upper|slice(0, 2)}}</div>
                 <div class="issues__title">  <a style="color:black;" href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">{{ bounty.title }} Campaign</a></div>
                 <div class="issues__view">
                     <a href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">View details</a>
                 </div>
-
                 <div class="issues__amount">
                     <span class="text">{{ bounty.percentage }}%</span>
                 </div>
 
                 {% set flag = true %}
                 {% for registered in registeredUsersCampaign %}
-
                     {% if registered.bounty_campaigns_id == bounty.id %}
-
                         {% set flag = false %}
                         {% if registered.status %}
                             {% if registered.approval_type == 0 %}
-                                <div class="issues__status  issues__status--big  issues__status--orange">
-                                    <span>pending</span>
-                                </div>
+                                <div class="issues__status  issues__status--big  issues__status--orange"><span>pending</span></div>
                             {% else %}
-                                <div class="issues__status  issues__status--big  issues__status--green">
-                                    <span>Registered</span>
-                                </div>
+                                <div class="issues__status  issues__status--big  issues__status--green"><span>Registered</span></div>
                             {% endif %}
                         {% else %}
-                            <div class="issues__status  issues__status--big  issues__status--gray">
-                                <span>Blocked</span>
-                            </div>
+                            <div class="issues__status  issues__status--big  issues__status--gray"><span>Blocked</span></div>
                         {% endif %}
-
                     {% endif %}
-
                 {% endfor %}
-
                 {% if flag %}
-                    <div class="issues__status  issues__status--big  issues__status--orange">
-                        <span>Active</span>
-                    </div>
+                    <div class="issues__status  issues__status--big  issues__status--orange"> <span>Active</span></div>
                 {% endif %}
-
             </div>
-
             {% endfor %}
+
         </div>
     </div>
 </div>

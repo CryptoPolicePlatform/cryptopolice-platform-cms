@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Bounty\Models;
 
+use CryptoPolice\Platform\Models\Notification;
 use Mail;
 use Model;
 use Flash;
@@ -11,7 +12,7 @@ use RainLab\User\Models\User;
 class BountyRegistration extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -50,23 +51,43 @@ class BountyRegistration extends Model
      */
     public $table = 'cryptopolice_bounty_user_registration';
 
-    //    public function afterUpdate() {
-    //
-    //        if(isset($this->user_id) && !empty($this->user_id)) {
-    //
-    //            $user = User::where('id', $this->user_id)->first();
-    //
-    //            $vars = [
-    //                'name' => $user->full_name,
-    //                'mail' => $user->email,
-    //            ];
-    //
-    //            Mail::send('cryptopolice.bounty::mail.registration_bounty_message', $vars, function ($message) use ($user) {
-    //                $message->to($user->email, $user->full_name)->subject('Bounty Campaign Registration');
-    //            });
-    //        }
-    //        Flash::success('Mail ['.$user->email.'] has been send');
-    //    }
+    public function afterUpdate()
+    {
+
+        if (isset($this->user_id) && !empty($this->user_id)) {
+
+            $user = User::where('id', $this->user_id)->first();
+            $campaign = Bounty::where('id', $this->bounty_campaigns_id)->first();
+
+            $this->addUsersNotification($campaign);
+            // $this->sendMail($user);
+            Flash::success('Mail & notification for [' . $user->email . '] has been send');
+
+        } else {
+            Flash::error('User is undefined');
+        }
+    }
 
 
+    public function addUsersNotification($bounty)
+    {
+        $notify = new Notification();
+        $notify->user_id = $this->user_id;
+        $notify->title = 'Thank you for your registration in CryptoPolice ' . $bounty->title ?: $bounty->title. ' Bounty campaign';
+        $notify->description = 'Now you can make you reports basing on the conditions of the campaign';
+        $notify->save();
+    }
+
+    public function sendMail($user)
+    {
+        $vars = [
+            'name' => $user->full_name,
+            'mail' => $user->email
+        ];
+
+        Mail::send('cryptopolice.bounty::mail.registration_bounty_message', $vars, function ($message) use ($user) {
+            $message->to($user->email, $user->full_name)->subject('Bounty Campaign Registration');
+        });
+
+    }
 }

@@ -1,10 +1,11 @@
 <?php namespace CryptoPolice\Bounty\Models;
 
-use Model;
-use Flash;
 use Mail;
+use Flash;
+use Model;
 use ValidationException;
 use October\Rain\Auth\Models\User;
+use CryptoPolice\Platform\Models\Notification;
 
 /**
  * Model
@@ -85,58 +86,57 @@ class BountyReport extends Model
     {
 
         $data = input();
-
+        $report = $data['BountyReport'];
         // Entered reward amount validation
-        if (!preg_match('/^[0-9]+$/', $data['BountyReport']['given_reward'])) {
+        if (!preg_match('/^[0-9]+$/', $report['given_reward'])) {
             $message = 'Please, Enter valid number';
         }
 
-        if (!isset($data['BountyReport']['report_status'])) {
+        if (!isset($report['report_status'])) {
             throw new ValidationException([
                 'message' => 'Please, select report status'
             ]);
         }
 
-
         // If selected type is "None"
-        if ($data['BountyReport']['reward'] == 1) {
+        if ($report['reward'] == 1) {
 
             // If entered given reward is greater than zero
-            if ($data['BountyReport']['given_reward'] > 0) {
+            if ($report['given_reward'] > 0) {
                 $message = 'Reward should be 0 "Tokens" or "Stakes"';
             }
 
             // If selected reports status is approved
-            if ($data['BountyReport']['report_status'] == 1) {
+            if ($report['report_status'] == 1) {
                 $message = 'Reports status should be selected as "Disapproved", because selected reward type is "None"';
             }
         }
 
         // If selected type is not "None"
-        if ($data['BountyReport']['reward'] > 1) {
+        if ($report['reward'] > 1) {
 
             // If entered given reward is zero
-            if ($data['BountyReport']['given_reward'] == 0) {
+            if ($report['given_reward'] == 0) {
                 $message = 'Reward should be more the 0 "Tokens" or "Stakes", if selected type is not "None"';
             }
 
             // If selected reports status is disapproved
-            if ($data['BountyReport']['report_status'] == 2) {
+            if ($report['report_status'] == 2) {
                 $message = 'Reports status should be selected as "Approved"';
             }
         }
 
         // Entered reward amount is greater than selected reward type minimum
-        if(isset($this->reward->reward_amount_max)) {
-            if ($data['BountyReport']['given_reward'] > $this->reward->reward_amount_max) {
-                $message = 'Entered reward amount (' . $data['BountyReport']['given_reward'] . ') is higher then (' . $this->reward->reward_amount_max . ')';
+        if (isset($this->reward->reward_amount_max)) {
+            if ($report['given_reward'] > $this->reward->reward_amount_max) {
+                $message = 'Entered reward amount (' . $report['given_reward'] . ') is higher then (' . $this->reward->reward_amount_max . ')';
             }
         }
 
-        if(isset($this->reward->reward_amount_min)) {
+        if (isset($this->reward->reward_amount_min)) {
             // Entered reward amount is greater than selected reward type maximum
-            if ($data['BountyReport']['given_reward'] < $this->reward->reward_amount_min) {
-                $message = 'Given reward amount: ' . $data['BountyReport']['given_reward'] . ' is less then (' . $this->reward->reward_amount_min . ')';
+            if ($report['given_reward'] < $this->reward->reward_amount_min) {
+                $message = 'Given reward amount: ' . $report['given_reward'] . ' is less then (' . $this->reward->reward_amount_min . ')';
             }
         }
 
@@ -169,23 +169,44 @@ class BountyReport extends Model
     }
 
 
-    //    public function afterUpdate()
-    //    {
-    //
-    //        if (isset($this->user_id) && !empty($this->user_id)) {
-    //
-    //            $user = User::where('id', $this->user_id)->first();
-    //
-    //            $vars = [
-    //                'name' => $user->full_name,
-    //                'mail' => $user->email,
-    //            ];
-    //
-    //            Mail::send('cryptopolice.bounty::mail.report_bounty_message', $vars, function ($message) use ($user) {
-    //                $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
-    //            });
-    //        }
-    //        Flash::success('Mail [' . $user->email . '] has been send');
-    //    }
+    public function afterUpdate()
+    {
 
+        if (isset($this->user_id) && !empty($this->user_id)) {
+
+            $user = User::where('id', $this->user_id)->first();
+            $campaign = Bounty::where('id', $this->bounty_campaigns_id)->first();
+
+            $this->addUsersNotification($campaign);
+            // $this->sendMail($user);
+
+            Flash::success('Mail & notification for [' . $user->email . '] has been send');
+
+        } else {
+            Flash::error('User is undefined');
+        }
+    }
+
+
+    public function addUsersNotification($bounty)
+    {
+        $notify = new Notification();
+        $notify->user_id = $this->user_id;
+        $notify->title = 'Your ' . $bounty->title . ' Bounty campaign report was reviewed!';
+        $notify->description = 'For more information please go to your CryptoPolice Bounty campaign profile.';
+        $notify->save();
+    }
+
+    public function sendMail($user)
+    {
+        $vars = [
+            'name' => $user->full_name,
+            'mail' => $user->email
+        ];
+
+        Mail::send('cryptopolice.bounty::mail.report_bounty_message', $vars, function ($message) use ($user) {
+            $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
+        });
+
+    }
 }

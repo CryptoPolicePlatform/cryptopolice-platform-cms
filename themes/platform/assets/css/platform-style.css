@@ -4525,7 +4525,7 @@ html.remodal-is-locked {
 }
 
 .card__content {
-    height: 35px;
+    height: auto;
     overflow: hidden;
     font-size: 12px;
     color: #333333;

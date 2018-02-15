@@ -16,7 +16,7 @@
                     {{ communityUser.email|slice(0, 3)}}*****@***{{ communityUser.email|slice(communityUser.email.length - 4, communityUser.email.length) }}
                 {% endif %}
             </div>
-            <div class="stat__text"> {{ communityUser.last_seen }}</div>
+            <div class="stat__text"> {{ communityUser.last_seen }} </div>
         </div>
         {% endfor %}
     </div>

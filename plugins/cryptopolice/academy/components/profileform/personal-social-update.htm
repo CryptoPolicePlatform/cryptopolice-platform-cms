@@ -1,32 +1,26 @@
 {{ form_ajax('onUpdateSocialNetworks', { flash : '', model: user }) }}
-    <div style="margin-top:20px" class="profile__card">
+    <div class="profile__card profile_form">
         <h3 class="content__title">Social networks</h3>
-
         <div class="form__group">
             <label for="twitter_link">Twitter account</label>
             <input class="input" type="text" name="twitter_link" id="twitter_link" value="{{user.twitter_link}}">
         </div>
-
         <div class="form__group">
             <label for="facebook_link">Facebook account</label>
             <input class="input" type="text" name="facebook_link" id="facebook_link" value="{{user.facebook_link}}">
         </div>
-
         <div class="form__group">
             <label for="telegram_username">Telegram account</label>
             <input class="input" type="text" name="telegram_username" id="telegram_username" value="{{user.telegram_username}}">
         </div>
-
         <div class="form__group">
             <label for="btc_link">BitcoinTalks account</label>
             <input class="input" type="text" name="btc_link" id="btc_link" value="{{user.btc_link}}">
         </div>
-
         <div class="form__group">
             <label for="youtube_link">Youtube chanel</label>
             <input class="input" type="text" name="youtube_link" id="youtube_link" value="{{user.youtube_link}}">
         </div>
-
         <button id="captcha_social" class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Networks</button>
     </div>
 {{ form_close() }}

@@ -31,16 +31,12 @@ class UsersCampaign extends ComponentBase
         $this->page['profileStatistic'] = $this->getProfileStatistic();
 
         if (!empty($this->param('slug'))) {
-
             $this->getUsersAccess();
             $this->getRegisteredUsersCount();
             $this->page['campaignReports'] = $this->getCampaignReports();
-
         } else {
-
             $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
             $this->page['usersReports'] = $this->getUsersReports();
-
         }
     }
 
@@ -229,10 +225,7 @@ class UsersCampaign extends ComponentBase
         // check validation
         $validator = Validator::make($data, $rules);
         if ($validator->fails()) {
-            $messages = $validator->messages();
-            foreach ($messages->all() as $message) {
-                Flash::error($message);
-            }
+            Flash::error($validator->messages()->first());
         } else {
             return true;
         }

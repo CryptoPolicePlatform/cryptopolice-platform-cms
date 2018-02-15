@@ -10,18 +10,15 @@
     </div>
     
     {% for field in report.description %}
-
         <div class="card__header report_title"> {{ field.title|replace({'_': ' '})|capitalize }}  </div>
         {% if field.title == 'email' %}
             <div class="card__content report_content"> {{ field.value|slice(0, 3)}}*****@****.com </div>
         {% else %}
             <div class="card__content report_content"> {{ field.value }} </div>
         {% endif %}
-
     {% endfor %}
 
     <div class="card__footer">
-
         <div class="card__footer-left">
             <ul class="card__ava-list">
                 <li class="card__ava  card__ava--author">
@@ -29,11 +26,9 @@
                 </li>
             </ul>
         </div>
-
         <div class="card__footer-right">
             <div class="card__date">{{ report.created_at }}</div>
         </div>
-
     </div>
 
     {% if report.report_status == 1 %}
@@ -43,6 +38,7 @@
     {% else %}
         <div class="card__status  medium">P</div>
     {% endif %}
+
 </div>
 
 
@@ -54,9 +50,7 @@
         <div class="card__footer">
             <div class="card__footer-left">
                 <ul class="card__ava-list">
-                    <li class="card__ava  card__ava--author">
-                        Reward
-                    </li>
+                    <li class="card__ava  card__ava--author"> Reward </li>
                     <li class="card__ava">
                         {% if report.type == 1 %}
                             {% if report.given_reward != 0 %} {{ report.given_reward }} OFC {% else %} 0 {% endif %}
@@ -69,4 +63,3 @@
         </div>
     </div>
 {% endif %}
-

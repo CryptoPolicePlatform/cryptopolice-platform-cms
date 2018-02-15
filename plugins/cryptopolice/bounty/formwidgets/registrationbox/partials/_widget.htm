@@ -3,10 +3,6 @@
 	<p>
 		<label><strong><?php echo $value['title']; ?></strong></label>
 		<input class="form-control" type="text" value="<?php echo $value['value']; ?>" readonly="readonly">
-
-		<?php if (strpos($value['title'],'link') !== false || strpos($value['title'],'chanel') !== false) { ?>
-			<a target="_blank" href="<?php echo $value['value']; ?>"> Link </a>
-		<?php } ?>
-
+		<?php if (strpos($value['title'],'link') !== false || strpos($value['title'],'chanel') !== false) { ?><a target="_blank" href="<?php echo $value['value']; ?>"> Link </a><?php } ?>
 	</p>
 <?php endforeach; }?>

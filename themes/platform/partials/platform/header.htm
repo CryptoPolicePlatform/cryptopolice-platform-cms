@@ -15,8 +15,7 @@
                 {% if user.avatar.path %}
                 <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
                 {% else %}
-                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30"
-                     alt="user-avatar">
+                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                 {% endif %}
             </a>
 
@@ -31,8 +30,7 @@
             </span>
 
             <a class="header__nav-item" href="https://support.cryptopolice.com" target="_blank">
-                <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon"
-                                                                      aria-hidden="true"></i></span>
+                <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon"aria-hidden="true"></i></span>
             </a>
 
             <span class="tool" data-tip="Settings" tabindex="1">
@@ -42,8 +40,7 @@
                     </button>
                     <ul class="dropdown  dropdown--right" data-dropdown>
                         <li>
-                            <a class="dropdown__link" href="{{ 'profile'|page }}"><i
-                                    class="fa fa-save"></i> Settings </a>
+                            <a class="dropdown__link" href="{{ 'profile'|page }}"><i class="fa fa-save"></i> Settings </a>
                         </li>
                     </ul>
                 </div>
@@ -51,8 +48,7 @@
 
             <a class="header__nav-item" data-request="onLogout" data-request-flash
                data-request-data="redirect: '/login'">
-                <span class="tool" data-tip="Logout" tabindex="1"><i class="fa fa-sign-out header-icon"
-                                                                     aria-hidden="true"></i></span>
+                <span class="tool" data-tip="Logout" tabindex="1"><i class="fa fa-sign-out header-icon" aria-hidden="true"></i></span>
             </a>
         </div>
 

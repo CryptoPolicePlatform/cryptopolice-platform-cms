@@ -9,9 +9,21 @@ columns:
         type: text
         searchable: true
         sortable: true
-    post_description:
-        label: Description
+    user_id:
+        label: User
         type: text
+        searchable: true
+        sortable: true
+        select: 'concat(''['',name,''] '', email)'
+        relation: user
+    created_at:
+        label: Created at
+        type: datetime
+        searchable: true
+        sortable: true
+    update_at:
+        label: Updated at
+        type: datetime
         searchable: true
         sortable: true
     status:

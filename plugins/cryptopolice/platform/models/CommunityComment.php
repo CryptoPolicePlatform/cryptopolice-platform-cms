@@ -17,6 +17,7 @@ class CommunityComment extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'description' => 'required|min:0|max:10000'
     ];
 
     public $belongsTo = [

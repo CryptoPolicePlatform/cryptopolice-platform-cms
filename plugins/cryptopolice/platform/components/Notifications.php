@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
+use DB;
 use Auth;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
@@ -29,24 +30,31 @@ class Notifications extends ComponentBase
     public function getNotifyList()
     {
 
-        return Notification::leftJoin('cryptopolice_platform_users_notifications as users_notifications', function ($join) {
-            $user = Auth::getUser();
-            $join->on('cryptopolice_platform_notifications.id', '=', 'users_notifications.notification_id')
-                ->where('users_notifications.user_id', $user->id);
-        })
-            ->where('status', 1)
-            ->where('announcement_at', '<', Carbon::now()->toDateTimeString())
-            ->orderBy('cryptopolice_platform_notifications.created_at', 'desc')
-            ->select('cryptopolice_platform_notifications.*', 'users_notifications.user_id', 'users_notifications.notification_id')
+        return DB::table('cryptopolice_platform_notifications AS notify')
+            ->leftJoin('cryptopolice_platform_users_notifications as users_notify', function ($join) {
+                $join->on('notify.id', '=', 'users_notify.notification_id')
+                    ->where('users_notify.user_id', Auth::getUser()->id);
+            })
+            ->where('notify.status', 1)
+            ->where('notify.announcement_at', '<', Carbon::now()->toDateTimeString())
+            // Get notification that defined for all users
+            ->where('notify.user_id', 0)
+            // Get notification that defined only for current user
+            ->orWhere('notify.user_id', Auth::getUser()->id)
+            ->select('notify.*', 'users_notify.user_id', 'users_notify.notification_id')
+            ->orderBy('notify.created_at', 'desc')
             ->get();
     }
+
 
     public function onCheckNotification()
     {
 
         $user = Auth::getUser();
 
-        $status = UserNotification::where('user_id', $user->id)->where('notification_id', post('id'))->get();
+        $status = UserNotification::where('user_id', $user->id)
+            ->where('notification_id', post('id'))
+            ->get();
 
         if ($status->isEmpty()) {
             $model = new UserNotification();
@@ -56,8 +64,8 @@ class Notifications extends ComponentBase
         }
 
         $this->page['notify'] = [
-            'notification_id' => $user->id,
-            'user_id' => post('id')
+            'notification_id'   => $user->id,
+            'user_id'           => post('id')
         ];
     }
 

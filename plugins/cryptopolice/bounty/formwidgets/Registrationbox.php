@@ -1,8 +1,8 @@
 <?php namespace Cryptopolice\Bounty\FormWidgets;
 
-use Cryptopolice\Bounty\Models\BountyRegistration;
-use Backend\Classes\FormWidgetBase;
 use Config;
+use Backend\Classes\FormWidgetBase;
+use Cryptopolice\Bounty\Models\BountyRegistration;
 
 class RegistrationBox extends FormWidgetBase
 {

@@ -54,10 +54,7 @@ class ProfileForm extends ComponentBase
 
             if ($validator->fails()) {
 
-                $messages = $validator->messages();
-                foreach ($messages->all() as $message) {
-                    Flash::error($message);
-                }
+                Flash::error($validator->messages()->first());
 
             } else {
                 $user->update(['eth_address' => post('eth_address')]);
@@ -82,10 +79,7 @@ class ProfileForm extends ComponentBase
             ], $rules);
 
             if ($validator->fails()) {
-                $messages = $validator->messages();
-                foreach ($messages->all() as $message) {
-                    Flash::error($message);
-                }
+                Flash::error($validator->messages()->first());
             } else {
                 $user->update(['nickname' => post('nickname')]);
                 Flash::success('You\'re nickname has been updated');
@@ -112,10 +106,7 @@ class ProfileForm extends ComponentBase
             $validator = Validator::make(post(), $rules);
 
             if ($validator->fails()) {
-                $messages = $validator->messages();
-                foreach ($messages->all() as $message) {
-                    Flash::error($message);
-                }
+                Flash::error($validator->messages()->first());
 
             } else {
                 $user->update([

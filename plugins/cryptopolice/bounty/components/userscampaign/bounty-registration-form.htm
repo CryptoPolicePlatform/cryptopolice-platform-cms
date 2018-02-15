@@ -1,6 +1,6 @@
 <div class="grid__col  w6">
 
-        {{ form_ajax('onCampaignRegistration', { flash : '',  data: { id: campaignID }, model: BountyRegistration }) }}
+    {{ form_ajax('onCampaignRegistration', { flash : '',  data: { id: campaignID }, model: BountyRegistration }) }}
 
             {% for bounty in bountyList %}
                 {% if bounty.slug == this.param.slug %}

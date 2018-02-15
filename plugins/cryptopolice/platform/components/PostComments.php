@@ -23,7 +23,7 @@ class PostComments extends ComponentBase
 
     public function setImagePath($diskName)
     {
-        return '..\\storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
+        return '\\storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
     }
 
     public function onRun()
@@ -63,11 +63,7 @@ class PostComments extends ComponentBase
             }
         }
 
-        if (count($childs) > 0) {
-            $tree = $childs[0];
-        } else {
-            $tree = [];
-        }
+        count($childs) > 0 ? $tree = $childs[0] : $tree = [];
         return $tree;
     }
 
@@ -79,34 +75,21 @@ class PostComments extends ComponentBase
 
         if (input('_token') == Session::token()) {
 
-            $rules = [
-                'description' => 'required|min:0|max:10000'
-            ];
+            $user = Auth::getUser();
 
-            $validator = Validator::make(input(), $rules);
-
-            if ($validator->fails()) {
-                $messages = $validator->messages();
-                foreach ($messages->all() as $message) {
-                    Flash::error($message);
-                }
-            } else {
-
-                $user = Auth::getUser();
-
-                $comment = new CommunityComment;
-                $comment->user_id = $user->id;
-                $comment->post_id = $this->param('id');
-                $comment->description = input('description');
-
-                if (!empty(input('parent_id'))) {
-                    $comment->parent_id = input('parent_id');
-
-                }
-                $comment->save();
-                Flash::success('Your comment has been successfully added');
-                return redirect()->back();
+            $comment = new CommunityComment;
+            $comment->user_id = $user->id;
+            $comment->post_id = $this->param('id');
+            $comment->description = input('description');
+            if (!empty(input('parent_id'))) {
+                $comment->parent_id = input('parent_id');
             }
+            $comment->save();
+
+            Flash::success('Your comment has been successfully added');
+
+            return redirect()->back();
+
         }
     }
 }

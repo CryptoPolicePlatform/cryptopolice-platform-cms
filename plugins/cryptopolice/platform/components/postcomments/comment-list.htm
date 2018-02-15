@@ -1,23 +1,16 @@
 {% for reply in childs %}
-    <div style="width: 100%;" class="choose__post">
+    <div class="choose__post">
         <div class="post_img">
             <img src="{{reply.user_image}}" width="55" height="55" alt="">
         </div>
         <div class="card__header">
             <div class="card__date">
-                <strong>
-                    {% if reply.nickname %}
-                        {{ reply.nickname }}
-                    {% else %}
-                        {{ reply.email|slice(0, 3)}}*****@****.com
-                    {% endif %}
-                </strong>
-                {{ reply.created_at }} <a id="{{reply.id}}" href="#"> Reply </a>
+                <strong>{% if reply.nickname %} {{ reply.nickname }} {% else %} {{ reply.email|slice(0, 3)}}*****@***{{ reply.email|slice(reply.email.length - 4, reply.email.length) }} {% endif %}</strong>
+                    {{ reply.created_at }}
+                <a id="{{reply.id}}" href="#"> Reply </a>
             </div>
         </div>
-        <div style="height: auto" class="card__content">
-            {{ reply.description }}
-        </div>
+        <div style="height: auto" class="card__content">{{ reply.description }}</div>
         <div class="card__footer">
             <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
                 {% if reply.childs %}

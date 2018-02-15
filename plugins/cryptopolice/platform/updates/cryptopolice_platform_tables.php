@@ -79,7 +79,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             Schema::create('cryptopolice_platform_users_notifications', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
-                $table->integer('user_id');
+                $table->integer('user_id')->nullable();
                 $table->integer('notification_id');
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();

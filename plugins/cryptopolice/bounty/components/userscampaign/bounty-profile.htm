@@ -7,21 +7,16 @@
         {% endif %}
     </a>
 
-    <div class="profile__name">
-        {% if not user.name %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}
-    </div>
-
-    <div class="profile__block">
-        <p> Balance: <b> {{ profileStatistic.total_tokens }} OFC </b></p>
-    </div>
+    <div class="profile__name"> {% if not user.name %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %} </div>
+    <div class="profile__block"><p> Balance: <b> {{ profileStatistic.total_tokens }} OFC </b></p></div>
 
     {% if profileStatistic.stake_list is not empty %}
         <div class="profile__block">
             <p>Stakes:</p>
             <div class="profile__block-item">
-            {% for stake in profileStatistic.stake_list %}
-            <p> {{ stake.campaign_title }}: <b> {{ stake.stake_amount }} <small>STAKES</small> </b></p>
-            {% endfor %}
+                {% for stake in profileStatistic.stake_list %}
+                    <p> {{ stake.campaign_title }}: <b> {{ stake.stake_amount }} <small>STAKES</small> </b></p>
+                {% endfor %}
             </div>
         </div>
     {% endif %}
@@ -31,7 +26,6 @@
         <div class="profile__block-item">
             <p> Total : <b> {{ profileStatistic.report_count }} </b></p>
             <div class="profile__stat">
-
                 <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ profileStatistic.report_percentage }}" data-size="60" data-thickness="10">
                     <canvas width="60" height="60"></canvas>
                 </div>
@@ -42,5 +36,4 @@
             </div>
         </div>
     </div>
-
 </div>

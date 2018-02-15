@@ -2,56 +2,36 @@
 {% set flag = true %}
 {% for bounty in bountyList %}
 
-<!-- selected Bounty Campaign -->
-{% if bounty.slug == this.param.slug %}
-{% set flag = false %}
+    <!-- selected Bounty Campaign -->
+    {% if bounty.slug == this.param.slug %}
+        {% set flag = false %}
 
-
-<!--<div class="tabs" id="tabs1">-->
-<!--<div class="tabs__nav" data-tabs-for="#tabs1" role="tablist">-->
-<!--<a class="tabs__nav-item  active" href="#tab-1" role="tab"> {% if access is empty %} Registration {% else %} Report {% endif %} </a>-->
-<!--<a class="tabs__nav-item" href="#tab-2" role="tab">Report List</a>-->
-<!--</div>-->
-
-
-    <div class="breadcrumbs">
-        <a class="tabs__nav-item" href="#anchor-1">{% if access is empty %} Registration {% else %} Report {% endif %}</a>
-        <a class="tabs__nav-item" href="#anchor-2">Report List</a>
-    </div>
-
-
-    <div class="tabs__content">
-
-        <!-- Tab 1 Rules, Registration & Report forms -->
-        <!--<div class="tabs__item  active" id="tab-1" role="tabpanel">-->
-        <div class="profile__card  mb-15">
-
-            <h2>{{bounty.title|upper}} CAMPAIGN</h2>
-            <div class="stat__item stat_block">
-                <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff"
-                     data-value="{{bounty.percentage / 100 }}" data-size="34" data-thickness="6">
-                    <canvas width="34" height="34"></canvas>
-                </div>
-                <div class="stat__counter">{{bounty.percentage}}%</div>
-                <div class="stat__text">Reward amount {{ (20000000 / 100 * bounty.percentage)|number_format(0, '.', ',') }}
-                    OFC
-                </div>
-            </div>
-
-            <div class="stat__item second_stat_block">
-                <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff"
-                     data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6">
-                    <canvas width="34" height="34"></canvas>
-                </div>
-                <div class="stat__counter"> {{ bountyPercentage|number_format(2, '.', ',') }}%</div>
-                <div class="stat__text"> Registered in campaign {{ totalRegisteredInCampaign }} users</div>
-            </div>
-            <p>{{ bounty.description|raw}}</p>
-
+        <div class="breadcrumbs">
+            <a class="tabs__nav-item" href="#anchor-1">{% if access is empty %} Registration {% else %} Report {% endif %}</a>
+            <a class="tabs__nav-item" href="#anchor-2">Report List</a>
         </div>
-    </div>
+        <div class="tabs__content">
+            <div class="profile__card  mb-15">
+                <h2>{{bounty.title|upper}} CAMPAIGN</h2>
+                <div class="stat__item stat_block">
+                    <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{bounty.percentage / 100 }}" data-size="34" data-thickness="6">
+                        <canvas width="34" height="34"></canvas>
+                    </div>
+                    <div class="stat__counter">{{bounty.percentage}}%</div>
+                    <div class="stat__text">Reward amount {{ (20000000 / 100 * bounty.percentage)|number_format(0, '.', ',') }} OFC </div>
+                </div>
+                <div class="stat__item second_stat_block">
+                    <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6">
+                        <canvas width="34" height="34"></canvas>
+                    </div>
+                    <div class="stat__counter"> {{ bountyPercentage|number_format(2, '.', ',') }}%</div>
+                    <div class="stat__text"> Registered in campaign {{ totalRegisteredInCampaign }} users</div>
+                </div>
+                <p>{{ bounty.description|raw}}</p>
+            </div>
+        </div>
 
-            {% partial 'UsersCampaign::campaign-reports' %}
+        {% partial 'UsersCampaign::campaign-reports' %}
 
         <div id="anchor-2" class="profile__card">
             {% if access is empty %}
@@ -60,28 +40,26 @@
                 {% partial 'UsersCampaign::bounty-report-form' %}
             {% endif %}
         </div>
+    {% endif %}
 
-{% endif %}
 {% endfor %}
 
 
 <!-- User Section-->
 {% if flag == true %}
-
-<!-- Users reports -->
-{% partial 'UsersCampaign::users-reports' %}
-<!-- Campaign list -->
-{% partial 'UsersCampaign::bounty-list' %}
-
+    <!-- Users reports -->
+    {% partial 'UsersCampaign::users-reports' %}
+    <!-- Campaign list -->
+    {% partial 'UsersCampaign::bounty-list' %}
 {% endif %}
 <!-- End User Section-->
 
 
 <!--Hack with flash notification, remove text rendering before flash message -->
 {% if active is empty %}
-<div class="empty_flash">
-    {% flash %}
-    <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
-    {% endflash %}
-</div>
+    <div class="empty_flash">
+        {% flash %}
+            <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+        {% endflash %}
+    </div>
 {% endif %}

@@ -29,10 +29,15 @@ class PostDetails extends ComponentBase
         if (Auth::check()) {
 
             $user = Auth::getUser();
-            $watched = CommunityPostViews::where('user_id', $user->id)->where('post_id', $this->param('id'))->get();
+            $watched = CommunityPostViews::where('user_id', $user->id)
+                ->where('post_id', $this->param('id'))
+                ->get();
 
             if ($watched->isEmpty()) {
-                CommunityPostViews::insert(['user_id' => $user->id, 'post_id' => $this->param('id')]);
+                CommunityPostViews::insert([
+                    'user_id' => $user->id,
+                    'post_id' => $this->param('id')
+                ]);
             }
         }
 

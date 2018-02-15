@@ -1,40 +1,26 @@
 {{ form_ajax('onUpdateProfile', { flash : '', model: user }) }}
-    <div style="margin-top:20px" class="profile__card">
-
+    <div class="profile__card profile_form">
         <h3 class="content__title">User Profile</h3>
-
         <div class="form__group">
             <label for="name">Name</label>
             <input class="input" type="text" name="name" id="name" placeholder="" value="{{ user.name }}">
         </div>
-
         <div class="form__group">
             <label for="surname">Surname</label>
             <input class="input" type="text" name="surname" id="surname" placeholder="" value="{{ user.surname }}">
         </div>
-
         <div class="form__group">
             <label for="email">Email</label>
             <input class="input" type="email" name="email" id="email" placeholder="" value="{{ user.email }}">
         </div>
-
         {% set countryId = user.country_id %}
         {% set stateId = stateId|default(form_value('state_id')) %}
-
         <label for="country">Country</label>
         <div class="form__group" id="country">
             <div class="select">
-                {{
-                    form_select_country('country_id', countryId, {
-                        id: 'accountCountry',
-                        class: 'form-control',
-                        emptyOption: ''
-                        })
-                }}
+                {{ form_select_country('country_id', countryId, { id: 'accountCountry', class: 'form-control', emptyOption: '' }) }}
             </div>
         </div>
-
         <button id="captcha_profile" class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Profile</button>
-
     </div>
 {{ form_close() }}
