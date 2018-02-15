@@ -8,7 +8,7 @@ use Model;
 class CommunityPost extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+    use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -33,8 +33,22 @@ class CommunityPost extends Model
     ];
 
     /**
+     * @var array Generate slugs for these attributes.
+     */
+    protected $slugs = ['slug' => 'post_title'];
+
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'cryptopolice_platform_community_posts';
 
+    public function beforeSave()
+    {
+        // Force creation of slug
+        if (empty($this->slug)) {
+            unset($this->slug);
+            $this->setSluggedValue('slug', 'post_title');
+        }
+    }
 }
