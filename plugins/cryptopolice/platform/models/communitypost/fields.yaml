@@ -1,6 +1,6 @@
 fields:
     post_title:
-        label: Post Title
+        label: 'Post Title'
         oc.commentPosition: ''
         span: auto
         type: text
@@ -8,7 +8,7 @@ fields:
         label: Description
         oc.commentPosition: ''
         span: auto
-        type: textarea
+        type: richeditor
     status:
         label: Status
         oc.commentPosition: ''
@@ -31,3 +31,11 @@ fields:
             extension: auto
         span: auto
         type: fileupload
+    slug:
+        label: Text
+        oc.commentPosition: ''
+        span: auto
+        preset:
+            field: post_title
+            type: slug
+        type: text

@@ -1,68 +1,74 @@
-{# {% partial 'CommunityPosts::post-filters' %} #}
-{% partial 'CommunityPosts::post-add-form' %}
+<div id="posts_list">
+    {% for communityPost in posts %}
+        <div class="card post_item">
+            <div class="choose__post">
 
-{% for communityPost in posts %}
-    <div class="card post_item">
-        <div class="choose__post">
+                <div class="post_img">
+                    {% if communityPost.posts_image %}
+                        <img src="{{communityPost.posts_image}}" width="125" height="125" alt="">
+                    {% else %}
+                        <img src="http://igors.cunami.cloud/academy/themes/platform/assets/images/user.svg" width="125" height="125">
+                    {% endif %}
+                </div>
 
-            <div class="post_img">
-                {% if communityPost.posts_image %}
-                    <img src="{{communityPost.posts_image}}" width="125" height="125" alt="">
-                {% else %}
-                    <img src="http://igors.cunami.cloud/academy/themes/platform/assets/images/user.svg" width="125" height="125">
+                <a href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">
+                    <div class="card__header">
+                        <div class="card__date">{{communityPost.created_at}}</div>
+                        <h3 class="card__title">
+                            {{ communityPost.post_title }}
+                        </h3>
+                    </div>
+
+                    <div class="card__content">
+                        {{ communityPost.post_description|striptags|truncate(250) }}
+                    </div>
+                </a>
+
+                <div class="card__footer">
+                    <div class="card__footer-left">
+                        <ul class="card__ava-list">
+                            <li class="card__ava  card__ava--author">
+                                <a href="#">
+                                    {% if communityPost.users_image %}
+                                        <img src="{{communityPost.users_image}}" width="23" height="23" alt="Author">
+                                    {% else %}
+                                        <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                                    {% endif %}
+                                </a>
+                            </li>
+                            <li class="card__ava">
+                                Views: {{ communityPost.views_count }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card__footer-right">
+                        <ul class="card__social">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                            <a href="https://twitter.com/share?url={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}&amp;text=text" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <li class="card__social-item  c-comment">
+                                <a href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">comment</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                {% if communityPost.views_count > 10 %}
+                        <div class="card__status  high">high</div>
+                    {% elseif  communityPost.views_count %}
+                        <div class="card__status  medium">medium</div>
+                    {% else %}
+                        <div class="card__status  low">low</div>
                 {% endif %}
+
             </div>
-
-            <a href="{{'post'|page( {id : communityPost.id} )}}">
-                <div class="card__header">
-                    <div class="card__date">{{communityPost.created_at}}</div>
-                    <h3 class="card__title">
-                        {{ communityPost.post_title }}
-                    </h3>
-                </div>
-
-                <div class="card__content">
-                    {{ communityPost.post_description|truncate(250) }}
-                </div>
-            </a>
-
-            <div class="card__footer">
-                <div class="card__footer-left">
-                    <ul class="card__ava-list">
-                        <li class="card__ava  card__ava--author">
-                            <a href="#">
-                                {% if communityPost.users_image %}
-                                    <img src="{{communityPost.users_image}}" width="23" height="23" alt="Author">
-                                {% else %}
-                                    <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
-                                {% endif %}
-                            </a>
-                        </li>
-                        <li class="card__ava">
-                            Views: {{ communityPost.views_count }}
-                        </li>
-                    </ul>
-                </div>
-                <div class="card__footer-right">
-                    <ul class="card__social">
-                        <li class="card__social-item  c-share">
-                            <a href="#">share</a>
-                        </li>
-                        <li class="card__social-item  c-comment">
-                            <a href="{{'post'|page( {id : communityPost.id} )}}">comment</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            {% if communityPost.views_count > 10 %}
-                    <div class="card__status  high">high</div>
-                {% elseif  communityPost.views_count %}
-                    <div class="card__status  medium">medium</div>
-                {% else %}
-                    <div class="card__status  low">low</div>
-            {% endif %}
-
         </div>
-    </div>
-{% endfor %}
+    {% else %}
+        <div class="card post_item">
+            <div class="choose__post">
+                <h3>Post not found!</h3>
+                <div class="card__footer">
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

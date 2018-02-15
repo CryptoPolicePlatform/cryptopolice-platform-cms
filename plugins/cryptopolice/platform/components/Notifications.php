@@ -19,9 +19,11 @@ class Notifications extends ComponentBase
 
     public function onRun()
     {
-        $notifications = $this->getNotifyList();
-        $this->page['notifications'] = $notifications;
-        $this->page['notifyCount'] = $notifications->where('user_id', null)->where('notification_id', null)->count();
+        if (Auth::check()) {
+            $notifications = $this->getNotifyList();
+            $this->page['notifications'] = $notifications;
+            $this->page['notifyCount'] = $notifications->where('user_id', null)->where('notification_id', null)->count();
+        }
     }
 
     public function getNotifyList()

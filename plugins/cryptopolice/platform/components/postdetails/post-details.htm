@@ -4,7 +4,9 @@
     </div>
     <img src="{{post.post_img}}" width="150" height="150" alt="Author">
     <h3> {{ post.post_title }} </h3>
-    {{ post.post_description }}
+
+    {{ post.post_description|md }}
+
     <div class="card__footer">
         <div class="card__footer-left">
             <ul class="card__ava-list">
@@ -15,21 +17,27 @@
                         {{ post.email|slice(0, 3)}}*****@****.com
                     {% endif %}
                 </li>
-                <li class="card__ava">Views: {{ post.views_count }} </li>
+                <li class="card__ava">Views: {{ post.views_count }}</li>
             </ul>
         </div>
         <div class="card__footer-right">
-            <div class="card__date">{{ post.created_at }}</div>
+            <div class="card__date">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ ''|page }}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
+            <a href="https://twitter.com/share?url={{ ''|page }}&amp;text=text" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                {{ post.created_at }}
+            </div>
         </div>
     </div>
 
     {% if post.views_count > 10 %}
-        <div class="card__status  high">high</div>
-    {% elseif  post.views_count %}
-        <div class="card__status  medium">medium</div>
+    <div class="card__status  high">high</div>
+    {% elseif post.views_count %}
+    <div class="card__status  medium">medium</div>
     {% else %}
-        <div class="card__status  low">low</div>
+    <div class="card__status  low">low</div>
     {% endif %}
 
     <br>
 </div>
+
+

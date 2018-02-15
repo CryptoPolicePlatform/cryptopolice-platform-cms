@@ -34,6 +34,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             Schema::create('cryptopolice_platform_community_posts', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
+                $table->string('slug', 255)->nullable();
                 $table->string('post_title', 255)->nullable();
                 $table->string('post_image', 255)->nullable();
                 $table->text('post_description', 10000)->nullable();

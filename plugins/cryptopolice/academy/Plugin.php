@@ -6,6 +6,7 @@ use Redirect;
 use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
+use CryptoPolice\Academy\Components\Recaptcha;
 use RainLab\User\Controllers\Users as UsersController;
 
 class Plugin extends PluginBase
