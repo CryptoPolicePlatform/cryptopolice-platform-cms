@@ -23,10 +23,10 @@
     text-align: center;
     margin-bottom: -10px;
 }
+
 .empty_flash {
     display: none;
 }
-
 
 .report_header {
     margin-bottom: 0px;
@@ -60,20 +60,39 @@
     font-weight: bold;
 }
 
-.choose__post_item{
+.choose__post {
+    width: 100%;
+}
+
+.choose__post_item {
     width: 30%;
     padding: 25px;
     max-width: 370px;
     margin-bottom: 25px;
     border-radius: 15px;
     text-align: center;
-}@media (max-width: 800px) {
+}
+
+@media (max-width: 800px) {
     .choose__post_item {
         width: 100%;
         max-width: 100%;
     }
 }
 
+.post_content {
+    width: 100%;
+}
+
+.btn-search {
+    width: 35px;
+    height: 35px;
+    background-color: #272f37;
+    border: 1px solid #272f37;
+    position: relative;
+    top: -36px;
+    right: 14.5px;
+}
 
 .post_item {
     height: auto;
@@ -86,6 +105,7 @@
     justify-content: space-between;
     margin-bottom: 10px;
 }
+
 .post_img {
     float: left;
     margin-right: 20px
@@ -99,57 +119,62 @@
 @media (max-width: 800px) {
     .post_item {
         -ms-flex-direction: column;
-        flex-direction: column; }
+        flex-direction: column;
+    }
+
     .post_img {
         float: none;
         margin-right: 0;
         margin-bottom: 20px;
-        text-align: center;}  }
-
-.user_right_sidebar {
-    right: -10px;top: 0px;
+        text-align: center;
+    }
 }
 
-.tool{
-    cursor:help;
-    position:relative;
+.user_right_sidebar {
+    right: -10px;
+    top: 0px;
+}
+
+.tool {
+    cursor: help;
+    position: relative;
 }
 
 .tool::before,
-.tool::after{
-    position:absolute;
-    left:50%;
-    opacity:0;
-    z-index:-100;
+.tool::after {
+    position: absolute;
+    left: 50%;
+    opacity: 0;
+    z-index: -100;
 }
 
 .tool:hover::before,
 .tool:focus::before,
 .tool:hover::after,
-.tool:focus::after{
-    opacity:1;
-    z-index:100;
-    transform:scale(1) translateY(0);
+.tool:focus::after {
+    opacity: 1;
+    z-index: 100;
+    transform: scale(1) translateY(0);
 }
 
 .tool:hover::before,
-.tool:focus::before{
-    transition-delay:.2s;
+.tool:focus::before {
+    transition-delay: .2s;
 }
 
-.tool::after{
+.tool::after {
     background: linear-gradient(to bottom, #b56aa2 50%, #a04a89 50%, #a04a89);;
-    border-radius:.25em;
+    border-radius: .25em;
     padding: 1px 10px 1px 10px;
-    bottom:150%;
-    color:#edeff0;
+    bottom: 150%;
+    color: #edeff0;
     margin-left: -150%;
-    content:attr(data-tip);
-    transform:scale(.6) translateY(50%);
-    transition:all .25s cubic-bezier(.84, -.18, .31, 1.26) .2s;
+    content: attr(data-tip);
+    transform: scale(.6) translateY(50%);
+    transition: all .25s cubic-bezier(.84, -.18, .31, 1.26) .2s;
 }
 
 .tool:hover::after,
-.tool:focus::after{
-    transition-delay:0s;
+.tool:focus::after {
+    transition-delay: 0s;
 }

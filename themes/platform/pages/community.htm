@@ -8,11 +8,12 @@ security = "user"
 redirect = "login"
 
 [CommunityPosts]
+
 [CommunityUsers]
 
 [UserProfile]
-[imageUploader]
 
+[imageUploader]
 placeholderText = "Click or drag images to upload"
 maxSize = 1
 fileTypes = ".gif,.jpg,.jpeg,.png"
@@ -24,11 +25,13 @@ modelKeyColumn = "post_image"
 identifierValue = "{{ :id }}"
 deferredBinding = 1
 ==
-    use CryptoPolice\Platform\Models\CommunityPost;
+<?php
+use CryptoPolice\Platform\Models\CommunityPost;
 
     function onInit() {
         $this->imageUploader->bindModel('post_image', new CommunityPost);
     }
+?>
 ==
 <!-- Content -->
 <main class="content">
@@ -43,7 +46,13 @@ deferredBinding = 1
 
                 <div class="profile__content">
                     <div class="grid__row">
-                        <div class="grid__col  w6">
+                        <div class="post_content">
+
+                            <!-- Post filters -->
+                            {# {% partial 'CommunityPosts::post-filters' %} #}
+
+                            <!-- Post add form -->
+                            {% partial 'CommunityPosts::post-add-form' %}
 
                             <!-- Posts section -->
                             {% partial 'CommunityPosts::post-list' %}

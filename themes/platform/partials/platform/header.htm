@@ -1,7 +1,9 @@
+[CommunityPosts]
 ==
+
 <!-- Header -->
 <header class="header">
-    <a class="header__logo" href="{{'index'|page}}">
+    <a class="header__logo" href="{{'community'|page}}">
         <img src="{{'assets/images/cryptopolice-logo.png'|theme}}" width="124" alt="CryptoPolice">
     </a>
 
@@ -11,20 +13,22 @@
 
             <a class="header__ava" href="{{'profile'|page}}">
                 {% if user.avatar.path %}
-                    <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
+                <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
                 {% else %}
-                    <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30"
+                     alt="user-avatar">
                 {% endif %}
             </a>
 
-            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {% endif %}</a>
+            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %} {{ user.email }} {% else %} {{
+                user.name }} {% endif %}</a>
 
             <span class="tool" data-tip="Notification" tabindex="1">
                     <a class="header__nav-item" href="{{'notification'|page}}">
                         {% if notifyCount %} <span class="header__mails-count"> {{ notifyCount }} </span> {% endif %}
                     <img src="{{'assets/images/mail-ico.png'|theme}}" width="20" height="19" alt="">
                     </a>
-                </span>
+            </span>
 
             <a class="header__nav-item" href="https://support.cryptopolice.com" target="_blank">
                 <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon"
@@ -38,14 +42,17 @@
                     </button>
                     <ul class="dropdown  dropdown--right" data-dropdown>
                         <li>
-                            <a class="dropdown__link" href="{{ 'profile'|page }}"><i class="fa fa-save"></i> Settings </a>
+                            <a class="dropdown__link" href="{{ 'profile'|page }}"><i
+                                    class="fa fa-save"></i> Settings </a>
                         </li>
                     </ul>
                 </div>
             </span>
 
-            <a class="header__nav-item" data-request="onLogout" data-request-flash data-request-data="redirect: '/login'">
-                <span class="tool" data-tip="Logout" tabindex="1"><i class="fa fa-sign-out header-icon" aria-hidden="true"></i></span>
+            <a class="header__nav-item" data-request="onLogout" data-request-flash
+               data-request-data="redirect: '/login'">
+                <span class="tool" data-tip="Logout" tabindex="1"><i class="fa fa-sign-out header-icon"
+                                                                     aria-hidden="true"></i></span>
             </a>
         </div>
 
@@ -62,9 +69,12 @@
             </a>
         </div>
 
-        <form class="header__search" action="/" method="post" id="search">
-            <input class="header__search-input" type="text" name="search" placeholder="Search">
-        </form>
+        {% if this.page.id == 'community' %}
+            {{ form_ajax('onGetPosts', { class : 'header__search' ,flash : '', model: CommunityPost, update : { 'CommunityPosts::post-list' : '#posts_list' } }) }}
+                <input class="header__search-input" type="text" name="search" placeholder="Search" autocomplete="off">
+                <button class="btn-search"> <img src="{{'assets/images/search.svg'|theme}}" width="23" alt="Search"></button>
+            {{ form_close() }}
+        {% endif %}
 
     </div>
 </header>

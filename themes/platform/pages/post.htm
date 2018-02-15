@@ -1,15 +1,17 @@
 title = "Post details"
-url = "/post/:id"
+url = "/post/:id/:slug?"
 layout = "platform"
 description = "Post details Page"
 is_hidden = 0
 
 [UserProfile]
+
 [CommunityUsers]
+
 [CommunityPostDetails]
+
 [CommunityPostComments]
 ==
-
 <!-- Content -->
 <main class="content">
     <div class="content__inner">
@@ -25,11 +27,14 @@ is_hidden = 0
                     {% partial CommunityPostDetails ~ '::post-details' %}
 
                     <!-- Add comment form -->
-                    {% partial CommunityPostComments ~ '::comment-add-form' %}
+                    {% if user %}
+                        {% partial CommunityPostComments ~ '::comment-add-form' %}
+                    {% endif %}
 
                     <!-- Comment list -->
                     {% for comment in comments %}
-                    <div class="card post_item">
+
+                    <div style="margin-top:10px;" class="card post_item">
                         <div style="width: 100%;" class="choose__post">
                             <div class="post_img">
                                 <img src="{{comment.user_image}}" width="55" height="55" alt="">
@@ -37,7 +42,8 @@ is_hidden = 0
                             <div class="card__header">
                                 <div class="card__date">
                                     <strong>
-                                        {% if comment.nickname %} {{ comment.nickname }} {% else %} {{ comment.email|slice(0, 3)}}*****@****.com {% endif %}
+                                        {% if comment.nickname %} {{ comment.nickname }} {% else %} {{
+                                        comment.email|slice(0, 3)}}*****@****.com {% endif %}
                                     </strong>
                                     {{ comment.created_at }} <a id="{{comment.id}}" href="#">Reply</a>
                                 </div>
@@ -48,24 +54,23 @@ is_hidden = 0
                             <div class="card__footer">
                                 <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
                                     {% if comment.childs %}
-                                        <!-- Comment Replies -->
-                                        {% partial CommunityPostComments ~ '::comment-list' childs=comment.childs %}
+                                    <!-- Comment Replies -->
+                                    {% partial CommunityPostComments ~ '::comment-list' childs=comment.childs %}
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     {% endfor %}
 
                     <!-- User list sidebar section -->
                     {% partial 'CommunityUsers::user-list-sidebar' %}
-
                 </div>
             </div>
         </div>
     </div>
 </main>
-
 
 <!--Hack with flash notification, remove text rendering before flash message -->
 {% if active is empty %}
