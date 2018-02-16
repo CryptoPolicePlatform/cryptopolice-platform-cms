@@ -1,7 +1,11 @@
 {% for reply in childs %}
     <div class="choose__post">
         <div class="post_img">
-            <img src="{{reply.user_image}}" width="55" height="55" alt="">
+            {% if reply.user_image %}
+                <img src="{{reply.user_image}}" width="55" height="55" alt="">
+            {% else %}
+                <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+            {% endif %}
         </div>
         <div class="card__header">
             <div class="card__date">

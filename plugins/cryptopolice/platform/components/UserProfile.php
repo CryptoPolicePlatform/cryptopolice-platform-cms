@@ -26,11 +26,13 @@ class UserProfile extends ComponentBase
         $this->page['user_count'] = User::count();
         $this->page['post_count'] = $totalPostsCount;
         $this->page['post_pending'] = $pendingPostsCount;
+        $this->page['post_published'] = $totalPostsCount - $pendingPostsCount;
 
-        if($totalPostsCount) {
+        if ($totalPostsCount) {
             $this->page['post_pending_percentage'] = ((100 / $totalPostsCount) * $pendingPostsCount) / 100;
         }
-        if($totalPostsCount) {
+
+        if ($totalPostsCount) {
             $this->page['post_count_percentage'] = ((100 / $totalPostsCount) * ($totalPostsCount - $pendingPostsCount)) / 100;
         }
     }

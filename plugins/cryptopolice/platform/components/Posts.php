@@ -45,8 +45,8 @@ class Posts extends ComponentBase
         $this->page['page_num'] = post('page') ? post('page') + 1 : 1;
         $this->page['search_data'] = post('search');
 
-        // skip 2 records per page
-        $skip = post('page') ? post('page') * 2 : 0;
+        // skip 20 records per page
+        $skip = post('page') ? post('page') * 20 : 0;
 
         $posts = Db::table('cryptopolice_platform_community_posts as posts')
             ->join('users', 'posts.user_id', 'users.id')
@@ -72,7 +72,7 @@ class Posts extends ComponentBase
             ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')
             ->groupBy('posts.id')
-            ->skip($skip)->take(2)
+            ->skip($skip)->take(20)
             ->get();
 
         if($posts->isNotEmpty()) {

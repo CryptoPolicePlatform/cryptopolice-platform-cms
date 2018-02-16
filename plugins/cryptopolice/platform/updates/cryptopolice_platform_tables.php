@@ -39,7 +39,6 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->string('post_image', 255)->nullable();
                 $table->text('post_description', 10000)->nullable();
                 $table->integer('user_id')->nullable();
-                $table->integer('comment_id')->nullable();
                 $table->boolean('status')->default(0);
                 $table->boolean('pin')->default(0);
                 $table->timestamp('created_at')->nullable();

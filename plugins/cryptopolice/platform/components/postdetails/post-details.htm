@@ -1,6 +1,12 @@
 <div class="card">
     <div class="card__header report_header"><h2> {{ post.title }} </h2></div>
-    <img src="{{post.post_img}}" width="150" height="150" alt="Author">
+
+    {% if post.post_img %}
+        <img src="{{post.post_img}}" width="150" height="150" alt="Author">
+    {% else %}
+        <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="150" height="150" alt="user-avatar">
+    {% endif %}
+
     <h3> {{ post.post_title }} </h3>
 
     {{ post.post_description|md }}

@@ -30,7 +30,13 @@ is_hidden = 0
                     {% for comment in comments %}
                         <div style="margin-top:10px;" class="card post_item">
                             <div class="choose__post">
-                                <div class="post_img"><img src="{{comment.user_image}}" width="55" height="55" alt=""> </div>
+                                <div class="post_img">
+                                    {% if comment.user_image %}
+                                        <img src="{{comment.user_image}}" width="55" height="55" alt="">
+                                    {% else %}
+                                        <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="55" height="55" alt="user-avatar">
+                                    {% endif %}
+                                </div>
                                 <div class="card__header">
                                     <div class="card__date">
                                         <strong>{% if comment.nickname %} {{ comment.nickname }} {% else %} {{ comment.email|slice(0, 3)}}*****@***{{ comment.email|slice(comment.email.length - 4, comment.email.length) }} {% endif %}</strong>

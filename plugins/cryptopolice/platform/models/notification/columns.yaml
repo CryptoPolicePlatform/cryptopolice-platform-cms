@@ -24,7 +24,7 @@ columns:
         type: datetime
         searchable: true
         sortable: true
-    update_at:
+    updated_at:
         label: Updated at
         type: datetime
         searchable: true
