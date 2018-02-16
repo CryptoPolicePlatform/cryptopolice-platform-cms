@@ -1,4 +1,4 @@
-<div id="posts_list">
+<div id="post_content">
     {% for communityPost in posts %}
         <div class="card post_item">
             <div class="choose__post">
@@ -35,13 +35,15 @@
                                     {% endif %}
                                 </a>
                             </li>
-                            <li class="card__ava"> Views: {{ communityPost.views_count }} </li>
+                            <li class="card__ava"> Views: {{ communityPost.views_count }}</li>
                         </ul>
                     </div>
                     <div class="card__footer-right">
                         <ul class="card__social">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
-                            <a href="https://twitter.com/share?url={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}&amp;text=text" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}"
+                               title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                            <a href="https://twitter.com/share?url={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}&amp;text=text"
+                               title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
                             <li class="card__social-item  c-comment">
                                 <a href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">comment</a>
                             </li>
@@ -50,22 +52,36 @@
                 </div>
 
                 {% if communityPost.views_count > 10 %}
-                        <div class="card__status  high">high</div>
-                    {% elseif  communityPost.views_count %}
-                        <div class="card__status  medium">medium</div>
-                    {% else %}
-                        <div class="card__status  low">low</div>
+                    <div class="card__status  high">high</div>
+                {% elseif communityPost.views_count %}
+                    <div class="card__status  medium">medium</div>
+                {% else %}
+                    <div class="card__status  low">low</div>
                 {% endif %}
 
             </div>
         </div>
     {% else %}
-        <div class="card post_item">
-            <div class="choose__post">
-                <h3>Post not found!</h3>
-                <div class="card__footer">
+        {% if search_data %}
+            <div class="card post_item">
+                <div class="choose__post">
+                    <p>Your search for <strong>"{{search_data}}"</strong> did not match any posts</p>
+                    <strong>Suggestions:</strong>
+                    <ul>
+                        <li>Make sure all word are spelled correctly</li>
+                        <li>Try different keywords</li>
+                        <li>Try more general keywords</li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <div class="card post_item">
+                <div class="choose__post">
+                    <h4>There are no more posts to show right now!</h4>
+                    <div class="card__footer">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>

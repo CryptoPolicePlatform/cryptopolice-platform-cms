@@ -36,9 +36,7 @@ use CryptoPolice\Platform\Models\CommunityPost;
 <!-- Content -->
 <main class="content">
     <div class="content__inner">
-
         <div class="content__left">
-
             <div class="profile">
 
                 <!-- User profile section -->
@@ -47,19 +45,25 @@ use CryptoPolice\Platform\Models\CommunityPost;
                 <div class="profile__content">
                     <div class="grid__row">
                         <div class="post_content">
+                            <div id="posts_list">
 
-                            <!-- Post filters -->
-                            {# {% partial 'CommunityPosts::post-filters' %} #}
+                                {% if page_num is defined and page_num %}
 
-                            <!-- Post add form -->
-                            {% partial 'CommunityPosts::post-add-form' %}
+                                    <!-- Post filters -->
+                                    {# {% partial 'CommunityPosts::post-filters' %} #}
 
-                            <!-- Posts section -->
-                            {% partial 'CommunityPosts::post-list' %}
+                                    <!-- Post add form -->
+                                    {% partial 'CommunityPosts::post-add-form' %}
 
-                            <!-- Load more form -->
-                            {% partial 'CommunityPosts::post-load-form' %}
+                                {% endif %}
 
+                                <!-- Posts section -->
+                                {% partial 'CommunityPosts::post-list' %}
+
+                                <!-- Load more form -->
+                                {% partial 'CommunityPosts::post-load-form' %}
+
+                            </div>
                         </div>
                     </div>
 

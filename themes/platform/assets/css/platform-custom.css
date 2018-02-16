@@ -86,6 +86,12 @@
     width: 100%;
 }
 
+
+
+.choose__post h4 {
+    text-align: center;
+}
+
 .choose__post_item {
     width: 30%;
     padding: 25px;
@@ -104,6 +110,10 @@
 
 .post_content {
     width: 100%;
+}
+
+.post_form {
+    margin-bottom: 15px;
 }
 
 .btn-search {

@@ -36,12 +36,16 @@ class Posts extends ComponentBase
     {
 
         if (post('search')) {
-            if (input('_token') != Session::token()) {
+            if (empty(post('search')) || input('_token') != Session::token()) {
                 return;
             }
         }
 
+        $this->page['limit'] = true;
         $this->page['page_num'] = post('page') ? post('page') + 1 : 1;
+        $this->page['search_data'] = post('search');
+
+        // skip 2 records per page
         $skip = post('page') ? post('page') * 2 : 0;
 
         $posts = Db::table('cryptopolice_platform_community_posts as posts')
@@ -58,7 +62,7 @@ class Posts extends ComponentBase
                 $join->on('posts.id', '=', 'views.post_id');
             })
             ->select(DB::raw('count(views.id) as views_count'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
-            ->where('posts.status', 1)
+                ->where('posts.status', 1)
             ->Where(function ($query) {
                 if (!empty(post('search'))) {
                     $query->where('posts.post_title', 'like', '%' . post('search') . '%');
@@ -71,18 +75,21 @@ class Posts extends ComponentBase
             ->skip($skip)->take(2)
             ->get();
 
-        // TODO: remove post form + add count search + search title
-
-        // set path to users & post image
-        foreach ($posts as $key => $value) {
-            if ($value->users_image) {
-                $posts[$key]->users_image = $this->setImagePath($value->users_image);
+        if($posts->isNotEmpty()) {
+            // set path to users & post image
+            foreach ($posts as $key => $value) {
+                if ($value->users_image) {
+                    $posts[$key]->users_image = $this->setImagePath($value->users_image);
+                }
+                if ($value->posts_image) {
+                    $posts[$key]->posts_image = $this->setImagePath($value->posts_image);
+                }
             }
-            if ($value->posts_image) {
-                $posts[$key]->posts_image = $this->setImagePath($value->posts_image);
-            }
+            $this->page['posts'] = $posts;
+        } else {
+            // if empty query collection, disable load more form
+            $this->page['limit'] = false;
         }
-        $this->page['posts'] = $posts;
     }
 
 
