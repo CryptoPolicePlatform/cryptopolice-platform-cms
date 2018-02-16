@@ -1,0 +1,5 @@
+<div id="post_load_form">
+    {{ form_ajax('onGetPosts', { data: { page: page_num } , flash : '', update : { 'CommunityPosts::post-list' : '@#posts_list', 'CommunityPosts::post-load-form' : '#post_load_form' } }) }}
+        <button class="btn  btn--gpink post_load">Load More</button>
+    {{ form_close() }}
+</div>

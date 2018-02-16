@@ -68,11 +68,4 @@
             </div>
         </div>
     {% endfor %}
-
-    <div id="loading" >Loading..."</div>
-
-    {{ form_ajax('onGetPosts', { flash : '', model: CommunityPost, loading : '#loading' }) }}
-        <button style="" class="btn  btn--gpink post_load">Load More</button>
-    {{ form_close() }}
-
 </div>

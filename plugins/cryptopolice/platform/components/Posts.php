@@ -41,6 +41,9 @@ class Posts extends ComponentBase
             }
         }
 
+        $this->page['page_num'] = post('page') ? post('page') + 1 : 1;
+        $skip = post('page') ? post('page') * 2 : 0;
+
         $posts = Db::table('cryptopolice_platform_community_posts as posts')
             ->join('users', 'posts.user_id', 'users.id')
             ->leftJoin('system_files as users_files', function ($join) {
@@ -65,9 +68,10 @@ class Posts extends ComponentBase
             ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')
             ->groupBy('posts.id')
+            ->skip($skip)->take(2)
             ->get();
 
-//        TODO: remove post form + add count search + serach title
+        // TODO: remove post form + add count search + search title
 
         // set path to users & post image
         foreach ($posts as $key => $value) {
