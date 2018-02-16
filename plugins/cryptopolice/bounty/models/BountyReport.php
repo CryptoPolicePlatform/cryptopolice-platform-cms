@@ -177,8 +177,8 @@ class BountyReport extends Model
             $user = User::where('id', $this->user_id)->first();
             $campaign = Bounty::where('id', $this->bounty_campaigns_id)->first();
 
+            $this->sendMail($campaign, $user);
             $this->addUsersNotification($campaign);
-            // $this->sendMail($user);
 
             Flash::success('Mail & notification for [' . $user->email . '] has been send');
 
@@ -197,14 +197,14 @@ class BountyReport extends Model
         $notify->save();
     }
 
-    public function sendMail($user)
+    public function sendMail($campaign, $user)
     {
         $vars = [
-            'name' => $user->full_name,
-            'mail' => $user->email
+            'name' => $user->nickname,
+            'mail' => $user->email,
+            'bounty_campaign_title' => $campaign->title,
         ];
-
-        Mail::send('cryptopolice.bounty::mail.report_bounty_message', $vars, function ($message) use ($user) {
+        Mail::send('cryptopolice.bounty::mail.report', $vars, function ($message) use ($user) {
             $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
         });
 

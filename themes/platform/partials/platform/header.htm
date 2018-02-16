@@ -10,50 +10,50 @@
         <div class="header__nav" id="profile">
 
             {% if user %}
-            <a class="header__ava" href="{{'profile'|page}}">
-                {% if user.avatar.path %}
-                    <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
-                {% else %}
-                    <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
-                {% endif %}
-            </a>
+                <a class="header__ava" href="{{'profile'|page}}">
+                    {% if user.avatar.path %}
+                        <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
+                    {% else %}
+                        <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                    {% endif %}
+                </a>
 
-            <a class="header__name" href="{{'profile'|page}}">{% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {% endif %}</a>
-            <span class="tool" data-tip="Notification" tabindex="1">
-                    <a class="header__nav-item" href="{{'notification'|page}}">
-                        {% if notifyCount %} <span class="header__mails-count"> {{ notifyCount }} </span> {% endif %}
-                    <img src="{{'assets/images/mail-ico.png'|theme}}" width="20" height="19" alt="">
-                    </a>
-            </span>
+                <a class="header__name" href="{{'profile'|page}}">{% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {% endif %}</a>
+                <span class="tool" data-tip="Notification" tabindex="1">
+                        <a class="header__nav-item" href="{{'notification'|page}}">
+                            {% if notifyCount %} <span class="header__mails-count"> {{ notifyCount }} </span> {% endif %}
+                        <img src="{{'assets/images/mail-ico.png'|theme}}" width="20" height="19" alt="">
+                        </a>
+                </span>
 
-            <a class="header__nav-item" href="https://support.cryptopolice.com" target="_blank">
-                <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon" aria-hidden="true"></i></span>
-            </a>
+                <a class="header__nav-item" href="https://support.cryptopolice.com" target="_blank">
+                    <span class="tool" data-tip="Support" tabindex="1"><i class="fa fa-life-ring header-icon" aria-hidden="true"></i></span>
+                </a>
 
-            <span class="tool" data-tip="Settings" tabindex="1">
-                <div class="dropdown-wrapper">
-                    <button class="btn  btn--dropdown" type="button" data-toggle="dropdown">
-                        <i class="fa fa-cog header-icon"></i>
-                    </button>
-                    <ul class="dropdown  dropdown--right" data-dropdown>
-                        <li><a class="dropdown__link" href="{{ 'profile'|page }}"><iclass="fa fa-save"></i> Settings </a></li>
-                    </ul>
-                </div>
-            </span>
+                <span class="tool" data-tip="Settings" tabindex="1">
+                    <div class="dropdown-wrapper">
+                        <button class="btn  btn--dropdown" type="button" data-toggle="dropdown">
+                            <i class="fa fa-cog header-icon"></i>
+                        </button>
+                        <ul class="dropdown  dropdown--right" data-dropdown>
+                            <li><a class="dropdown__link" href="{{ 'profile'|page }}"><iclass="fa fa-save"></i> Settings </a></li>
+                        </ul>
+                    </div>
+                </span>
             {% endif %}
 
             {% if user %}
-            <a class="header__nav-item" data-request="onLogout" data-request-flash data-request-data="redirect: '/login'">
-                <span class="tool" data-tip="Logout" tabindex="1">
-                    <i class="fa fa-sign-out header-icon" aria-hidden="true"></i>
-                </span>
-            </a>
+                <a class="header__nav-item" data-request="onLogout" data-request-flash data-request-data="redirect: '/login'">
+                    <span class="tool" data-tip="Logout" tabindex="1">
+                        <i class="fa fa-sign-out header-icon" aria-hidden="true"></i>
+                    </span>
+                </a>
             {% else %}
-            <a class="header__nav-item" href="/login">
-                <span class="tool" data-tip="Login" tabindex="1">
-                    <i class="fa fa-sign-out header-icon" aria-hidden="true"></i>
-                </span>
-            </a>
+                <a class="header__nav-item" href="/login">
+                    <span class="tool" data-tip="Login" tabindex="1">
+                        <i class="fa fa-sign-out header-icon" aria-hidden="true"></i>
+                    </span>
+                </a>
             {% endif %}
         </div>
 

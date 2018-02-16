@@ -5049,7 +5049,7 @@ html.remodal-is-locked {
 
 .issues__view,
 .issues__amount {
-    max-width: 130px;
+    max-width: 110px;
     height: 28px;
     -ms-flex-positive: 1;
     flex-grow: 1;

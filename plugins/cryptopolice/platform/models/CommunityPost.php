@@ -17,6 +17,8 @@ class CommunityPost extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'post_title' => 'required|min:0|max:255',
+        'post_description' => 'required|min:0|max:10000'
     ];
 
     /*

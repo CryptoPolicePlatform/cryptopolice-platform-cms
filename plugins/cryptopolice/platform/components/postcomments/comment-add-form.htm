@@ -1,4 +1,4 @@
-<div style="margin-bottom: 20px; margin-top: 20px;" class="card" id="comment_form">
+<div class="card" id="comment_form">
     {{ form_ajax('onAddComment', { flash : '', model: CommunityComment }) }}
         <p class="card__header" id="replies_to"></p>
         <div class="form__group"><textarea class="textarea" name="description" placeholder="Comment"></textarea></div>

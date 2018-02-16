@@ -9,7 +9,6 @@ use Validator;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
 use October\Rain\Support\Facades\Markdown;
-use CryptoPolice\Academy\Components\Recaptcha;
 use CryptoPolice\Platform\Models\CommunityPost;
 
 class Posts extends ComponentBase
@@ -60,6 +59,7 @@ class Posts extends ComponentBase
             ->Where(function ($query) {
                 if (!empty(post('search'))) {
                     $query->where('posts.post_title', 'like', '%' . post('search') . '%');
+                    $query->orWhere('posts.post_description', 'like', '%' . post('search') . '%');
                 }
             })
             ->orderBy('posts.pin', 'desc')
@@ -67,6 +67,9 @@ class Posts extends ComponentBase
             ->groupBy('posts.id')
             ->get();
 
+//        TODO: remove post form + add count search + serach title
+
+        // set path to users & post image
         foreach ($posts as $key => $value) {
             if ($value->users_image) {
                 $posts[$key]->users_image = $this->setImagePath($value->users_image);
@@ -86,38 +89,28 @@ class Posts extends ComponentBase
 
             $user = Auth::getUser();
 
-            $rules = [
-                'title' => 'required|min:0|max:255',
-                'description' => 'required|min:0|max:10000'
-            ];
 
-            $validator = Validator::make(input(), $rules);
+            $previousPost = CommunityPost::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
 
-            if ($validator->fails()) {
-                Flash::error($validator->messages()->first());
-            } else {
-
-                $previousPost = CommunityPost::where('user_id', $user->id)
-                    ->orderBy('created_at', 'desc')
-                    ->first();
-
-                $minutes = $this->compareDates($previousPost->created_at);
-                if ($minutes < 10) {
-                    Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
-                    return false;
-                }
-
-                $html = Markdown::parse(strip_tags(input('description')));
-
-                $post = new CommunityPost;
-                $post->post_title = input('title');
-                $post->post_description = $html;
-                $post->user_id = $user->id;
-                $post->save();
-
-                Flash::success('Post has been successfully added');
-                return redirect()->back();
+            $minutes = $this->compareDates($previousPost->created_at);
+            if ($minutes < 10) {
+                Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
+                return false;
             }
+
+            $html = Markdown::parse(strip_tags(input('description')));
+
+            $post = new CommunityPost;
+            $post->post_title = input('title');
+            $post->post_description = $html;
+            $post->user_id = $user->id;
+            $post->save();
+
+            Flash::success('Post has been successfully added');
+            return redirect()->back();
+
         }
     }
 

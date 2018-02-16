@@ -28,6 +28,10 @@
     margin-bottom: -10px;
 }
 
+.bounty_link_title {
+    color:black;
+}
+
 .empty_flash {
     display: none;
 }
@@ -48,6 +52,16 @@
     margin-top: 15px;
 }
 
+#comment_form {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.comment_reply {
+    margin-left:7.5%;
+    width: 100%;
+}
+
 .user_photo img {
     width: 30px;
     height: 30px;
@@ -62,6 +76,10 @@
 .user_info {
     color: #666;
     font-weight: bold;
+}
+
+.post_title {
+    width:55%;
 }
 
 .choose__post {
@@ -115,6 +133,10 @@
     margin-right: 20px
 }
 
+.post_link:hover {
+    text-decoration: none;
+ }
+
 .post_uploader {
     float: left;
     margin: 15px 15px 1px 0px;
@@ -134,9 +156,22 @@
     }
 }
 
+.post_load {
+    display: block;
+    margin: 0 auto;
+    width: 25%;
+    border-radius: 40px;
+    padding: 10px 20px;
+}
+
+
 .user_right_sidebar {
     right: -10px;
     top: 0px;
+}
+
+.notify_block {
+    display: none;
 }
 
 .tool {

@@ -43,7 +43,7 @@ $(function () {
         e.preventDefault();
 
         var element = $('#description_' + $(this).attr('id'));
-        ($(element).is(":visible")) ? element.hide(400) : element.show(400);
+        ($(element).is(":visible")) ? element.fadeOut( "fast" ) : element.fadeIn( "fast" );
 
     });
 

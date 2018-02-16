@@ -32,7 +32,6 @@ class Users extends ComponentBase
             ->get();
 
         foreach ($users as $key => $value) {
-
             if ($value->user_image) {
                 $users[$key]->user_image = $this->setPath($value->user_image);
             }

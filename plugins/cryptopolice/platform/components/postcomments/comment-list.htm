@@ -10,9 +10,9 @@
                 <a id="{{reply.id}}" href="#"> Reply </a>
             </div>
         </div>
-        <div style="height: auto" class="card__content">{{ reply.description }}</div>
+        <div class="card__content">{{ reply.description }}</div>
         <div class="card__footer">
-            <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
+            <div class="card__footer-left comment_reply">
                 {% if reply.childs %}
                     {% partial CommunityPostComments ~ '::comment-list' childs =reply.childs %}
                 {% endif %}
