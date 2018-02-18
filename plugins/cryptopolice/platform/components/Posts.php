@@ -9,6 +9,7 @@ use Validator;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
 use October\Rain\Support\Facades\Markdown;
+use CryptoPolice\Academy\Components\Recaptcha;
 use CryptoPolice\Platform\Models\CommunityPost;
 
 class Posts extends ComponentBase
@@ -95,6 +96,8 @@ class Posts extends ComponentBase
 
     public function onAddPost()
     {
+
+        Recaptcha::verifyCaptcha();
 
         if (input('_token') == Session::token()) {
 
