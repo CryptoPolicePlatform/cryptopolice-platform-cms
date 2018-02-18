@@ -69,23 +69,16 @@ class UsersCampaign extends ComponentBase
     public function onFilterCampaignReports()
     {
 
-        if (input('_token') == Session::token()) {
-
-            $arr = [
-                post('status')
-            ];
-
             $this->page['campaignReports'] = DB::table('cryptopolice_bounty_user_reports')
                 ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
                 ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
                 ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
                 ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
-                ->Where(function ($query) use ($arr) {
-                    if (!empty($arr[0])) {
-                        $query->where('cryptopolice_bounty_user_reports.report_status', $arr[0]);
+                ->Where(function ($query) {
+                    if (!empty(post('status'))) {
+                        $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
                     }
                 })->get();
-        }
     }
 
 
@@ -120,20 +113,20 @@ class UsersCampaign extends ComponentBase
         $approved = $data->where('report_status', 1)->count();
         $pending = $data->where('report_status', 0)->count();
 
-        if ($counter - $pending  && $approved ) {
+        if ($counter - $pending && $approved) {
             $value = (100 / ($counter - $pending) * $approved) / 100;
         } else {
             $value = 0;
         }
 
         return [
-            'report_percentage'     => $value,
-            'total_tokens'          => $data->where('type', 0)->sum('given_reward'),
-            'report_count'          => $data->count(),
-            'disapproved'           => $data->where('report_status', 2)->count(),
-            'approved'              => $data->where('report_status', 1)->count(),
-            'pending'               => $data->where('report_status', 0)->count(),
-            'stake_list'            => $stakesList,
+            'report_percentage' => $value,
+            'total_tokens' => $data->where('type', 0)->sum('given_reward'),
+            'report_count' => $data->count(),
+            'disapproved' => $data->where('report_status', 2)->count(),
+            'approved' => $data->where('report_status', 1)->count(),
+            'pending' => $data->where('report_status', 0)->count(),
+            'stake_list' => $stakesList,
         ];
     }
 
@@ -204,9 +197,10 @@ class UsersCampaign extends ComponentBase
     {
 
         $user = Auth::getUser();
-        $query = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at',null)->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
-        $this->page['access'] = $query ? $query->pivot->approval_type : null;
-        $this->page['status'] = $query ? $query->pivot->status : null;
+        $query = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
+        $this->page['btc_code'] = $query ? $query->pivot->btc_code : null;
+        $this->page['access']   = $query ? $query->pivot->approval_type : null;
+        $this->page['status']   = $query ? $query->pivot->status : null;
     }
 
 
@@ -250,7 +244,7 @@ class UsersCampaign extends ComponentBase
 
                     // create json from input data
                     foreach (input() as $key => $value) {
-                        if ($key != 'id' & $key != 'g-recaptcha-response'&& $key != '_session_key'&& $key != '_token') {
+                        if ($key != 'id' & $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
                             array_push($json, ['title' => $key, 'value' => $value]);
                         }
                     }
@@ -272,6 +266,12 @@ class UsersCampaign extends ComponentBase
         }
     }
 
+    public function generateBountyCode()
+    {
+        $code = "OFC" . substr(md5(rand()), 0, 10);
+        $query = BountyRegistration::where('btc_code', $code)->get();
+        return $query->isNotEmpty() ? $this->generateBountyCode() : $code;
+    }
 
     public function onCampaignRegistration()
     {
@@ -290,18 +290,23 @@ class UsersCampaign extends ComponentBase
                 if ($access->isEmpty()) {
 
                     foreach (input() as $key => $value) {
-                        if ($key != 'id' && $key != 'g-recaptcha-response'&& $key != '_session_key'&& $key != '_token') {
+                        if ($key != 'id' && $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
                             array_push($json, ['title' => $key, 'value' => $value]);
                         }
                     }
 
                     $user->bountyCampaigns()->attach(post('id'), [
+
+                        'btc_code' => $this->generateBountyCode(),
+                        'btc_username' => input('bitcointalk_username'),
+
                         'fields_data' => json_encode($json),
                         'created_at' => new DateTime(),
                         'status' => 1,
                     ]);
 
                     $user->save();
+
                     Flash::success('Successfully registered');
                     return redirect()->back();
 

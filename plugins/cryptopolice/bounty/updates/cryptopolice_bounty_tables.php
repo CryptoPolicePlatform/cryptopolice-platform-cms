@@ -24,6 +24,9 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->boolean('status')->default(1);
                 $table->boolean('approval_type')->default(0);
                 $table->text('fields_data')->nullable();
+                $table->string('btc_code', 15)->nullable();
+                $table->string('btc_username', 255)->nullable();
+                $table->boolean('btc_status')->default(0);
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();

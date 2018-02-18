@@ -1,6 +1,9 @@
 {% if access == 0 %}
     <div class="alert  alert--green">
-        <p><strong>You need to wait until we confirm your account to participate in current bounty</strong></p>
+        <p>
+            <strong>You need to wait until we confirm your account to participate in current bounty</strong>
+            <br>CODE: <strong>###{{btc_code}}###</strong>
+        </p>
         <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
     </div>
 {% elseif status == 0 %}

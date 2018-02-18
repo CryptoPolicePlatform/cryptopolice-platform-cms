@@ -98,7 +98,7 @@ class Plugin extends PluginBase
             $model->belongsToMany['bountyCampaigns'] = [
                 'CryptoPolice\Bounty\Models\Bounty',
                 'table'     => 'cryptopolice_bounty_user_registration',
-                'pivot'     => ['approval_type', 'status', 'id'],
+                'pivot'     => ['approval_type', 'status', 'btc_code', 'id'],
                 'otherKey'  => 'bounty_campaigns_id',
                 'key'       => 'user_id'
             ];
