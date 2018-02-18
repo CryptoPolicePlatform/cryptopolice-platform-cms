@@ -1,18 +1,11 @@
 ==
 <!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
-    <nav class="nav">
-        <a class="nav__item " href="{{'profile'|page}}" title="">My Profile <img src="{{'assets/images/base-ico.png'|theme}}" alt=""></a>
-        <a class="nav__item {% if this.page.id == 'community' %} active {% endif %}" href="{{'community'|page}}" title="Token sale">Community <img src="{{'assets/images/activity-ico.png'|theme}}" alt=""></a>
-        <a class="nav__item {% if this.page.id == 'bounty-campaign' %} active {% endif %} " href="{{'bounty-campaign'|page({slug : '', id : '' })}}" title="Bounty Campaign"> Bounty Campaign <img src="{{'assets/images/escrow-ico.png'|theme}}" alt=""></a>
-        <a class="nav__item " href="{{'academy'|page}}" title="">Academy <img src="{{'assets/images/base-ico.png'|theme}}" alt=""></a>
-        <!-- <a class="nav__item" href="{{'token-sale'|page}}" title="Token sale">Investments <img src="{{'assets/images/activity-ico.png'|theme}}" alt=""></a>-->
-        <!-- <a class="nav__item" href="#" title="Scams">Scams <img src="{{'assets/images/scams-ico.png'|theme}}" alt=""></a>-->
-        <!-- <a class="nav__item" href="#" title="Projects">Projects <img src="{{'assets/images/projects-ico.png'|theme}}" alt=""></a>-->
-        <!-- <a class="nav__item" href="#" title="Knowledge base">Knowledge base <img src="{{'assets/images/base-ico.png'|theme}}" alt=""></a>-->
-        <!-- <a class="nav__item" href="#" title="Escrow">Escrow <img src="{{'assets/images/escrow-ico.png'|theme}}" alt=""></a>-->
-        <!-- <a class="nav__item" href="#" title="WatchDog">WatchDog <img src="{{'assets/images/watchdog-ico.png'|theme}}" alt=""></a> &ndash;&gt;-->
-        <!-- <a class="nav__item active" href="#" title="Activity List">Activity List <img src="{{'assets/images/activity-ico.png'|theme}}" alt=""></a> -->
-        <!-- <a class="nav__item" href="#" title="Token Reservation">Token Reservation <img src="{{'assets/images/activity-ico.png'|theme}}" alt=""></a> -->
-    </nav>
+   <nav class="nav">
+      <a class="nav__item {% if this.page.id == 'profile' %} active {% endif %}" href="{{'profile'|page}}" title="My Profile">My Profile <img src="{{'assets/images/base-ico.png'|theme}}" alt="My Profile"></a>
+      <a class="nav__item {% if this.page.id == 'community' %} active {% endif %}" href="{{'community'|page}}" title="Token sale">Community <img src="{{'assets/images/activity-ico.png'|theme}}" alt="Community"></a>
+      <a class="nav__item {% if this.page.id == 'bounty-campaign' %} active {% endif %}" href="{{'bounty-campaign'|page({slug : '', id : '' })}}" title="Bounty Campaign"> Bounty Campaign <img src="{{'assets/images/escrow-ico.png'|theme}}" alt="Bounty Campaign"></a>
+      <a class="nav__item {% if this.page.id == 'academy' %} active {% endif %}" href="{{'academy'|page}}" title="Academy">Academy <img src="{{'assets/images/base-ico.png'|theme}}" alt="Academy"></a>
+      <a class="nav__item {% if this.page.id == 'scams' %} active {% endif %}" href="{{'scams'|page}}" title="Scams">Scams <img src="{{'assets/images/scams-ico.png'|theme}}" alt="Scams"></a>
+   </nav>
 </aside>
