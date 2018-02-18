@@ -20,7 +20,11 @@ class PostDetails extends ComponentBase
 
     public function setImagePath($diskName)
     {
-        return '\\storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
+        if($diskName) {
+            return '\\storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
+        } else {
+            return null;
+        }
     }
 
     public function onRun()
@@ -59,7 +63,7 @@ class PostDetails extends ComponentBase
         if (!$post->status) {
             return $this->controller->run('404');
         }
-
+        
         $post->post_img = $this->setImagePath($post->post_img);
         $this->page['post'] = $post;
     }
