@@ -13,6 +13,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Platform\Components\PostComments'     => 'CommunityPostComments',
             'CryptoPolice\Platform\Components\Notifications'    => 'Notifications',
             'CryptoPolice\Platform\Components\UserProfile'      => 'UserProfile',
+            'CryptoPolice\Platform\Components\Scams'            => 'Scams',
         ];
     }
 
