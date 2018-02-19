@@ -1,6 +1,7 @@
 title = "Profile"
 url = "/profile"
 layout = "platform"
+description = "Users profile page"
 is_hidden = 0
 
 [reCaptcha]
@@ -23,7 +24,7 @@ modelKeyColumn = "picture"
 identifierValue = "{{ :id }}"
 ==
 <?php
-    function onInit() {
+function onInit() {
         $user = Auth::getUser();
             if($user){
                 $component = $this->addComponent(

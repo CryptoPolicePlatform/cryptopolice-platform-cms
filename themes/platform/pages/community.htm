@@ -1,6 +1,7 @@
-title = "CryptoPolice"
+title = "Community"
 url = "/"
 layout = "platform"
+description = "Comunity page"
 is_hidden = 0
 
 [session]
@@ -8,12 +9,10 @@ security = "user"
 redirect = "login"
 
 [CommunityPosts]
-
 [CommunityUsers]
-
 [UserProfile]
-
 [imageUploader]
+
 placeholderText = "Click or drag images to upload"
 maxSize = 1
 fileTypes = ".gif,.jpg,.jpeg,.png"
@@ -26,11 +25,13 @@ identifierValue = "{{ :id }}"
 deferredBinding = 1
 ==
 <?php
-use CryptoPolice\Platform\Models\CommunityPost;
+
+    use CryptoPolice\Platform\Models\CommunityPost;
 
     function onInit() {
         $this->imageUploader->bindModel('post_image', new CommunityPost);
     }
+    
 ?>
 ==
 <!-- Content -->

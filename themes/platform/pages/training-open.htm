@@ -1,15 +1,15 @@
 title = "Training Task"
 url = "/training-task/:slug"
 layout = "academy"
+description = "Training taskpage"
 is_hidden = 0
 
 [TrainingTask]
-max = 10
+
 [session]
 security = "user"
 redirect = "login"
 ==
-
 <div class="content">
     <div class="content__inner">
         {% component 'TrainingTask' %}
