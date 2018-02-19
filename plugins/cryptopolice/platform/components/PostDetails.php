@@ -21,7 +21,7 @@ class PostDetails extends ComponentBase
     public function setImagePath($diskName)
     {
         if($diskName) {
-            return '\\storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
+            return '/storage/app/uploads/public/' . substr($diskName, 0, 3) . '/' . substr($diskName, 3, 3) . '/' . substr($diskName, 6, 3) . '/' . $diskName;
         } else {
             return null;
         }
@@ -63,8 +63,18 @@ class PostDetails extends ComponentBase
         if (!$post->status) {
             return $this->controller->run('404');
         }
-        
+
         $post->post_img = $this->setImagePath($post->post_img);
+
         $this->page['post'] = $post;
+    }
+
+
+    public function socialShares() {
+        //        <a href="https://www.facebook.com/sharer/sharer.php?u={{ ''|page }}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
+        //        <a href="https://twitter.com/share?url={{ ''|page }}&amp;text={{post.title}}" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+        //        $arr ['']
+        //        dump($this->currentPageUrl().);
+        //        $this->page['facebook'];
     }
 }

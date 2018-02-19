@@ -1,9 +1,11 @@
 <?php namespace CryptoPolice\Platform\Components;
 
 use DB;
+use Auth;
 use RainLab\User\Models\User;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Models\CommunityPost;
+use CryptoPolice\Platform\Models\CommunityComment;
 
 class UserProfile extends ComponentBase
 {
@@ -34,6 +36,15 @@ class UserProfile extends ComponentBase
 
         if ($totalPostsCount) {
             $this->page['post_count_percentage'] = ((100 / $totalPostsCount) * ($totalPostsCount - $pendingPostsCount)) / 100;
+        }
+
+
+        $user = Auth::getUser();
+
+        if($user) {
+            $this->page['user_posts_count'] = CommunityPost::where('user_id', $user->id)->count();
+            $this->page['user_comments_count'] = CommunityComment::where('user_id', $user->id)->count();
+            $this->page['user_activity'] = (($this->page['user_posts_count'] * 5) + $this->page['user_comments_count']) / 100;
         }
     }
 }

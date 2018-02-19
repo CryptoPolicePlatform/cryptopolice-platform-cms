@@ -202,7 +202,7 @@ class BountyReport extends Model
         $vars = [
             'name' => $user->nickname,
             'mail' => $user->email,
-            'bounty_campaign_title' => $campaign->title,
+            'campaignTitle' => $campaign->title,
         ];
         Mail::send('cryptopolice.bounty::mail.report', $vars, function ($message) use ($user) {
             $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');

@@ -1,7 +1,8 @@
 <?php namespace CryptoPolice\Platform\Components;
 
+use Flash;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\Platform\Models\CommunityPost;
+use CryptoPolice\Platform\Models\Scam;
 
 class Scams extends ComponentBase
 {
@@ -17,5 +18,18 @@ class Scams extends ComponentBase
     public function onRun()
     {
         
+    }
+
+    public function onAddScam() {
+
+        $scam = new Scam();
+        $scam->save([
+                'title' => post('scam_title'),
+                'description' => post('scam_description')
+            ]
+        );
+
+        Flash::success('test');
+        return;
     }
 }

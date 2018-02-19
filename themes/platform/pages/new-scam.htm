@@ -1,0 +1,19 @@
+title = "New Scam"
+url = "/new-scam"
+layout = "platform"
+description = "Add new scams"
+is_hidden = 0
+
+[Scams]
+==
+<main class="content">
+    <div class="content__inner">
+
+        <!-- Scam Filter -->
+        {% partial Scams ~ '::scam-add-form' %}
+
+        <!-- Scam sidebar [ links + statistic ] -->
+        {% partial Scams ~ '::scam-sidebar' %}
+
+    </div>
+</main>

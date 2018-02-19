@@ -44,22 +44,26 @@ is_hidden = 0
                                     <div class="card__date">
                                         <strong>{% if comment.nickname %} {{ comment.nickname }} {% else %} {{ comment.email|slice(0, 3)}}*****@***{{ comment.email|slice(comment.email.length - 4, comment.email.length) }} {% endif %}</strong>
                                         {{ comment.created_at }}
-                                        <a id="{{comment.id}}" href="#">Reply</a>
+                                            <a id="{{comment.id}}" href="#">Reply</a>
+                                        {% if user and user.id == comment.user_id %}
+                                            <a href="#">Remove</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="card__content">
                                     {{ comment.description }}
                                 </div>
-                                <div class="card__footer">
-                                    <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
-                                        {% if comment.childs %}
+
+                                {% if comment.childs %}
+                                    <div class="card__footer">
+                                        <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
 
                                             <!-- Comment Replies -->
                                             {% partial CommunityPostComments ~ '::comment-list' childs=comment.childs %}
 
-                                        {% endif %}
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

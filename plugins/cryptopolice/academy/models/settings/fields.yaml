@@ -13,49 +13,64 @@ fields:
           required: true
 
     new_post_views:
-          label: ]New post "min" views
+          label: NEW post "min" views
           type: text
           required: true
           span: left
+    new_post_min_comments:
+          label: NEW post "min" comments
+          type: text
+          required: true
+          span: right
     new_post_min_hours:
-          label: New post "min" hours
+          label: NEW post "min" hours
           type: text
           required: true
           span: left
     new_post_max_hours:
-          label: New post "max" hours
+          label: NEW post "max" hours
           type: text
           required: true
           span: right
 
     med_post_views:
-          label: Hot post "min" views
+          label: WARM post "min" views
           type: text
           required: true
           span: left
+    med_post_min_comments:
+          label: WARM post "min" comments
+          type: text
+          required: true
+          span: right
     med_post_min_hours:
-          label: Hot post "min" hours
+          label: WARM post "min" hours
           type: text
           required: true
           span: left
     med_post_max_hours:
-          label: Hot post "max" hours
+          label: WARM post "max" hours
           type: text
           required: true
           span: right
 
     hot_post_views:
-          label: Hot post "min" views
+          label: HOT post "min" views
           type: text
           required: true
           span: left
+    hot_post_min_comments:
+          label: HOT post "min" comments
+          type: text
+          required: true
+          span: right
     hot_post_min_hours:
-          label: Hot post "min" hours
+          label: HOT post "min" hours
           type: text
           required: true
           span: left
     hot_post_max_hours:
-          label: Hot post "max" hours
+          label: HOT post "max" hours
           type: text
           required: true
           span: right

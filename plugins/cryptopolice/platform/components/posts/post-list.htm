@@ -35,7 +35,27 @@
                                     {% endif %}
                                 </a>
                             </li>
-                            <li class="card__ava"> Views: {{ communityPost.views_count }}</li>
+
+                            <li class="card__ava">
+                                <a href="#">
+                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                                </a>
+                            </li>
+                            <li class="card__ava">
+                                <a href="#">
+                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                                </a>
+                            </li>
+                            <li class="card__ava">
+                                <a href="#">
+                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
+                                </a>
+                            </li>
+
+                            <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                {{ communityPost.views_count }}</li>
+                            <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i>
+                                {{ communityPost.views_count }}</li>
                         </ul>
                     </div>
                     <div class="card__footer-right">
@@ -54,7 +74,7 @@
                 {% if communityPost.status == 1 %}
                     <div class="card__status  low">new</div>
                 {% elseif communityPost.status == 2 %}
-                    <div class="card__status  medium">medium</div>
+                    <div class="card__status  medium">warm</div>
                 {% elseif communityPost.status == 3 %}
                     <div class="card__status  high">hot</div>
                 {% else %}

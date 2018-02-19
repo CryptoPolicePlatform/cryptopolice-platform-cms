@@ -1,5 +1,5 @@
 <div class="profile__card post_form">
-    <h3 class="content__title">Join our community by ...</h3>
+    <h3 class="content__title">Let's communicate</h3>
 
     <div class="choose__post">
         {{ form_ajax('onAddPost', { flash : '', model: CommunityPost }) }}
@@ -7,11 +7,11 @@
                 {% component 'imageUploader' %}
             </div>
             <div class="card__header">
-                <input class="input post_title" name="title" placeholder="title"/>
+                <input class="input post_title" name="title" placeholder="Your post title"/>
             </div>
             <div class="form__group">
                 <div class="card__content">
-                    <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
+                    <textarea class="textarea" name="description" placeholder="Your post text"></textarea>
                 </div>
             </div>
 

@@ -36,9 +36,9 @@ class Plugin extends PluginBase
     {
         return [
             'settings' => [
-                'label'         => 'Academy Plugin',
-                'description'   => 'CryptoPolice Academy Plugin',
-                'icon'          => 'icon-users',
+                'label'         => 'Platform Settings',
+                'description'   => 'Settings',
+                'icon'          => 'icon-cog',
                 'class'         => 'CryptoPolice\Academy\Models\Settings',
             ]
         ];

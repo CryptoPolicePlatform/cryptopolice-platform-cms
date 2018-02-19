@@ -31,7 +31,7 @@ class Posts extends ComponentBase
 
     public function setImagePath($diskName)
     {
-        return 'storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
+        return 'storage//app//uploads//public//' . substr($diskName, 0, 3) . '//' . substr($diskName, 3, 3) . '//' . substr($diskName, 6, 3) . '//' . $diskName;
     }
 
     public function onGetPosts()
@@ -51,33 +51,48 @@ class Posts extends ComponentBase
         $skip = post('page') ? post('page') * 20 : 0;
 
         $posts = Db::table('cryptopolice_platform_community_posts as posts')
+
             ->join('users', 'posts.user_id', 'users.id')
+
             ->leftJoin('system_files as users_files', function ($join) {
                 $join->on('users.id', '=', 'users_files.attachment_id')
                     ->where('users_files.attachment_type', 'RainLab\User\Models\User');
             })
+
             ->leftJoin('system_files as posts_files', function ($join) {
                 $join->on('posts.id', '=', 'posts_files.attachment_id')
                     ->where('posts_files.attachment_type', 'CryptoPolice\Platform\Models\CommunityPost');
             })
+
             ->leftJoin('cryptopolice_platform_community_post_views as views', function ($join) {
                 $join->on('posts.id', '=', 'views.post_id');
             })
-            ->select(DB::raw('count(views.id) as views_count'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
-                ->where('posts.status', 1)
+
+            ->leftJoin('cryptopolice_platform_community_comment as comments', function ($join) {
+                $join->on('posts.id', '=', 'comments.post_id');
+            })
+
+            ->select(DB::raw('count(views.id) as views_count'),DB::raw('count(comments.id) as views_countt'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
+
+            ->where('posts.status', 1)
             ->Where(function ($query) {
                 if (!empty(post('search'))) {
                     $query->where('posts.post_title', 'like', '%' . post('search') . '%');
                     $query->orWhere('posts.post_description', 'like', '%' . post('search') . '%');
                 }
             })
+
             ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')
             ->groupBy('posts.id')
+            ->groupBy('comments.post_id')
+
             ->skip($skip)->take(20)
+
             ->get();
 
         if($posts->isNotEmpty()) {
+
             // set path to users & post image
             foreach ($posts as $key => $value) {
                 if ($value->users_image) {
@@ -86,11 +101,13 @@ class Posts extends ComponentBase
                 if ($value->posts_image) {
                     $posts[$key]->posts_image = $this->setImagePath($value->posts_image);
                 }
+
                 // set status
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count);
             }
             $this->page['posts'] = $posts;
         } else {
+
             // if empty query collection, disable load more form
             $this->page['limit'] = false;
         }
