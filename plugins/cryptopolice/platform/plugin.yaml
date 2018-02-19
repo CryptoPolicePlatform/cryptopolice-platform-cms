@@ -22,3 +22,7 @@ navigation:
         label: Notify
         url: cryptopolice/platform/notifications
         icon: icon-bell
+    scams:
+        label: Scams
+        url: cryptopolice/platform/scams
+        icon: icon-user-secret

@@ -1,0 +1,10 @@
+name: Scams
+form: $/cryptopolice/platform/models/scam/fields.yaml
+modelClass: CryptoPolice\Platform\Models\Scam
+defaultRedirect: cryptopolice/platform/scams
+create:
+    redirect: 'cryptopolice/platform/scams/update/:id'
+    redirectClose: cryptopolice/platform/scams
+update:
+    redirect: cryptopolice/platform/scams
+    redirectClose: cryptopolice/platform/scams
