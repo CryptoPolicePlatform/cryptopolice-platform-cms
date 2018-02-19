@@ -16,8 +16,12 @@
         </div>
 
         <div class="profile__block">
-            <p>Name: <b> {{ user.name }} </b></p>
-            <p>Surname: <b> {{ user.surname }} </b></p>
+            {% if user.name %}
+                <p>Name: <b>{{ user.name }}</b></p>
+            {% endif %}
+            {% if user.surname %}
+                <p>Surname: <b>{{ user.surname }}</b></p>
+            {% endif %}
             <p>E-mail: <b> {{ user.email }} </b></p>
         </div>
 
