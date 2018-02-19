@@ -15,19 +15,19 @@
     <meta name="google" content="notranslate">
     <meta name="format-detection" content="telephone=no">
 
-    <!-- OG facebook, twitter-->
+    <!-- Open graph -->
     <meta property="og:url" content="{{ url('/') }}">
     <meta property="og:type" content="website" />
-    {% if post.title %}
-    <meta property="og:title" content="{{ post.title }}">
+    {% if post.post_title %}
+    <meta property="og:title" content="{{ post.post_title }}">
     {% endif %}
-    {% if post.description %}
-    <meta property="og:description" content="{{ post.description }}">
+    {% if post.post_description %}
+    <meta property="og:description" content="{{ post.post_description }}">
     {% endif %}
     {% if post.post_img %}
-    <meta property="og:image" content="{{url('/')}}{{post.post_img}}">
+    <meta property="og:image" content="{{post.post_img}}">
     {% else %}
-    <meta property="og:image" content="{{url('/')}}{{'assets/images/user.svg'|theme}}">
+    <meta property="og:image" content="{{'assets/images/user.svg'|theme}}">
     {% endif %}
     <meta property="og:site_name" content="CryptoPolice Platform">
     <meta property="og:locale" content="en_us">

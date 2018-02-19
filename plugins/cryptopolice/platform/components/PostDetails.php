@@ -60,21 +60,27 @@ class PostDetails extends ComponentBase
             ->where('posts.status', 1)
             ->first();
 
+        $post->facebook = $this->setFacebookShare();
+        $post->twitter = $this->setTwitterShare($post->post_title);
+        $post->reddit = $this->setRedditShare($post->post_title);
+
         if (!$post->status) {
             return $this->controller->run('404');
         }
 
         $post->post_img = $this->setImagePath($post->post_img);
-
         $this->page['post'] = $post;
     }
 
+    public function setFacebookShare() {
+        return 'https://www.facebook.com/sharer/sharer.php?' . http_build_query([ 'u' => $this->currentPageUrl() ]);
+    }
 
-    public function socialShares() {
-        //        <a href="https://www.facebook.com/sharer/sharer.php?u={{ ''|page }}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
-        //        <a href="https://twitter.com/share?url={{ ''|page }}&amp;text={{post.title}}" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-        //        $arr ['']
-        //        dump($this->currentPageUrl().);
-        //        $this->page['facebook'];
+    public function setTwitterShare($title) {
+        return 'https://twitter.com/share?' . http_build_query([ 'url' => $this->currentPageUrl(), 'text' => $title ]);
+    }
+    
+    public function setRedditShare($title) {
+        return 'https://reddit.com/submit?' . http_build_query([ 'url' => $this->currentPageUrl(), 'title' => $title ]);
     }
 }

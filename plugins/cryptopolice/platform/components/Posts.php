@@ -68,11 +68,7 @@ class Posts extends ComponentBase
                 $join->on('posts.id', '=', 'views.post_id');
             })
 
-            ->leftJoin('cryptopolice_platform_community_comment as comments', function ($join) {
-                $join->on('posts.id', '=', 'comments.post_id');
-            })
-
-            ->select(DB::raw('count(views.id) as views_count'),DB::raw('count(comments.id) as views_countt'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
+            ->select(DB::raw('count(views.id) as views_count'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
 
             ->where('posts.status', 1)
             ->Where(function ($query) {
@@ -85,7 +81,6 @@ class Posts extends ComponentBase
             ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')
             ->groupBy('posts.id')
-            ->groupBy('comments.post_id')
 
             ->skip($skip)->take(20)
 
@@ -104,6 +99,11 @@ class Posts extends ComponentBase
 
                 // set status
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count);
+
+				// set shares links
+                $posts[$key]->facebook = $this->setFacebookShare();
+        		$posts[$key]->twitter = $this->setTwitterShare($value->post_description);
+
             }
             $this->page['posts'] = $posts;
         } else {
@@ -166,5 +166,13 @@ class Posts extends ComponentBase
         if (isset($date) && !empty($date)) {
             return Carbon::now()->diffInMinutes(Carbon::parse($date));
         }
+    }
+
+    public function setFacebookShare() {
+        return 'https://www.facebook.com/sharer/sharer.php?' . http_build_query([ 'u' => $this->currentPageUrl() ]);
+    }
+
+    public function setTwitterShare($text) {
+        return 'https://twitter.com/share?' . http_build_query([ 'url' => $this->currentPageUrl(), 'text' => $text ]);
     }
 }

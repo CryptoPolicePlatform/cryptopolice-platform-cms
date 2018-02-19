@@ -60,10 +60,8 @@
                     </div>
                     <div class="card__footer-right">
                         <ul class="card__social">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}"
-                               title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
-                            <a href="https://twitter.com/share?url={{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}&amp;text=text"
-                               title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="{{communityPost.facebook}}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                            <a href="{{communityPost.twitter}}" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
                             <li class="card__social-item  c-comment">
                                 <a href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">comment</a>
                             </li>
