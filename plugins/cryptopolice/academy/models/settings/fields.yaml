@@ -7,7 +7,55 @@ fields:
       label: ReCaptcha
       type: section
 
-    recaptcha-key:
+    recaptcha_key:
           label: reCaptcha Key
           type: text
           required: true
+
+    new_post_views:
+          label: ]New post "min" views
+          type: text
+          required: true
+          span: left
+    new_post_min_hours:
+          label: New post "min" hours
+          type: text
+          required: true
+          span: left
+    new_post_max_hours:
+          label: New post "max" hours
+          type: text
+          required: true
+          span: right
+
+    med_post_views:
+          label: Hot post "min" views
+          type: text
+          required: true
+          span: left
+    med_post_min_hours:
+          label: Hot post "min" hours
+          type: text
+          required: true
+          span: left
+    med_post_max_hours:
+          label: Hot post "max" hours
+          type: text
+          required: true
+          span: right
+
+    hot_post_views:
+          label: Hot post "min" views
+          type: text
+          required: true
+          span: left
+    hot_post_min_hours:
+          label: Hot post "min" hours
+          type: text
+          required: true
+          span: left
+    hot_post_max_hours:
+          label: Hot post "max" hours
+          type: text
+          required: true
+          span: right

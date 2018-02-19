@@ -17,7 +17,7 @@ class Settings extends Model
     public $settingsCode = 'academy';
 
     public $rules = [
-        'recaptcha-key' => 'required',
+        'recaptcha_key' => 'required',
     ];
 
 }

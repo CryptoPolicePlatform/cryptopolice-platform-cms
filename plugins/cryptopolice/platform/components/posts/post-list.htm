@@ -51,12 +51,14 @@
                     </div>
                 </div>
 
-                {% if communityPost.views_count > 10 %}
-                    <div class="card__status  high">high</div>
-                {% elseif communityPost.views_count %}
+                {% if communityPost.status == 1 %}
+                    <div class="card__status  low">new</div>
+                {% elseif communityPost.status == 2 %}
                     <div class="card__status  medium">medium</div>
+                {% elseif communityPost.status == 3 %}
+                    <div class="card__status  high">hot</div>
                 {% else %}
-                    <div class="card__status  low">low</div>
+                    <div class="card__status  low">new</div>
                 {% endif %}
 
             </div>

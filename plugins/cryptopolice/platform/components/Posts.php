@@ -8,6 +8,7 @@ use Request;
 use Validator;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
+use CryptoPolice\Academy\Models\Settings;
 use October\Rain\Support\Facades\Markdown;
 use CryptoPolice\Academy\Components\Recaptcha;
 use CryptoPolice\Platform\Models\CommunityPost;
@@ -85,12 +86,27 @@ class Posts extends ComponentBase
                 if ($value->posts_image) {
                     $posts[$key]->posts_image = $this->setImagePath($value->posts_image);
                 }
+                // set status
+                $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count);
             }
             $this->page['posts'] = $posts;
         } else {
             // if empty query collection, disable load more form
             $this->page['limit'] = false;
         }
+    }
+
+    public function setStatus($createdAt, $views)
+    {
+
+        $hours = Carbon::now()->diffInHours(Carbon::parse($createdAt));
+        if ($hours > Settings::get('hot_post_min_hours') && $hours < Settings::get('hot_post_max_hours') && $views > Settings::get('hot_post_views'))
+            return 3;
+        if ($hours > Settings::get('med_post_min_hours') && $hours < Settings::get('med_post_max_hours') && $views > Settings::get('med_post_views'))
+            return 2;
+        if ($hours > Settings::get('new_post_min_hours') && $hours < Settings::get('new_post_max_hours') && $views > Settings::get('new_post_views'))
+            return 1;
+        return 0;
     }
 
 
