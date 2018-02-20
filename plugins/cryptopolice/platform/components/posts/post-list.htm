@@ -1,5 +1,5 @@
 <div id="post_content">
-    {% if search_data %}
+    {% if search_data and posts %}
         <div class="card post_item">
             <div class="choose__post">
                 Search result for <strong>"{{search_data}}"</strong>
@@ -90,7 +90,7 @@
             </div>
         </div>
     {% else %}
-        {% if search_data is empty %}
+        {% if search_data %}
             <div class="card post_item">
                 <div class="choose__post">
                     <p>Your search for <strong>"{{search_data}}"</strong> did not match any posts</p>

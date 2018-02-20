@@ -41,8 +41,8 @@ class Posts extends ComponentBase
         $this->page['page_num'] = post('page') ? post('page') + 1 : 1;
         $this->page['search_data'] = post('search');
 
-        // skip 100 records per page, for search 50
-        $perPage = !empty(post('search')) ? 50 : 100;
+        // skip 100 records per page, for search 100
+        $perPage = !empty(post('search')) ? 100 : 100;
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
@@ -88,9 +88,9 @@ class Posts extends ComponentBase
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count);
 
                 // set shares links
-                $posts[$key]->facebook = $this->setFacebookShare();
                 $posts[$key]->twitter = $this->setTwitterShare($value->post_description);
                 $posts[$key]->reddit = $this->setRedditShare($value->post_title);
+                $posts[$key]->facebook = $this->setFacebookShare();
 
             }
             $this->page['posts'] = $posts;
