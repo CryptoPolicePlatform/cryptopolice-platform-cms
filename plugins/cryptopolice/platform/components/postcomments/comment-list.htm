@@ -12,10 +12,10 @@
                 <strong>{% if reply.nickname %} {{ reply.nickname }} {% else %} {{ reply.email|slice(0, 3)}}*****@***{{ reply.email|slice(reply.email.length - 4, reply.email.length) }} {% endif %}</strong>
                     {{ reply.created_at }}
                 <a id="{{reply.id}}" href="#"> Reply </a>
-                {% if user and user.id == reply.user_id %}
-                    <a href="#">Remove</a>
-                {% endif %}
             </div>
+            {% if user and user.id == reply.user_id %}
+                <a data-request="onDeleteComment" data-request-data="id:{{reply.id}}" data-request-confirm data-request-flash>Remove</a>
+            {% endif %}
         </div>
         <div class="card__content">{{ reply.description }}</div>
         <div class="card__footer">

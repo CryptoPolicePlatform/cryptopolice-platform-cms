@@ -5033,6 +5033,7 @@ html.remodal-is-locked {
 }
 
 .issues__title {
+    width: 270px;
     -ms-flex-positive: 2;
     flex-grow: 2;
     padding-left: 80px;

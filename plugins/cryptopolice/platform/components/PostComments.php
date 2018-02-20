@@ -99,4 +99,16 @@ class PostComments extends ComponentBase
         preg_match_all('/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $value, $result, PREG_PATTERN_ORDER);
         return $result[0];
     }
+
+    public function onDeleteComment()
+    {
+
+        $user = Auth::getUser();
+
+        if ($user && !empty(post('id'))) {
+            DB::table('cryptopolice_platform_community_comment')->where('user_id', $user->id)->where('id', post('id'))->delete();
+            Flash::warning('Your comment has been successfully deleted');
+            return redirect()->back();
+        }
+    }
 }

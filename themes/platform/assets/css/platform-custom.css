@@ -153,6 +153,9 @@
     float: left;
     margin-right: 20px
 }
+.post_img img{
+    object-fit: cover;
+}
 
 .post_link:hover {
     text-decoration: none;

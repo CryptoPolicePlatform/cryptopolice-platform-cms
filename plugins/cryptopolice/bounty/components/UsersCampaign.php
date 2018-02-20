@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Bounty\Components;
 
+use CryptoPolice\Platform\Models\Notification;
 use DB;
 use Auth;
 use Flash;
@@ -295,17 +296,18 @@ class UsersCampaign extends ComponentBase
                         }
                     }
 
+                    $code = $this->generateBountyCode();
+
                     $user->bountyCampaigns()->attach(post('id'), [
-
-                        'btc_code' => $this->generateBountyCode(),
+                        'btc_code' => $code,
                         'btc_username' => input('bitcointalk_username'),
-
                         'fields_data' => json_encode($json),
                         'created_at' => new DateTime(),
                         'status' => 1,
                     ]);
-
                     $user->save();
+
+                    $this->setUserNotification($user->id, $code);
 
                     Flash::success('Successfully registered');
                     return redirect()->back();
@@ -315,5 +317,14 @@ class UsersCampaign extends ComponentBase
                 }
             }
         }
+    }
+
+    public function setUserNotification($userID, $code)
+    {
+        $notify = new Notification();
+        $notify->title = 'Confirm registration';
+        $notify->description = 'You need to post this code' . $code;
+        $notify->user_id = $userID;
+        $notify->save();
     }
 }
