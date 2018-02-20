@@ -25,7 +25,7 @@
     <meta property="og:description" content="{{ post.post_description }}">
     {% endif %}
     {% if post.post_img %}
-    <meta property="og:image" content="{{post.post_img}}">
+    <meta property="og:image" content="{{ url('/') }}{{post.post_img}}">
     {% else %}
     <meta property="og:image" content="{{'assets/images/user.svg'|theme}}">
     {% endif %}

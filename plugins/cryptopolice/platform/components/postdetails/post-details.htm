@@ -2,7 +2,7 @@
     <div class="card__header report_header"><h2> {{ post.title }} </h2></div>
 
     {% if post.post_img %}
-        <img src="{{post.post_img}}" width="150" height="150" alt="Author">
+        <img class="post_image" src="{{post.post_img}}" width="150" height="150" alt="Author">
     {% else %}
         <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="150" height="150" alt="user-avatar">
     {% endif %}
@@ -15,9 +15,11 @@
         <div class="card__footer-left">
             <ul class="card__ava-list">
                 <li class="card__ava  card__ava--author">
-                    by {% if post.nickname %} {{ post.nickname }} {% else %} {{ post.email|slice(0, 3)}}*****@***{{ post.email|slice(post.email.length - 4, post.email.length) }} {% endif %}
+                    <img src="{{post.user_img}}" width="23" height="23" alt="Author">
                 </li>
-                <li class="card__ava">Views: {{ post.views_count }}</li>
+                by <strong>{% if post.nickname %} {{ post.nickname }} {% else %} {{ post.email|slice(0, 3)}}*****@***{{ post.email|slice(post.email.length - 4, post.email.length) }} {% endif %}</strong>
+                <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i> {{ post.comment_count }} </li>
+                <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i> {{ post.views_count }} </li>
             </ul>
         </div>
         <div class="card__footer-right">

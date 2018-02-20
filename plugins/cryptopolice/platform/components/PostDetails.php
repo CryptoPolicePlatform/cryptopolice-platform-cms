@@ -47,14 +47,18 @@ class PostDetails extends ComponentBase
 
         $post = Db::table('cryptopolice_platform_community_posts as posts')
             ->join('users', 'posts.user_id', 'users.id')
-            ->leftJoin('system_files', function ($join) {
-                $join->on('posts.id', '=', 'system_files.attachment_id')
-                    ->where('system_files.attachment_type', 'CryptoPolice\Platform\Models\CommunityPost');
+            ->leftJoin('system_files as user_file', function ($join) {
+                $join->on('users.id', '=', 'user_file.attachment_id')
+                    ->where('user_file.attachment_type', 'RainLab\User\Models\User');
+            })
+            ->leftJoin('system_files as post_file', function ($join) {
+                $join->on('posts.id', '=', 'post_file.attachment_id')
+                    ->where('post_file.attachment_type', 'CryptoPolice\Platform\Models\CommunityPost');
             })
             ->join('cryptopolice_platform_community_post_views as views', function ($join) {
                 $join->on('posts.id', '=', 'views.post_id');
             })
-            ->select(DB::raw("count(views.id) as views_count"), 'system_files.disk_name as post_img', 'posts.*', 'users.email', 'users.nickname')
+            ->select(DB::raw("count(views.id) as views_count"), 'post_file.disk_name as post_img', 'user_file.disk_name as user_img', 'posts.*', 'users.email', 'users.nickname')
             ->where('posts.slug', $this->param('slug'))
             ->where('posts.id', $this->param('id'))
             ->where('posts.status', 1)
@@ -69,6 +73,8 @@ class PostDetails extends ComponentBase
         }
 
         $post->post_img = $this->setImagePath($post->post_img);
+        $post->user_img = $this->setImagePath($post->user_img);
+
         $this->page['post'] = $post;
     }
 
@@ -82,5 +88,6 @@ class PostDetails extends ComponentBase
     
     public function setRedditShare($title) {
         return 'https://reddit.com/submit?' . http_build_query([ 'url' => $this->currentPageUrl(), 'title' => $title ]);
+
     }
 }

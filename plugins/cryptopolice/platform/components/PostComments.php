@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
+use CryptoPolice\Platform\Models\CommunityPost;
 use DB;
 use Auth;
 use Flash;
@@ -88,10 +89,22 @@ class PostComments extends ComponentBase
                 }
                 $comment->save();
 
+                $this->increasePostsCommentsCount($this->param('id'));
+
                 Flash::success('Your comment has been successfully added');
                 return redirect()->back();
             }
         }
+    }
+
+    public function increasePostsCommentsCount($id)
+    {
+        return CommunityPost::find($id)->increment('comment_count');
+    }
+
+    public function decreasePostsCommentsCount($id)
+    {
+        return CommunityPost::find($id)->decrement('comment_count');
     }
 
     public function checkLinks($value)
@@ -108,6 +121,7 @@ class PostComments extends ComponentBase
         if ($user && !empty(post('id'))) {
             DB::table('cryptopolice_platform_community_comment')->where('user_id', $user->id)->where('id', post('id'))->delete();
             Flash::warning('Your comment has been successfully deleted');
+            $this->decreasePostsCommentsCount($this->param('id'));
             return redirect()->back();
         }
     }

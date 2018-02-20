@@ -119,6 +119,11 @@
     }
 }
 
+.choose_img {
+    float: left;
+    margin-right: 20px
+}
+
 .post_content {
     width: 100%;
 }
@@ -149,11 +154,7 @@
     margin-bottom: 10px;
 }
 
-.post_img {
-    float: left;
-    margin-right: 20px
-}
-.post_img img{
+.post_image {
     object-fit: cover;
 }
 

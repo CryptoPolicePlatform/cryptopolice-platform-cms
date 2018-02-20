@@ -9,9 +9,9 @@
     {% for communityPost in posts %}
     <div class="card post_item">
             <div class="choose__post">
-                <div class="post_img">
+                <div class="choose_img">
                     {% if communityPost.posts_image %}
-                        <img src="{{communityPost.posts_image}}" width="125" height="125" alt="">
+                        <img class="post_image" src="{{communityPost.posts_image}}" width="125" height="125" alt="">
                     {% else %}
                         <img src="{{'assets/images/user.svg'|theme}}" width="125" height="125">
                     {% endif %}
@@ -59,7 +59,7 @@
                             </li>
 
                             <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                {{ communityPost.views_count }}</li>
+                                {{ communityPost.comment_count }}</li>
                             <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i>
                                 {{ communityPost.views_count }}</li>
                         </ul>
@@ -68,6 +68,8 @@
                         <ul class="card__social">
                             <a href="{{communityPost.facebook}}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
                             <a href="{{communityPost.twitter}}" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="{{ post.reddit }}" title="Share on Reddit" target="_blank"><i class="fa fa-reddit"></i></a>
+
                             <li class="card__social-item  c-comment">
                                 <a href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">comment</a>
                             </li>
