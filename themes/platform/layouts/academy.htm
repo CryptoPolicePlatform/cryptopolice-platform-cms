@@ -1,5 +1,4 @@
 description = "Academy layout"
-
 [session]
 security = "all"
 ==
@@ -28,17 +27,10 @@ security = "all"
     
             <!-- Footer -->
             {% partial 'academy/footer' %}
-         
+
             <!-- Scripts -->
-            <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
-            <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
-            <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-            <script src="{{ 'assets/javascript/reCaptcha.js'|theme }}"></script>
-            <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
-            <script src="{{ 'assets/javascript/main.js'|theme }}"></script>
-            {% framework extras %}
-            {% scripts %}
+            {% partial 'academy/scripts' %}
+
         </div>
     </body>
-    
 </html>

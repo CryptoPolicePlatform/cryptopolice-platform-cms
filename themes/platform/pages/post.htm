@@ -12,7 +12,6 @@ is_hidden = 0
 
 [CommunityPostComments]
 ==
-<!-- Content -->
 <main class="content">
     <div class="content__inner">
         <div class="content__left">
@@ -51,7 +50,7 @@ is_hidden = 0
                                     </div>
                                 </div>
                                 <div class="card__content">
-                                    {{ comment.description }}
+                                    {{ comment.description|md }}
                                 </div>
 
                                 {% if comment.childs %}

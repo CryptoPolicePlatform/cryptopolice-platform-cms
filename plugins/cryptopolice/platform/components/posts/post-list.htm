@@ -1,13 +1,19 @@
 <div id="post_content">
-    {% for communityPost in posts %}
+    {% if search_data %}
         <div class="card post_item">
             <div class="choose__post">
-
+                Search result for <strong>"{{search_data}}"</strong>
+            </div>
+        </div>
+    {% endif %}
+    {% for communityPost in posts %}
+    <div class="card post_item">
+            <div class="choose__post">
                 <div class="post_img">
                     {% if communityPost.posts_image %}
                         <img src="{{communityPost.posts_image}}" width="125" height="125" alt="">
                     {% else %}
-                        <img src="http://igors.cunami.cloud/academy/themes/platform/assets/images/user.svg" width="125" height="125">
+                        <img src="{{'assets/images/user.svg'|theme}}" width="125" height="125">
                     {% endif %}
                 </div>
 
@@ -82,7 +88,7 @@
             </div>
         </div>
     {% else %}
-        {% if search_data %}
+        {% if search_data is empty %}
             <div class="card post_item">
                 <div class="choose__post">
                     <p>Your search for <strong>"{{search_data}}"</strong> did not match any posts</p>

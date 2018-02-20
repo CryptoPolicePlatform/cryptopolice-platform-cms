@@ -1,7 +1,5 @@
 [CommunityPosts]
 ==
-
-<!-- Header -->
 <header class="header">
     <a class="header__logo" href="{{'community'|page}}">
         <img src="{{'assets/images/cryptopolice-logo.png'|theme}}" width="124" alt="CryptoPolice">
@@ -69,7 +67,7 @@
 
         {% if this.page.id == 'community' %}
             {{ form_ajax('onGetPosts', { class : 'header__search' ,flash : '', model: CommunityPost, update : { 'CommunityPosts::post-list' : '#posts_list' } }) }}
-                <input class="header__search-input" type="text" name="search" placeholder="Search" autocomplete="off">
+                <input class="header__search-input" type="text" name="search" placeholder="Search" autocomplete="off" required>
                 <button class="btn-search"><img src="{{'assets/images/search.svg'|theme}}" width="23" alt="Search"></button>
             {{ form_close() }}
         {% endif %}

@@ -1,18 +1,13 @@
 description = "Platform Layout"
-
 [Notifications]
-
 [session]
 security = "all"
 ==
-<?php
-function onStart()
+    function onStart()
     {
-
         header('x-frame-options:DENY');
         header('referrer-policy:same-origin');
     }
-?>
 ==
 <!DOCTYPE html>
 <html>
@@ -36,18 +31,10 @@ function onStart()
 
             <!-- Footer -->
             {% partial 'platform/footer' %}
-         
-            <!-- Scripts -->
-            <script src="{{ 'assets/vendor/jquery.js'|theme }}"></script>
-            <script src="{{ 'assets/vendor/bootstrap.js'|theme }}"></script>
-            <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-            <script src="{{ 'assets/javascript/reCaptcha.js'|theme }}"></script>
-            <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
-            <script src="{{ 'assets/javascript/platform-main.js'|theme }}"></script>
-            <script src="{{ 'assets/javascript/platform-custom.js'|theme }}"></script>
 
-            {% framework extras %}
-            {% scripts %}
+            <!-- Scripts -->
+            {% partial 'platform/scripts' %}
+
         </div>
     </body>
     

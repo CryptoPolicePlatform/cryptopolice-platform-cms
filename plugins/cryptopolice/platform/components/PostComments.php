@@ -71,25 +71,32 @@ class PostComments extends ComponentBase
     public function onAddComment()
     {
 
-        Recaptcha::verifyCaptcha();
-
         if (input('_token') == Session::token()) {
 
-            $user = Auth::getUser();
+            if ($this->checkLinks(input('description'))) {
+                Flash::error('Links are not allowed');
+            } else {
 
-            $comment = new CommunityComment;
-            $comment->user_id = $user->id;
-            $comment->post_id = $this->param('id');
-            $comment->description = input('description');
-            if (!empty(input('parent_id'))) {
-                $comment->parent_id = input('parent_id');
+                $user = Auth::getUser();
+
+                $comment = new CommunityComment;
+                $comment->user_id = $user->id;
+                $comment->post_id = $this->param('id');
+                $comment->description = input('description');
+                if (!empty(input('parent_id'))) {
+                    $comment->parent_id = input('parent_id');
+                }
+                $comment->save();
+
+                Flash::success('Your comment has been successfully added');
+                return redirect()->back();
             }
-            $comment->save();
-
-            Flash::success('Your comment has been successfully added');
-
-            return redirect()->back();
-
         }
+    }
+
+    public function checkLinks($value)
+    {
+        preg_match_all('/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $value, $result, PREG_PATTERN_ORDER);
+        return $result[0];
     }
 }

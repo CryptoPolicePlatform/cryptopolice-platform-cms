@@ -37,39 +37,29 @@ class Posts extends ComponentBase
     public function onGetPosts()
     {
 
-        if (post('search')) {
-            if (empty(post('search')) || input('_token') != Session::token()) {
-                return;
-            }
-        }
-
         $this->page['limit'] = true;
         $this->page['page_num'] = post('page') ? post('page') + 1 : 1;
         $this->page['search_data'] = post('search');
 
-        // skip 20 records per page
-        $skip = post('page') ? post('page') * 20 : 0;
+        // skip 100 records per page, for search 50
+        $perPage = !empty(post('search')) ? 50 : 100;
+
+        $skip = post('page') ? post('page') * $perPage : 0;
 
         $posts = Db::table('cryptopolice_platform_community_posts as posts')
-
             ->join('users', 'posts.user_id', 'users.id')
-
             ->leftJoin('system_files as users_files', function ($join) {
                 $join->on('users.id', '=', 'users_files.attachment_id')
                     ->where('users_files.attachment_type', 'RainLab\User\Models\User');
             })
-
             ->leftJoin('system_files as posts_files', function ($join) {
                 $join->on('posts.id', '=', 'posts_files.attachment_id')
                     ->where('posts_files.attachment_type', 'CryptoPolice\Platform\Models\CommunityPost');
             })
-
             ->leftJoin('cryptopolice_platform_community_post_views as views', function ($join) {
                 $join->on('posts.id', '=', 'views.post_id');
             })
-
             ->select(DB::raw('count(views.id) as views_count'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
-
             ->where('posts.status', 1)
             ->Where(function ($query) {
                 if (!empty(post('search'))) {
@@ -77,16 +67,13 @@ class Posts extends ComponentBase
                     $query->orWhere('posts.post_description', 'like', '%' . post('search') . '%');
                 }
             })
-
             ->orderBy('posts.pin', 'desc')
             ->orderBy('posts.created_at', 'desc')
             ->groupBy('posts.id')
-
-            ->skip($skip)->take(20)
-
+            ->skip($skip)->take($perPage)
             ->get();
 
-        if($posts->isNotEmpty()) {
+        if ($posts->isNotEmpty()) {
 
             // set path to users & post image
             foreach ($posts as $key => $value) {
@@ -100,12 +87,13 @@ class Posts extends ComponentBase
                 // set status
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count);
 
-				// set shares links
+                // set shares links
                 $posts[$key]->facebook = $this->setFacebookShare();
-        		$posts[$key]->twitter = $this->setTwitterShare($value->post_description);
+                $posts[$key]->twitter = $this->setTwitterShare($value->post_description);
 
             }
             $this->page['posts'] = $posts;
+
         } else {
 
             // if empty query collection, disable load more form
@@ -136,7 +124,6 @@ class Posts extends ComponentBase
 
             $user = Auth::getUser();
 
-
             $previousPost = CommunityPost::where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->first();
@@ -163,16 +150,16 @@ class Posts extends ComponentBase
 
     public function compareDates($date)
     {
-        if (isset($date) && !empty($date)) {
-            return Carbon::now()->diffInMinutes(Carbon::parse($date));
-        }
+        return Carbon::now()->diffInMinutes(Carbon::parse($date));
     }
 
-    public function setFacebookShare() {
-        return 'https://www.facebook.com/sharer/sharer.php?' . http_build_query([ 'u' => $this->currentPageUrl() ]);
+    public function setFacebookShare()
+    {
+        return 'https://www.facebook.com/sharer/sharer.php?' . http_build_query(['u' => $this->currentPageUrl()]);
     }
 
-    public function setTwitterShare($text) {
-        return 'https://twitter.com/share?' . http_build_query([ 'url' => $this->currentPageUrl(), 'text' => $text ]);
+    public function setTwitterShare($text)
+    {
+        return 'https://twitter.com/share?' . http_build_query(['url' => $this->currentPageUrl(), 'text' => $text]);
     }
 }

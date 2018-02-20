@@ -28,6 +28,7 @@ class Users extends ComponentBase
                     ->where('system_files.attachment_type', 'RainLab\User\Models\User');
             })
             ->select('system_files.disk_name as user_image', 'users.*')
+            ->whereNotNull('users.last_seen')
             ->orderBy('last_seen', 'desc')
             ->get();
 

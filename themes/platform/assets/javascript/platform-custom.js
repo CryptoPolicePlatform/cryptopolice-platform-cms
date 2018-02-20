@@ -1,4 +1,22 @@
+
+
+var simplemde = new SimpleMDE({
+    element: $("#textarea_form")[0],
+    tabSize: 4,
+    placeholder: "Type here...",
+    forceSync: true,
+    toolbar: [
+        "bold", "italic", "strikethrough", "|",
+        "heading", "heading-smaller", "heading-bigger", "|",
+        "heading-1", "heading-2", "heading-3", "|",
+        "code", "quote", "unordered-list", "ordered-list", "|",
+        "clean-block", "link", "table", "horizontal-rule", "|",
+        "preview", "side-by-side", "fullscreen", "guide"
+    ]
+});
+
 $(function () {
+
 
     $('.js-file').change(function () {
         //$parent = $(this).parent();

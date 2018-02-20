@@ -5,6 +5,7 @@
     -moz-appearance: none;
     appearance: none !important;
 }
+
 .header__public {
     display: inline-block;
     vertical-align: middle;
@@ -12,13 +13,14 @@
     color: #fff;
     font-size: 12px;
 }
+
 .pub_left {
     border-right: 1px solid #fff;
     line-height: 23px;
 }
 
 .profile_form {
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 .btn_report {
@@ -40,7 +42,7 @@
 }
 
 .bounty_link_title {
-    color:black;
+    color: black;
 }
 
 .empty_flash {
@@ -69,7 +71,7 @@
 }
 
 .comment_reply {
-    margin-left:7.5%;
+    margin-left: 7.5%;
     width: 100%;
 }
 
@@ -90,14 +92,12 @@
 }
 
 .post_title {
-    width:55%;
+    width: 55%;
 }
 
 .choose__post {
     width: 100%;
 }
-
-
 
 .choose__post h4 {
     text-align: center;
@@ -156,7 +156,7 @@
 
 .post_link:hover {
     text-decoration: none;
- }
+}
 
 .post_uploader {
     float: left;
@@ -186,7 +186,7 @@
 }
 
 .stat__post {
-    margin-left:20px;
+    margin-left: 20px;
 }
 
 .user_right_sidebar {
@@ -196,6 +196,14 @@
 
 .notify_block {
     display: none;
+}
+
+.CodeMirror {
+    height: 100px;
+}
+
+.CodeMirror, .CodeMirror-scroll {
+    min-height: 100px;
 }
 
 .tool {
