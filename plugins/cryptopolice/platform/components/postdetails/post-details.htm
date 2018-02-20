@@ -15,7 +15,11 @@
         <div class="card__footer-left">
             <ul class="card__ava-list">
                 <li class="card__ava  card__ava--author">
-                    <img src="{{post.user_img}}" width="23" height="23" alt="Author">
+                    {% if post.user_img %}
+                        <img src="{{post.user_img}}" width="23" height="23" alt="Author">
+                    {% else %}
+                        <img src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                    {% endif %}
                 </li>
                 by <strong>{% if post.nickname %} {{ post.nickname }} {% else %} {{ post.email|slice(0, 3)}}*****@***{{ post.email|slice(post.email.length - 4, post.email.length) }} {% endif %}</strong>
                 <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i> {{ post.comment_count }} </li>
