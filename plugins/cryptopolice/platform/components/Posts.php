@@ -90,6 +90,7 @@ class Posts extends ComponentBase
                 // set shares links
                 $posts[$key]->facebook = $this->setFacebookShare();
                 $posts[$key]->twitter = $this->setTwitterShare($value->post_description);
+                $posts[$key]->reddit = $this->setRedditShare($value->post_title);
 
             }
             $this->page['posts'] = $posts;
@@ -161,5 +162,9 @@ class Posts extends ComponentBase
     public function setTwitterShare($text)
     {
         return 'https://twitter.com/share?' . http_build_query(['url' => $this->currentPageUrl(), 'text' => $text]);
+    }
+
+    public function setRedditShare($title) {
+        return 'https://reddit.com/submit?' . http_build_query([ 'url' => $this->currentPageUrl(), 'title' => $title ]);
     }
 }
