@@ -49,6 +49,14 @@ class PostComments extends ComponentBase
     }
 
 
+    private function build_sorter()
+    {
+        return function ($firstCommentReply, $secondSecondReply)
+        {
+            return strnatcmp($firstCommentReply->created_at, $secondSecondReply->created_at);
+        };
+    }
+
     private function makeArrayTree($comments)
     {
 
@@ -60,6 +68,7 @@ class PostComments extends ComponentBase
 
         foreach ($comments as $comment) {
             if (isset($childs[$comment->id])) {
+                usort($childs[$comment->id], $this->build_sorter());
                 $comment->childs = $childs[$comment->id];
             }
         }
