@@ -81,6 +81,8 @@ class PostComments extends ComponentBase
     public function onAddComment()
     {
 
+        Recaptcha::verifyCaptcha();
+
         if (input('_token') == Session::token()) {
 
             if ($this->checkLinks(input('description'))) {
