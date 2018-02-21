@@ -65,9 +65,7 @@ class Posts extends ComponentBase
 
             $helper = new Helpers();
 
-
              foreach ($posts as $key => $value) {
-
 
                 // set status
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count, $value->comment_count);

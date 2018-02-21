@@ -43,7 +43,7 @@ class UserProfile extends ComponentBase
 
         $user = Auth::getUser();
 
-        if($user) {
+        if ($user) {
 
             $postsCount = CommunityPost::where('user_id', $user->id)->count();
             $commentsCount = CommunityComment::where('user_id', $user->id)->count();
