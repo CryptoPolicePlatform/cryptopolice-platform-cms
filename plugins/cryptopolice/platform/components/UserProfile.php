@@ -20,8 +20,22 @@ class UserProfile extends ComponentBase
     public function onRun()
     {
 
-        $totalPostsCount = CommunityPost::count();
-        $pendingPostsCount = CommunityPost::where('status', 0)->count();
+  $user = Auth::getUser();
+
+        $counter = CommunityPost::
+            select(
+            'cryptopolice_platform_community_posts.*',
+                DB::raw('count(*) as total_posts_count'),
+                DB::raw('sum(status = 0) as pending_posts_count')
+                // DB::raw('count(*) as pending_posts_count where cryptopolice_platform_community_posts.user_id= ?'), [$user->id]
+            )
+            ->groupBy('id')
+            ->get();
+
+
+
+        $totalPostsCount = $counter[0]->total_posts_count;
+        $pendingPostsCount = $counter[0]->pending_posts_count;
 
         $totalUserCount = User::count();
         $totalActiveUserCount = User::where('is_activated', 1)->count();
@@ -41,8 +55,7 @@ class UserProfile extends ComponentBase
             $this->page['post_count_percentage'] = ((100 / $totalPostsCount) * ($totalPostsCount - $pendingPostsCount)) / 100;
         }
 
-        $user = Auth::getUser();
-
+      
         if ($user) {
 
             $postsCount = CommunityPost::where('user_id', $user->id)->count();
