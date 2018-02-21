@@ -10,8 +10,8 @@
     <div class="card post_item">
             <div class="choose__post">
                 <div class="choose_img">
-                    {% if communityPost.posts_image %}
-                        <img class="post_image" src="{{communityPost.posts_image}}" width="225" height="125" alt="">
+                    {% if communityPost.post_image.path %}
+                        <img class="post_image" src="{{communityPost.post_image.thumb(225, 125, {'mode' : 'crop'})}}" alt="">
                     {% else %}
                         <img src="{{'assets/images/user.svg'|theme}}" width="225" height="125">
                     {% endif %}
@@ -34,8 +34,8 @@
                         <ul class="card__ava-list">
                             <li class="card__ava  card__ava--author">
                                 <a href="#">
-                                    {% if communityPost.users_image %}
-                                        <img src="{{communityPost.users_image}}" width="23" height="23" alt="Author">
+                                    {% if communityPost.user.avatar %}
+                                        <img src="{{communityPost.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
                                     {% else %}
                                         <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                                     {% endif %}
@@ -49,10 +49,11 @@
                     </div>
                     <div class="card__footer-right">
                         <ul class="card__social">
-                            <a href="{{communityPost.facebook}}" title="Share on Facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>
-                            <a href="{{communityPost.twitter}}" title="Share on Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="{{ post.reddit }}" title="Share on Reddit" target="_blank"><i class="fa fa-reddit"></i></a>
-
+                            <a class="post_link" href="{{ 'post'|page( {id: communityPost.id, slug: communityPost.slug }) }}" title="Share on Facebook" target="_blank">
+                                <i class="fa fa-facebook-square"></i>
+                                <i class="fa fa-twitter"></i>
+                                <i class="fa fa-reddit"></i>
+                            </a>
                             <li class="card__social-item  c-comment">
                                 <a href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">comment</a>
                             </li>

@@ -42,31 +42,22 @@ class Posts extends ComponentBase
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
-        $posts = Db::table('cryptopolice_platform_community_posts as posts')
-            ->join('users', 'posts.user_id', 'users.id')
-            ->leftJoin('system_files as users_files', function ($join) {
-                $join->on('users.id', '=', 'users_files.attachment_id')
-                    ->where('users_files.attachment_type', 'RainLab\User\Models\User');
-            })
-            ->leftJoin('system_files as posts_files', function ($join) {
-                $join->on('posts.id', '=', 'posts_files.attachment_id')
-                    ->where('posts_files.attachment_type', 'CryptoPolice\Platform\Models\CommunityPost');
-            })
+        $posts = CommunityPost::with('post_image','user.avatar')
             ->leftJoin('cryptopolice_platform_community_post_views as views', function ($join) {
-                $join->on('posts.id', '=', 'views.post_id');
+                $join->on('cryptopolice_platform_community_posts.id', '=', 'views.post_id');
             })
-            ->select(DB::raw('count(views.id) as views_count'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
-            ->where('posts.status', 1)
-            ->whereNull('posts.deleted_at')
+            ->select(DB::raw('count(views.id) as views_count'), 'cryptopolice_platform_community_posts.*')
+            ->where('status', 1)
+            ->whereNull('cryptopolice_platform_community_posts.deleted_at')
             ->Where(function ($query) {
                 if (!empty(post('search'))) {
-                    $query->where('posts.post_title', 'like', '%' . post('search') . '%');
-                    $query->orWhere('posts.post_description', 'like', '%' . post('search') . '%');
+                    $query->where('post_title', 'like', '%' . post('search') . '%');
+                    $query->orWhere('post_description', 'like', '%' . post('search') . '%');
                 }
             })
-            ->orderBy('posts.pin', 'desc')
-            ->orderBy('posts.created_at', 'desc')
-            ->groupBy('posts.id')
+            ->orderBy('pin', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->groupBy('cryptopolice_platform_community_posts.id')
             ->skip($skip)->take($perPage)
             ->get();
 
@@ -74,16 +65,9 @@ class Posts extends ComponentBase
 
             $helper = new Helpers();
 
-            // set path to users & post image
-            foreach ($posts as $key => $value) {
 
-                if ($value->users_image) {
-                    $posts[$key]->users_image = $helper->setImagePath($value->users_image);
-                }
+             foreach ($posts as $key => $value) {
 
-                if ($value->posts_image) {
-                    $posts[$key]->posts_image = $helper->setImagePath($value->posts_image);
-                }
 
                 // set status
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count, $value->comment_count);

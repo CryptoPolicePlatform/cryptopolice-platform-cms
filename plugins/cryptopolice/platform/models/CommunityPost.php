@@ -31,7 +31,7 @@ class CommunityPost extends Model
             'key' => 'user_id'
         ],
     ];
-
+    
     public $attachOne = [
         'post_image' => 'System\Models\File'
     ];
