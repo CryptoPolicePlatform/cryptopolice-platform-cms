@@ -1,13 +1,9 @@
 <?php namespace CryptoPolice\Platform\Components;
 
+use DB, Auth, Flash, Session, Validator;
+use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Classes\Helpers;
 use CryptoPolice\Platform\Models\CommunityPost;
-use DB;
-use Auth;
-use Flash;
-use Session;
-use Validator;
-use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Models\CommunityComment;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
 
@@ -79,11 +75,13 @@ class PostComments extends ComponentBase
     public function onAddComment()
     {
 
+        $helper = new Helpers();
+
         Recaptcha::verifyCaptcha();
 
         if (input('_token') == Session::token()) {
 
-            if ($this->checkLinks(input('description'))) {
+            if ($helper->checkLinks(input('description'))) {
                 Flash::error('Links are not allowed');
             } else {
 
@@ -114,12 +112,6 @@ class PostComments extends ComponentBase
     public function decreasePostsCommentsCount($id)
     {
         return CommunityPost::find($id)->decrement('comment_count');
-    }
-
-    public function checkLinks($value)
-    {
-        preg_match_all('/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $value, $result, PREG_PATTERN_ORDER);
-        return $result[0];
     }
 
     public function onDeleteComment()

@@ -1,9 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
-use DB;
-use Auth;
-use Flash;
-use Validator;
+use DB, Auth, Flash, Validator;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Classes\Helpers;
 use CryptoPolice\Platform\Models\CommunityPostViews;
@@ -21,6 +18,8 @@ class PostDetails extends ComponentBase
 
     public function onRun()
     {
+
+        $helper = new Helpers();
 
         if (Auth::check()) {
 
@@ -56,31 +55,17 @@ class PostDetails extends ComponentBase
             ->where('posts.status', 1)
             ->first();
 
-        $post->facebook = $this->setFacebookShare();
-        $post->twitter = $this->setTwitterShare($post->post_title);
-        $post->reddit = $this->setRedditShare($post->post_title);
+        $post->facebook = $helper->setFacebookShare();
+        $post->twitter  = $helper->setTwitterShare($post->post_title);
+        $post->reddit   = $helper->setRedditShare($post->post_title);
 
         if (!$post->status) {
             return $this->controller->run('404');
         }
-        $helper = new Helpers();
 
         $post->post_img = $helper->setImagePath($post->post_img);
         $post->user_img = $helper->setImagePath($post->user_img);
 
         $this->page['post'] = $post;
-    }
-
-    public function setFacebookShare() {
-        return 'https://www.facebook.com/sharer/sharer.php?' . http_build_query([ 'u' => $this->currentPageUrl() ]);
-    }
-
-    public function setTwitterShare($title) {
-        return 'https://twitter.com/share?' . http_build_query([ 'url' => $this->currentPageUrl(), 'text' => $title ]);
-    }
-    
-    public function setRedditShare($title) {
-        return 'https://reddit.com/submit?' . http_build_query([ 'url' => $this->currentPageUrl(), 'title' => $title ]);
-
     }
 }

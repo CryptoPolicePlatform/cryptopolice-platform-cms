@@ -29,6 +29,7 @@ class Users extends ComponentBase
             ->get();
 
         $helper = new Helpers();
+
         foreach ($users as $key => $value) {
             if ($value->user_image) {
                 $users[$key]->user_image = $helper->setImagePath($value->user_image);

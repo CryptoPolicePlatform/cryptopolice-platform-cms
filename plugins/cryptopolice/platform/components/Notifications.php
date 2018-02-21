@@ -1,10 +1,8 @@
 <?php namespace CryptoPolice\Platform\Components;
 
-use DB;
-use Auth;
+use DB, Auth;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\Platform\Models\Notification;
 use CryptoPolice\Platform\Models\UserNotification;
 
 class Notifications extends ComponentBase

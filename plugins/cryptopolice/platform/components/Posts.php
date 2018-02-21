@@ -76,9 +76,11 @@ class Posts extends ComponentBase
 
             // set path to users & post image
             foreach ($posts as $key => $value) {
+
                 if ($value->users_image) {
                     $posts[$key]->users_image = $helper->setImagePath($value->users_image);
                 }
+
                 if ($value->posts_image) {
                     $posts[$key]->posts_image = $helper->setImagePath($value->posts_image);
                 }
@@ -87,9 +89,9 @@ class Posts extends ComponentBase
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count, $value->comment_count);
 
                 // set shares links
-                $posts[$key]->twitter = $this->setTwitterShare($value->post_description);
-                $posts[$key]->reddit = $this->setRedditShare($value->post_title);
-                $posts[$key]->facebook = $this->setFacebookShare();
+                $posts[$key]->twitter   = $helper->setTwitterShare($value->post_description);
+                $posts[$key]->reddit    = $helper->setRedditShare($value->post_title);
+                $posts[$key]->facebook  = $helper->setFacebookShare();
 
             }
             $this->page['posts'] = $posts;
@@ -153,17 +155,4 @@ class Posts extends ComponentBase
         return Carbon::now()->diffInMinutes(Carbon::parse($date));
     }
 
-    public function setFacebookShare()
-    {
-        return 'https://www.facebook.com/sharer/sharer.php?' . http_build_query(['u' => $this->currentPageUrl()]);
-    }
-
-    public function setTwitterShare($text)
-    {
-        return 'https://twitter.com/share?' . http_build_query(['url' => $this->currentPageUrl(), 'text' => $text]);
-    }
-
-    public function setRedditShare($title) {
-        return 'https://reddit.com/submit?' . http_build_query([ 'url' => $this->currentPageUrl(), 'title' => $title ]);
-    }
 }
