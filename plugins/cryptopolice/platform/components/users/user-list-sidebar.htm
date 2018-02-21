@@ -1,22 +1,22 @@
 <div class="content__sidebar user_right_sidebar">
     <div class="stat">
-        {% for communityUser in users %}
+        {% for user in users %}
         <div class="stat__item">
             <div class="user_photo">
-                {% if communityUser.user_image %}
-                    <img src="{{communityUser.user_image}}" width="30" height="30" alt="user-avatar">
+                {% if user.avatar.path %}
+                    <img src="{{user.avatar.thumb(30, 30, {'mode' : 'crop'})}}" alt="user-avatar">
                 {% else %}
                     <img src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                 {% endif %}
             </div>
             <div class="user_info">
-                {% if communityUser.nickname %}
-                    {{ communityUser.nickname }}
+                {% if user.nickname %}
+                    {{ user.nickname }}
                 {% else %}
-                    {{ communityUser.email|slice(0, 3)}}*****@***{{ communityUser.email|slice(communityUser.email.length - 4, communityUser.email.length) }}
+                    {{ user.email|slice(0, 3)}}*****@***{{ user.email|slice(user.email.length - 4, user.email.length) }}
                 {% endif %}
             </div>
-            <div class="stat__text"> {{ communityUser.last_seen }} </div>
+            <div class="stat__text"> {{ user.last_seen }} </div>
         </div>
         {% endfor %}
     </div>

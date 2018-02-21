@@ -6,26 +6,26 @@
             </div>
         </div>
     {% endif %}
-    {% for communityPost in posts %}
+    {% for post in posts %}
     <div class="card post_item">
             <div class="choose__post">
                 <div class="choose_img">
-                    {% if communityPost.post_image.path %}
-                        <img class="post_image" src="{{communityPost.post_image.thumb(225, 125, {'mode' : 'crop'})}}" alt="">
+                    {% if post.post_image.path %}
+                        <img class="post_image" src="{{post.post_image.thumb(225, 125, {'mode' : 'crop'})}}" alt="">
                     {% else %}
                         <img src="{{'assets/images/user.svg'|theme}}" width="225" height="125">
                     {% endif %}
                 </div>
 
-                <a class="post_link" href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">
+                <a class="post_link" href="{{'post'|page( {id: post.id, slug: post.slug })}}">
                     <div class="card__header">
-                        <div class="card__date">{{communityPost.created_at}}</div>
+                        <div class="card__date">{{post.created_at}}</div>
                         <h3 class="card__title">
-                            {{ communityPost.post_title }}
+                            {{ post.post_title }}
                         </h3>
                     </div>
                     <div class="card__content">
-                        {{ communityPost.post_description|striptags|truncate(250) }}
+                        {{ post.post_description|striptags|truncate(250) }}
                     </div>
                 </a>
 
@@ -34,38 +34,38 @@
                         <ul class="card__ava-list">
                             <li class="card__ava  card__ava--author">
                                 <a href="#">
-                                    {% if communityPost.user.avatar %}
-                                        <img src="{{communityPost.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
+                                    {% if post.user.avatar %}
+                                        <img src="{{post.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
                                     {% else %}
                                         <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                                     {% endif %}
                                 </a>
                             </li>
                             <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                {{ communityPost.comment_count }}</li>
+                                {{ post.comment_count }}</li>
                             <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i>
-                                {{ communityPost.views_count }}</li>
+                                {{ post.views_count }}</li>
                         </ul>
                     </div>
                     <div class="card__footer-right">
                         <ul class="card__social">
-                            <a class="post_link" href="{{ 'post'|page( {id: communityPost.id, slug: communityPost.slug }) }}" title="Share on Facebook" target="_blank">
+                            <a class="post_link" href="{{ 'post'|page( {id: post.id, slug: post.slug }) }}" title="Share on Facebook" target="_blank">
                                 <i class="fa fa-facebook-square"></i>
                                 <i class="fa fa-twitter"></i>
                                 <i class="fa fa-reddit"></i>
                             </a>
                             <li class="card__social-item  c-comment">
-                                <a href="{{'post'|page( {id: communityPost.id, slug: communityPost.slug })}}">comment</a>
+                                <a href="{{'post'|page( {id: post.id, slug: post.slug })}}">comment</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                {% if communityPost.status == 1 %}
+                {% if post.status == 1 %}
                     <div class="card__status  low">new</div>
-                {% elseif communityPost.status == 2 %}
+                {% elseif post.status == 2 %}
                     <div class="card__status  medium">warm</div>
-                {% elseif communityPost.status == 3 %}
+                {% elseif post.status == 3 %}
                     <div class="card__status  high">hot</div>
                 {% else %}
                     <div class="card__status  low">new</div>
