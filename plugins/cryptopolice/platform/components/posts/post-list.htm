@@ -11,9 +11,9 @@
             <div class="choose__post">
                 <div class="choose_img">
                     {% if communityPost.posts_image %}
-                        <img class="post_image" src="{{communityPost.posts_image}}" width="125" height="125" alt="">
+                        <img class="post_image" src="{{communityPost.posts_image}}" width="225" height="125" alt="">
                     {% else %}
-                        <img src="{{'assets/images/user.svg'|theme}}" width="125" height="125">
+                        <img src="{{'assets/images/user.svg'|theme}}" width="225" height="125">
                     {% endif %}
                 </div>
 
@@ -41,23 +41,6 @@
                                     {% endif %}
                                 </a>
                             </li>
-
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-
                             <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i>
                                 {{ communityPost.comment_count }}</li>
                             <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i>

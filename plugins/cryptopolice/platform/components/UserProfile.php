@@ -23,7 +23,12 @@ class UserProfile extends ComponentBase
         $totalPostsCount = CommunityPost::count();
         $pendingPostsCount = CommunityPost::where('status', 0)->count();
 
-        $this->page['user_count'] = User::count();
+        $totalUserCount = User::count();
+        $totalActiveUserCount = User::where('is_activated', 1)->count();
+
+        $this->page['active_user_count'] = $totalUserCount;
+        $this->page['active_user_percentage'] = ((100 / $totalUserCount) * $totalActiveUserCount) / 100;
+
         $this->page['post_count'] = $totalPostsCount;
         $this->page['post_pending'] = $pendingPostsCount;
         $this->page['post_published'] = $totalPostsCount - $pendingPostsCount;
@@ -39,9 +44,17 @@ class UserProfile extends ComponentBase
         $user = Auth::getUser();
 
         if($user) {
-            $this->page['user_posts_count'] = CommunityPost::where('user_id', $user->id)->count();
-            $this->page['user_comments_count'] = CommunityComment::where('user_id', $user->id)->count();
-            $this->page['user_activity'] = (($this->page['user_posts_count'] * 5) + $this->page['user_comments_count']) / 100;
+
+            $postsCount = CommunityPost::where('user_id', $user->id)->count();
+            $commentsCount = CommunityComment::where('user_id', $user->id)->count();
+
+            $this->page['user_posts_count'] = $postsCount;
+            $this->page['user_comments_count'] = $commentsCount;
+
+            $this->page['user_comments_count_percentage'] = (100 / ($postsCount + $commentsCount) * $postsCount) / 100;
+            $this->page['user_posts_count_percentage'] = (100 / ($postsCount + $commentsCount) * $commentsCount) / 100;
+
+            $this->page['user_activity'] = (($postsCount * 5) + $commentsCount) / 100;
         }
     }
 }

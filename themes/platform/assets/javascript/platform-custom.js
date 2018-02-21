@@ -1,18 +1,11 @@
 
-if( $('#textarea_form').length ) {
+if ($('#textarea_form').length) {
     var simplemde = new SimpleMDE({
         element: $("#textarea_form")[0],
         tabSize: 4,
         placeholder: "Type here...",
         forceSync: true,
-        toolbar: [
-            "bold", "italic", "strikethrough", "|",
-            "heading", "heading-smaller", "heading-bigger", "|",
-            "heading-1", "heading-2", "heading-3", "|",
-            "code", "quote", "unordered-list", "ordered-list", "|",
-            "clean-block", "link", "table", "horizontal-rule", "|",
-            "preview", "side-by-side", "fullscreen", "guide"
-        ]
+        toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "unordered-list", "ordered-list", "|", "clean-block", "table", "horizontal-rule", "|", "preview"]
     });
 }
 

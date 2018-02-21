@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Platform;
 
+use Event;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -19,5 +20,11 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
+
+    }
+
+    public function boot()
+    {
+
     }
 }
