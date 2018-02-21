@@ -61,6 +61,7 @@ class Posts extends ComponentBase
             })
             ->select(DB::raw('count(views.id) as views_count'), 'users_files.disk_name as users_image', 'posts_files.disk_name as posts_image', 'posts.*')
             ->where('posts.status', 1)
+            ->whereNull('posts.deleted_at')
             ->Where(function ($query) {
                 if (!empty(post('search'))) {
                     $query->where('posts.post_title', 'like', '%' . post('search') . '%');
