@@ -5,6 +5,7 @@ use Auth;
 use Flash;
 use Validator;
 use Cms\Classes\ComponentBase;
+use CryptoPolice\Platform\Classes\Helpers;
 use CryptoPolice\Platform\Models\CommunityPostViews;
 
 class PostDetails extends ComponentBase
@@ -16,15 +17,6 @@ class PostDetails extends ComponentBase
             'name' => 'Posts list',
             'description' => 'Community Posts List'
         ];
-    }
-
-    public function setImagePath($diskName)
-    {
-        if($diskName) {
-            return '/storage/app/uploads/public/' . substr($diskName, 0, 3) . '/' . substr($diskName, 3, 3) . '/' . substr($diskName, 6, 3) . '/' . $diskName;
-        } else {
-            return null;
-        }
     }
 
     public function onRun()
@@ -71,9 +63,10 @@ class PostDetails extends ComponentBase
         if (!$post->status) {
             return $this->controller->run('404');
         }
+        $helper = new Helpers();
 
-        $post->post_img = $this->setImagePath($post->post_img);
-        $post->user_img = $this->setImagePath($post->user_img);
+        $post->post_img = $helper->setImagePath($post->post_img);
+        $post->user_img = $helper->setImagePath($post->user_img);
 
         $this->page['post'] = $post;
     }

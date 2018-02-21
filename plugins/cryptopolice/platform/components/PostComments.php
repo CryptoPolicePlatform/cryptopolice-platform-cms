@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
+use CryptoPolice\Platform\Classes\Helpers;
 use CryptoPolice\Platform\Models\CommunityPost;
 use DB;
 use Auth;
@@ -22,11 +23,6 @@ class PostComments extends ComponentBase
         ];
     }
 
-    public function setImagePath($diskName)
-    {
-        return '\\storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
-    }
-
     public function onRun()
     {
         $comments = Db::table('cryptopolice_platform_community_comment as comment')
@@ -40,9 +36,11 @@ class PostComments extends ComponentBase
             ->orderBy('comment.created_at', 'desc')
             ->get();
 
+        $helper = new Helpers();
+
         foreach ($comments as $key => $value) {
             if ($value->user_image) {
-                $comments[$key]->user_image = $this->setImagePath($value->user_image);
+                $comments[$key]->user_image = $helper->setImagePath($value->user_image);
             }
         }
         $this->page['comments'] = $this->makeArrayTree($comments);

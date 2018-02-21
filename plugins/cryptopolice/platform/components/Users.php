@@ -2,6 +2,7 @@
 
 use DB;
 use Cms\Classes\ComponentBase;
+use CryptoPolice\Platform\Classes\Helpers;
 
 class Users extends ComponentBase
 {
@@ -12,11 +13,6 @@ class Users extends ComponentBase
             'name' => 'Users list',
             'description' => 'Community Users List'
         ];
-    }
-
-    public function setPath($diskName)
-    {
-        return '\\storage\\app\\uploads\\public\\' . substr($diskName, 0, 3) . '\\' . substr($diskName, 3, 3) . '\\' . substr($diskName, 6, 3) . '\\' . $diskName;
     }
 
     public function onRun()
@@ -32,9 +28,10 @@ class Users extends ComponentBase
             ->orderBy('last_seen', 'desc')
             ->get();
 
+        $helper = new Helpers();
         foreach ($users as $key => $value) {
             if ($value->user_image) {
-                $users[$key]->user_image = $this->setPath($value->user_image);
+                $users[$key]->user_image = $helper->setImagePath($value->user_image);
             }
         }
 

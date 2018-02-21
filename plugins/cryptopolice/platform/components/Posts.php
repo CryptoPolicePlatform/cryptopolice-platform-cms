@@ -9,6 +9,7 @@ use Validator;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Academy\Models\Settings;
+use CryptoPolice\Platform\Classes\Helpers;
 use October\Rain\Support\Facades\Markdown;
 use CryptoPolice\Academy\Components\Recaptcha;
 use CryptoPolice\Platform\Models\CommunityPost;
@@ -27,11 +28,6 @@ class Posts extends ComponentBase
     public function onRun()
     {
         $this->onGetPosts();
-    }
-
-    public function setImagePath($diskName)
-    {
-        return 'storage//app//uploads//public//' . substr($diskName, 0, 3) . '//' . substr($diskName, 3, 3) . '//' . substr($diskName, 6, 3) . '//' . $diskName;
     }
 
     public function onGetPosts()
@@ -76,13 +72,15 @@ class Posts extends ComponentBase
 
         if ($posts->isNotEmpty()) {
 
+            $helper = new Helpers();
+
             // set path to users & post image
             foreach ($posts as $key => $value) {
                 if ($value->users_image) {
-                    $posts[$key]->users_image = $this->setImagePath($value->users_image);
+                    $posts[$key]->users_image = $helper->setImagePath($value->users_image);
                 }
                 if ($value->posts_image) {
-                    $posts[$key]->posts_image = $this->setImagePath($value->posts_image);
+                    $posts[$key]->posts_image = $helper->setImagePath($value->posts_image);
                 }
 
                 // set status
