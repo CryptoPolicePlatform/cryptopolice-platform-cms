@@ -70,10 +70,11 @@ class Posts extends ComponentBase
                 // set status
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count, $value->comment_count);
 
+                $helper = new Helpers();
                 // set shares links
-                $posts[$key]->twitter = $helper->setTwitterShare($value->post_description);
-                $posts[$key]->reddit = $helper->setRedditShare($value->post_title);
-                $posts[$key]->facebook = $helper->setFacebookShare();
+                $posts[$key]->twitter   = $helper->setTwitterShare($value->post_description);
+                $posts[$key]->reddit    = $helper->setRedditShare($value->post_title);
+                $posts[$key]->facebook  = $helper->setFacebookShare();
 
             }
             $this->page['posts'] = $posts;
@@ -120,15 +121,19 @@ class Posts extends ComponentBase
 
             $html = Markdown::parse(strip_tags(input('description')));
 
-            $post = new CommunityPost;
-            $post->post_title = input('title');
-            $post->post_description = $html;
-            $post->user_id = $user->id;
-            $post->save();
+            $helper = new Helpers();
+            if($helper->checkLinks($html)) {
+                Flash::error('Links are not allowed');
+            } else {
+                $post = new CommunityPost;
+                $post->post_title = input('title');
+                $post->post_description = $html;
+                $post->user_id = $user->id;
+                $post->save();
 
-            Flash::success('Post has been successfully added');
-            return redirect()->back();
-
+                Flash::success('Post has been successfully added');
+                return redirect()->back();
+            }
         }
     }
 

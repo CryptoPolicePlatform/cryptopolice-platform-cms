@@ -4,16 +4,6 @@ namespace CryptoPolice\Platform\Classes;
 
 class Helpers
 {
-
-    public function setImagePath($diskName)
-    {
-        if ($diskName) {
-            return '/storage/app/uploads/public/' . substr($diskName, 0, 3) . '/' . substr($diskName, 3, 3) . '/' . substr($diskName, 6, 3) . '/' . $diskName;
-        } else {
-            return null;
-        }
-    }
-
     public function setFacebookShare()
     {
         return 'https://www.facebook.com/sharer/sharer.php?' . http_build_query(['u' => url()->current()]);

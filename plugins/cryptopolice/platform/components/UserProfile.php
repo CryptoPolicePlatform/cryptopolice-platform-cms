@@ -20,28 +20,7 @@ class UserProfile extends ComponentBase
     public function onRun()
     {
 
-//        return DB::table('invoices')->where('company_id', $company->id)
-//            ->select(
-//                'company_id',
-//                DB::raw('count(*) balance_due'),
-//                DB::raw('sum(status = "Open") open_count'),
-//                DB::raw('sum(status = "Overdue") overdue_count'),
-//                DB::raw('sum((status = "Open") * balance_due) open_sum'),
-//                DB::raw('sum((status = "Overdue") * balance_due) overdue_sum')
-//            )
-//            ->groupBy('company_id')
-//            ->get();
-//
-
-
         $user = Auth::getUser();
-//
-//        $counter = DB::table('cryptopolice_platform_community_posts')->
-//            select(
-//                ''
-//                    ->groupBy('id')
-//            ->get();
-
 
         $counter = CommunityPost::
             select(
