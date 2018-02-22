@@ -1,0 +1,6 @@
+plugin:
+    name: FileUploader
+    description: Set a file uploader in frontend
+    author: cryptopolice
+    icon: oc-icon-upload
+    homepage: ''

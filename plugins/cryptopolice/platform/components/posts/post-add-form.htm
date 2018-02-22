@@ -4,7 +4,7 @@
     <div class="choose__post">
         {{ form_ajax('onAddPost', { flash : '', model: CommunityPost }) }}
             <div class="post_uploader">
-                {% component 'imageUploader' %}
+                {% component 'Uploader' %}
             </div>
             <div class="card__header">
                 <input class="input post_title" name="title" placeholder="Your post title"/>
@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         <li class="card__ava">
-                            <button id="captcha_post" class="btn  btn--gpink g-recaptcha">Post</button>
+                            <button id="" class="btn  btn--gpink">Post</button>
                         </li>
                     </ul>
                 </div>

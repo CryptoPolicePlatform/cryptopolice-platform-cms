@@ -11,25 +11,27 @@ redirect = "login"
 [CommunityPosts]
 [CommunityUsers]
 [UserProfile]
-[imageUploader]
+[Uploader]
 
 placeholderText = "Click or drag images to upload"
 maxSize = 1
 fileTypes = ".gif,.jpg,.jpeg,.png"
-imageWidth = 100
+imageWidth = 150
 imageHeight = 100
 imageMode = "crop"
 modelClass = "CryptoPolice\Platform\Models\CommunityPost"
 modelKeyColumn = "post_image"
 identifierValue = "{{ :id }}"
-deferredBinding = 1
+deferredBinding = "1"
+
 ==
 <?php
 
     use CryptoPolice\Platform\Models\CommunityPost;
 
     function onInit() {
-        $this->imageUploader->bindModel('post_image', new CommunityPost);
+
+        $this->Uploader->bindModel('post_image', new CommunityPost);
     }
     
 ?>

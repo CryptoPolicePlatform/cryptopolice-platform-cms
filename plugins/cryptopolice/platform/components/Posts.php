@@ -103,7 +103,7 @@ class Posts extends ComponentBase
     public function onAddPost()
     {
 
-        Recaptcha::verifyCaptcha();
+//        Recaptcha::verifyCaptcha();
 
         if (input('_token') == Session::token()) {
 
@@ -122,19 +122,29 @@ class Posts extends ComponentBase
             $html = Markdown::parse(strip_tags(input('description')));
 
             $helper = new Helpers();
-            if($helper->checkLinks($html)) {
-                Flash::error('Links are not allowed');
-            } else {
-                $post = new CommunityPost;
-                $post->post_title = input('title');
-                $post->post_description = $html;
-                $post->user_id = $user->id;
-                $post->save();
 
-                Flash::success('Post has been successfully added');
-                return redirect()->back();
+            if($this->checkImage()) {
+                Flash::error('Iamge required');
+            } else {
+                if ($helper->checkLinks($html)) {
+                    Flash::error('Links are not allowed');
+                } else {
+                    $post = new CommunityPost;
+                    $post->post_title = input('title');
+                    $post->post_description = $html;
+                    $post->user_id = $user->id;
+                    $post->save(null, post('_session_key'));
+
+                    Flash::success('Post has been successfully added');
+                    return redirect()->back();
+                }
             }
         }
+    }
+
+    public function checkImage() {
+        $upload = post('post_image');
+        return $upload['post_image'];
     }
 
     public function compareDates($date)
