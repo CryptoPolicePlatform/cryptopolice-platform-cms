@@ -42,7 +42,7 @@ class Posts extends ComponentBase
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
-        $posts = CommunityPost::with('post_image','user.avatar')
+        $posts = CommunityPost::with('post_image', 'user.avatar')
             ->leftJoin('cryptopolice_platform_community_post_views as views', function ($join) {
                 $join->on('cryptopolice_platform_community_posts.id', '=', 'views.post_id');
             })
@@ -65,15 +65,15 @@ class Posts extends ComponentBase
 
             $helper = new Helpers();
 
-             foreach ($posts as $key => $value) {
+            foreach ($posts as $key => $value) {
 
                 // set status
                 $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count, $value->comment_count);
 
                 // set shares links
-                $posts[$key]->twitter   = $helper->setTwitterShare($value->post_description);
-                $posts[$key]->reddit    = $helper->setRedditShare($value->post_title);
-                $posts[$key]->facebook  = $helper->setFacebookShare();
+                $posts[$key]->twitter = $helper->setTwitterShare($value->post_description);
+                $posts[$key]->reddit = $helper->setRedditShare($value->post_title);
+                $posts[$key]->facebook = $helper->setFacebookShare();
 
             }
             $this->page['posts'] = $posts;

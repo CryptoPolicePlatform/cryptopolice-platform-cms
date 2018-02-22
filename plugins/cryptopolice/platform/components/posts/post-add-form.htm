@@ -21,7 +21,7 @@
                         <li class="card__ava  card__ava--author">
                             <a href="#">
                                 {% if user.avatar.path %}
-                                    <img src="{{user.avatar.path}}" width="23" height="23" title="Avatar" alt="Avatar">
+                                    <img src="{{user.avatar.thumb(25, 25, {'mode' : 'crop'})}}" width="23" height="23" title="Avatar" alt="Avatar">
                                 {% else %}
                                     <img src="{{'assets/images/user.svg'|theme}}" width="23" height="23" title="Avatar" alt="Avatar">
                                 {% endif %}

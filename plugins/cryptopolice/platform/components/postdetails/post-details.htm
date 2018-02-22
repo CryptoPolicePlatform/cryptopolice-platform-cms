@@ -2,7 +2,7 @@
     <div class="card__header report_header"><h2> {{ post.title }} </h2></div>
 
     {% if post.post_image.path %}
-        <img class="post_image" src="{{post.post_image.thumb(650, 336, {'mode' : 'crop'})}}" alt="">
+        <img class="post_image" src="{{post.post_image.thumb(650, 336, {'mode' : 'crop'})}}" width="650" height ="336" alt="">
     {% else %}
         <img src="{{'assets/images/user.svg'|theme}}" width="225" height="125">
     {% endif %}
@@ -17,7 +17,7 @@
                 <li class="card__ava  card__ava--author">
                     {% if post.user.avatar %}
                         <img src="{{post.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
-                     {% else %}
+                    {% else %}
                          <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                     {% endif %}
                 </li>

@@ -31,7 +31,22 @@ class CommunityPost extends Model
             'key' => 'user_id'
         ],
     ];
-    
+
+    public $hasMany = [
+
+        'comments' => [
+            'CryptoPolice\platform\Models\CommunityComment',
+            'key'   => 'post_id',
+        ],
+
+        'views' => [
+            'CryptoPolice\platform\Models\CommunityViews',
+            'key'   => 'post_id',
+            'order' => 'created_at'
+        ],
+
+    ];
+
     public $attachOne = [
         'post_image' => 'System\Models\File'
     ];

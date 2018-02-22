@@ -20,25 +20,51 @@ class UserProfile extends ComponentBase
     public function onRun()
     {
 
-  $user = Auth::getUser();
+//        return DB::table('invoices')->where('company_id', $company->id)
+//            ->select(
+//                'company_id',
+//                DB::raw('count(*) balance_due'),
+//                DB::raw('sum(status = "Open") open_count'),
+//                DB::raw('sum(status = "Overdue") overdue_count'),
+//                DB::raw('sum((status = "Open") * balance_due) open_sum'),
+//                DB::raw('sum((status = "Overdue") * balance_due) overdue_sum')
+//            )
+//            ->groupBy('company_id')
+//            ->get();
+//
+
+
+        $user = Auth::getUser();
+//
+//        $counter = DB::table('cryptopolice_platform_community_posts')->
+//            select(
+//                ''
+//                    ->groupBy('id')
+//            ->get();
+
 
         $counter = CommunityPost::
             select(
-            'cryptopolice_platform_community_posts.*',
+                'cryptopolice_platform_community_posts.*',
                 DB::raw('count(*) as total_posts_count'),
-                DB::raw('sum(status = 0) as pending_posts_count')
-                // DB::raw('count(*) as pending_posts_count where cryptopolice_platform_community_posts.user_id= ?'), [$user->id]
+                DB::raw('sum(status = 0) as pending_posts_count'),
+                DB::raw("sum(user_id = " . $user->id . ") as users_posts")
             )
-            ->groupBy('id')
             ->get();
-
-
 
         $totalPostsCount = $counter[0]->total_posts_count;
         $pendingPostsCount = $counter[0]->pending_posts_count;
 
-        $totalUserCount = User::count();
-        $totalActiveUserCount = User::where('is_activated', 1)->count();
+        $users = User::
+            select(
+                'users.*',
+                DB::raw('count(*) as users_count'),
+                DB::raw('sum(is_activated = 1) as active_users')
+            )
+            ->get();
+
+        $totalUserCount = $users[0]->users_count;
+        $totalActiveUserCount = $users[0]->active_users;
 
         $this->page['active_user_count'] = $totalUserCount;
         $this->page['active_user_percentage'] = ((100 / $totalUserCount) * $totalActiveUserCount) / 100;
@@ -55,10 +81,10 @@ class UserProfile extends ComponentBase
             $this->page['post_count_percentage'] = ((100 / $totalPostsCount) * ($totalPostsCount - $pendingPostsCount)) / 100;
         }
 
-      
+
         if ($user) {
 
-            $postsCount = CommunityPost::where('user_id', $user->id)->count();
+            $postsCount = $counter[0]->users_posts;
             $commentsCount = CommunityComment::where('user_id', $user->id)->count();
 
             $this->page['user_posts_count'] = $postsCount;

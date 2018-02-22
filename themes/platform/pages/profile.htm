@@ -51,7 +51,7 @@ function onInit() {
                 <div class="profile__sidebar">
 
                     {% if user.avatar.path %}
-                        <img class="profile__ava" src="{{user.avatar.path}}" width="79" height="79" title="Avatar"
+                        <img class="profile__ava" src="{{user.avatar.thumb(79, 79, {'mode' : 'crop'})}}" width="79" height="79" title="Avatar"
                          alt="Avatar">
                     {% else %}
                         <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">

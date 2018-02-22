@@ -1,8 +1,8 @@
 {% for reply in childs %}
     <div class="choose__post">
         <div class="choose_img">
-            {% if reply.user_image %}
-                <img src="{{reply.user_image}}" width="55" height="55" alt="">
+            {% if reply.user.avatar %}
+                <img class="header__ava" src="{{reply.user.avatar.thumb(55, 55, {'mode' : 'crop'})}}" width="55" height="55" alt="">
             {% else %}
                 <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="55" height="55" alt="user-avatar">
             {% endif %}

@@ -1,4 +1,3 @@
-[CommunityPosts]
 ==
 <header class="header">
     <a class="header__logo" href="{{'community'|page}}">
@@ -10,7 +9,7 @@
             {% if user %}
                 <a class="header__ava" href="{{'profile'|page}}">
                     {% if user.avatar.path %}
-                        <img src="{{user.avatar.path}}" width="23" height="23" alt="user-avatar">
+                        <img src="{{user.avatar.thumb(25, 25, {'mode' : 'crop'})}}" alt="user-avatar">
                     {% else %}
                         <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                     {% endif %}

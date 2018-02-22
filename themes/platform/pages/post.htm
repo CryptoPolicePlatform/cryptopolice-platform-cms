@@ -33,8 +33,8 @@ is_hidden = 0
                         <div style="margin-top:10px;" class="card post_item">
                             <div class="choose__post">
                                 <div class="choose_img">
-                                    {% if comment.user_image %}
-                                        <img src="{{comment.user_image}}" width="55" height="55" alt="">
+                                    {% if comment.user.avatar %}
+                                        <img src="{{comment.user.avatar.thumb(55, 55, {'mode' : 'crop'})}}" width="55" height="55" alt="">
                                     {% else %}
                                         <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="55" height="55" alt="user-avatar">
                                     {% endif %}

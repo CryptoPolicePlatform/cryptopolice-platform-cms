@@ -1,9 +1,13 @@
 <?php namespace CryptoPolice\Platform\Components;
 
-use DB, Auth, Flash, Session, Validator;
-use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Classes\Helpers;
 use CryptoPolice\Platform\Models\CommunityPost;
+use DB;
+use Auth;
+use Flash;
+use Session;
+use Validator;
+use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Models\CommunityComment;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
 
@@ -19,26 +23,14 @@ class PostComments extends ComponentBase
         ];
     }
 
+
     public function onRun()
     {
-        $comments = Db::table('cryptopolice_platform_community_comment as comment')
-            ->join('users', 'comment.user_id', 'users.id')
-            ->leftJoin('system_files', function ($join) {
-                $join->on('comment.user_id', '=', 'system_files.attachment_id')
-                    ->where('system_files.attachment_type', 'RainLab\User\Models\User');
-            })
-            ->select('system_files.disk_name as user_image', 'comment.*', 'users.nickname', 'users.email')
-            ->where('comment.post_id', $this->param('id'))
-            ->orderBy('comment.created_at', 'desc')
+        $comments = CommunityComment::with('user.avatar')
+            ->where('post_id', $this->param('id'))
+            ->orderBy('created_at', 'desc')
             ->get();
 
-        $helper = new Helpers();
-
-        foreach ($comments as $key => $value) {
-            if ($value->user_image) {
-                $comments[$key]->user_image = $helper->setImagePath($value->user_image);
-            }
-        }
         $this->page['comments'] = $this->makeArrayTree($comments);
     }
 
@@ -75,13 +67,11 @@ class PostComments extends ComponentBase
     public function onAddComment()
     {
 
-        $helper = new Helpers();
-
         Recaptcha::verifyCaptcha();
 
         if (input('_token') == Session::token()) {
 
-            if ($helper->checkLinks(input('description'))) {
+            if ($this->checkLinks(input('description'))) {
                 Flash::error('Links are not allowed');
             } else {
 
@@ -112,6 +102,12 @@ class PostComments extends ComponentBase
     public function decreasePostsCommentsCount($id)
     {
         return CommunityPost::find($id)->decrement('comment_count');
+    }
+
+    public function checkLinks($value)
+    {
+        preg_match_all('/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $value, $result, PREG_PATTERN_ORDER);
+        return $result[0];
     }
 
     public function onDeleteComment()
