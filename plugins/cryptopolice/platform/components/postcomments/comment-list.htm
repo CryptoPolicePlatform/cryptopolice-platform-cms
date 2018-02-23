@@ -9,15 +9,23 @@
         </div>
         <div class="card__header">
             <div class="card__date">
-                <strong>{% if reply.nickname %} {{ reply.nickname }} {% else %} {{ reply.email|slice(0, 3)}}*****@***{{ reply.email|slice(reply.email.length - 4, reply.email.length) }} {% endif %}</strong>
+                <strong>{% if reply.user.nickname %} {{ reply.user.nickname }} {% else %} {{ reply.user.email|slice(0, 3)}}*****@***{{ reply.user.email|slice(reply.user.email.length - 4, reply.user.email.length) }} {% endif %}</strong>
                     {{ reply.created_at }}
-                <a id="{{reply.id}}" href="#"> Reply </a>
+                {% if reply.deleted_at is null %}
+                    <a id="{{reply.id}}" href="#"> Reply </a>
+                        {% if user and user.id == reply.user_id and reply.deleted_at is null %}
+                            | <a data-request="onDeleteComment" data-request-data="id:{{reply.id}}" data-request-confirm data-request-flash>Remove</a>
+                        {% endif %}
+                {% endif %}
             </div>
-            {% if user and user.id == reply.user_id %}
-                <a data-request="onDeleteComment" data-request-data="id:{{reply.id}}" data-request-confirm data-request-flash>Remove</a>
+        </div>
+        <div class="card__content">
+            {% if reply.deleted_at is null %}
+                {{ reply.description|md }}
+            {% else %}
+                <i>This message has been removed</i>
             {% endif %}
         </div>
-        <div class="card__content">{{ reply.description }}</div>
         <div class="card__footer">
             <div class="card__footer-left comment_reply">
                 {% if reply.childs %}

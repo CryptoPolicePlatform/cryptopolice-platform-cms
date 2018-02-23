@@ -21,7 +21,7 @@
                          <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                     {% endif %}
                 </li>
-                by <strong>{% if post.nickname %} {{ post.nickname }} {% else %} {{ post.email|slice(0, 3)}}*****@***{{ post.email|slice(post.email.length - 4, post.email.length) }} {% endif %}</strong>
+                by <strong>{% if post.user.nickname %} {{ post.user.nickname }} {% else %} {{ post.user.email|slice(0, 3)}}*****@***{{ post.user.email|slice(post.user.email.length - 4, post.user.email.length) }} {% endif %}</strong>
                 <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i> {{ post.comment_count }} </li>
                 <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i> {{ post.views_count }} </li>
             </ul>

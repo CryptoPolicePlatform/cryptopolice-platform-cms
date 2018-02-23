@@ -26,8 +26,9 @@ class PostComments extends ComponentBase
 
     public function onRun()
     {
-        $comments = CommunityComment::with('user.avatar')
+        $comments = CommunityComment::withTrashed()->with('user.avatar')
             ->where('post_id', $this->param('id'))
+//            ->where('deleted_at', null)
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -112,7 +113,7 @@ class PostComments extends ComponentBase
         $user = Auth::getUser();
 
         if ($user && !empty(post('id'))) {
-            DB::table('cryptopolice_platform_community_comment')->where('user_id', $user->id)->where('id', post('id'))->delete();
+            CommunityComment::where('user_id', $user->id)->where('id', post('id'))->delete();
             Flash::warning('Your comment has been successfully deleted');
             $this->decreasePostsCommentsCount($this->param('id'));
             return redirect()->back();

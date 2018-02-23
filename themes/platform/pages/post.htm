@@ -41,16 +41,22 @@ is_hidden = 0
                                 </div>
                                 <div class="card__header">
                                     <div class="card__date">
-                                        <strong>{% if comment.nickname %} {{ comment.nickname }} {% else %} {{ comment.email|slice(0, 3)}}*****@***{{ comment.email|slice(comment.email.length - 4, comment.email.length) }} {% endif %}</strong>
+                                        <strong>{% if comment.user.nickname %} {{ comment.user.nickname }} {% else %} {{ comment.user.email|slice(0, 3)}}*****@***{{ comment.user.email|slice(comment.email.length - 4, comment.user.email.length) }} {% endif %}</strong>
                                         {{ comment.created_at }}
-                                        <a id="{{comment.id}}" href="#">Reply</a>
+                                        {% if comment.deleted_at is null %}
+                                            <a id="{{comment.id}}" href="#">Reply</a>
+                                                {% if user and user.id == comment.user_id and comment.deleted_at is null %}
+                                                    | <a data-request="onDeleteComment" data-request-data="id:{{comment.id}}" data-request-confirm data-request-flash>Remove</a>
+                                                {% endif %}
+                                        {% endif %}
                                     </div>
-                                    {% if user and user.id == comment.user_id %}
-                                        <a data-request="onDeleteComment" data-request-data="id:{{comment.id}}" data-request-confirm data-request-flash>Remove</a>
-                                    {% endif %}
                                 </div>
                                 <div class="card__content">
-                                    {{ comment.description|md }}
+                                    {% if comment.deleted_at is null %}
+                                        {{ comment.description|md }}
+                                    {% else %}
+                                        <i>This message has been removed</i>
+                                    {% endif %}
                                 </div>
 
                                 {% if comment.childs %}
