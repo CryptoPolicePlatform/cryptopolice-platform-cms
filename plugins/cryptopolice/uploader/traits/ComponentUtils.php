@@ -4,12 +4,14 @@ use Input;
 use Event;
 use Request;
 use Response;
+use Exception;
 use Validator;
+use System\Models\File;
 use ValidationException;
 use ApplicationException;
-use System\Models\File;
 use October\Rain\Support\Collection;
-use Exception;
+use October\Rain\Database\Attach\Resizer;
+use ToughDeveloper\ImageResizer\Classes\Image;
 
 trait ComponentUtils
 {
@@ -48,7 +50,7 @@ trait ComponentUtils
     {
         $list = $this->isMulti ? $model : new Collection([$model]);
 
-        $list->each(function($file) {
+        $list->each(function ($file) {
             $this->decorateFileAttributes($file);
         });
 
@@ -76,8 +78,7 @@ trait ComponentUtils
                 ->withDeferred($sessionKey)
                 ->orderBy('id', 'desc')
                 ->get();
-        }
-        else {
+        } else {
             $list = $this->model
                 ->{$this->attribute}()
                 ->orderBy('id', 'desc')
@@ -91,11 +92,27 @@ trait ComponentUtils
         /*
          * Decorate each file with thumb
          */
-        $list->each(function($file) {
+        $list->each(function ($file) {
             $this->decorateFileAttributes($file);
         });
 
         return $list;
+    }
+
+    protected function compress($source, $destination, $quality)
+    {
+
+        $info = getimagesize($source);
+
+        if ($info['mime'] == 'image/jpeg')
+            $image = imagecreatefromjpeg($source);
+
+        elseif ($info['mime'] == 'image/png')
+            $image = imagecreatefrompng($source);
+
+        imagejpeg($image, $destination, $quality);
+
+        return $destination;
     }
 
     protected function checkUploadAction()
@@ -114,7 +131,7 @@ trait ComponentUtils
 
             $validation = Validator::make(
                 ['file_data' => $uploadedFile], // this is the single image instance
-                ['file_data' => 'required|image|mimes:jpg,jpeg,png|max:500'] // this is the rule for a single image
+                ['file_data' => 'required|image|mimes:jpg,jpeg,png|max:1500'] // this is the rule for a single image
             );
 
             if ($validation->fails()) {
@@ -125,12 +142,13 @@ trait ComponentUtils
                 throw new ApplicationException(sprintf('File %s is not valid.', $uploadedFile->getClientOriginalName()));
             }
 
-            $file = new File;
-            $file->data = $uploadedFile;
-            $file->is_public = true;
-            $file = $this->decorateFileAttributes($file);
+            $this->compress(Input::file('file_data')->getRealPath(), Input::file('file_data')->getRealPath(), 75);
 
+            $file = new File;
+            $file->data = Input::file('file_data');
+            $file->is_public = true;
             $file->save();
+
 
             if ($this->isMulti) {
                 $this->model->{$this->attribute}()->add($file, $this->getSessionKey());
@@ -138,6 +156,7 @@ trait ComponentUtils
                 $this->model->{$this->attribute}()->save($file, $this->getSessionKey());
             }
 
+            $file = $this->decorateFileAttributes($file);
 
             $result = [
                 'id' => $file->id,
@@ -147,8 +166,7 @@ trait ComponentUtils
 
             return Response::json($result, 200);
 
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             return Response::json($ex->getMessage(), 400);
         }
     }

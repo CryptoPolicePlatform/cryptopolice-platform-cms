@@ -3,13 +3,13 @@
 
     <div class="choose__post">
         {{ form_ajax('onAddPost', { flash : '', model: CommunityPost }) }}
-            <div class="post_uploader">
-                {% component 'Uploader' %}
-            </div>
             <div class="card__header">
                 <input class="input post_title" name="title" placeholder="Your post title"/>
             </div>
-            <div class="form__group">
+        <div class="post_uploader">
+            {% component 'Uploader' %}
+        </div>
+        <div class="form__group">
                 <div class="card__content">
                     <textarea class="textarea" id="textarea_form" name="description" placeholder="Your post text"></textarea>
                 </div>

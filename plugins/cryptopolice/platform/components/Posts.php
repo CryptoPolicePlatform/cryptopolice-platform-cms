@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
+use Input;
 use DB;
 use Auth;
 use Flash;
@@ -123,8 +124,8 @@ class Posts extends ComponentBase
 
             $helper = new Helpers();
 
-            if($this->checkImage()) {
-                Flash::error('Iamge required');
+            if(empty($this->checkImage())) {
+                Flash::error('Post image required');
             } else {
                 if ($helper->checkLinks($html)) {
                     Flash::error('Links are not allowed');
@@ -143,7 +144,7 @@ class Posts extends ComponentBase
     }
 
     public function checkImage() {
-        $upload = post('post_image');
+        $upload = post('_uploader');
         return $upload['post_image'];
     }
 

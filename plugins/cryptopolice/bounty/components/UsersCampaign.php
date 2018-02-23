@@ -1,17 +1,18 @@
 <?php namespace CryptoPolice\Bounty\Components;
 
-use CryptoPolice\Platform\Models\Notification;
 use DB;
 use Auth;
 use Flash;
 use Session;
+use Redirect;
 use DateTime;
 use Validator;
 use RainLab\User\Models\User;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Bounty\Models\Bounty;
-use CryptoPolice\Bounty\Models\BountyRegistration;
+use CryptoPolice\Platform\Models\Notification;
 use CryptoPolice\Academy\Components\Recaptcha;
+use CryptoPolice\Bounty\Models\BountyRegistration;
 
 class UsersCampaign extends ComponentBase
 {
@@ -32,15 +33,25 @@ class UsersCampaign extends ComponentBase
         $this->page['profileStatistic'] = $this->getProfileStatistic();
 
         if (!empty($this->param('slug'))) {
-            $this->getUsersAccess();
-            $this->getRegisteredUsersCount();
-            $this->page['campaignReports'] = $this->getCampaignReports();
+            if($this->checkBountyStatus()->isNotEmpty()) {
+                $this->getUsersAccess();
+                $this->getRegisteredUsersCount();
+                $this->page['campaignReports'] = $this->getCampaignReports();
+            } else {
+                return Redirect::to('/bounty-campaign');
+            }
         } else {
             $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
             $this->page['usersReports'] = $this->getUsersReports();
         }
     }
 
+    public function checkBountyStatus() {
+        return Bounty::where('slug',$this->param('slug'))
+            ->where('id',$this->param('id'))
+            ->where('status', 1)
+            ->get();
+    }
 
     public function getRegisteredUsersCount()
     {
@@ -70,16 +81,16 @@ class UsersCampaign extends ComponentBase
     public function onFilterCampaignReports()
     {
 
-            $this->page['campaignReports'] = DB::table('cryptopolice_bounty_user_reports')
-                ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
-                ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
-                ->Where(function ($query) {
-                    if (!empty(post('status'))) {
-                        $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
-                    }
-                })->get();
+        $this->page['campaignReports'] = DB::table('cryptopolice_bounty_user_reports')
+            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
+            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
+            ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
+            ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
+            ->Where(function ($query) {
+                if (!empty(post('status'))) {
+                    $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
+                }
+            })->get();
     }
 
 

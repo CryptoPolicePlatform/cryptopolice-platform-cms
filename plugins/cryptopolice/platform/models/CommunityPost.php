@@ -1,6 +1,7 @@
 <?php namespace CryptoPolice\Platform\Models;
 
 use Model;
+use Carbon\Carbon;
 
 /**
  * Model
@@ -17,8 +18,9 @@ class CommunityPost extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'post_title' => 'required|min:0|max:255',
-        'post_description' => 'required|min:0|max:10000'
+        'post_title'        => 'required|min:0|max:255',
+        'post_description'  => 'required|min:0|max:10000',
+        'post_image'        => 'required|image|mimes:jpg,jpeg,png|max:1500'
     ];
 
     /*
@@ -68,6 +70,20 @@ class CommunityPost extends Model
         if (empty($this->slug)) {
             unset($this->slug);
             $this->setSluggedValue('slug', 'post_title');
+        }
+    }
+
+
+    public function afterCreate()
+    {
+        // Send notifications about new post
+        if ($this->pin) {
+            $notify = new Notification();
+            $notify->title = $this->post_title;
+            $notify->description = $this->post_description;
+            $notify->announcement_at = Carbon::now();
+            $notify->user_id = 0;
+            $notify->save();
         }
     }
 }

@@ -92,7 +92,7 @@
 }
 
 .post_title {
-    width: 55%;
+    width: 75%;
 }
 
 .choose__post {
@@ -164,7 +164,7 @@
 
 .post_uploader {
     float: left;
-    margin: 15px 15px 1px 0px;
+    margin: 25px 25px 0px 10px;
 }
 
 @media (max-width: 800px) {

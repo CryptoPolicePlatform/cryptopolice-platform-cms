@@ -141,11 +141,12 @@ class ImageUploader extends ComponentBase
 
     public function init()
     {
-        $this->maxSize          = $this->property('maxSize');
-        $this->imageWidth       = $this->property('imageWidth');
-        $this->imageHeight      = $this->property('imageHeight');
+//        $this->fileTypes = $this->processFileTypes(true);
+        $this->maxSize = $this->property('maxSize');
+        $this->imageWidth = $this->property('imageWidth');
+        $this->imageHeight = $this->property('imageHeight');
         $this->imageMode        = $this->property('imageMode');
-        $this->previewFluid     = $this->property('previewFluid');
+        $this->previewFluid         = $this->property('previewFluid');
         $this->placeholderText  = $this->property('placeholderText');
 
         $this->displayColumn = $this->page['displayColumn'] = $this->property('displayColumn');

@@ -16,7 +16,7 @@ class Bounties extends ComponentBase
 
     public function onRun()
     {
-        $this->page['bountyList'] = Bounty::where('status', 1)->orderBy('sort_order', 'asc')->get();
+        $this->page['bountyList'] = Bounty::orderBy('sort_order', 'asc')->get();
     }
 
 }
