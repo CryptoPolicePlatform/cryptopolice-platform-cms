@@ -104,8 +104,8 @@ class Posts extends ComponentBase
     public function onAddPost()
     {
 
-//        Recaptcha::verifyCaptcha();
-
+        // Recaptcha::verifyCaptcha();
+        
         if (input('_token') == Session::token()) {
 
             $user = Auth::getUser();

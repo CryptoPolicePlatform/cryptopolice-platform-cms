@@ -58,6 +58,13 @@ class CryptoPolicePlatformAcademyTables extends Migration
             });
         }
 
+        if (!Schema::hasColumns('cryptopolice_cryptopolice_exams', ['question_count'])) {
+
+            Schema::table('cryptopolice_cryptopolice_exams', function ($table) {
+                $table->string('question_count', 2)->default(0);
+            });
+        }
+
         // Academy Tables Rename
 
         Schema::rename('cryptopolice_cryptopolice_exams', 'cryptopolice_academy_exams');
@@ -66,12 +73,6 @@ class CryptoPolicePlatformAcademyTables extends Migration
         Schema::rename('cryptopolice_cryptopolice_final_exam_score', 'cryptopolice_academy_final_exam_score');
         Schema::rename('cryptopolice_cryptopolice_trainings_category', 'cryptopolice_academy_trainings_category');
 
-        if (!Schema::hasColumns('cryptopolice_academy_exams', ['question_count'])) {
-
-            Schema::table('cryptopolice_academy_exams', function ($table) {
-                $table->string('question_count', 2)->default(0);
-            });
-        }
 
         if (!Schema::hasTable('cryptopolice_academy_exams')) {
 

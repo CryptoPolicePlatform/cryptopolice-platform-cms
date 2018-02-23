@@ -33,10 +33,9 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
             Schema::create('cryptopolice_platform_community_posts', function ($table) {
                 $table->engine = 'InnoDB';
-                $table->increments('id');
+                $table->increments('id')->unsigned();
                 $table->string('slug', 255)->nullable();
                 $table->string('post_title', 255)->nullable();
-                $table->string('post_image', 255)->nullable();
                 $table->text('post_description', 10000)->nullable();
                 $table->integer('user_id')->nullable();
                 $table->boolean('status')->default(0);
@@ -52,7 +51,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
             Schema::create('cryptopolice_platform_community_post_views', function ($table) {
                 $table->engine = 'InnoDB';
-                $table->increments('id');
+                $table->increments('id')->unsigned();
                 $table->integer('user_id')->nullable();
                 $table->integer('post_id')->nullable();
             });
@@ -63,9 +62,10 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             Schema::create('cryptopolice_platform_notifications', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
-                $table->string('title', 255);
-                $table->text('description');
+                $table->string('title', 255)->nullable();
+                $table->text('description')->nullable();
                 $table->boolean('status')->default(1);
+                $table->integer('user_id')->nullable();
                 $table->timestamp('announcement_at')->nullable();
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
@@ -78,9 +78,9 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
 
             Schema::create('cryptopolice_platform_users_notifications', function ($table) {
                 $table->engine = 'InnoDB';
-                $table->increments('id');
+                $table->increments('id')->unsigned();
                 $table->integer('user_id')->nullable();
-                $table->integer('notification_id');
+                $table->integer('notification_id')->nullable();
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
             });

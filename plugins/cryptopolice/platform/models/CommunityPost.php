@@ -73,17 +73,38 @@ class CommunityPost extends Model
         }
     }
 
-
     public function afterCreate()
     {
-        // Send notifications about new post
         if ($this->pin) {
+
+            // Send notifications to all users about new post
             $notify = new Notification();
             $notify->title = $this->post_title;
             $notify->description = $this->post_description;
             $notify->announcement_at = Carbon::now();
             $notify->user_id = 0;
             $notify->save();
+
+            // Send email to all users about new post
+            // $users = User::all();
+            // foreach ($users as $user) {
+            //     $this->sendMail($user);
+            // }
         }
+    }
+
+    public function sendMail($user)
+    {
+        $vars = [
+            'message'   => $this->description,
+            'title'     => $this->title,
+            'name'      => $user->full_name,
+            'mail'      => $user->email
+        ];
+
+        Mail::send('cryptopolice.bounty::mail.pin-notification', $vars, function ($message) use ($user) {
+            $message->to($user->email, $user->full_name)->subject('New Notification');
+        });
+
     }
 }

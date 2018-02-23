@@ -85,7 +85,7 @@ class BountyRegistration extends Model
             'mail' => $user->email
         ];
 
-        Mail::send('cryptopolice.bounty::mail.registration_bounty_message', $vars, function ($message) use ($user) {
+        Mail::send('cryptopolice.bounty::mail.registration', $vars, function ($message) use ($user) {
             $message->to($user->email, $user->full_name)->subject('Bounty Campaign Registration');
         });
 

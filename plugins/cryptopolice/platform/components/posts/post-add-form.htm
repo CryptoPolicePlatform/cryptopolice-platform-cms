@@ -2,7 +2,7 @@
     <h3 class="content__title">Let's communicate</h3>
 
     <div class="choose__post">
-        {{ form_ajax('onAddPost', { flash : '', model: CommunityPost }) }}
+        {{ form_ajax('onAddPost', { flash : '', model: CommunityPost, files: true}) }}
             <div class="card__header">
                 <input class="input post_title" name="title" placeholder="Your post title"/>
             </div>

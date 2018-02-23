@@ -17,7 +17,7 @@ security = "all"
                 <li>
                     {% if user %}
                         {% if user.avatar.path %}
-                            <img class="header__ava" src="{{user.avatar.path}}" width="30" height="30" alt="user-avatar">
+                            <img class="header__ava" src="{{user.avatar.thumb(30, 30, {'mode' : 'crop'})}}" width="30" height="30" alt="user-avatar">
                         {% else %}
                             <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="30" height="30"
                              alt="user-avatar">

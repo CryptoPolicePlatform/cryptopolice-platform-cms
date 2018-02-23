@@ -765,6 +765,9 @@ th {
 .fa-bitbucket:before {
     content: "";
 }
+.fa-github:before {
+    content: "\f09b";
+}
 
 .fa-bitbucket-square:before {
     content: "";

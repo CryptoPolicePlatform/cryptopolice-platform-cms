@@ -178,4 +178,34 @@ trait ComponentUtils
             : null;
     }
 
+
+    protected function processFileTypes($includeDot = false)
+    {
+        $types = $this->property('fileTypes', '*');
+
+        if (!$types || $types == '*') {
+            $types = implode(',', File::getDefaultFileTypes());
+        }
+
+        if (!is_array($types)) {
+            $types = explode(',', $types);
+        }
+
+        $types = array_map(function($value) use ($includeDot) {
+            $value = trim($value);
+
+            if (substr($value, 0, 1) == '.') {
+                $value = substr($value, 1);
+            }
+
+            if ($includeDot) {
+                $value = '.'.$value;
+            }
+
+            return $value;
+        }, $types);
+
+        return implode(',', $types);
+    }
+
 }
