@@ -112,12 +112,14 @@ class Posts extends ComponentBase
 
             $previousPost = CommunityPost::where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
-                ->first();
+                ->get();
 
-            $minutes = $this->compareDates($previousPost->created_at);
-            if ($minutes < 10) {
-                Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
-                return false;
+            if($previousPost->isNotEmpty()) {
+                $minutes = $this->compareDates($previousPost->created_at);
+                if ($minutes < 10) {
+                    Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
+                    return false;
+                }
             }
 
             $html = Markdown::parse(strip_tags(input('description')));
