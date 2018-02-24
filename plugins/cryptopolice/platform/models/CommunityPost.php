@@ -39,6 +39,7 @@ class CommunityPost extends Model
         'comments' => [
             'CryptoPolice\platform\Models\CommunityComment',
             'key'   => 'post_id',
+            'order' => 'created_at desc'
         ],
 
         'views' => [
