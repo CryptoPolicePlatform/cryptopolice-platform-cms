@@ -41,6 +41,19 @@
                                     {% endif %}
                                 </a>
                             </li>
+                                {% if post.comments %}
+                                    {% for comment in  post.comments|slice(0, 3) %}
+                                        <li class="card__ava">
+                                            <a href="#">
+                                                {% if comment.user.avatar%}
+                                                    <img src="{{comment.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
+                                                {% else %}
+                                                    <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
                             <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i>
                                 {{ post.comment_count }}</li>
                             <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i>

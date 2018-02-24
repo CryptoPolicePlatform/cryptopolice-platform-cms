@@ -43,7 +43,7 @@ class Posts extends ComponentBase
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
-        $posts = CommunityPost::with('post_image', 'user.avatar')
+        $posts = CommunityPost::with('post_image', 'user.avatar','comments.user.avatar')
             ->leftJoin('cryptopolice_platform_community_post_views as views', function ($join) {
                 $join->on('cryptopolice_platform_community_posts.id', '=', 'views.post_id');
             })
