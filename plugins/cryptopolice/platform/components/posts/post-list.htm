@@ -6,86 +6,89 @@
             </div>
         </div>
     {% endif %}
-    {% for post in posts %}
-    <div class="card post_item">
-            <div class="choose__post">
-                <div class="choose_img">
-                    {% if post.post_image.path %}
-                        <img class="post_image" src="{{post.post_image.thumb(225, 125, {'mode' : 'crop'})}}" alt="">
-                    {% else %}
-                        <img src="{{'assets/images/user.svg'|theme}}" width="225" height="125">
-                    {% endif %}
-                </div>
-
-                <a class="post_link" href="{{'post'|page( {id: post.id, slug: post.slug })}}">
-                    <div class="card__header">
-                        <div class="card__date">{{post.created_at}}</div>
-                        <h3 class="card__title">
-                            {{ post.post_title }}
-                        </h3>
+    {% for post in posts %} 
+        {% if post.post_image.path %}
+            <div class="card post_item">
+                <div class="choose__post">
+                    <div class="choose_img">
+                        {% if post.post_image.path %}
+                            <img class="post_image" src="{{post.post_image.thumb(225, 125, {'mode' : 'crop'})}}" alt="">
+                        {% else %}
+                            <img src="{{'assets/images/user.svg'|theme}}" width="225" height="125">
+                        {% endif %}
                     </div>
-                    <div class="card__content">
-                        {{ post.post_description|striptags|truncate(250) }}
-                    </div>
-                </a>
 
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    {% if post.user.avatar %}
-                                        <img src="{{post.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
-                                    {% else %}
-                                        <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                    <a class="post_link" href="{{'post'|page( {id: post.id, slug: post.slug })}}">
+                        <div class="card__header">
+                            <div class="card__date">{{post.created_at}}</div>
+                            <h3 class="card__title">
+                                {{ post.post_title }}
+                            </h3>
+                        </div>
+                        <div class="card__content">
+                            {{ post.post_description|striptags|truncate(250) }}
+                        </div>
+                    </a>
+
+                    <div class="card__footer">
+                        <div class="card__footer-left">
+                            <ul class="card__ava-list">
+                                <li class="card__ava  card__ava--author">
+                                    <a href="#">
+                                        {% if post.user.avatar %}
+                                            <img src="{{post.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
+                                        {% else %}
+                                            <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                                        {% endif %}
+                                    </a>
+                                </li>
+                                    {% if post.comments %}
+                                        {% for comment in  post.comments|slice(0, 3) %}
+                                            <li class="card__ava">
+                                                <a href="#">
+                                                    {% if comment.user.avatar%}
+                                                        <img src="{{comment.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
+                                                    {% else %}
+                                                        <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
                                     {% endif %}
-                                </a>
-                            </li>
-                                {% if post.comments %}
-                                    {% for comment in  post.comments|slice(0, 3) %}
-                                        <li class="card__ava">
-                                            <a href="#">
-                                                {% if comment.user.avatar%}
-                                                    <img src="{{comment.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
-                                                {% else %}
-                                                    <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
-                                                {% endif %}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}
-                            <li class="card__ava stat__post"> <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                {{ post.comment_count }}</li>
-                            <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i>
-                                {{ post.views_count }}</li>
-                        </ul>
+                            
+                            </ul>
+                        </div>
+                        <div class="card__footer-right">
+                            <ul class="card__social">
+                                <li class="card__ava"> <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                    {{ post.comment_count }}</li>
+                                <li class="card__ava"> <i class="fa fa-eye" aria-hidden="true"></i>
+                                    {{ post.views_count }}</li>
+                                {# <a class="post_link" href="{{ 'post'|page( {id: post.id, slug: post.slug }) }}" title="Share on Facebook" target="_blank">#}
+                                {#<i class="fa fa-facebook-square"></i>#}
+                                {#<i class="fa fa-twitter"></i>#}
+                                {#<i class="fa fa-reddit"></i>#}
+                                {#</a>#}
+                                <li class="card__social-item  c-comment">
+                                    <a href="{{'post'|page( {id: post.id, slug: post.slug })}}">comment</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            {# <a class="post_link" href="{{ 'post'|page( {id: post.id, slug: post.slug }) }}" title="Share on Facebook" target="_blank">#}
-                            {#<i class="fa fa-facebook-square"></i>#}
-                            {#<i class="fa fa-twitter"></i>#}
-                            {#<i class="fa fa-reddit"></i>#}
-                            {#</a>#}
-                            <li class="card__social-item  c-comment">
-                                <a href="{{'post'|page( {id: post.id, slug: post.slug })}}">comment</a>
-                            </li>
-                        </ul>
-                    </div>
+
+                    {% if post.status == 1 %}
+                        <div class="card__status  low">new</div>
+                    {% elseif post.status == 2 %}
+                        <div class="card__status  medium">warm</div>
+                    {% elseif post.status == 3 %}
+                        <div class="card__status  high">hot</div>
+                    {% else %}
+                        <div class="card__status  low">new</div>
+                    {% endif %}
+
                 </div>
-
-                {% if post.status == 1 %}
-                    <div class="card__status  low">new</div>
-                {% elseif post.status == 2 %}
-                    <div class="card__status  medium">warm</div>
-                {% elseif post.status == 3 %}
-                    <div class="card__status  high">hot</div>
-                {% else %}
-                    <div class="card__status  low">new</div>
-                {% endif %}
-
             </div>
-        </div>
+        {% endif %}
     {% else %}
         {% if search_data %}
             <div class="card post_item">

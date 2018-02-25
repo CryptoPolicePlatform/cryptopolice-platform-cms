@@ -28,7 +28,6 @@ class PostComments extends ComponentBase
     {
         $comments = CommunityComment::withTrashed()->with('user.avatar')
             ->where('post_id', $this->param('id'))
-//            ->where('deleted_at', null)
             ->orderBy('created_at', 'desc')
             ->get();
 

@@ -20,7 +20,6 @@ class CommunityPost extends Model
     public $rules = [
         'post_title'        => 'required|min:0|max:255',
         'post_description'  => 'required|min:0|max:10000',
-        'post_image'        => 'required|image|mimes:jpg,jpeg,png|max:1500'
     ];
 
     /*
@@ -43,9 +42,8 @@ class CommunityPost extends Model
         ],
 
         'views' => [
-            'CryptoPolice\platform\Models\CommunityViews',
-            'key'   => 'post_id',
-            'order' => 'created_at'
+            'CryptoPolice\platform\Models\CommunityPostViews',
+            'key'   => 'post_id'
         ],
 
     ];

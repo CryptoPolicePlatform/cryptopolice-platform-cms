@@ -26,8 +26,7 @@ class UserProfile extends ComponentBase
             select(
                 'cryptopolice_platform_community_posts.*',
                 DB::raw('count(*) as total_posts_count'),
-                DB::raw('sum(status = 0) as pending_posts_count'),
-                DB::raw("sum(user_id = " . $user->id . ") as users_posts")
+                DB::raw('sum(status = 0) as pending_posts_count')
             )
             ->get();
 
@@ -63,15 +62,18 @@ class UserProfile extends ComponentBase
 
         if ($user) {
 
-            $postsCount = $counter[0]->users_posts;
+            $usersPosts = CommunityPost::select(DB::raw("sum(user_id = " . $user->id . ") as users_posts"))->get();
+
+            $postsCount = $usersPosts[0]->users_posts;
             $commentsCount = CommunityComment::where('user_id', $user->id)->count();
 
             $this->page['user_posts_count'] = $postsCount;
             $this->page['user_comments_count'] = $commentsCount;
 
-            $this->page['user_comments_count_percentage'] = (100 / ($postsCount + $commentsCount) * $postsCount) / 100;
-            $this->page['user_posts_count_percentage'] = (100 / ($postsCount + $commentsCount) * $commentsCount) / 100;
-
+            if($postsCount) {
+                $this->page['user_comments_count_percentage'] = (100 / ($postsCount + $commentsCount) * $postsCount) / 100;
+                $this->page['user_posts_count_percentage'] = (100 / ($postsCount + $commentsCount) * $commentsCount) / 100;
+            }
             $this->page['user_activity'] = (($postsCount * 5) + $commentsCount) / 100;
         }
     }

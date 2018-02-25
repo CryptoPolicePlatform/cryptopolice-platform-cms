@@ -1,6 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
-use DB, Auth, Flash, Validator;
+use DB, Auth, Flash, Validator, Session;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Classes\Helpers;
 use CryptoPolice\Platform\Models\CommunityPost;
@@ -19,23 +19,27 @@ class PostDetails extends ComponentBase
 
     public function onRun()
     {
+        $this->setPageVisit();
+        $this->getPost();
+    }
+
+    public function setPageVisit() {
+
+        $watched = CommunityPostViews::where('session_id', Session::getId())
+            ->where('post_id', $this->param('id'))
+            ->get();
+
+        if ($watched->isEmpty()) {
+            CommunityPostViews::insert([
+                'session_id' => Session::getId(),
+                'post_id' => $this->param('id')
+            ]);
+        }
+    }
+
+    public function getPost() {
 
         $helper = new Helpers();
-
-        if (Auth::check()) {
-
-            $user = Auth::getUser();
-            $watched = CommunityPostViews::where('user_id', $user->id)
-                ->where('post_id', $this->param('id'))
-                ->get();
-
-            if ($watched->isEmpty()) {
-                CommunityPostViews::insert([
-                    'user_id' => $user->id,
-                    'post_id' => $this->param('id')
-                ]);
-            }
-        }
 
         $post = CommunityPost::with('post_image','user.avatar','user')
             ->join('cryptopolice_platform_community_post_views as views', function ($join) {
@@ -46,6 +50,7 @@ class PostDetails extends ComponentBase
             ->where('cryptopolice_platform_community_posts.id', $this->param('id'))
             ->where('status', 1)
             ->first();
+       
         $post->facebook = $helper->setFacebookShare();
         $post->twitter  = $helper->setTwitterShare($post->post_title);
         $post->reddit   = $helper->setRedditShare($post->post_title);

@@ -122,25 +122,21 @@ class Posts extends ComponentBase
                 }
             }
 
-            $html = Markdown::parse(strip_tags(input('description')));
-
-            $helper = new Helpers();
-
-            if(empty($this->checkImage())) {
-                Flash::error('Post image required');
+            if ($helper->checkLinks($html)) {
+                Flash::error('Links are not allowed');
             } else {
-                if ($helper->checkLinks($html)) {
-                    Flash::error('Links are not allowed');
-                } else {
-                    $post = new CommunityPost;
-                    $post->post_title = input('title');
-                    $post->post_description = $html;
-                    $post->user_id = $user->id;
-                    $post->save(null, post('_session_key'));
+                
+                $helper = new Helpers();
+                $html = Markdown::parse(strip_tags(input('description')));
 
-                    Flash::success('Post has been successfully added');
-                    return redirect()->back();
-                }
+                $post = new CommunityPost;
+                $post->post_title = input('title');
+                $post->post_description = $html;
+                $post->user_id = $user->id;
+                $post->save(null, post('_session_key'));
+
+                Flash::success('Post has been successfully added');
+                return redirect()->back();
             }
         }
     }

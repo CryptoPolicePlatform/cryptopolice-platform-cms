@@ -52,7 +52,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             Schema::create('cryptopolice_platform_community_post_views', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id')->unsigned();
-                $table->integer('user_id')->nullable();
+                $table->string('session_id', 40)->nullable();
                 $table->integer('post_id')->nullable();
             });
         }
