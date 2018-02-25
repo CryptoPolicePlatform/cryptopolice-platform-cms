@@ -1,7 +1,7 @@
 <?php namespace CryptoPolice\Platform\Models;
 
-use Model;
 use Carbon\Carbon;
+use Model, Request, ValidationException;
 
 /**
  * Model
@@ -65,6 +65,13 @@ class CommunityPost extends Model
 
     public function beforeSave()
     {
+        
+        if($this->deferredBindingCache->isEmpty()) {
+            throw new ValidationException([
+                'error' => 'Click Upload images to add your image'
+            ]);
+        }
+        
         // Force creation of slug
         if (empty($this->slug)) {
             unset($this->slug);

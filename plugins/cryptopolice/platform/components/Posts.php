@@ -22,7 +22,7 @@ class Posts extends ComponentBase
     {
         return [
             'name' => 'Posts list',
-            'description' => 'Community Posts List'
+            'description' => 'Community Posts List' 
         ];
     }
 
@@ -115,20 +115,20 @@ class Posts extends ComponentBase
                 ->get();
 
             if($previousPost->isNotEmpty()) {
-                $minutes = $this->compareDates($previousPost->created_at);
+                $minutes = $this->compareDates($previousPost[0]->created_at);
                 if ($minutes < 10) {
                     Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
                     return false;
                 }
             }
 
+            $helper = new Helpers();
+            $html = Markdown::parse(strip_tags(input('description')));
+            
             if ($helper->checkLinks($html)) {
                 Flash::error('Links are not allowed');
             } else {
                 
-                $helper = new Helpers();
-                $html = Markdown::parse(strip_tags(input('description')));
-
                 $post = new CommunityPost;
                 $post->post_title = input('title');
                 $post->post_description = $html;

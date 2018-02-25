@@ -142,10 +142,10 @@ trait ComponentUtils
                 throw new ApplicationException(sprintf('File %s is not valid.', $uploadedFile->getClientOriginalName()));
             }
 
-            $this->compress(Input::file('file_data')->getRealPath(), Input::file('file_data')->getRealPath(), 75);
+            $this->compress($uploadedFile->getRealPath(), $uploadedFile->getRealPath(), 75);
 
             $file = new File;
-            $file->data = Input::file('file_data');
+            $file->data = $uploadedFile;
             $file->is_public = true;
             $file->save();
 
