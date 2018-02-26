@@ -16,19 +16,20 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- Open graph -->
-    <meta property="og:url" content="{{ url('/') }}">
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url('/') }}"/>
+    <meta property="og:type" content="website"/>
     {% if post.post_title %}
-    <meta property="og:title" content="{{ post.post_title }}">
+    <meta property="og:title" content="{{ post.post_title }}"/>
     {% endif %}
     {% if post.post_description %}
-    <meta property="og:description" content="{{ post.post_description }}">
+    <meta property="og:description" content="{{ post.post_description }}"/>
     {% endif %}
-    {% if post.post_img %}
-    <meta property="og:image" content="{{ url('/') }}{{post.post_img}}">
+    {% if post.post_image.path %}
+    <meta property="og:image" content="{{post.post_image.path}}"/>
     {% else %}
-    <meta property="og:image" content="{{'assets/images/user.svg'|theme}}">
+    <meta property="og:image" content="{{'assets/images/user.svg'|theme}}"/>
     {% endif %}
+
     <meta property="og:site_name" content="CryptoPolice Platform">
     <meta property="og:locale" content="en_us">
 
@@ -43,7 +44,6 @@
     <link rel="icon" type="image/png" href="{{ 'assets/images/favicons/favicon-16x16.png'|theme }}" sizes="16x16">
     <link rel="manifest" href="{{ 'assets/images/favicons/manifest.json'|theme }}">
     <link rel="mask-icon" href="{{ 'assets/images/favicons/safari-pinned-tab.svg'|theme }}" color="#5bbad5">
-    <meta property="image" content="{{ 'https://cryptopolice.io/assets/images/police-hat-logo.png'|app }}"/>
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {

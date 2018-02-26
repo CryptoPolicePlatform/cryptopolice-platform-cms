@@ -5,7 +5,10 @@
     -moz-appearance: none;
     appearance: none !important;
 }
-
+.post_uploader {
+    float: left;
+    margin: 25px 25px 0px 10px;
+}
 .header__public {
     display: inline-block;
     vertical-align: middle;
@@ -91,10 +94,6 @@
     font-weight: bold;
 }
 
-.post_title {
-    width: 75%;
-}
-
 .choose__post {
     width: 100%;
 }
@@ -117,29 +116,9 @@
     margin-right: 20px
 }
 
-@media (max-width: 800px) {
-    .choose__post_item {
-        width: 100%;
-        max-width: 100%;
-    }
 
-    .choose_img {
-        margin-right: 0;
-        text-align: center;
-        float: none;
-    }
-
-    .card__title {
-        padding-right: 0px;
-    }
-
-    .card__date {
-        text-align: center;
-    }
-
-    .card__content {
-        width: 100%;
-    }
+.post_title {
+    width: 60%;
 }
 
 .post_content {
@@ -166,10 +145,6 @@
     text-decoration: none;
 }
 
-.post_uploader {
-    float: left;
-    margin: 25px 25px 0px 10px;
-}
 
 .btn-search {
     width: 35px;
@@ -189,39 +164,45 @@
     padding: 10px 20px;
 }
 
-@media (max-width: 1720px) {
-
-}
-
 @media (max-width: 1520px) {
-    .card__content {
-        width: 100%;
-    }
-}
 
-@media (max-width: 1320px) {
-    .card__content {
-        width: 100%;
-    }
-}
-
-@media (max-width: 1120px) {
-    .card__content {
-        width: 100%;
-    }
-}
-
-@media (max-width: 800px) {
     .post_item {
         -ms-flex-direction: column;
         flex-direction: column;
     }
 
-    .post_img {
-        float: none;
+    .post_title {
+        width:100%;
+    }
+
+    .post_uploader {
+        float:none;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        margin-left: 25%;
+    }
+    .choose__post_item {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .choose_img {
         margin-right: 0;
-        margin-bottom: 20px;
         text-align: center;
+        float: none;
+    }
+
+    .card__title {
+        width:100%;
+        padding-right: 0px;
+    }
+
+    .card__date {
+        text-align: center;
+    }
+
+    .card__content {
+        width: 100%;
     }
 }
 

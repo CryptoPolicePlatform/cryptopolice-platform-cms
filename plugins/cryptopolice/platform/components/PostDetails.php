@@ -59,6 +59,9 @@ class PostDetails extends ComponentBase
             return $this->controller->run('404');
         }
 
+        $helper = new Helpers();
+        $post->status = $helper->setStatus($post->created_at, $post->views_count, $post->comment_count);
+
         $this->page['post'] = $post;
     }
 }

@@ -141,17 +141,17 @@ class ImageUploader extends ComponentBase
 
     public function init()
     {
-        $this->fileTypes = $this->processFileTypes(true);
-        $this->maxSize = $this->property('maxSize');
-        $this->imageWidth = $this->property('imageWidth');
-        $this->imageHeight = $this->property('imageHeight');
+        $this->fileTypes        = $this->processFileTypes(true);
+        $this->maxSize          = $this->property('maxSize');
+        $this->imageWidth       = $this->property('imageWidth');
+        $this->imageHeight      = $this->property('imageHeight');
         $this->imageMode        = $this->property('imageMode');
-        $this->previewFluid         = $this->property('previewFluid');
+        $this->previewFluid     = $this->property('previewFluid');
         $this->placeholderText  = $this->property('placeholderText');
 
-        $this->displayColumn = $this->page['displayColumn'] = $this->property('displayColumn');
-        $this->modelKeyColumn = $this->page['modelKeyColumn'] = $this->property('modelKeyColumn');
-        $this->identifierValue = $this->page['identifierValue'] = $this->property('identifierValue');
+        $this->displayColumn    = $this->page['displayColumn'] = $this->property('displayColumn');
+        $this->modelKeyColumn   = $this->page['modelKeyColumn'] = $this->property('modelKeyColumn');
+        $this->identifierValue  = $this->page['identifierValue'] = $this->property('identifierValue');
 
         $this->thumbOptions['mode'] = $this->imageMode;
 

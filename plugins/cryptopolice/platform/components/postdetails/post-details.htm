@@ -36,12 +36,14 @@
         </div>
     </div>
 
-    {% if post.views_count > 10 %}
-        <div class="card__status  high">high</div>
-    {% elseif post.views_count %}
-        <div class="card__status  medium">flow</div>
+    {% if post.status == 1 %}
+    <div class="card__status  low">new</div>
+    {% elseif post.status == 2 %}
+    <div class="card__status  medium">warm</div>
+    {% elseif post.status == 3 %}
+    <div class="card__status  high">hot</div>
     {% else %}
-        <div class="card__status  low">low</div>
+    <div class="card__status  low">new</div>
     {% endif %}
 
     <br>

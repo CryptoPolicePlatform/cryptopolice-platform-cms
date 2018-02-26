@@ -6,8 +6,9 @@
                 <div class="issues__type"> №{{ loop.index}}</div>
                 <div class="issues__title notify_title">
                     <a href="#" id="{{ notify.id }}" data-request="onCheckNotification" data-request-data="id:{{ notify.id }}" data-request-update="'Notifications::notify-status': '#status_{{notify.id }}'">{{ notify.title }}</a>
+                    <div class="card__date">{{ notify.created_at }}</div>
                 </div>
-                {{ notify.created_at }}
+
                 <div class="issues__status" id="status_{{ notify.id }}"> {% partial Notification ~ '::notify-status' notify = notify %} </div>
             </div>
             <div class="issues__item notify_block" id="description_{{ notify.id }}">{{ notify.description|raw }} </div>

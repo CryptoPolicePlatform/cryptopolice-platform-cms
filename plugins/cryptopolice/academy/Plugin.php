@@ -7,6 +7,7 @@ use ValidationException;
 use System\Classes\PluginBase;
 use RainLab\User\Models\User as UserModel;
 use CryptoPolice\Academy\Components\Recaptcha;
+use LasseRafn\InitialAvatarGenerator\InitialAvatar;
 use RainLab\User\Controllers\Users as UsersController;
 
 class Plugin extends PluginBase
@@ -63,19 +64,37 @@ class Plugin extends PluginBase
         });
 
         // verify recaptcha before user try to login into paltform
-
         Event::listen('rainlab.user.beforeAuthenticate', function () {
             Recaptcha::verifyCaptcha();
         });
 
         // set users nickname as a first part of an email addres
-
         Event::listen('rainlab.user.register', function ($user) {
+
+            $user->avatar = (new \System\Models\File)->fromData($this->generateAvatar($user), 'asse_Radfn.jpeg');
+
             $nickname = explode("@", $user->email);
             $user->update(['nickname' => $nickname[0]]);
         });
 
     }
+
+    protected function generateAvatar($user)
+    {
+
+        $avatar = new InitialAvatar();
+
+        return $avatar->name(substr($user->email, 0, 2))
+            ->length(2)
+            ->fontSize(0.5)
+            ->size(2048)
+            ->font('/fonts/OpenSans-Semibold.ttf')
+            ->background('#' . dechex(rand(0, 10000000)))
+            ->color('#fff')
+            ->generate()
+            ->stream('png', 100);
+    }
+
 
     protected function extendUserModel()
     {

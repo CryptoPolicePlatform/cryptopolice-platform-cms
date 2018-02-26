@@ -10,8 +10,7 @@ use System\Models\File;
 use ValidationException;
 use ApplicationException;
 use October\Rain\Support\Collection;
-use October\Rain\Database\Attach\Resizer;
-use ToughDeveloper\ImageResizer\Classes\Image;
+use CryptoPolice\Academy\Components\Recaptcha;
 
 trait ComponentUtils
 {
@@ -123,6 +122,9 @@ trait ComponentUtils
         }
 
         try {
+            
+            // Recaptcha::verifyCaptcha();
+
             if (!Input::hasFile('file_data')) {
                 throw new ApplicationException('File missing from request');
             }

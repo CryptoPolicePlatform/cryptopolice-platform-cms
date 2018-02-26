@@ -1,0 +1,15 @@
+{
+    "name": "cryptopolice/platform",
+    "description": "CryptoPolice postComments component",
+    "keywords": ["drivers", "plugin", "component"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CryptoPolice.com",
+            "email": "info@cryptopolice.com"
+        }
+    ],
+    "require": {
+        "lasserafn/php-initial-avatar-generator": "^2.3"
+    }
+}

@@ -163,7 +163,6 @@
     }
 
     FileUpload.prototype.onUploadSending = function(file, xhr, formData) {
-        console.log(formData);
         this.addExtraFormData(formData)
     }
 

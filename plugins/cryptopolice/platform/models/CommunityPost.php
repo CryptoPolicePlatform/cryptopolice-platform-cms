@@ -71,7 +71,6 @@ class CommunityPost extends Model
                 'error' => 'Click Upload images to add your image'
             ]);
         }
-        
         // Force creation of slug
         if (empty($this->slug)) {
             unset($this->slug);

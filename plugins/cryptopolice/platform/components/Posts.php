@@ -43,13 +43,10 @@ class Posts extends ComponentBase
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
-        $posts = CommunityPost::with('post_image', 'user.avatar','comments.user.avatar')
-            ->leftJoin('cryptopolice_platform_community_post_views as views', function ($join) {
-                $join->on('cryptopolice_platform_community_posts.id', '=', 'views.post_id');
-            })
-            ->select(DB::raw('count(views.id) as views_count'), 'cryptopolice_platform_community_posts.*')
+        $posts = CommunityPost::with('post_image', 'user.avatar','comments.user.avatar', 'comments', 'views')
+            ->select('cryptopolice_platform_community_posts.*')
             ->where('status', 1)
-            ->whereNull('cryptopolice_platform_community_posts.deleted_at')
+            ->whereNull('deleted_at')
             ->Where(function ($query) {
                 if (!empty(post('search'))) {
                     $query->where('post_title', 'like', '%' . post('search') . '%');
@@ -68,8 +65,10 @@ class Posts extends ComponentBase
 
             foreach ($posts as $key => $value) {
 
+                $posts[$key]->comment_count = $value->comments->count();
+                $posts[$key]->views_count = $value->views->count();
                 // set status
-                $posts[$key]->status = $this->setStatus($value->created_at, $value->views_count, $value->comment_count);
+                $posts[$key]->status = $helper->setStatus($value->created_at, $value->views_count, $value->comment_count);
 
                 $helper = new Helpers();
                 // set shares links
@@ -87,24 +86,10 @@ class Posts extends ComponentBase
         }
     }
 
-    public function setStatus($createdAt, $views, $comments)
-    {
-
-        $hours = Carbon::now()->diffInHours(Carbon::parse($createdAt));
-        if ($hours >= Settings::get('hot_post_min_hours') && $hours <= Settings::get('hot_post_max_hours') && $views >= Settings::get('hot_post_views') && $comments >= Settings::get('hot_post_min_comments'))
-            return 3;
-        if ($hours >= Settings::get('med_post_min_hours') && $hours <= Settings::get('med_post_max_hours') && $views >= Settings::get('med_post_views') && $comments >= Settings::get('med_post_min_comments'))
-            return 2;
-        if ($hours >= Settings::get('new_post_min_hours') && $hours <= Settings::get('new_post_max_hours') && $views >= Settings::get('new_post_views') && $comments >= Settings::get('new_post_min_comments'))
-            return 1;
-        return 0;
-    }
-
-
     public function onAddPost()
     {
 
-        // Recaptcha::verifyCaptcha();
+         Recaptcha::verifyCaptcha();
         
         if (input('_token') == Session::token()) {
 
