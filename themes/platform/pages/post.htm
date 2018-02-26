@@ -41,7 +41,17 @@ is_hidden = 0
                                 </div>
                                 <div class="card__header">
                                     <div class="card__date">
-                                        <strong>{% if comment.user.nickname %} {{ comment.user.nickname }} {% else %} {{ comment.user.email|slice(0, 3)}}*****@***{{ comment.user.email|slice(comment.email.length - 4, comment.user.email.length) }} {% endif %}</strong>
+                                        <strong>
+                                            {% if comment.user.nickname %}
+                                                {% if comment.user.is_superuser %}
+                                                    <span class="mark  mark--red"> {{ comment.user.nickname }}*</span>
+                                                {% else %}
+                                                    {{ comment.user.nickname }}
+                                                {% endif%}
+                                            {% else %}
+                                                    {{ comment.user.email|slice(0, 3)}}*****@***{{ comment.user.email|slice(comment.user.email.length - 4, comment.user.email.length) }}
+                                            {% endif %}
+                                        </strong>
                                         {{ comment.created_at }}
                                         {% if comment.deleted_at is null %}
                                             <a id="{{comment.id}}" href="#">Reply</a>

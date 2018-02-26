@@ -9,7 +9,17 @@
         </div>
         <div class="card__header">
             <div class="card__date">
-                <strong>{% if reply.user.nickname %} {{ reply.user.nickname }} {% else %} {{ reply.user.email|slice(0, 3)}}*****@***{{ reply.user.email|slice(reply.user.email.length - 4, reply.user.email.length) }} {% endif %}</strong>
+                <strong>
+                    {% if reply.user.nickname %}
+                        {% if reply.user.is_superuser %}
+                            <span class="mark  mark--red"> {{ reply.user.nickname }} </span>
+                        {% else %}
+                            {{ reply.user.nickname }}
+                        {% endif%}
+                    {% else %}
+                        {{ reply.user.email|slice(0, 3)}}*****@***{{ reply.user.email|slice(reply.user.email.length - 4, reply.user.email.length) }}
+                    {% endif %}
+                </strong>
                     {{ reply.created_at }}
                 {% if reply.deleted_at is null %}
                     <a id="{{reply.id}}" href="#"> Reply </a>

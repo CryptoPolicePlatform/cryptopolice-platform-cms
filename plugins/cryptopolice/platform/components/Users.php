@@ -19,12 +19,11 @@ class Users extends ComponentBase
     public function onRun()
     {
 
-        $users = User::with('avatar')
+        $users = User::with('avatar', 'groups')
             ->whereNotNull('users.last_seen')
             ->orderBy('last_seen', 'desc')
             ->get();
 
-        $helper = new Helpers();
         $this->page['users'] = $users;
     }
 }

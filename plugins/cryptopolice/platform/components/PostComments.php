@@ -26,7 +26,7 @@ class PostComments extends ComponentBase
 
     public function onRun()
     {
-        $comments = CommunityComment::withTrashed()->with('user.avatar')
+        $comments = CommunityComment::withTrashed()->with('user.avatar','user.groups')
             ->where('post_id', $this->param('id'))
             ->orderBy('created_at', 'desc')
             ->get();

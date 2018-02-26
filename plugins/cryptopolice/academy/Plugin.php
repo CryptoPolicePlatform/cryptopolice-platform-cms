@@ -87,7 +87,7 @@ class Plugin extends PluginBase
         return $avatar->name(substr($user->email, 0, 2))
             ->length(2)
             ->fontSize(0.5)
-            ->size(2048)
+            ->size(4096)
             ->font('/fonts/OpenSans-Semibold.ttf')
             ->background('#' . dechex(rand(0, 10000000)))
             ->color('#fff')

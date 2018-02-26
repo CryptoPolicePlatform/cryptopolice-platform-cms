@@ -11,7 +11,11 @@
             </div>
             <div class="user_info">
                 {% if user.nickname %}
-                    {{ user.nickname }}
+                    {% if user.is_superuser %}
+                        <span class="mark  mark--red">{{ user.nickname }}*</span>
+                    {% else %}
+                        {{ user.nickname }}
+                    {% endif%}
                 {% else %}
                     {{ user.email|slice(0, 3)}}*****@***{{ user.email|slice(user.email.length - 4, user.email.length) }}
                 {% endif %}
