@@ -1,27 +1,27 @@
 {% if this.param.slug %}
     <ul class="courses">
         {% for training in trainings %}
-        <li class="courses__item">
-            <a class="courses__link watched" href="{{ 'training-open'|page({slug: training.slug}) }}">
-                <span class="courses__num">#<b>{{ loop.index }}</b></span>
-                <span class="courses__title">{{ training.title }}</span>
-            </a>
-        </li>
+            <li class="courses__item">
+                <a class="courses__link {% if training.watched is not null %}watched{% endif %}" data-request="onTrainingCheck" data-request-data="id: {{training.id}}, slug: '{{training.slug}}'">
+                    <span class="courses__num">#<b>{{ loop.index }}</b></span>
+                    <span class="courses__title">{{ training.title }}</span>
+                </a>
+            </li>
         {% else %}
-        <li class="courses__item"><h4 class="content__title">Nothing here</h4></li>
+            <li class="courses__item"><h4 class="content__title">Nothing here</h4></li>
         {% endfor %}
     </ul>
 {% else%}
     <ul class="courses">
         {% for trainingcat in trainings %}
-        <li class="courses__item">
-            <a class="courses__link watched" href="{{ 'trainings'|page({slug: trainingcat.slug}) }}">
-                <span class="courses__num">#<b> {{ loop.index }}</b></span>
-                <span class="courses__title">{{ trainingcat.title }}</span>
-            </a>
-        </li>
+            <li class="courses__item">
+                <a class="courses__link watched" href="{{ 'trainings'|page({slug: trainingcat.slug}) }}">
+                    <span class="courses__num">#<b> {{ loop.index }}</b></span>
+                    <span class="courses__title">{{ trainingcat.title }}</span>
+                </a>
+            </li>
         {% else %}
-        <li class="courses__item"><h4 class="content__title">Nothing here...</h4></li>
+            <li class="courses__item"><h4 class="content__title">Nothing here...</h4></li>
         {% endfor %}
     </ul>
 {% endif %}

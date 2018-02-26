@@ -147,6 +147,15 @@ class CryptoPolicePlatformAcademyTables extends Migration
             });
         }
 
+        if (!Schema::hasTable('cryptopolice_academy_training_views')) {
+
+            Schema::create('cryptopolice_academy_training_views', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->integer('user_id')->default(0);
+                $table->integer('training_id')->default(0);
+            });
+        }
+
         if (!Schema::hasTable('cryptopolice_academy_trainings_category')) {
 
             Schema::create('cryptopolice_academy_trainings_category', function ($table) {

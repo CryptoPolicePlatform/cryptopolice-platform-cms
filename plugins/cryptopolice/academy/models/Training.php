@@ -28,6 +28,16 @@ class Training extends Model
 
     ];
 
+
+    public $hasMany = [
+
+        'views' => [
+            'CryptoPolice\academy\Models\TrainingView',
+            'key'   => 'training_id'
+        ],
+
+    ];
+
     /**
      * @var string The database table used by the model.
      */
