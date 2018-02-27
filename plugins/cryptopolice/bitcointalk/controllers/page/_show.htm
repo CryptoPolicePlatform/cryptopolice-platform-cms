@@ -1,0 +1,12 @@
+
+<div class="row">
+
+    <?php foreach ($model->contents as $content) : ?>
+    <hr>
+    <strong><?= $content->user_nick ?> : </strong>
+    <?= $content->content_raw ?>
+    <p><i><?= $content->publication_date ?></i></p>
+    <br>
+
+    <?php endforeach; ?>
+</div>
