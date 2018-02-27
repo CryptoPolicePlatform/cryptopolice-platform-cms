@@ -1,0 +1,23 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+
+    title:
+      label: title
+      searchable: true
+      sortable: true
+
+    full_url:
+      label: Full Url
+      searchable: true
+      sortable: true
+
+    meta:
+      label: meta
+      searchable: true
+      sortable: true

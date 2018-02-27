@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Content
+
+# Model Form Field configuration
+form: $/cryptopolice/bitcointalk/models/content/fields.yaml
+
+# Model Class name
+modelClass: CryptoPolice\Bitcointalk\Models\Content
+
+# Default redirect location
+defaultRedirect: cryptopolice/bitcointalk/content
+
+# Create page
+create:
+    title: Create Content
+    redirect: cryptopolice/bitcointalk/content/update/:id
+    redirectClose: cryptopolice/bitcointalk/content
+
+# Update page
+update:
+    title: Edit Content
+    redirect: cryptopolice/bitcointalk/content
+    redirectClose: cryptopolice/bitcointalk/content
+
+# Preview page
+preview:
+    title: Preview Content

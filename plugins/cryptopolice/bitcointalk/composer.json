@@ -1,0 +1,14 @@
+{
+    "name": "bin/bitcointalk",
+    "require": {
+        "xparse/element-finder": "^0.0.4",
+        "xparse/css-expression-translator": "^0.0.2",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "CryptoPolicePlatform",
+            "email": "igors@cunami.lv"
+        }
+    ]
+}

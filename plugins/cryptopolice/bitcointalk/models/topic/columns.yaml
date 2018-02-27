@@ -1,0 +1,28 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+columns:
+    id:
+      label: ID
+      searchable: true
+      sortable: true
+
+    title:
+      label: title
+      searchable: true
+      sortable: true
+
+    url:
+      label: Full Url
+      searchable: true
+      sortable: true
+
+    bitcointalk_id:
+      label: bitcointalk_id
+      searchable: true
+      sortable: true
+
+#    pages:
+#      label: pages
+#      searchable: true
+#      sortable: true

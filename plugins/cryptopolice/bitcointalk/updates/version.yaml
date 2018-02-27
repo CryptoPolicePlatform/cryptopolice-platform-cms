@@ -1,0 +1,5 @@
+1.0.1:
+    - First version of Bitcointalk
+    - create_topikcs_table.php
+    - create_pages_table.php
+    - create_contents_table.php

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Topic
+
+# Model Form Field configuration
+form: $/cryptopolice/bitcointalk/models/topic/fields.yaml
+
+# Model Class name
+modelClass: CryptoPolice\Bitcointalk\Models\Topic
+
+# Default redirect location
+defaultRedirect: cryptopolice/bitcointalk/topic
+
+# Create page
+create:
+    title: Create Topic
+    redirect: cryptopolice/bitcointalk/topic/update/:id
+    redirectClose: cryptopolice/bitcointalk/topic
+
+# Update page
+update:
+    title: Edit Topik
+    redirect: cryptopolice/bitcointalk/topic
+    redirectClose: cryptopolice/bitcointalk/topic
+
+# Preview page
+preview:
+    title: Preview Topic
