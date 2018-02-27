@@ -91,17 +91,15 @@ class ProfileForm extends ComponentBase
     {
 
         Recaptcha::verifyCaptcha();
-
         if (input('_token') == Session::token()) {
 
             $user = Auth::getUser();
             foreach (post() as $key => $value) {
-                if ($user[$key] == post($key)) {
+                if ($key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
                     $rules[$key] = 'min:0|max:255';
-                } else {
-                    $rules[$key] = 'min:0|max:255|unique:users';
                 }
             }
+            trace_log($rules);
 
             $validator = Validator::make(post(), $rules);
 
@@ -109,6 +107,7 @@ class ProfileForm extends ComponentBase
                 Flash::error($validator->messages()->first());
 
             } else {
+
                 $user->update([
                     'telegram_username'  => post('telegram_username'),
                     'facebook_link'      => post('facebook_link'),
