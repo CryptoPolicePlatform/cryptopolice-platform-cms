@@ -333,8 +333,9 @@ class UsersCampaign extends ComponentBase
     public function setUserNotification($userID, $code)
     {
         $notify = new Notification();
-        $notify->title = 'Confirm registration';
-        $notify->description = 'You need to post this code' . $code;
+        $notify->user_id = $this->user_id;
+        $notify->title = 'Thank you for your registration in CryptoPolice';
+        $notify->description = 'You need to post this code ' . $code;
         $notify->user_id = $userID;
         $notify->save();
     }

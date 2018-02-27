@@ -89,7 +89,7 @@ class Posts extends ComponentBase
     public function onAddPost()
     {
 
-         Recaptcha::verifyCaptcha();
+        Recaptcha::verifyCaptcha();
         
         if (input('_token') == Session::token()) {
 
@@ -113,7 +113,7 @@ class Posts extends ComponentBase
             if ($helper->checkLinks($html)) {
                 Flash::error('Links are not allowed');
             } else {
-                
+
                 $post = new CommunityPost;
                 $post->post_title = input('title');
                 $post->post_description = $html;
@@ -124,11 +124,6 @@ class Posts extends ComponentBase
                 return redirect()->back();
             }
         }
-    }
-
-    public function checkImage() {
-        $upload = post('_uploader');
-        return $upload['post_image'];
     }
 
     public function compareDates($date)

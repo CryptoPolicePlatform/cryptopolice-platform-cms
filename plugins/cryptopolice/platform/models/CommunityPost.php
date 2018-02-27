@@ -65,12 +65,15 @@ class CommunityPost extends Model
 
     public function beforeSave()
     {
-        
-        if($this->deferredBindingCache->isEmpty()) {
-            throw new ValidationException([
-                'error' => 'Click Upload images to add your image'
-            ]);
+
+        if(!isset($this->post_image->file_name) && !empty($this->post_image->file_name)) {
+            if($this->deferredBindingCache->isEmpty()) {
+                throw new ValidationException([
+                    'error' => 'Click Upload images to add your image'
+                ]);
+            }
         }
+
         // Force creation of slug
         if (empty($this->slug)) {
             unset($this->slug);

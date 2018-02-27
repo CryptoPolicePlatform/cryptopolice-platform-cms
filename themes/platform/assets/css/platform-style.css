@@ -5101,13 +5101,13 @@ html.remodal-is-locked {
 .issues__status:before {
     content: "";
     display: block;
-    width: 30px;
+    width: 12px;
     height: 120%;
     background-color: #efefef;
     -ms-transform: rotate(12deg);
     transform: rotate(12deg);
     position: absolute;
-    left: -15px;
+    left: -7px;
     top: 0;
     z-index: 1;
 }
