@@ -31,10 +31,14 @@
             </div>
         </div>
 
-        {% partial 'UsersCampaign::campaign-reports' %}
+        {# Check if bounty campaign is closed #}
+        {% if bounty.status == 1 %}
+            {% partial 'UsersCampaign::campaign-reports' %}
+        {% endif %}
 
         <div id="anchor-2" class="profile__card">
-            {% if access is empty %}
+            {# Check if bounty campaign is closed and user is not verified to report #}
+            {% if access is empty and bounty.status == 1%}
                 {% partial 'UsersCampaign::bounty-registration-form' %}
             {% else %}
                 {% partial 'UsersCampaign::bounty-report-form' %}

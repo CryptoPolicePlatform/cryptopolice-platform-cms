@@ -22,22 +22,9 @@ redirect = "login"
                 {% partial UsersCampaign ~ '::bounty-profile' %}
 
                 <div class="profile__content">
+
                     {% if access == 0 and access is not empty %}
-                    <div class="alert  alert--orange">
-                        <p>
-                            <strong>To verify your registration please approve your Bitcointalk account</strong>
-                            <br>
-                            <strong>Post this message to our Bitcointalk bounty announcement </strong>
-                            <br>
-                            <strong><a href="">LINK</a></strong>
-                            <br>Message:
-                            <br>
-                            <strong>I registered to CryptoPolice bounty campaign - {% for campaign in campaignReports
-                                %} {{ campaign.campaign_title }} {% endfor %} campaign <br>
-                                 My registration code is - ###{{btc_code}}###</strong>
-                        </p>
-                        <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
-                        </div>
+                        {% partial UsersCampaign ~ '::bounty-verification-code' %}
                     {% endif %}
 
                     {% partial UsersCampaign ~ '::main-menu' %}

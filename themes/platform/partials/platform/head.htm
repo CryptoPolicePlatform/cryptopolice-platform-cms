@@ -15,19 +15,28 @@
     <meta name="google" content="notranslate">
     <meta name="format-detection" content="telephone=no">
 
+
     <!-- Open graph -->
+    {% if post %}
     <meta property="og:url" content="{{ url('/') }}"/>
+    {% else %}
+    <meta property="og:url" content="https://www.cryptopolice.com/platform"/>
+    {% endif %}
     <meta property="og:type" content="website"/>
     {% if post.post_title %}
     <meta property="og:title" content="{{ post.post_title }}"/>
+    {% else %}
+    <meta property="og:title" content="CryptoPolice Platform"/>
     {% endif %}
     {% if post.post_description %}
     <meta property="og:description" content="{{ post.post_description }}"/>
+    {% else %}
+    <meta property="og:description" content="CryptoPolice is first community based cryptocurrency police on blockchain"/>
     {% endif %}
     {% if post.post_image.path %}
     <meta property="og:image" content="{{post.post_image.path}}"/>
     {% else %}
-    <meta property="og:image" content="{{'assets/images/user.svg'|theme}}"/>
+    <meta property="og:image" content="https://www.cryptopolice.com/assets/i/cryptopolice.jpg"/>
     {% endif %}
 
     <meta property="og:site_name" content="CryptoPolice Platform">

@@ -53,7 +53,6 @@ class Plugin extends PluginBase
         $this->extendUsersController();
 
         // Password validation before registraion
-
         Event::listen('rainlab.user.beforeRegister', function () {
             Recaptcha::verifyCaptcha();
             $userPassword = post('password');
@@ -72,10 +71,10 @@ class Plugin extends PluginBase
         // set users nickname as a first part of an email addres
         Event::listen('rainlab.user.register', function ($user) {
 
-            $user->avatar = (new \System\Models\File)->fromData($this->generateAvatar($user), 'asse_Radfn.jpeg');
+            $user->avatar = (new \System\Models\File)->fromData($this->generateAvatar($user), md5(uniqid(rand(),true)).'.jpeg');
 
             $nickname = explode("@", $user->email);
-            $user->update(['nickname' => $nickname[0]]);
+            $user->update(['nickname' => substr($nickname[0], 0, 5) . rand(100, 999)]);
         });
 
     }

@@ -15,18 +15,12 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
     {
 
         // Update users nicknames
-
         $rows = DB::table('users')->get(['id', 'nickname', 'email']);
-
         foreach ($rows as $row) {
-
             $nickname = explode("@", $row->email);
-
-            if($row->nickname == null) {
-                DB::table('users')->where('id', $row->id)->update([
-                    'nickname' => $nickname[0]
-                ]);
-            }
+            DB::table('users')->where('id', $row->id)->update([
+                'nickname' => (substr($nickname[0], 0, 5) . rand(100, 999))
+            ]);
         }
 
         if (!Schema::hasTable('cryptopolice_platform_community_posts')) {
