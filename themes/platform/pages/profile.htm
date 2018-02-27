@@ -4,38 +4,45 @@ layout = "platform"
 description = "Users profile page"
 is_hidden = 0
 
-[reCaptcha]
-
-[ProfileForm]
-
 [session]
 security = "user"
 redirect = "login"
 
-[imageUploader]
+[reCaptcha]
+[ProfileForm]
+[Uploader]
+
 placeholderText = "Click or drag images to upload"
-maxSize = "1"
+maxSize = 1
 fileTypes = ".gif,.jpg,.jpeg,.png"
-imageWidth = 100
-imageHeight = 100
+imageWidth = 160
+imageHeight = 160
 imageMode = "crop"
 modelClass = "RainLab\User\Models\User"
-modelKeyColumn = "picture"
+modelKeyColumn = "avatar"
 identifierValue = "{{ :id }}"
 ==
-<?php
-function onInit() {
+
+use RainLab\User\Models\User;
+
+    function onInit ()
+    {
         $user = Auth::getUser();
-            if($user){
-                $component = $this->addComponent(
-                    'NetSTI\Uploader\Components\ImageUploader',
-                    'imageUploader',
-                    ['modelClass'=>'RainLab\User\Models\User','modelKeyColumn'=>'avatar', 'deferredBinding' => false]
-                );
+
+        if($user){
+            $component = $this->addComponent(
+                'Cryptopolice\Uploader\Components\ImageUploader',
+                'Uploader', [
+                    'modelClass'=>'RainLab\User\Models\User',
+                    'modelKeyColumn'=>'avatar',
+                    'deferredBinding' => false
+                ]
+            );
+
             $component->bindModel('avatar', $user);
         }
     }
-?>
+
 ==
 <main class="content">
     <div class="content__inner">
@@ -82,7 +89,7 @@ function onInit() {
                         <h3 class="content__title">
                             Change Avatar
                         </h3>
-                        {% component 'imageUploader' %}
+                        {% component 'Uploader' %}
                     </div>
 
                 </div>

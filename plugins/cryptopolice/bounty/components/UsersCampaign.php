@@ -256,7 +256,7 @@ class UsersCampaign extends ComponentBase
 
                     // create json from input data
                     foreach (input() as $key => $value) {
-                        if ($key != 'id' & $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
+                        if ($key != 'id' && $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
                             array_push($json, ['title' => $key, 'value' => $value]);
                         }
                     }

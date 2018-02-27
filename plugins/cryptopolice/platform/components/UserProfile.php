@@ -48,7 +48,7 @@ class UserProfile extends ComponentBase
         $this->page['active_user_percentage'] = ((100 / $totalUserCount) * $totalActiveUserCount) / 100;
 
         $this->page['post_count'] = $totalPostsCount;
-        $this->page['post_pending'] = $pendingPostsCount;
+        $this->page['post_pending'] = $pendingPostsCount ? $pendingPostsCount : 0;
         $this->page['post_published'] = $totalPostsCount - $pendingPostsCount;
 
         if ($totalPostsCount) {

@@ -24,12 +24,13 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'CryptoPolice\Academy\Components\Exams'         => 'Exams',
-            'CryptoPolice\Academy\Components\ExamTask'      => 'ExamTask',
-            'CryptoPolice\Academy\Components\Recaptcha'     => 'reCaptcha',
-            'CryptoPolice\Academy\Components\Trainings'     => 'Trainings',
-            'CryptoPolice\Academy\Components\ProfileForm'   => 'ProfileForm',
-            'CryptoPolice\Academy\Components\TrainingTask'  => 'TrainingTask'
+            'CryptoPolice\Academy\Components\Exams'          => 'Exams',
+            'Cryptopolice\Uploader\Components\ImageUploader' => 'Uploader',
+            'CryptoPolice\Academy\Components\ExamTask'       => 'ExamTask',
+            'CryptoPolice\Academy\Components\Recaptcha'      => 'reCaptcha',
+            'CryptoPolice\Academy\Components\Trainings'      => 'Trainings',
+            'CryptoPolice\Academy\Components\ProfileForm'    => 'ProfileForm',
+            'CryptoPolice\Academy\Components\TrainingTask'   => 'TrainingTask',
         ];
     }
 
