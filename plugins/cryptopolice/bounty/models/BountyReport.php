@@ -167,46 +167,4 @@ class BountyReport extends Model
             return true;
         }
     }
-
-
-    public function afterUpdate()
-    {
-
-        if (isset($this->user_id) && !empty($this->user_id)) {
-
-            $user = User::where('id', $this->user_id)->first();
-            $campaign = Bounty::where('id', $this->bounty_campaigns_id)->first();
-
-            $this->sendMail($campaign, $user);
-            $this->addUsersNotification($campaign);
-
-            Flash::success('Mail & notification for [' . $user->email . '] has been send');
-
-        } else {
-            Flash::error('User is undefined');
-        }
-    }
-
-
-    public function addUsersNotification($bounty)
-    {
-        $notify = new Notification();
-        $notify->user_id = $this->user_id;
-        $notify->title = 'Your ' . $bounty->title . ' Bounty campaign report was reviewed!';
-        $notify->description = 'For more information please go to your CryptoPolice Bounty campaign profile.';
-        $notify->save();
-    }
-
-    public function sendMail($campaign, $user)
-    {
-        $vars = [
-            'name' => $user->nickname,
-            'mail' => $user->email,
-            'campaignTitle' => $campaign->title,
-        ];
-        Mail::send('cryptopolice.bounty::mail.report', $vars, function ($message) use ($user) {
-            $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
-        });
-
-    }
 }

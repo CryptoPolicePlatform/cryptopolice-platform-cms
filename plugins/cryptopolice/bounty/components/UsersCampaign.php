@@ -52,6 +52,10 @@ class UsersCampaign extends ComponentBase
             ->value('status');
     }
 
+    public function getBountyCamapign() {
+
+    }
+
     public function getRegisteredUsersCount()
     {
 

@@ -5,10 +5,11 @@
     </div>
 {% else %}
     {% if access %}
-        <div class="grid__col  w6">
-            <h3>Report</h3>
+        <div id="anchor-2" class="profile__card">
+            <div class="grid__col  w6">
+                <h3>Report</h3>
 
-            {{ form_ajax('onAddReport', { flash : '',  data: { id: campaignID }, model: BountyRegistration }) }}
+                {{ form_ajax('onAddReport', { flash : '', data: { id: campaignID }, model: BountyRegistration }) }}
 
                 {% for bounty in bountyList %}
                     {% if bounty.slug == this.param.slug %}
@@ -30,26 +31,26 @@
                                         <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.name}}">
                                     {% else %}
 
-                                        {% if field.input_type == 'textarea' %}
-                                            <textarea class="textarea" name="{{ field.name }}" placeholder="{{ field.description }}"></textarea>
+                                    {% if field.input_type == 'textarea' %}
+                                        <textarea class="textarea" name="{{ field.name }}" placeholder="{{ field.description }}"></textarea>
                                         {% elseif field.input_type == 'select' %}
-                                            <div class="select">
-                                                <select name="{{ field.name }}">
-                                                    {% for select in field.select %}
-                                                    <option value="{{select.options}}">{{select.options}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        {% else %}
-                                            <div id="mul_{{ field.name }}" class="multiple_fields">
-                                                <input class="input" type="{{ field.input_type }}" id="{{ field.name }}" name="{{ field.name }}"
-                                                       placeholder="{{ field.description }}">
-                                            </div>
-                                            {% if field.multiple %}
-                                                <a class="btn  btn--green btn_report" href="#" onclick="setMultipleField('mul_{{ field.name }}')">Add field</a>
-                                                <a class="btn  btn--green btn_report" href="#" onclick="removeField('mul_{{ field.name }}')">Remove field</a>
-                                            {% endif %}
-                                        {% endif %}
+                                        <div class="select">
+                                            <select name="{{ field.name }}">
+                                                {% for select in field.select %}
+                                                <option value="{{select.options}}">{{select.options}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    {% else %}
+                                        <div id="mul_{{ field.name }}" class="multiple_fields">
+                                            <input class="input" type="{{ field.input_type }}" id="{{ field.name }}" name="{{ field.name }}"
+                                                   placeholder="{{ field.description }}">
+                                        </div>
+                                    {% if field.multiple %}
+                                        <a class="btn  btn--green btn_report" href="#" onclick="setMultipleField('mul_{{ field.name }}')">Add field</a>
+                                        <a class="btn  btn--green btn_report" href="#" onclick="removeField('mul_{{ field.name }}')">Remove field</a>
+                                    {% endif %}
+                                    {% endif %}
 
                                     {% endif %}
                                 </div>
@@ -62,8 +63,9 @@
                     <button id="captcha_report" class="btn  btn--gpink g-recaptcha">add new report</button>
                 </div>
 
-            {{ form_close() }}
+                {{ form_close() }}
 
+            </div>
         </div>
     {% endif %}
 {% endif %}

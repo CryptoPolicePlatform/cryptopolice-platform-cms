@@ -99,12 +99,6 @@ class CryptoPolicebountyBountyTables extends Migration
 
             });
         }
-
-        Schema::table('cryptopolice_bounty_user_registration', function($table)
-        {
-            $table->string('btc_code', 36)->change();
-        });
-
     }
 
     public function down()

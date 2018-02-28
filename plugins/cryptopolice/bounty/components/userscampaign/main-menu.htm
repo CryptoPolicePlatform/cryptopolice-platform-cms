@@ -1,7 +1,6 @@
 <!--Campaign Section-->
 {% set flag = true %}
 {% for bounty in bountyList %}
-
     <!-- selected Bounty Campaign -->
     {% if bounty.slug == this.param.slug %}
         {% set flag = false %}
@@ -36,16 +35,14 @@
             {% partial 'UsersCampaign::campaign-reports' %}
         {% endif %}
 
-        <div id="anchor-2" class="profile__card">
-            {# Check if bounty campaign is closed and user is not verified to report #}
-            {% if access is empty and bounty.status == 1%}
-                {% partial 'UsersCampaign::bounty-registration-form' %}
-            {% else %}
-                {% partial 'UsersCampaign::bounty-report-form' %}
-            {% endif %}
-        </div>
+        {# Check if bounty campaign is closed and user is not verified to report #}
+        {% if access is empty and bounty.status == 1%}
+            {% partial 'UsersCampaign::bounty-registration-form' %}
+        {% else %}
+            {% partial 'UsersCampaign::bounty-report-form' %}
+        {% endif %}
     {% endif %}
-
+    <!-- selected Bounty Campaign end-->
 {% endfor %}
 
 
