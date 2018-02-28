@@ -4,7 +4,7 @@
     <?php foreach ($model->contents as $content) : ?>
     <hr>
     <strong><?= $content->user_nick ?> : </strong>
-    <?= $content->content_raw ?>
+    <?= strip_tags($content->content_raw, '<br><p><ul><li><ol><div><table><tbody><th><td><span><em><thead><tfoot>') ?>
     <p><i><?= $content->publication_date ?></i></p>
     <br>
 
