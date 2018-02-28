@@ -13,7 +13,7 @@ class CreateContentsTable extends Migration
             $table->increments('id');
             $table->text('content')->nullable();
             $table->text('content_raw')->nullable();
-            $table->string('user_nick')->nullable();
+            $table->string('user_nick')->nullable()->index();
             $table->string('user_profil')->nullable();
             $table->string('publication_date')->nullable();
             $table->string('meta')->nullable();

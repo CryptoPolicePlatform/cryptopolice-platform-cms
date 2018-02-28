@@ -29,8 +29,11 @@ class UsersCampaign extends ComponentBase
     public function onRun()
     {
 
+        $this->page['bounty'] = $this->getBountyCampaign();
         $this->page['campaignID'] = $this->param('id');
+
         $this->page['profileStatistic'] = $this->getProfileStatistic();
+
 
         if (!empty($this->param('slug'))) {
             if($this->checkBountyStatus()) {
@@ -44,6 +47,8 @@ class UsersCampaign extends ComponentBase
             $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
             $this->page['usersReports'] = $this->getUsersReports();
         }
+
+
     }
 
     public function checkBountyStatus() {
@@ -52,8 +57,8 @@ class UsersCampaign extends ComponentBase
             ->value('status');
     }
 
-    public function getBountyCamapign() {
-
+    public function getBountyCampaign() {
+        return Bounty::where('slug',$this->param('slug'))->first();
     }
 
     public function getRegisteredUsersCount()

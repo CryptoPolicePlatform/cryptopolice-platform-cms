@@ -3,8 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 
-use CryptoPolice\Bitcointalk\Classes\Topic as TopicClass;
-use CryptoPolice\Bitcointalk\Classes\Scraper;
+use CryptoPolice\Bitcointalk\Classes\CronJobs\Crawler;
 
 /**
  * Topik Back-end Controller
@@ -28,17 +27,8 @@ class Topic extends Controller
 
     public function onScraping()
     {
-        $topik = new TopicClass(input('ids'));
+        $crawler = new Crawler(input('ids'));
 
-        $collection = $topik->grabbing();
-
-        foreach ($collection as $item){
-
-            $scraper = new Scraper($item->pages()->get());
-            $scraper->scraping();
-        }
-
-        return  true;
-
+        return $crawler->run();
     }
 }

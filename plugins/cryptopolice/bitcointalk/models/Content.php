@@ -20,7 +20,7 @@ class Content extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = ['hash', 'meta', 'publication_date', 'user_nick', 'content_raw', 'content', 'user_profil', 'user_profil'];
+    protected $fillable = ['hash', 'meta', 'publication_date', 'user_nick', 'content_raw', 'content', 'user_profil'];
 
     /**
      * @var array Relations

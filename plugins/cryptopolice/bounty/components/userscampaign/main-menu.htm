@@ -1,59 +1,32 @@
-<!--Campaign Section-->
-{% set flag = true %}
-{% for bounty in bountyList %}
-    <!-- selected Bounty Campaign -->
-    {% if bounty.slug == this.param.slug %}
-        {% set flag = false %}
+{% if bounty %}
 
-        <div class="breadcrumbs">
-            <a class="tabs__nav-item active" href="#anchor-1">Report List</a>
-            <a class="tabs__nav-item active" href="#anchor-2">{% if access is empty %} Registration {% else %} Report {% endif %}</a>
-        </div>
-        <div class="tabs__content">
-            <div class="profile__card  mb-15">
-                <h2>{{bounty.title|upper}} CAMPAIGN</h2>
-                <div class="stat__item stat_block">
-                    <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{bounty.percentage / 100 }}" data-size="34" data-thickness="6">
-                        <canvas width="34" height="34"></canvas>
-                    </div>
-                    <div class="stat__counter">{{bounty.percentage}}%</div>
-                    <div class="stat__text">Reward amount {{ (20000000 / 100 * bounty.percentage)|number_format(0, '.', ',') }} OFC </div>
-                </div>
-                <div class="stat__item second_stat_block">
-                    <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6">
-                        <canvas width="34" height="34"></canvas>
-                    </div>
-                    <div class="stat__counter"> {{ bountyPercentage|number_format(2, '.', ',') }}%</div>
-                    <div class="stat__text"> Registered in campaign {{ totalRegisteredInCampaign }} users</div>
-                </div>
-                <p>{{ bounty.description|raw}}</p>
-            </div>
-        </div>
+    <!-- Campaign description -->
+    {% partial 'UsersCampaign::bounty-description' %}
 
-        {# Check if bounty campaign is closed #}
-        {% if bounty.status == 1 %}
-            {% partial 'UsersCampaign::campaign-reports' %}
-        {% endif %}
-
-        {# Check if bounty campaign is closed and user is not verified to report #}
-        {% if access is empty and bounty.status == 1%}
-            {% partial 'UsersCampaign::bounty-registration-form' %}
-        {% else %}
-            {% partial 'UsersCampaign::bounty-report-form' %}
-        {% endif %}
+    <!-- Check if bounty campaign is closed -->
+    {% if bounty.status == 1 %}
+        <!-- Campaign report list -->
+        {% partial 'UsersCampaign::campaign-reports' %}
     {% endif %}
-    <!-- selected Bounty Campaign end-->
-{% endfor %}
 
+    <!-- Check if bounty campaign is closed and user is not verified to report -->
+    {% if bounty.status == 1 and access is empty %}
+        <!-- Campaign registration form -->
+        {% partial 'UsersCampaign::bounty-registration-form' %}
+    {% else %}
+        <!-- Campaign report form -->
+        {% partial 'UsersCampaign::bounty-report-form' %}
+    {% endif %}
 
-<!-- User Section-->
-{% if flag == true %}
-    <!-- Users reports -->
+{% else  %}
+
+    <!-- Users report list -->
     {% partial 'UsersCampaign::users-reports' %}
+
     <!-- Campaign list -->
     {% partial 'UsersCampaign::bounty-list' %}
+
 {% endif %}
-<!-- End User Section-->
 
 
 <!--Hack with flash notification, remove text rendering before flash message -->

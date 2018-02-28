@@ -3,6 +3,7 @@
 use Backend;
 use System\Classes\PluginBase;
 
+use CryptoPolice\Bitcointalk\Classes\CronJobs\Crawler;
 /**
  * Bitcointalk Plugin Information File
  */
@@ -104,5 +105,19 @@ class Plugin extends PluginBase
                 ]
             ],
         ];
+    }
+
+    public function registerSchedule($schedule)
+    {
+        //*	*	*	*	* php /path/to/file/artisan schedule:run >> /dev/null 2>&1
+        $schedule->call(function () {
+
+            $crawler = new Crawler();
+
+            $crawler->run();
+
+        })->everyFiveMinutes()
+            ->name('crawl')
+            ->withoutOverlapping();;
     }
 }

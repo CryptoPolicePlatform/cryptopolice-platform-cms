@@ -1,12 +1,10 @@
 <?php namespace CryptoPolice\Bitcointalk\Classes;
 
-use Event, Log;
+use Log;
 use Xparse\ElementFinder\ElementFinder;
 use Xparse\CssExpressionTranslator\CssExpressionTranslator;
 
 use Illuminate\Database\QueryException;
-
-use CryptoPolice\Bitcointalk\Models\Content as Model;
 
 class Content
 {
@@ -47,8 +45,6 @@ class Content
             }
         }
 
-        Event::fire('bitcointalk.endParse', [&$this->collection]);
-
         return $this;
     }
 
@@ -70,7 +66,7 @@ class Content
                         'content_raw'           => mb_convert_encoding($item['content_raw'], 'UTF-8'),
                     ]);
 
-            } catch (\Illuminate\Database\QueryException $e) {
+            } catch (QueryException $e) {
                 Log::error($e->getMessage());
                 trace_log(json_encode($item));
             }

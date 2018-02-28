@@ -3,6 +3,20 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+
+    user_nick:
+      label: User nick
+      disabled: true
+
+    user_profil:
+      label: User profil
+      disabled: true
+
+    publication_date:
+      label: Publication date
+      disabled: true
+
+    content:
+      label: Content
+      disabled: true
+      type: textarea
