@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Bitcointalk\Classes\EventListeners;
 
+use DB;
 use CryptoPolice\Bitcointalk\Models\Content;
 class BtcAccountVerification
 {
@@ -37,7 +38,11 @@ class BtcAccountVerification
     private function confirmation($collection)
     {
         foreach ($collection as $item) {
-            $item->user()->update(['btc_status' => true]);
+
+            DB::table('cryptopolice_bounty_user_registration')
+                ->where('btc_username', $item->user_nick)
+                ->where('btc_code', $item->btc_code)
+                ->update(['btc_status' => true]);
         }
     }
 }

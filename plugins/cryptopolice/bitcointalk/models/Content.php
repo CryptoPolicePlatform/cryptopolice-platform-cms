@@ -27,9 +27,7 @@ class Content extends Model
      */
     public $hasOne = [];
     public $hasMany = [];
-    public $belongsTo = [
-        'user' => ['CryptoPolice\Bounty\Models\BountyRegistration', 'key' => 'user_nick', 'otherKey' => 'btc_username']
-    ];
+    public $belongsTo = [];
     public $belongsToMany = [];
 
     public $morphTo = [
