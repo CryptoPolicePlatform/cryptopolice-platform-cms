@@ -177,7 +177,7 @@ class BountyReport extends Model
             $user = User::where('id', $this->user_id)->first();
             $campaign = Bounty::where('id', $this->bounty_campaigns_id)->first();
 
-            // $this->sendMail($campaign, $user);
+            $this->sendMail($campaign, $user);
             $this->addUsersNotification($campaign);
 
             Flash::success('Mail & notification for [' . $user->email . '] has been send');

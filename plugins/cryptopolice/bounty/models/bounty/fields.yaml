@@ -17,11 +17,6 @@ fields:
             field: title
             type: slug
         type: text
-    status:
-        label: Status
-        span: auto
-        default: 1
-        type: switch
     icon:
         label: Icon
         span: auto
@@ -109,3 +104,11 @@ fields:
                     oc.commentPosition: ''
                     span: full
                     type: textarea
+    checkboxlist1:
+        label: 'Checkbox list'
+        options:
+            - Closed
+            - Active
+            - Pending
+        span: auto
+        type: checkboxlist

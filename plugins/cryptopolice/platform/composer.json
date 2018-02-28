@@ -1,6 +1,6 @@
 {
     "name": "cryptopolice/platform",
-    "description": "CryptoPolice postComments component",
+    "description": "CryptoPolice Platform plugin",
     "keywords": ["drivers", "plugin", "component"],
     "license": "MIT",
     "authors": [

@@ -65,7 +65,7 @@ class BountyRegistration extends Model
             $campaign = Bounty::where('id', $this->bounty_campaigns_id)->first();
 
             $this->addUsersNotification($campaign);
-            // $this->sendMail($user);
+             $this->sendMail($user);
             Flash::success('Mail & notification for [' . $user->email . '] has been send');
 
         } else {
@@ -86,12 +86,12 @@ class BountyRegistration extends Model
     public function sendMail($user)
     {
         $vars = [
-            'name' => $user->full_name,
+            'name' => $user->nickname,
             'mail' => $user->email
         ];
 
         Mail::send('cryptopolice.bounty::mail.registration', $vars, function ($message) use ($user) {
-            $message->to($user->email, $user->full_name)->subject('Bounty Campaign Registration');
+            $message->to($user->email, $user->nickname)->subject('Bounty Campaign Registration');
         });
 
     }

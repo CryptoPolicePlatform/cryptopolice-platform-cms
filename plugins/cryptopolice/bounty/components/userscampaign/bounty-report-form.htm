@@ -1,12 +1,10 @@
-{% if status == 0 %}
+{% if status == 0 and bounty.status %}
     <div class="alert  alert--red">
         <p><strong>You are blocked to participate in current bounty campaign</strong></p>
         <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
     </div>
 {% else %}
-
-    {% if access == 0 %}
-
+    {% if access %}
         <div class="grid__col  w6">
             <h3>Report</h3>
 
@@ -67,7 +65,5 @@
             {{ form_close() }}
 
         </div>
-
     {% endif %}
-
 {% endif %}

@@ -13,6 +13,7 @@ class CryptoPolicebountyBountyTables extends Migration
     public function up()
     {
 
+
         if (!Schema::hasTable('cryptopolice_bounty_user_registration')) {
 
             Schema::create('cryptopolice_bounty_user_registration', function ($table) {
@@ -88,7 +89,7 @@ class CryptoPolicebountyBountyTables extends Migration
                 $table->integer('bounty_campaigns_id')->default(0);
                 $table->string('reward_title', 255)->nullable();
                 $table->string('reward_description', 255)->nullable();
-                $table->boolean('reward_type', 255)->default(0);
+                $table->boolean('reward_type')->default(0);
                 $table->integer('reward_amount_min')->default(0);
                 $table->integer('reward_amount_max')->default(0);
                 $table->boolean('status')->default(0);
@@ -98,6 +99,12 @@ class CryptoPolicebountyBountyTables extends Migration
 
             });
         }
+
+        Schema::table('cryptopolice_bounty_user_registration', function($table)
+        {
+            $table->string('btc_code', 36)->change();
+        });
+
     }
 
     public function down()

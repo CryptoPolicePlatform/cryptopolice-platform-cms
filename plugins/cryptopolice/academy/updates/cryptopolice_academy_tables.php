@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Academy\Updates;
 
+use DB;
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
@@ -13,9 +14,7 @@ class CryptoPolicePlatformAcademyTables extends Migration
     public function up()
     {
 
-        // Special update for version 0.9
         // Social Networks
-
         if (!Schema::hasColumns('users', ['eth_address'])) {
             Schema::table('users', function ($table) {
                 $table->string('eth_address', 42)->nullable();
@@ -57,21 +56,6 @@ class CryptoPolicePlatformAcademyTables extends Migration
                 $table->string('youtube_link', 255)->nullable();
             });
         }
-
-        if (!Schema::hasColumns('cryptopolice_cryptopolice_exams', ['question_count'])) {
-
-            Schema::table('cryptopolice_cryptopolice_exams', function ($table) {
-                $table->string('question_count', 2)->default(0);
-            });
-        }
-
-        // Academy Tables Rename
-
-        Schema::rename('cryptopolice_cryptopolice_exams', 'cryptopolice_academy_exams');
-        Schema::rename('cryptopolice_cryptopolice_scores', 'cryptopolice_academy_scores');
-        Schema::rename('cryptopolice_cryptopolice_trainings', 'cryptopolice_academy_trainings');
-        Schema::rename('cryptopolice_cryptopolice_final_exam_score', 'cryptopolice_academy_final_exam_score');
-        Schema::rename('cryptopolice_cryptopolice_trainings_category', 'cryptopolice_academy_trainings_category');
 
 
         if (!Schema::hasTable('cryptopolice_academy_exams')) {

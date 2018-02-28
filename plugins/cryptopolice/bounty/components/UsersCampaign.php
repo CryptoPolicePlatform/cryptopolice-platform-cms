@@ -33,7 +33,7 @@ class UsersCampaign extends ComponentBase
         $this->page['profileStatistic'] = $this->getProfileStatistic();
 
         if (!empty($this->param('slug'))) {
-            if($this->checkBountyStatus()->isNotEmpty()) {
+            if($this->checkBountyStatus()) {
                 $this->getUsersAccess();
                 $this->getRegisteredUsersCount();
                 $this->page['campaignReports'] = $this->getCampaignReports();
@@ -49,8 +49,7 @@ class UsersCampaign extends ComponentBase
     public function checkBountyStatus() {
         return Bounty::where('slug',$this->param('slug'))
             ->where('id',$this->param('id'))
-            ->where('status', 1)
-            ->get();
+            ->value('status');
     }
 
     public function getRegisteredUsersCount()
@@ -280,7 +279,7 @@ class UsersCampaign extends ComponentBase
 
     public function generateBountyCode()
     {
-        $code = "OFC" . substr(md5(rand()), 0, 10);
+        $code = 'OFC-'.mb_strtoupper(md5(uniqid(rand(),true)));
         $query = BountyRegistration::where('btc_code', $code)->get();
         return $query->isNotEmpty() ? $this->generateBountyCode() : $code;
     }
@@ -334,8 +333,8 @@ class UsersCampaign extends ComponentBase
     {
         $notify = new Notification();
         $notify->user_id = $this->user_id;
-        $notify->title = 'Thank you for your registration in CryptoPolice';
-        $notify->description = 'You need to post this code ' . $code;
+        $notify->title = 'Registration in CryptoPolice bounty campaign';
+        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br>I registered to CryptoPolice bounty campaign My registration code is '.$code;
         $notify->user_id = $userID;
         $notify->save();
     }
