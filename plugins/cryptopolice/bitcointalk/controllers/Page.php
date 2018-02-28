@@ -3,9 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 
-
 use CryptoPolice\Bitcointalk\Models\Page as Model;
-use CryptoPolice\Bitcointalk\Classes\Content;
 
 /**
  * Page Back-end Controller

@@ -1,7 +1,5 @@
 <?php namespace CryptoPolice\Bitcointalk\Classes;
 
-use Event;
-
 use GuzzleHttp\Client;
 
 use Xparse\CssExpressionTranslator\CssExpressionTranslator;
@@ -13,9 +11,13 @@ class Topic
     private $models;
     private $hash;
 
-    public function __construct($ids)
+    public function __construct($ids = null)
     {
-        $this->models = Model::findOrFail($ids);
+        if(empty($ids)) {
+            $this->models = Model::get();
+        } else {
+            $this->models = Model::findOrFail($ids);
+        }
     }
 
     public function grabbing()
@@ -30,10 +32,6 @@ class Topic
 
             if(!$model->title){
                  $this->setTitleTopic($model, $page);
-            }
-
-            if(!$last_link) {
-                trace_log('The last link to the topic is not available, page ' . $this->getUrl($model));
             }
 
             $curent_last_num =  empty($last_link) ? $num : $this->getNumPage($last_link);
@@ -51,8 +49,6 @@ class Topic
                 $num = $num + 20;
             }
         }
-
-        Event::fire('bitcointalk.endGrabbing', [&$this->models]);
 
         return $this->models;
     }
@@ -110,11 +106,6 @@ class Topic
         $opt = [
             'headers' => $headers,
             'query'     => $query,
-            // TODO :: PROXY
-//            'proxy'     => [
-//                'http'  => 'http://144.217.88.135:3128', // Use this proxy with "http"
-//                'https' => 'https://46.101.37.196:8118', // Use this proxy with "https",
-//            ]
         ];
 
         $response = $this->request($url, $opt);
