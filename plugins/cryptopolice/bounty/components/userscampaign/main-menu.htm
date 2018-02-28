@@ -5,20 +5,26 @@
 
     <!-- Check if bounty campaign is closed -->
     {% if bounty.status == 1 %}
+
         <!-- Campaign report list -->
         {% partial 'UsersCampaign::campaign-reports' %}
+
     {% endif %}
 
     <!-- Check if bounty campaign is closed and user is not verified to report -->
     {% if bounty.status == 1 and access is empty %}
+
         <!-- Campaign registration form -->
         {% partial 'UsersCampaign::bounty-registration-form' %}
+
     {% else %}
+
         <!-- Campaign report form -->
         {% partial 'UsersCampaign::bounty-report-form' %}
+
     {% endif %}
 
-{% else  %}
+{% else %}
 
     <!-- Users report list -->
     {% partial 'UsersCampaign::users-reports' %}

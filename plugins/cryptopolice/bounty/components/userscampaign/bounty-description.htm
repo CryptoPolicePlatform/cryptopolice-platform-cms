@@ -1,7 +1,9 @@
-<div class="breadcrumbs">
-    <a class="tabs__nav-item active" href="#anchor-1">Report List</a>
-    <a class="tabs__nav-item active" href="#anchor-2">{% if access is empty %} Registration {% else %} Report {% endif %}</a>
-</div>
+{% if bounty.status == 1 %}
+    <div class="breadcrumbs">
+        <a class="tabs__nav-item active" href="#anchor-1">Report List</a>
+        <a class="tabs__nav-item active" href="#anchor-2">{% if access is empty %} Registration {% else %} Report {% endif %}</a>
+    </div>
+{% endif %}
 <div class="tabs__content">
     <div class="profile__card  mb-15">
         <h2>{{bounty.title|upper}} CAMPAIGN</h2>

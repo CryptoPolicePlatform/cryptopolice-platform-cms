@@ -20,6 +20,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Platform\Components\Users'            => 'CommunityUsers',
             'CryptoPolice\Platform\Components\PostDetails'      => 'CommunityPostDetails',
             'CryptoPolice\Platform\Components\PostComments'     => 'CommunityPostComments',
+            'Cryptopolice\Uploader\Components\ImageUploader'    => 'Uploader',
             'CryptoPolice\Platform\Components\Notifications'    => 'Notifications',
             'CryptoPolice\Platform\Components\UserProfile'      => 'UserProfile',
             'CryptoPolice\Platform\Components\Scams'            => 'Scams',

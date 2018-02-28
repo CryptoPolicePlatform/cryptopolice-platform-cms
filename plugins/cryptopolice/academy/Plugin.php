@@ -15,7 +15,6 @@ class Plugin extends PluginBase
     {
         return [
             'CryptoPolice\Academy\Components\Exams'          => 'Exams',
-            'Cryptopolice\Uploader\Components\ImageUploader' => 'Uploader',
             'CryptoPolice\Academy\Components\ExamTask'       => 'ExamTask',
             'CryptoPolice\Academy\Components\Recaptcha'      => 'reCaptcha',
             'CryptoPolice\Academy\Components\Trainings'      => 'Trainings',
@@ -40,4 +39,5 @@ class Plugin extends PluginBase
     {
 
     }
+
 }
