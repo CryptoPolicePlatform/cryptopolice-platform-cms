@@ -6,6 +6,8 @@ use Backend\Classes\Controller;
 use CryptoPolice\Bitcointalk\Classes\Topic as TopicClass;
 use CryptoPolice\Bitcointalk\Classes\Scraper;
 
+use CryptoPolice\Bitcointalk\Models\Content;
+
 /**
  * Topik Back-end Controller
  */
@@ -39,6 +41,5 @@ class Topic extends Controller
         }
 
         return  true;
-
     }
 }

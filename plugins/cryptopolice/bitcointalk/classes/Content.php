@@ -47,7 +47,7 @@ class Content
             }
         }
 
-        Event::fire('bitcointalk.endParse', [&$this->collection]);
+        Event::fire('bitcointalk.endParse');
 
         return $this;
     }
@@ -80,6 +80,8 @@ class Content
             $this->page->title = $this->finder->value('title')->getFirst();
             $this->page->save();
         }
+
+        Event::fire('bitcointalk.contentSaved');
 
         return $result;
     }

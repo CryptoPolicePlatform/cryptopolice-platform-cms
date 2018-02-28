@@ -20,8 +20,13 @@ class BountyRegistration extends Model
     /**
      * @var array Validation rules
      */
-    public $rules = [
-    ];
+    public $rules = [];
+
+
+    /**
+     * @var array Fillable fields
+     */
+    protected $fillable = ['btc_status'];
 
     protected $jsonable = ['fields_data'];
 

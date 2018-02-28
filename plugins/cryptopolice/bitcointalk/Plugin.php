@@ -1,6 +1,6 @@
 <?php namespace CryptoPolice\Bitcointalk;
 
-use Backend;
+use Backend, Event;
 use System\Classes\PluginBase;
 
 /**
@@ -39,6 +39,7 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+        Event::listen('bitcointalk.contentSaved', 'CryptoPolice\Bitcointalk\Classes\EventListeners\BtcAccountVerification');
     }
 
     /**
