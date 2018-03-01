@@ -41,7 +41,7 @@ class PostDetails extends ComponentBase
 
         $helper = new Helpers();
 
-        $post = CommunityPost::with('post_image','user.avatar','user')
+        $post = CommunityPost::with('post_image','user.avatar','user','comments')
             ->join('cryptopolice_platform_community_post_views as views', function ($join) {
                 $join->on('cryptopolice_platform_community_posts.id', '=', 'views.post_id');
             })
@@ -50,10 +50,12 @@ class PostDetails extends ComponentBase
             ->where('cryptopolice_platform_community_posts.id', $this->param('id'))
             ->where('status', 1)
             ->first();
-       
+
         $post->facebook = $helper->setFacebookShare();
         $post->twitter  = $helper->setTwitterShare($post->post_title);
         $post->reddit   = $helper->setRedditShare($post->post_title);
+
+        $post->comments_count = $post->comments->count();
 
         if (!$post->status) {
             return $this->controller->run('404');
