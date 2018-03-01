@@ -53,7 +53,7 @@
             {{ form_close() }}
         </div>
     </div>
-{% elseif not status %}
+{% elseif not status and access %}
     <div class="alert alert--red">
         <strong>You are banned</strong>
         You can't participate in {{ bounty.title }} campaign
