@@ -99,7 +99,6 @@ class ProfileForm extends ComponentBase
                     $rules[$key] = 'min:0|max:255';
                 }
             }
-            trace_log($rules);
 
             $validator = Validator::make(post(), $rules);
 

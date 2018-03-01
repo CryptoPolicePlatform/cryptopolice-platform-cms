@@ -21,7 +21,8 @@ scopes:
       conditions: status in (:filtered)
       options:
           0: Not active
-          1: Active  
+          1: Active
+
   approval_type:
       label: Approval Type
       type: group
@@ -30,3 +31,10 @@ scopes:
           0: Not Approved
           1: Approved
 
+  btc_status:
+      label: Bitcointalk Status
+      type: group
+      conditions: btc_status in (:filtered)
+      options:
+          0: Not Approved
+          1: Approved

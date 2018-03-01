@@ -15,7 +15,7 @@
                     {% endif %}
                 </a>
 
-                <a class="header__name" href="{{'profile'|page}}">{% if not user.name %} {{ user.email }} {% else %} {{ user.name }} {% endif %}</a>
+                <a class="header__name" href="{{'profile'|page}}">{% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}</a>
                 <span class="tool" data-tip="Notification" tabindex="1">
                         <a class="header__nav-item" href="{{'notification'|page}}">
                             {% if notifyCount %} <span class="header__mails-count"> {{ notifyCount }} </span> {% endif %}

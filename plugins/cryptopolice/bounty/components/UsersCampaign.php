@@ -31,12 +31,10 @@ class UsersCampaign extends ComponentBase
 
         $this->page['bounty'] = $this->getBountyCampaign();
         $this->page['campaignID'] = $this->param('id');
-
         $this->page['profileStatistic'] = $this->getProfileStatistic();
 
-
         if (!empty($this->param('slug'))) {
-            if($this->checkBountyStatus()) {
+            if ($this->checkBountyStatus()) {
                 $this->getUsersAccess();
                 $this->getRegisteredUsersCount();
                 $this->page['campaignReports'] = $this->getCampaignReports();
@@ -51,14 +49,16 @@ class UsersCampaign extends ComponentBase
 
     }
 
-    public function checkBountyStatus() {
-        return Bounty::where('slug',$this->param('slug'))
-            ->where('id',$this->param('id'))
+    public function checkBountyStatus()
+    {
+        return Bounty::where('slug', $this->param('slug'))
+            ->where('id', $this->param('id'))
             ->value('status');
     }
 
-    public function getBountyCampaign() {
-        return Bounty::where('slug',$this->param('slug'))->first();
+    public function getBountyCampaign()
+    {
+        return Bounty::where('slug', $this->param('slug'))->first();
     }
 
     public function getRegisteredUsersCount()
@@ -219,8 +219,9 @@ class UsersCampaign extends ComponentBase
         $user = Auth::getUser();
         $query = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
         $this->page['btc_code'] = $query ? $query->pivot->btc_code : null;
-        $this->page['access']   = $query ? $query->pivot->approval_type : null;
-        $this->page['status']   = $query ? $query->pivot->status : null;
+        $this->page['btc_status'] = $query ? $query->pivot->btc_status : null;
+        $this->page['access'] = $query ? $query->pivot->approval_type : null;
+        $this->page['status'] = $query ? $query->pivot->status : null;
     }
 
 
@@ -288,7 +289,7 @@ class UsersCampaign extends ComponentBase
 
     public function generateBountyCode()
     {
-        $code = 'OFC-'.mb_strtoupper(md5(uniqid(rand(),true)));
+        $code = 'OFC-' . mb_strtoupper(md5(uniqid(rand(), true)));
         $query = BountyRegistration::where('btc_code', $code)->get();
         return $query->isNotEmpty() ? $this->generateBountyCode() : $code;
     }
@@ -343,7 +344,7 @@ class UsersCampaign extends ComponentBase
         $notify = new Notification();
         $notify->user_id = $this->user_id;
         $notify->title = 'Registration in CryptoPolice bounty campaign';
-        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br>I registered to CryptoPolice bounty campaign My registration code is '.$code;
+        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br>I registered to CryptoPolice bounty campaign My registration code is ' . $code;
         $notify->user_id = $userID;
         $notify->save();
     }

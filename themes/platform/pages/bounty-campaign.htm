@@ -23,9 +23,8 @@ redirect = "login"
 
                 <div class="profile__content">
 
-                    {% if access == 0 and access is not empty %}
-                        {% partial UsersCampaign ~ '::bounty-verification-code' %}
-                    {% endif %}
+                    <!-- Verification bounty campaign message -->
+                    {% partial UsersCampaign ~ '::bounty-verification-code' %}
 
                     {% partial UsersCampaign ~ '::main-menu' %}
 

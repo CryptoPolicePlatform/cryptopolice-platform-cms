@@ -5,13 +5,13 @@ columns:
         searchable: true
         sortable: true
         width: 30px
-    approval_type:
-        label: Approved?
+    btc_status:
+        label: Bitcointalk Status
         type: partial
+        searchable: true
         sortable: true
-        clickable: 'false'
         cssClass: column-button
-        width: 150px
+        width: 50px
     status:
         label: Status
         type: partial
@@ -19,6 +19,13 @@ columns:
         sortable: true
         cssClass: column-button
         width: 50px
+    approval_type:
+        label: Approved?
+        type: partial
+        sortable: true
+        clickable: 'false'
+        cssClass: column-button
+        width: 150px
     bounty_campaigns_id:
         label: Campaign Name
         type: text

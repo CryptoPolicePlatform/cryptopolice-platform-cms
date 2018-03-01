@@ -1,1 +1,21 @@
-<div class="alert alert--orange"> <p> <strong>To verify your registration please approve your Bitcointalk account</strong> <br><strong>Post this message to our Bitcointalk bounty announcement </strong> <br><strong><a href="">LINK</a></strong> <br>Message: <br><strong> I registered to CryptoPolice bounty campaign - {% for campaign in campaignReports %}{{campaign.campaign_title}}{% endfor %} campaign <br>My registration code is {{btc_code}}</strong> </p><button class="alert__button" type="button"><i class="fa fa-close"></i></button></div>
+{% if access is defined and access is not null %}
+    {% if not access %}
+        {% if not btc_status %}
+            <div class="alert alert--orange">
+                <h2>To verify your registration please approve your Bitcointalk account</h2>
+                <br>
+                <strong>Post this message to our Bitcointalk bounty announcement </strong>
+                <a href="">LINK</a> <br>
+                <h2>Message:</h2>
+                <h4> I registered to CryptoPolice bounty campaign - {{bounty.title}} campaign <br> My registration code is {{btc_code}}</h4>
+                <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+            </div>
+        {% else %}
+            <div class="alert alert--orange">
+                You have been verified on BitcoinTalk
+                <h4>You need to wait until we accept you registration, to participate in {{bounty.title}} campaign</h4>
+                <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

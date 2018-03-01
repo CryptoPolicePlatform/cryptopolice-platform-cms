@@ -22,11 +22,16 @@ fields:
                     size: small
                     type: textarea
     approval_type:
-        label: Approve
+        label: Approve registration
         span: auto
         type: checkbox
     status:
-        label: Status
-        span: auto
+        label: Active to participate
+        span: right
+        default: 1
+        type: switch
+    btc_status:
+        label: Bitcointalk status
+        span: right
         default: 1
         type: switch

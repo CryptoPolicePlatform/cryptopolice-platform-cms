@@ -1,7 +1,11 @@
 {% if bounty.status == 1 %}
     <div class="breadcrumbs">
         <a class="tabs__nav-item active" href="#anchor-1">Report List</a>
-        <a class="tabs__nav-item active" href="#anchor-2">{% if access is empty %} Registration {% else %} Report {% endif %}</a>
+        {% if access is null and access is defined %}
+            <a class="tabs__nav-item active" href="#anchor-2">
+                {% if access is empty %} Registration {% else %} Report {% endif %}
+            </a>
+        {% endif %}
     </div>
 {% endif %}
 <div class="tabs__content">
@@ -13,9 +17,7 @@
                 <canvas width="34" height="34"></canvas>
             </div>
             <div class="stat__counter">{{bounty.percentage}}%</div>
-            <div class="stat__text">Reward amount {{ (20000000 / 100 * bounty.percentage)|number_format(0, '.', ',') }}
-                OFC
-            </div>
+            <div class="stat__text">Reward amount {{ (20000000 / 100 * bounty.percentage)|number_format(0, '.', ',') }} OFC </div>
         </div>
         <div class="stat__item second_stat_block">
             <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff"
