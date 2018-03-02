@@ -11,7 +11,11 @@
 
                 <div class="issues__status" id="status_{{ notify.id }}"> {% partial Notification ~ '::notify-status' notify = notify %} </div>
             </div>
-            <div class="issues__item notify_block" id="description_{{ notify.id }}">{{ notify.description|raw }} </div>
+            <div class="issues__item notify_block profile__card" id="description_{{ notify.id }}">
+                <p class="card__content">
+                    {{ notify.description|raw }}
+                </p>
+            </div>
         {% endfor %}
     </div>
 </div>
