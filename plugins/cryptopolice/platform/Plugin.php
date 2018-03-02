@@ -22,6 +22,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Platform\Components\PostComments'     => 'CommunityPostComments',
             'Cryptopolice\Uploader\Components\ImageUploader'    => 'Uploader',
             'CryptoPolice\Platform\Components\Notifications'    => 'Notifications',
+            'CryptoPolice\Platform\Components\Profile'          => 'Profile',
             'CryptoPolice\Platform\Components\UserProfile'      => 'UserProfile',
             'CryptoPolice\Platform\Components\Scams'            => 'Scams',
         ];

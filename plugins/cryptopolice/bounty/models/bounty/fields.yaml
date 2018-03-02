@@ -110,5 +110,6 @@ fields:
             - Closed
             - Active
             - Pending
+            - Open
         span: auto
         type: dropdown

@@ -94,10 +94,10 @@ class CommunityPost extends Model
             $notify->save();
 
             // Send email to all users about new post
-            // $users = User::all();
-            // foreach ($users as $user) {
-            //     $this->sendMail($user);
-            // }
+             $users = User::all();
+             foreach ($users as $user) {
+                 $this->sendMail($user);
+             }
         }
     }
 

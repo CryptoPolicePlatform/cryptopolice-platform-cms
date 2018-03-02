@@ -16,30 +16,16 @@
                         <span class="text">{{ bounty.percentage }}%</span>
                     </div>
 
-                    {% set flag = true %}
-                        {% for registered in registeredUsersCampaign %}
-                            {% if registered.bounty_campaigns_id == bounty.id %}
-                                {% set flag = false %}
-                                {% if bounty.status >= 1 %}
-                                    {% if registered.approval_type == 0 %}
-                                        <div class="issues__status  issues__status--big  issues__status--orange"><span> Pending </span></div>
-                                    {% else %}
-                                        <div class="issues__status  issues__status--big  issues__status--green"><span> Registered </span></div>
-                                    {% endif %}
-                                {% else %}
-                                    <div class="issues__status  issues__status--big  issues__status--gray"><span> Closed </span></div>
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    {% if flag %}
-                        {% if bounty.status == 1 %}
-                            <div class="issues__status  issues__status--big  issues__status--green"> <span> Active </span></div>
-                        {% elseif bounty.status == 2 %}
-                            <div class="issues__status  issues__status--big  issues__status--orange"> <span> Process </span></div>
-                        {% else %}
-                            <div class="issues__status  issues__status--big  issues__status--gray"> <span> Closed </span></div>
-                        {% endif %}
+                    {% if bounty.status == 1 %}
+                        <div class="issues__status  issues__status--big  issues__status--green"> <span> Active </span></div>
+                    {% elseif bounty.status == 2 %}
+                        <div class="issues__status  issues__status--big  issues__status--orange"> <span> Pending </span></div>
+                    {% elseif bounty.status == 3 %}
+                        <div class="issues__status  issues__status--big  issues__status--green"> <span> Open </span></div>
+                    {% else %}
+                        <div class="issues__status  issues__status--big  issues__status--gray"> <span> Closed </span></div>
                     {% endif %}
+
                 </div>
             {% endfor %}
         </div>

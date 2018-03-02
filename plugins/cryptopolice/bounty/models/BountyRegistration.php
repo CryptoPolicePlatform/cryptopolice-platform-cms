@@ -30,7 +30,7 @@ class BountyRegistration extends Model
      * @var array Relations
      */
     public $hasMany = [
-        'BountyReport' => ['CryptoPolice\bounty\Models\BountyReport']
+        'bountyReport' => ['CryptoPolice\bounty\Models\BountyReport', 'key' => 'bounty_user_registration_id']
     ];
 
     public $belongsTo = [

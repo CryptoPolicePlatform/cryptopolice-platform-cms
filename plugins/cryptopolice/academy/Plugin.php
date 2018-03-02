@@ -18,7 +18,6 @@ class Plugin extends PluginBase
             'CryptoPolice\Academy\Components\ExamTask'       => 'ExamTask',
             'CryptoPolice\Academy\Components\Recaptcha'      => 'reCaptcha',
             'CryptoPolice\Academy\Components\Trainings'      => 'Trainings',
-            'CryptoPolice\Academy\Components\ProfileForm'    => 'ProfileForm',
             'CryptoPolice\Academy\Components\TrainingTask'   => 'TrainingTask',
         ];
     }
