@@ -40,6 +40,10 @@
                         <div class="issues__status  issues__status--big  issues__status--gray"><span> blocked </span></div>
                     {% endif %}
                 </div>
+            {% else %}
+                <div class="issues__item  issues__item--history">
+                    You're not registered at any campaign
+                </div>
             {% endfor %}
         </div>
     </div>
