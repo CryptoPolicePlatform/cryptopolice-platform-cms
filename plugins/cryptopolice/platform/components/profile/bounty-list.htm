@@ -1,0 +1,57 @@
+<!--Users Pending List-->
+<div class="content__block">
+    <div class="content__block">
+        <h3 class="content__title"> My Bounty Reports</h3>
+        <div class="issues">
+            {% for report in reports %}
+                {% if report.report_status == 0 %}
+                    <div class="issues__item  issues__item--history">
+                        <div class="issues__type">#{{report.bounty.title|upper|slice(0, 2)}}{{ report.id }} </div>
+                        <div class="issues__title">   Report to {{ report.bounty.title }} campaign </div>
+                        <div class="issues__view"><a href="{{'bounty-report'|page({id:report.id})}}">View details</a></div>
+                        <div class="issues__amount"><span class="text-orange">-</span></div>
+                        <div class="issues__status  issues__status--big  issues__status--orange"><span>pending</span></div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="issues__item  issues__item--history">
+                    New reports not found
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!--Users History List-->
+<div class="content__block">
+    <h3 class="content__title">Bounty Reports History</h3>
+    <div class="issues">
+        {% for report in reports %}
+            {% if report.report_status != 0 %}
+                <div class="issues__item  issues__item--history">
+                    <div class="issues__type">#{{report.bounty.title|upper|slice(0, 2)}}{{ report.id }}</div>
+                    <div class="issues__title">  Report to {{ report.bounty.title }} campaign </div>
+                    <div class="issues__view"><a class="bounty-details" href="{{'bounty-report'|page({id:report.id})}}">View details</a></div>
+                    <div class="issues__amount">
+                          <span class="text-orange">
+                              {% if report.type == 0 %}
+                                  {% if report.given_reward != 0 %} {{ report.given_reward }} OFC {% else %} 0 {% endif %}
+                              {% else %}
+                                  {% if report.given_reward != 0 %} {{ report.given_reward }} STAKES {% else %} 0 {% endif %}
+                              {% endif%}
+                          </span>
+                    </div>
+                    {% if report.report_status == 1 %}
+                    <div class="issues__status  issues__status--big  issues__status--green"><span>approved</span></div>
+                    {% else %}
+                    <div class="issues__status  issues__status--big  issues__status--gray"><span>disapproved</span></div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+        <div class="issues__item  issues__item--history">
+            History is empty
+        </div>
+        {% endfor %}
+    </div>
+</div>
