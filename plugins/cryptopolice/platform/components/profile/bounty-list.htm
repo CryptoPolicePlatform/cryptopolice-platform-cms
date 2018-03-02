@@ -3,7 +3,7 @@
     <div class="content__block">
         <h3 class="content__title"> My Bounty Reports</h3>
         <div class="issues">
-            {% for report in reports %}
+            {% for report in bounty_reports %}
                 {% if report.report_status == 0 %}
                     <div class="issues__item  issues__item--history">
                         <div class="issues__type">#{{report.bounty.title|upper|slice(0, 2)}}{{ report.id }} </div>
@@ -26,7 +26,7 @@
 <div class="content__block">
     <h3 class="content__title">Bounty Reports History</h3>
     <div class="issues">
-        {% for report in reports %}
+        {% for report in bounty_reports %}
             {% if report.report_status != 0 %}
                 <div class="issues__item  issues__item--history">
                     <div class="issues__type">#{{report.bounty.title|upper|slice(0, 2)}}{{ report.id }}</div>

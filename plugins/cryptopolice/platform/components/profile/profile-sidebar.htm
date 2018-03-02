@@ -1,0 +1,77 @@
+<div class="profile__sidebar">
+
+    {% if user.avatar.path %}
+    <img class="profile__ava" src="{{user.avatar.thumb(79, 79, {'mode' : 'crop'})}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% else %}
+    <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% endif %}
+
+    <div class="profile__name">{% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}
+    </div>
+    <div class="profile__block">
+        {% if user.name %}
+            <p>Name: <b>{{ user.name }}</b></p>
+        {% endif %}
+        {% if user.surname %}
+            <p>Surname: <b>{{ user.surname }}</b></p>
+        {% endif %}
+        <p>E-mail: <b>{{ user.email }}</b></p>
+    </div>
+
+    <div class="profile__block">
+        <p>Joined: <b>{{ user.created_at| date("m.d.Y") }}</b></p>
+        <p>Last seen: <b>{{ user.last_seen | date("m.d.Y H:i:s")}}</b></p>
+    </div>
+    <div class="profile__block">
+        <p>Activity: <b>{{activity}}</b></p>
+    </div>
+
+    <div class="profile__block">
+        <p> Statistics: </p>
+        <div class="profile__block-item">
+            <p> Total : <b> {{ bounty_report_count }} </b></p>
+            <div class="profile__stat">
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec"
+                     data-value="{{ bounty_report_bounty_report_percentage }}" data-size="60" data-thickness="10">
+                    <canvas width="60" height="60"></canvas>
+                </div>
+                <ul class="profile__stat-list">
+                    <li class="purple"> Approved: <b> {{ bounty_report_approved}} </b></li>
+                    <li class="light-purple"> Disapproved: <b> {{ bounty_report_disapproved }} </b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile__block">
+        <div class="profile__block-item">
+            <p> Total : <b> {{ bounty_registrations_count }} </b></p>
+            <div class="profile__stat">
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec"
+                     data-value="{{ bounty_report_bounty_report_percentage }}" data-size="60" data-thickness="10">
+                    <canvas width="60" height="60"></canvas>
+                </div>
+                <ul class="profile__stat-list">
+                    <li class="purple"> Approved: <b> {{ bounty_registrations_approved}} </b></li>
+                    <li class="light-purple"> Pending: <b> {{ bounty_registrations_pending }} </b></li>
+                    <li class="light-purple"> Blocked: <b> {{ bounty_registrations_blocked }} </b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile__block">
+        <div class="stat__item">
+            <div class="stat__pie  stat__pie--teal" data-circle="" data-color="#48cdd0" data-empty="#ffffff" data-value="1" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas><canvas width="34" height="34"></canvas></div>
+            <div class="stat__counter">{{posts_count}}</div>
+            <div class="stat__text">Your posts</div>
+        </div>
+    </div>
+    <div class="profile__block">
+        <div class="stat__item">
+            <div class="stat__pie  stat__pie--teal" data-circle="" data-color="#48cdd0" data-empty="#ffffff" data-value="1" data-size="34" data-thickness="6"><canvas width="34" height="34"></canvas><canvas width="34" height="34"></canvas></div>
+            <div class="stat__counter">{{comments_count}}</div>
+            <div class="stat__text">Your comments</div>
+        </div>
+    </div>
+</div>

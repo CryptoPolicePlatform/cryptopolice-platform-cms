@@ -1,3 +1,5 @@
+{% partial __SELF__ ~ '::profile-sidebar' %}
+
 <div class="profile__content">
     <div class="content__block">
         <div class="tabs" id="tabs2">
@@ -23,5 +25,15 @@
         </div>
     </div>
 </div>
+
+<div class="content__sidebar">
+    <div class="profile__card">
+        <h3 class="content__title">
+            Change Avatar
+        </h3>
+        {% component 'Uploader' %}
+    </div>
+</div>
+
 
 

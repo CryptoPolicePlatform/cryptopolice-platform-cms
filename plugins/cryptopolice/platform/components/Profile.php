@@ -1,7 +1,10 @@
 <?php namespace CryptoPolice\Platform\Components;
 
 use Auth;
+use CryptoPolice\Bounty\Models\BountyRegistration;
 use CryptoPolice\Bounty\Models\BountyReport;
+use CryptoPolice\Platform\Models\CommunityComment;
+use CryptoPolice\Platform\Models\CommunityPost;
 use Flash;
 use Input;
 use Session;
@@ -22,35 +25,70 @@ class Profile extends ComponentBase
     }
 
     public function onRun() {
-        $this->page['reports'] = $this->getReportsStatistic();
+        $this->page['bounty_reports'] = $this->getReportsStat();
+        $this->page['bounty_registrations'] = $this->getBountyRegistrationsStat();
+        $this->page['posts'] = $this->getPostsStat();
+        $this->page['posts_count']  = $this->getPostsStat();
+        $this->page['comments_count'] = $this->getCommentsStat();
+
+
+        $this->page['activity'] = ($this->page['posts_count'] * 5 + $this->page['comments_count']) / 100;
+
     }
 
-    public function getReportsStatistic() {
+    public function getReportsStat()
+    {
 
         $user = Auth::getUser();
-        $reportList = BountyReport::with('reward', 'bounty')->where('user_id', $user->id)->get();
-        $this->page['report_disapproved'] = $reportList->where('report_status', 2)->count();
-        $this->page['report_approved'] = $reportList->where('report_status', 1)->count();
-        $this->page['report_pending'] = $reportList->where('report_status', 0)->count();
+        $reportList = BountyReport::with('reward', 'bounty')
+            ->where('user_id', $user->id)
+            ->get();
+
+        $this->page['bounty_report_count'] =  $reportList->count();
+        $this->page['bounty_report_disapproved'] = $reportList->where('report_status', 2)->count();
+        $this->page['bounty_report_approved'] = $reportList->where('report_status', 1)->count();
+        $this->page['bounty_report_pending'] = $reportList->where('report_status', 0)->count();
 
         return $reportList;
     }
 
-    public function getRegistrationsStatistic() {
+    public function getBountyRegistrationsStat() {
+
+        $user = Auth::getUser();
+        $bountyRegistrationList = BountyRegistration::with('bounty')
+            ->where('user_id', $user->id)
+            ->get();
+
+        $this->page['bounty_registrations_count'] = $bountyRegistrationList->count();
+        $this->page['bounty_registrations_pending'] = $bountyRegistrationList->where('approval_type', 0)->count();
+        $this->page['bounty_registrations_approved'] = $bountyRegistrationList->where('approval_type', 1)->count();
+        $this->page['bounty_registrations_blocked'] = $bountyRegistrationList->where('status', 0)->count();
+
+        return $bountyRegistrationList;
+    }
+
+    public function getPostsStat()
+    {
+        $user = Auth::getUser();
+        return CommunityPost::where('user_id', $user->id)->count();
+    }
+
+    public function getCommentsStat()
+    {
+        $user = Auth::getUser();
+        return CommunityComment::where('user_id', $user->id)->count();
+    }
+
+
+    public function getExamsStat() {
 
     }
 
-    public function getExamsStatistic() {
+    public function getTrainingStat() {
 
     }
 
-    public function getTrainingStatistic() {
 
-    }
-
-    public function getPostsStatistic() {
-
-    }
 
 
     public function onUpdateProfile()
