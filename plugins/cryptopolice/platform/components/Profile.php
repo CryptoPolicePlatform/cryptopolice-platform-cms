@@ -1,4 +1,4 @@
-<?php namespace CryptoPolice\Academy\Components;
+<?php namespace CryptoPolice\Platform\Components;
 
 use Auth;
 use Flash;
@@ -9,7 +9,7 @@ use ValidationException;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
 
-class ProfileForm extends ComponentBase
+class Profile extends ComponentBase
 {
 
     public function componentDetails()
