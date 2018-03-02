@@ -270,3 +270,6 @@
 .maintenance {
     text-align: center;
 }
+.tabs__item .profile__card {
+    float:none;
+}

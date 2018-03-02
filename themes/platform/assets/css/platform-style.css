@@ -4777,6 +4777,7 @@ html.remodal-is-locked {
 }
 
 .profile__card {
+    float:left;
     width: 100%;
     padding: 15px;
     background: #fff url("../images/profile-sidebar-bg.png") no-repeat right top;

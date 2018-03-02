@@ -1,6 +1,7 @@
 <?php namespace CryptoPolice\Platform\Components;
 
 use Auth;
+use CryptoPolice\Bounty\Models\BountyReport;
 use Flash;
 use Input;
 use Session;
@@ -19,6 +20,38 @@ class Profile extends ComponentBase
             'description' => 'Users profile form'
         ];
     }
+
+    public function onRun() {
+        $this->page['reports'] = $this->getReportsStatistic();
+    }
+
+    public function getReportsStatistic() {
+
+        $user = Auth::getUser();
+        $reportList = BountyReport::with('reward', 'bounty')->where('user_id', $user->id)->get();
+        $this->page['report_disapproved'] = $reportList->where('report_status', 2)->count();
+        $this->page['report_approved'] = $reportList->where('report_status', 1)->count();
+        $this->page['report_pending'] = $reportList->where('report_status', 0)->count();
+
+        return $reportList;
+    }
+
+    public function getRegistrationsStatistic() {
+
+    }
+
+    public function getExamsStatistic() {
+
+    }
+
+    public function getTrainingStatistic() {
+
+    }
+
+    public function getPostsStatistic() {
+
+    }
+
 
     public function onUpdateProfile()
     {

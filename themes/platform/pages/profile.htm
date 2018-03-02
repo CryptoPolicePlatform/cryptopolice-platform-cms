@@ -80,6 +80,22 @@ use RainLab\User\Models\User;
                         <p>Last seen: <b>{{ user.last_seen | date("m.d.Y H:i:s")}}</b></p>
                     </div>
 
+                    <div class="profile__block">
+                        <p> Statistics: </p>
+                        <div class="profile__block-item">
+                            <p> Total : <b> {{ report_count }} </b></p>
+                            <div class="profile__stat">
+                                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ report_report_percentage }}" data-size="60" data-thickness="10">
+                                    <canvas width="60" height="60"></canvas>
+                                </div>
+                                <ul class="profile__stat-list">
+                                    <li class="purple"> Approved: <b> {{ report_approved}} </b></li>
+                                    <li class="light-purple"> Disapproved: <b> {{ report_disapproved }} </b></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 {% component 'Profile' %}

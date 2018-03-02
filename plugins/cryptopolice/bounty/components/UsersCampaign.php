@@ -171,25 +171,13 @@ class UsersCampaign extends ComponentBase
 
             $user = Auth::getUser();
 
-            $arr = [
-                post('campaign_type'),
-                post('status')
-            ];
-
-            $this->page['usersReports'] = DB::table('cryptopolice_bounty_user_reports')
-                ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
-                ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-                ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
-                ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
-                ->Where(function ($query) use ($arr) {
-                    for ($i = 0; $i < count($arr); $i++) {
-                        if (!empty($arr[$i])) {
-                            if ($i == 0) {
-                                $query->where('cryptopolice_bounty_user_reports.bounty_campaigns_id', $arr[$i]);
-                            } else {
-                                $query->where('cryptopolice_bounty_user_reports.report_status', $arr[$i]);
-                            }
-                        }
+            $this->page['usersReports'] = BountyReport::with('reward', 'bounty')->where('user_id', $user->id)
+                ->Where(function ($query) {
+                    if (!empty(post('campaign_type'))) {
+                        $query->where('bounty_campaigns_id', post('campaign_type'));
+                    }
+                    if (!empty(post('status'))) {
+                        $query->where('report_status', post('status'));
                     }
                 })
                 ->orderBy('cryptopolice_bounty_user_reports.created_at', 'asc')
