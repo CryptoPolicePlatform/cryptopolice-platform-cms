@@ -82,7 +82,15 @@ class UsersCampaign extends ComponentBase
     {
 
         $user = Auth::getUser();
-        return BountyRegistration::where('user_id', $user->id)->get();
+        $registrationData = BountyRegistration::with('bountyReport.reward','bounty')
+            ->where('user_id', $user->id)
+            ->get();
+        // Get total amount of tokens or stakes for each registered campaign
+        foreach($registrationData as $key => $reg) {
+            $registrationData[$key]['given_reward'] = $reg->bountyReport->sum('given_reward');
+        }
+
+        return $registrationData;
     }
 
 
@@ -106,7 +114,6 @@ class UsersCampaign extends ComponentBase
     {
 
         $user = Auth::getUser();
-
         $data = DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
@@ -343,7 +350,7 @@ class UsersCampaign extends ComponentBase
         $notify = new Notification();
         $notify->user_id = $this->user_id;
         $notify->title = 'Registration in CryptoPolice bounty campaign';
-        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br><strong>I registered to CryptoPolice bounty campaign - ' . $campaignTitle . '<br> My registration code is ' . $code . '</strong>';
+        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br><strong>I registered to CryptoPolice - ' . $campaignTitle . '<br> My registration code is ' . $code . '</strong>';
         $notify->user_id = $userID;
         $notify->save();
     }
