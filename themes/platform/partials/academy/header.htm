@@ -25,10 +25,10 @@ security = "all"
                     {% endif %}
                 </li>
                 <li>
-                    {% if not user.name %}
-                        <a href="{{'profile'|page}}">{{ user.email }}</a>
+                    {% if user.nickname %}
+                        <a href="{{'profile'|page}}">{{ user.nickname }}</a>
                     {% else %}
-                        <a href="{{'profile'|page}}">{{ user.name }}</a>
+                        <a href="{{'profile'|page}}">{{ user.email}}</a>
                     {% endif %}
                 </li>
                 {% if user %}
