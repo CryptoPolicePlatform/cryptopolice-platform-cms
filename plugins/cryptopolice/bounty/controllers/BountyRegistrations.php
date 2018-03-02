@@ -46,7 +46,7 @@ class BountyRegistrations extends Controller
 
     public function sendMail($model)
     {
-        if ($model->approval_type && $model->btc_stauts) {
+        if ($model->approval_type && $model->btc_status) {
             $user = User::where('id', $model->user_id)->first();
 
             $vars = [

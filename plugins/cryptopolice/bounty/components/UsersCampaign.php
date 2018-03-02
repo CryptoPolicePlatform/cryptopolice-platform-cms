@@ -259,7 +259,6 @@ class UsersCampaign extends ComponentBase
             $registrationData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
 
             if ($this->prepareValidationRules($registrationData, 'report')) {
-
                 // check if user has access to report
                 if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
 
@@ -327,7 +326,7 @@ class UsersCampaign extends ComponentBase
                     ]);
                     $user->save();
 
-                    $this->setUserNotification($user->id, $code);
+                    $this->setUserNotification($registrationData->title, $user->id, $code);
 
                     Flash::success('Successfully registered');
                     return redirect()->back();
@@ -339,12 +338,12 @@ class UsersCampaign extends ComponentBase
         }
     }
 
-    public function setUserNotification($userID, $code)
+    public function setUserNotification($campaignTitle, $userID, $code)
     {
         $notify = new Notification();
         $notify->user_id = $this->user_id;
         $notify->title = 'Registration in CryptoPolice bounty campaign';
-        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br>I registered to CryptoPolice bounty campaign My registration code is ' . $code;
+        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br><strong>I registered to CryptoPolice bounty campaign - ' . $campaignTitle . '<br> My registration code is ' . $code . '</strong>';
         $notify->user_id = $userID;
         $notify->save();
     }
