@@ -32,7 +32,6 @@ fields:
         type: richeditor
     status:
         label: Status
-        oc.commentPosition: ''
         span: auto
         type: switch
     pin:
@@ -40,4 +39,10 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: switch
-
+    user:
+        label: Users
+        nameFrom: user
+        descriptionFrom: description
+        select: email
+        span: auto
+        type: relation
