@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Bounty\Components;
 
+use CryptoPolice\Bounty\Models\BountyReport;
 use DB;
 use Auth;
 use Flash;
@@ -199,16 +200,8 @@ class UsersCampaign extends ComponentBase
 
     public function getUsersReports()
     {
-
         $user = Auth::getUser();
-
-        return DB::table('cryptopolice_bounty_user_reports')
-            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
-            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-            ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
-            ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
-            ->orderBy('cryptopolice_bounty_user_reports.created_at', 'desc')
-            ->get();
+        return BountyReport::with('reward','bounty')->where('user_id', $user->id)->get();
     }
 
 
