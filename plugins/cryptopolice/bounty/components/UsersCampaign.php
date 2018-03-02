@@ -85,11 +85,16 @@ class UsersCampaign extends ComponentBase
         $registrationData = BountyRegistration::with('bountyReport.reward','bounty')
             ->where('user_id', $user->id)
             ->get();
-        // Get total amount of tokens or stakes for each registered campaign
-        foreach($registrationData as $key => $reg) {
-            $registrationData[$key]['given_reward'] = $reg->bountyReport->sum('given_reward');
-        }
 
+        // Get total amount of tokens or stakes for each registered campaign
+        foreach ($registrationData as $key => $reg) {
+            $registrationData[$key]['given_reward'] = $reg->bountyReport->sum('given_reward');
+            if (isset($reg->bountyReport[0])) {
+                $registrationData[$key]['reward_type'] = $reg->bountyReport[0]->reward->reward_type;
+            } else {
+                $registrationData[$key]['reward_type'] = null;
+            }
+        }
         return $registrationData;
     }
 
