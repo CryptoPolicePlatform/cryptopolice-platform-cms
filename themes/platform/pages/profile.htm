@@ -50,13 +50,33 @@ use RainLab\User\Models\User;
         <div class="content__left">
 
             <div class="breadcrumbs">
-                <a class="breadcrumbs__item" href="#">Home</a>
+                <a class="breadcrumbs__item" href="{{'community'|page}}">Home</a>
                 <span class="breadcrumbs__item  active">My profile</span>
             </div>
 
             <div class="profile">
 
-                {% component 'Profile' %}
+                {% partial __SELF__ ~ '::profile-sidebar' %}
+
+                <div class="profile__content">
+                    <div class="content__block">
+
+                        {% partial __SELF__ ~ '::personal-nickname-update' %}
+                        {% partial __SELF__ ~ '::personal-data-update' %}
+                        {% partial __SELF__ ~ '::personal-eth-update' %}
+                        {% partial __SELF__ ~ '::personal-social-update' %}
+
+                    </div>
+                </div>
+
+                <div class="content__sidebar">
+                    <div class="profile__card">
+                        <h3 class="content__title">
+                            Change Avatar
+                        </h3>
+                        {% component 'Uploader' %}
+                    </div>
+                </div>
 
             </div>
         </div>

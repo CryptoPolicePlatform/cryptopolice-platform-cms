@@ -5157,6 +5157,13 @@ html.remodal-is-locked {
     }
 }
 
+.issues__status--red {
+    background-color: #ce0b4d;
+}
+.issues__status--red:before {
+    background-color: inherit;
+}
+
 .issues__status--green {
     background-color: #84c01b;
 }

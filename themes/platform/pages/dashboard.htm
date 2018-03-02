@@ -1,0 +1,83 @@
+title = "Dashboard"
+url = "/dashboard"
+layout = "platform"
+description = "Users profile page"
+is_hidden = 0
+
+[session]
+security = "user"
+redirect = "login"
+
+[reCaptcha]
+[Profile]
+[Uploader]
+
+placeholderText = "Click or drag images to upload"
+maxSize = 1
+fileTypes = ".gif,.jpg,.jpeg,.png"
+imageWidth = 160
+imageHeight = 160
+imageMode = "crop"
+modelClass = "RainLab\User\Models\User"
+modelKeyColumn = "avatar"
+identifierValue = "{{ :id }}"
+==
+
+use RainLab\User\Models\User;
+
+function onInit ()
+{
+$user = Auth::getUser();
+
+if($user){
+$component = $this->addComponent(
+'Cryptopolice\Uploader\Components\ImageUploader',
+'Uploader', [
+'modelClass'=>'RainLab\User\Models\User',
+'modelKeyColumn'=>'avatar',
+'deferredBinding' => false
+]
+);
+
+$component->bindModel('avatar', $user);
+}
+}
+
+==
+<main class="content">
+    <div class="content__inner">
+
+        <div class="content__left">
+
+            <div class="breadcrumbs">
+                <a class="breadcrumbs__item" href="{{'community'|page}}">Home</a>
+                <span class="breadcrumbs__item  active">Dashboard</span>
+            </div>
+
+            <div class="profile">
+
+                {% partial __SELF__ ~ '::profile-sidebar' %}
+
+                <div class="profile__content">
+                    <div class="content__block">
+
+                        {% partial __SELF__ ~ '::bounty-reports' %}
+                        {% partial __SELF__ ~ '::bounty-registrations' %}
+                        {% partial __SELF__ ~ '::exams-scores' %}
+
+                    </div>
+                </div>
+
+                <div class="content__sidebar">
+                    <div class="profile__card">
+                        <h3 class="content__title">
+                            Change Avatar
+                        </h3>
+                        {% component 'Uploader' %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>

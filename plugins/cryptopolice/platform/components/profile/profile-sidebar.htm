@@ -6,8 +6,14 @@
     <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
     {% endif %}
 
-    <div class="profile__name">{% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}
+    <div class="profile__name">
+        {% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}
     </div>
+
+    {% if this.page.id == 'dashboard' %}
+    <a class="btn bounty-filter" href="{{'profile'|page}}">Change profile settings</a>
+    {% endif %}
+
     <div class="profile__block">
         {% if user.name %}
             <p>Name: <b>{{ user.name }}</b></p>
