@@ -1,21 +1,20 @@
 <?php namespace CryptoPolice\Platform\Components;
 
-use Auth;
-use CryptoPolice\Academy\Models\Exam;
-use CryptoPolice\Academy\Models\FinalScore;
-use CryptoPolice\Academy\Models\Training;
-use CryptoPolice\Academy\Models\TrainingView;
-use CryptoPolice\Bounty\Models\BountyRegistration;
-use CryptoPolice\Bounty\Models\BountyReport;
-use CryptoPolice\Platform\Models\CommunityComment;
-use CryptoPolice\Platform\Models\CommunityPost;
-use Flash;
-use Input;
-use Session;
-use Validator;
-use ValidationException;
 use Cms\Classes\ComponentBase;
+
+use CryptoPolice\Academy\Models\Exam;
+use CryptoPolice\Academy\Models\Training;
+use CryptoPolice\Academy\Models\FinalScore;
+use CryptoPolice\Academy\Models\TrainingView;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
+
+use CryptoPolice\Bounty\Models\BountyReport;
+use CryptoPolice\Bounty\Models\BountyRegistration;
+
+use CryptoPolice\Platform\Models\CommunityPost;
+use CryptoPolice\Platform\Models\CommunityComment;
+
+use Auth, Flash,Input,Session,Validator,ValidationException;
 
 class Profile extends ComponentBase
 {
@@ -23,124 +22,121 @@ class Profile extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Profile Form',
-            'description' => 'Users profile form'
+            'name'          => 'Dashboard',
+            'description'   => 'Users dashboard'
         ];
     }
 
     public function onRun()
     {
-        $this->page['bounty_reports'] = $this->getReportsStat();
-        $this->page['bounty_registrations'] = $this->getBountyRegistrationsStat();
 
-        $this->page['posts'] = $this->getPostsStat();
-        $this->page['posts_count'] = $this->getPostsStat();
-
-        $this->page['comments_count'] = $this->getCommentsStat();
-
-        $this->page['activity'] = ($this->page['posts_count'] * 5 + $this->page['comments_count']) / 100;
-
-        $this->page['exam_scores'] = $this->getExamsStat();
-        $this->page['exam_count'] = $this->getExamCount();
-        $this->page['training_views'] = $this->getTrainingStat();
-
-        $this->getTrainingStat();
-
+        // Community Statistic
+        $this->page['posts_count']              = $this->getUsersPostsCount();
+        $this->page['comments_count']           = $this->getUsersCommentsCount();
+        $this->page['activity']                 = $this->getUsersActivity($this->page['posts_count'], $this->page['comments_count']);
+        
+        // Bounty Campaign Statistic
+        $this->page['bounty_reports']           = $this->getUsersReports();
+        $this->page['bounty_registrations']     = $this->getUsersBountyRegistrations();
+       
+        // Academy Statistic
+        $this->page['exam_counst']              = $this->getExamCount();
+        $this->page['training_count']           = $this->getTrainingCount();
+        $this->page['training_viewed']          = $this->getUsersViewedTrainings();
+        $this->page['exam_scores']              = $this->getExamsStat();
     }
 
-    public function getReportsStat()
-    {
-
-        $user = Auth::getUser();
-        $reportList = BountyReport::with('reward', 'bounty')
-            ->where('user_id', $user->id)
-            ->get();
-
-        $count = $reportList->count();
-        $pending = $reportList->where('report_status', 0)->count();
-        $approved = $reportList->where('report_status', 1)->count();
-        $disapproved = $reportList->where('report_status', 2)->count();
-
-        if ($count - $pending && $approved) {
-            $percentage = (100 / $count * $approved) / 100;
+    public function getPercentageDifference($amount, $first, $second) {
+        if ($amount - $first && $second) {
+            return (100 / $amount * $second) / 100;
         } else {
-            $percentage = 0;
+            return 0;
         }
-
-        $this->page['bounty_report_percentage'] = $percentage;
-        $this->page['bounty_report_count'] = $count;
-        $this->page['bounty_report_disapproved'] = $disapproved;
-        $this->page['bounty_report_approved'] = $approved;
-        $this->page['bounty_report_pending'] = $pending;
-
-        return $reportList;
     }
 
-    public function getBountyRegistrationsStat()
-    {
+    public function getUsersActivity($postsNum, $commentsNum) {
+        return ($postsNum * 5 + $commentsNum) / 100;
+    }
 
-        $user = Auth::getUser();
+    public function getUsersReports() {
 
-        $bountyRegistrationList = BountyRegistration::with('bounty', 'bountyReport.reward')
-            ->where('user_id', $user->id)
+        $usersReportsList = BountyReport::with('reward', 'bounty')
+            ->where('user_id', Auth::getUser()->id)
             ->get();
 
-        // Get total amount of tokens or stakes for each registered campaign
-        foreach ($bountyRegistrationList as $key => $reg) {
-            $bountyRegistrationList[$key]['given_reward'] = $reg->bountyReport->sum('given_reward');
-            if (isset($reg->bountyReport[0])) {
-                $bountyRegistrationList[$key]['reward_type'] = $reg->bountyReport[0]->reward->reward_type;
+        $numOfReports        = $usersReportsList->count();
+        $pendingReports      = $usersReportsList->where('report_status', 0)->count();
+        $approvedReports     = $usersReportsList->where('report_status', 1)->count();
+
+        $this->page['bounty_report_percentage']     = $this->getPercentageDifference($numOfReports, $pendingReports, $approvedReports);
+        $this->page['bounty_report_count']          = $numOfReports;   
+        $this->page['bounty_report_approved']       = $approvedReports;
+        $this->page['bounty_report_pending']        = $pendingReports;
+        $this->page['bounty_report_disapproved']    = $usersReportsList->where('report_status', 2)->count();
+
+        return $usersReportsList;
+    }
+
+    public function getUsersBountyRegistrations() {
+
+        $usersRegistrationsList = BountyRegistration::with('bounty', 'bountyReport.reward')
+            ->where('user_id', Auth::getUser()->id)
+            ->get();
+
+        // Get total amount of stakes and tokens for each registered campaign
+        foreach ($usersRegistrationsList as $key => $value) {
+           // Summarize, the stakes and tokens earned in each campaign
+           $usersRegistrationsList[$key]['given_reward'] = $value->bountyReport->sum('given_reward');
+            
+            // Check if report is defined 
+            if (isset($value->bountyReport[0])) {
+                // Get reward type in currnet bounty campaign
+                $usersRegistrationsList[$key]['reward_type'] = $value->bountyReport[0]->reward->reward_type;
             } else {
-                $bountyRegistrationList[$key]['reward_type'] = null;
+                $usersRegistrationsList[$key]['reward_type'] = null;
             }
         }
 
-        $count = $bountyRegistrationList->count();
-        $pending = $bountyRegistrationList->where('approval_type', 0)->count();
-        $approved = $bountyRegistrationList->where('approval_type', 1)->count();
+        $numOfRegistrations       = $usersRegistrationsList->count();
+        $pendingRegistrations     = $usersRegistrationsList->where('approval_type', 0)->count();
+        $approvedRegistrations    = $usersRegistrationsList->where('approval_type', 1)->count();
+        $blockedRegistrations     = $usersRegistrationsList->where('status', 0)->count();
 
-        if ($count - $pending && $approved) {
-            $percentage = (100 / $count * $approved) / 100;
-        } else {
-            $percentage = 0;
-        }
+        $this->page['bounty_registrations_percentage']  = $this->getPercentageDifference($numOfRegistrations, $pendingRegistrations, $approvedRegistrations);
+        $this->page['bounty_registrations_count']       = $numOfRegistrations;
+        $this->page['bounty_registrations_pending']     = $pendingRegistrations;
+        $this->page['bounty_registrations_approved']    = $approvedRegistrations;
+        $this->page['bounty_registrations_blocked']     = $usersRegistrationsList->where('status', 0)->count();
 
-        $this->page['bounty_registrations_count'] = $count;
-        $this->page['bounty_registrations_pending'] = $pending;
-        $this->page['bounty_registrations_approved'] = $approved;
-        $this->page['bounty_registrations_percentage'] = $percentage;
-        $this->page['bounty_registrations_blocked'] = $bountyRegistrationList->where('status', 0)->count();
-
-        return $bountyRegistrationList;
+        return $usersRegistrationsList;
     }
 
-    public function getPostsStat()
-    {
-        $user = Auth::getUser();
-        return CommunityPost::where('user_id', $user->id)->count();
+    public function getUsersPostsCount() {
+        return CommunityPost::where('user_id', Auth::getUser()->id)
+            ->count();
     }
 
-    public function getCommentsStat()
-    {
-        $user = Auth::getUser();
-        return CommunityComment::where('user_id', $user->id)->count();
+    public function getUsersCommentsCount() {
+        return CommunityComment::where('user_id', Auth::getUser()->id)
+            ->count();
     }
-
-    public function getExamCount(){
+    public function getExamCount() {
         return Exam::count();
     }
 
-    public function getExamsStat()
-    {
-        $user = Auth::getUser();
-        return FinalScore::with('exam')->where('user_id', $user->id)->get();
+    public function getExamsStat() {
+        return FinalScore::with('exam')
+            ->where('user_id', Auth::getUser()->id)
+            ->get();
+    }
+    public function getTrainingCount() {
+        return Training::count(); 
     }
 
-    public function getTrainingStat()
-    {
-        $user = Auth::getUser();
-        $this->page['training_count'] = Training::count();
-        $this->page['training_viewed'] = TrainingView::with('training')->where('user_id', $user->id)->count();
+    public function getUsersViewedTrainings() {
+        return TrainingView::with('training')
+            ->where('user_id', Auth::getUser()->id)
+            ->count();
     }
 
 
@@ -233,10 +229,10 @@ class Profile extends ComponentBase
 
                 $user->update([
                     'telegram_username' => post('telegram_username'),
-                    'facebook_link' => post('facebook_link'),
-                    'youtube_link' => post('youtube_link'),
-                    'twitter_link' => post('twitter_link'),
-                    'btc_link' => post('btc_link'),
+                    'facebook_link'     => post('facebook_link'),
+                    'youtube_link'      => post('youtube_link'),
+                    'twitter_link'      => post('twitter_link'),
+                    'btc_link'          => post('btc_link'),
                 ]);
 
                 Flash::success('You\'re profile has been updated');
