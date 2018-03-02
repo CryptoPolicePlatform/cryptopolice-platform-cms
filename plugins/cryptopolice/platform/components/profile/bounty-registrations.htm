@@ -4,42 +4,46 @@
         <h3 class="content__title"> Registered Bounty Campaigns </h3>
         <div class="issues">
             {% for registered in bounty_registrations %}
-            <div class="issues__item  issues__item--history">
-                <div class="issues__type">#{{registered.bounty.title|upper|slice(0, 2)}}</div>
-                <div class="issues__title">
-                    {% if registered.status >= 1 %}
-                    <a class="bounty_link_title" href="{{'bounty-campaign'|page({id: registered.bounty.id, slug: registered.bounty.slug})}}">
+                <div class="issues__item  issues__item--history">
+                    <div class="issues__type">#{{registered.bounty.title|upper|slice(0, 2)}}</div>
+                    <div class="issues__title">
+                        {% if registered.status >= 1 %}
+                        <a class="bounty_link_title" href="{{'bounty-campaign'|page({id: registered.bounty.id, slug: registered.bounty.slug})}}">
+                            {{ registered.bounty.title }} Campaign
+                        </a>
+                        {% else %}
                         {{ registered.bounty.title }} Campaign
-                    </a>
+                        {% endif %}
+                    </div>
+                    <div class="issues__view">
+                        {% if registered.status >= 1 %}
+                        <a href="{{'bounty-campaign'|page({id: registered.bounty.id, slug: registered.bounty.slug})}}">View details</a>
+                        {% else %}
+                        View details
+                        {% endif %}
+                    </div>
+                    <div class="issues__amount">
+                            <span class="text-orange">
+                                {% if registered.reward_type is not null %} {{ registered.given_reward }} {% if registered.reward_type %} STAKES {% else %} OFC {% endif %} {% else %} 0 {% endif %}
+                            </span>
+                    </div>
+
+                    {% if registered.status %}
+
+                    {% if registered.approval_type == 0 %}
+                    <div class="issues__status  issues__status--big  issues__status--orange"><span> Pending </span></div>
                     {% else %}
-                    {{ registered.bounty.title }} Campaign
+                    <div class="issues__status  issues__status--big  issues__status--green"><span> Registered </span></div>
+                    {% endif %}
+
+                    {% else %}
+                    <div class="issues__status  issues__status--big  issues__status--gray"><span> blocked </span></div>
                     {% endif %}
                 </div>
-                <div class="issues__view">
-                    {% if registered.status >= 1 %}
-                    <a href="{{'bounty-campaign'|page({id: registered.bounty.id, slug: registered.bounty.slug})}}">View details</a>
-                    {% else %}
-                    View details
-                    {% endif %}
+            {% else %}
+                <div class="issues__item  issues__item--history">
+                    History is empty
                 </div>
-                <div class="issues__amount">
-                        <span class="text-orange">
-                            {% if registered.reward_type is not null %} {{ registered.given_reward }} {% if registered.reward_type %} STAKES {% else %} OFC {% endif %} {% else %} 0 {% endif %}
-                        </span>
-                </div>
-
-                {% if registered.status %}
-
-                {% if registered.approval_type == 0 %}
-                <div class="issues__status  issues__status--big  issues__status--orange"><span> Pending </span></div>
-                {% else %}
-                <div class="issues__status  issues__status--big  issues__status--green"><span> Registered </span></div>
-                {% endif %}
-
-                {% else %}
-                <div class="issues__status  issues__status--big  issues__status--gray"><span> blocked </span></div>
-                {% endif %}
-            </div>
             {% endfor %}
         </div>
     </div>

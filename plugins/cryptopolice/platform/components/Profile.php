@@ -3,6 +3,8 @@
 use Auth;
 use CryptoPolice\Academy\Models\Exam;
 use CryptoPolice\Academy\Models\FinalScore;
+use CryptoPolice\Academy\Models\Training;
+use CryptoPolice\Academy\Models\TrainingView;
 use CryptoPolice\Bounty\Models\BountyRegistration;
 use CryptoPolice\Bounty\Models\BountyReport;
 use CryptoPolice\Platform\Models\CommunityComment;
@@ -26,17 +28,23 @@ class Profile extends ComponentBase
         ];
     }
 
-    public function onRun() {
+    public function onRun()
+    {
         $this->page['bounty_reports'] = $this->getReportsStat();
         $this->page['bounty_registrations'] = $this->getBountyRegistrationsStat();
-        $this->page['posts'] = $this->getPostsStat();
-        $this->page['posts_count']  = $this->getPostsStat();
-        $this->page['comments_count'] = $this->getCommentsStat();
 
+        $this->page['posts'] = $this->getPostsStat();
+        $this->page['posts_count'] = $this->getPostsStat();
+
+        $this->page['comments_count'] = $this->getCommentsStat();
 
         $this->page['activity'] = ($this->page['posts_count'] * 5 + $this->page['comments_count']) / 100;
 
         $this->page['exam_scores'] = $this->getExamsStat();
+        $this->page['exam_count'] = $this->getExamCount();
+        $this->page['training_views'] = $this->getTrainingStat();
+
+        $this->getTrainingStat();
 
     }
 
@@ -48,19 +56,32 @@ class Profile extends ComponentBase
             ->where('user_id', $user->id)
             ->get();
 
-        $this->page['bounty_report_count'] =  $reportList->count();
-        $this->page['bounty_report_disapproved'] = $reportList->where('report_status', 2)->count();
-        $this->page['bounty_report_approved'] = $reportList->where('report_status', 1)->count();
-        $this->page['bounty_report_pending'] = $reportList->where('report_status', 0)->count();
+        $count = $reportList->count();
+        $pending = $reportList->where('report_status', 0)->count();
+        $approved = $reportList->where('report_status', 1)->count();
+        $disapproved = $reportList->where('report_status', 2)->count();
+
+        if ($count - $pending && $approved) {
+            $percentage = (100 / $count * $approved) / 100;
+        } else {
+            $percentage = 0;
+        }
+
+        $this->page['bounty_report_percentage'] = $percentage;
+        $this->page['bounty_report_count'] = $count;
+        $this->page['bounty_report_disapproved'] = $disapproved;
+        $this->page['bounty_report_approved'] = $approved;
+        $this->page['bounty_report_pending'] = $pending;
 
         return $reportList;
     }
 
-    public function getBountyRegistrationsStat() {
+    public function getBountyRegistrationsStat()
+    {
 
         $user = Auth::getUser();
 
-        $bountyRegistrationList = BountyRegistration::with('bounty','bountyReport.reward')
+        $bountyRegistrationList = BountyRegistration::with('bounty', 'bountyReport.reward')
             ->where('user_id', $user->id)
             ->get();
 
@@ -74,9 +95,20 @@ class Profile extends ComponentBase
             }
         }
 
-        $this->page['bounty_registrations_count'] = $bountyRegistrationList->count();
-        $this->page['bounty_registrations_pending'] = $bountyRegistrationList->where('approval_type', 0)->count();
-        $this->page['bounty_registrations_approved'] = $bountyRegistrationList->where('approval_type', 1)->count();
+        $count = $bountyRegistrationList->count();
+        $pending = $bountyRegistrationList->where('approval_type', 0)->count();
+        $approved = $bountyRegistrationList->where('approval_type', 1)->count();
+
+        if ($count - $pending && $approved) {
+            $percentage = (100 / $count * $approved) / 100;
+        } else {
+            $percentage = 0;
+        }
+
+        $this->page['bounty_registrations_count'] = $count;
+        $this->page['bounty_registrations_pending'] = $pending;
+        $this->page['bounty_registrations_approved'] = $approved;
+        $this->page['bounty_registrations_percentage'] = $percentage;
         $this->page['bounty_registrations_blocked'] = $bountyRegistrationList->where('status', 0)->count();
 
         return $bountyRegistrationList;
@@ -94,18 +126,22 @@ class Profile extends ComponentBase
         return CommunityComment::where('user_id', $user->id)->count();
     }
 
+    public function getExamCount(){
+        return Exam::count();
+    }
 
-    public function getExamsStat() {
-
+    public function getExamsStat()
+    {
         $user = Auth::getUser();
         return FinalScore::with('exam')->where('user_id', $user->id)->get();
     }
 
-    public function getTrainingStat() {
-
+    public function getTrainingStat()
+    {
+        $user = Auth::getUser();
+        $this->page['training_count'] = Training::count();
+        $this->page['training_viewed'] = TrainingView::with('training')->where('user_id', $user->id)->count();
     }
-
-
 
 
     public function onUpdateProfile()
@@ -196,13 +232,13 @@ class Profile extends ComponentBase
             } else {
 
                 $user->update([
-                    'telegram_username'  => post('telegram_username'),
-                    'facebook_link'      => post('facebook_link'),
-                    'youtube_link'       => post('youtube_link'),
-                    'twitter_link'       => post('twitter_link'),
-                    'btc_link'           => post('btc_link'),
+                    'telegram_username' => post('telegram_username'),
+                    'facebook_link' => post('facebook_link'),
+                    'youtube_link' => post('youtube_link'),
+                    'twitter_link' => post('twitter_link'),
+                    'btc_link' => post('btc_link'),
                 ]);
-                
+
                 Flash::success('You\'re profile has been updated');
             }
         }

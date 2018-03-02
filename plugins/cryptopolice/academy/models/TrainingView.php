@@ -22,6 +22,18 @@ class TrainingView extends Model
     ];
 
     /**
+     * @var array Relations
+     */
+    public $belongsTo = [
+
+        'training' => [
+            'CryptoPolice\Academy\Models\Training',
+            'key' => 'training_id'
+        ],
+
+    ];
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'cryptopolice_academy_training_views';

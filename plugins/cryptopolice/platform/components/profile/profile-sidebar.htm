@@ -26,17 +26,23 @@
         <p>Activity: <b>{{activity}}</b></p>
     </div>
 
+
+    <div class="profile__block">
+        <p>Viewed training: <b> {{ training_viewed }} / {{ training_count }} </b></p>
+        <p>Exam attempts: <b> {{ exam_scores.count }} </b></p>
+    </div>
+
     <div class="profile__block">
         <p> Statistics: </p>
         <div class="profile__block-item">
             <p> Total : <b> {{ bounty_report_count }} </b></p>
             <div class="profile__stat">
                 <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec"
-                     data-value="{{ bounty_report_bounty_report_percentage }}" data-size="60" data-thickness="10">
+                     data-value="{{ bounty_report_percentage }}" data-size="60" data-thickness="10">
                     <canvas width="60" height="60"></canvas>
                 </div>
                 <ul class="profile__stat-list">
-                    <li class="purple"> Approved: <b> {{ bounty_report_approved}} </b></li>
+                    <li class="purple"> Approved: <b> {{ bounty_report_approved }} </b></li>
                     <li class="light-purple"> Disapproved: <b> {{ bounty_report_disapproved }} </b></li>
                 </ul>
             </div>
@@ -47,14 +53,14 @@
         <div class="profile__block-item">
             <p> Total : <b> {{ bounty_registrations_count }} </b></p>
             <div class="profile__stat">
-                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec"
-                     data-value="{{ bounty_report_bounty_report_percentage }}" data-size="60" data-thickness="10">
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#48cdd0" data-empty="#a3e6e7"
+                     data-value="{{ bounty_registrations_percentage }}" data-size="60" data-thickness="10">
                     <canvas width="60" height="60"></canvas>
                 </div>
                 <ul class="profile__stat-list">
-                    <li class="purple"> Approved: <b> {{ bounty_registrations_approved}} </b></li>
-                    <li class="light-purple"> Pending: <b> {{ bounty_registrations_pending }} </b></li>
-                    <li class="light-purple"> Blocked: <b> {{ bounty_registrations_blocked }} </b></li>
+                    <li class="teal"> Approved: <b> {{ bounty_registrations_approved}} </b></li>
+                    <li class="light-teal"> Pending: <b> {{ bounty_registrations_pending }} </b></li>
+                    <li class="light-teal"> Blocked: <b> {{ bounty_registrations_blocked }} </b></li>
                 </ul>
             </div>
         </div>
