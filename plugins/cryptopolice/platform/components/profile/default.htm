@@ -10,7 +10,9 @@
             <div class="tabs__content  tabs__content--fill">
                 <div class="tabs__item  active" id="tab2-1" role="tabpanel" style="display: none;">
                     <p>
-                        {% partial __SELF__ ~ '::bounty-list' %}
+                        {% partial __SELF__ ~ '::bounty-reports' %}
+                        {% partial __SELF__ ~ '::bounty-registrations' %}
+                        {% partial __SELF__ ~ '::exams-scores' %}
                     </p>
                 </div>
                 <div class="tabs__item" id="tab2-2" role="tabpanel" style="display: block;">

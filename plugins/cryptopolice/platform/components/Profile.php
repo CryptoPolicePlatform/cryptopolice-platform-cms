@@ -1,6 +1,8 @@
 <?php namespace CryptoPolice\Platform\Components;
 
 use Auth;
+use CryptoPolice\Academy\Models\Exam;
+use CryptoPolice\Academy\Models\FinalScore;
 use CryptoPolice\Bounty\Models\BountyRegistration;
 use CryptoPolice\Bounty\Models\BountyReport;
 use CryptoPolice\Platform\Models\CommunityComment;
@@ -34,6 +36,8 @@ class Profile extends ComponentBase
 
         $this->page['activity'] = ($this->page['posts_count'] * 5 + $this->page['comments_count']) / 100;
 
+        $this->page['exam_scores'] = $this->getExamsStat();
+
     }
 
     public function getReportsStat()
@@ -55,9 +59,20 @@ class Profile extends ComponentBase
     public function getBountyRegistrationsStat() {
 
         $user = Auth::getUser();
-        $bountyRegistrationList = BountyRegistration::with('bounty')
+
+        $bountyRegistrationList = BountyRegistration::with('bounty','bountyReport.reward')
             ->where('user_id', $user->id)
             ->get();
+
+        // Get total amount of tokens or stakes for each registered campaign
+        foreach ($bountyRegistrationList as $key => $reg) {
+            $bountyRegistrationList[$key]['given_reward'] = $reg->bountyReport->sum('given_reward');
+            if (isset($reg->bountyReport[0])) {
+                $bountyRegistrationList[$key]['reward_type'] = $reg->bountyReport[0]->reward->reward_type;
+            } else {
+                $bountyRegistrationList[$key]['reward_type'] = null;
+            }
+        }
 
         $this->page['bounty_registrations_count'] = $bountyRegistrationList->count();
         $this->page['bounty_registrations_pending'] = $bountyRegistrationList->where('approval_type', 0)->count();
@@ -82,6 +97,8 @@ class Profile extends ComponentBase
 
     public function getExamsStat() {
 
+        $user = Auth::getUser();
+        return FinalScore::with('exam')->where('user_id', $user->id)->get();
     }
 
     public function getTrainingStat() {
