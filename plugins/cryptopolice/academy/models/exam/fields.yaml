@@ -45,10 +45,13 @@ fields:
         type: repeater
         form:
             fields:
+                questionNumber:
+                    label: 'Question number'
+                    span: auto
+                    type: number
                 question_title:
                     label: 'Question Title'
-                    oc.commentPosition: ''
-                    span: auto
+                    span: left
                     type: text
                 answers:
                     label: Answers

@@ -15,10 +15,6 @@ use CryptoPolice\Academy\Models\FinalScore;
 class ExamTask extends ComponentBase
 {
 
-    public $timer;
-    public $fullTask;
-    public $data;
-
     public function componentDetails()
     {
         return [
@@ -85,7 +81,7 @@ class ExamTask extends ComponentBase
             if ($previousPassedExam) {
 
                 $now = new DateTime('now');
-                $completeAt = new DateTime($previousPassedExam->completed_at);
+                $completeAt = new DateTime($previousPassedExam->created_at);
 
                 //  Get time interval in seconds from the end of the exam
                 $left = $now->getTimestamp() - $completeAt->getTimestamp();
@@ -98,7 +94,6 @@ class ExamTask extends ComponentBase
             }
 
             // Start a new exam
-            // Started_at
             $now = new DateTime('now');
 
             // Completed_at = now + time for passing the exam
@@ -126,8 +121,8 @@ class ExamTask extends ComponentBase
             );
         }
 
-        $this->timer = $completeAt->getTimestamp() - $now->getTimestamp();
-        $this->fullTask = $selectedExam;
+        $this->page['timer'] = $completeAt->getTimestamp() - $now->getTimestamp();
+        $this->page['fullTask'] = $selectedExam;
     }
 
     public function onNextQuestion()
@@ -176,10 +171,10 @@ class ExamTask extends ComponentBase
             ->where('exam_id', $selectedExam->id)
             ->where('try', $try)
             ->update([
-                'complete_status' => '1',
-                'score' => $correctAnswers,
-                'try' => $try,
-                'completed_at' => new DateTime('now')
+                'complete_status'   => '1',
+                'score'             => $correctAnswers,
+                'try'               => $try,
+                'completed_at'      => new DateTime('now')
             ]);
 
         return Redirect::to('/exam');
@@ -197,21 +192,21 @@ class ExamTask extends ComponentBase
 
     public function onCheckQuestion()
     {
-        $answerNumber = 0;
-        $answerCorrect = 0;
-
-        $selectedAnswer = 0;
-        $selectedQuestion = 0;
 
         $user = Auth::getUser();
         $selectedExam = $this->getSelectedExam();
+        
+        $answersNumber    = 0;
+        $answerCorrect    = 0;
+        $selectedAnswer   = 0;
+        $selectedQuestion = 0;
 
         // get from field question and selected answer
         $questionID = Input::get('question_title');
         if (!empty($questionID)) {
-            $data = explode("_", $questionID);
-            $selectedQuestion = $data[0] ? $data[0] : 0;
-            $selectedAnswer = $data[1] ? $data[1] : 0;
+            $arr = explode("_", $questionID);
+            $selectedQuestion  = $arr[0] ? $arr[0] : 0;
+            $selectedAnswer    = $arr[1] ? $arr[1] : 0;
         }
 
         // Check the answer
@@ -220,7 +215,7 @@ class ExamTask extends ComponentBase
                 foreach ($questions['answers'] as $ansKey => $answer) {
                     if ($selectedAnswer == $answer['answer_number']) {
                         $answerCorrect = $answer['answer_correct'];
-                        $answerNumber = $answer['answer_number'];
+                        $answerNumber  = $answer['answer_number'];
                     }
                 }
             }
@@ -244,13 +239,13 @@ class ExamTask extends ComponentBase
         if (!$answeredQuestion) {
 
             Score::insert([
-                'created_at' => new DateTime('now'),
-                'question_num' => $selectedQuestion,
-                'is_correct' => $answerCorrect,
-                'answer_num' => $answerNumber,
-                'exam_id' => $selectedExam->id,
-                'user_id' => $user->id,
-                'try' => $userTry->try
+                'created_at'    => new DateTime('now'),
+                'question_num'  => $selectedQuestion,
+                'is_correct'    => $answerCorrect,
+                'answer_num'    => $answerNumber,
+                'exam_id'       => $selectedExam->id,
+                'user_id'       => $user->id,
+                'try'           => $userTry->try
             ]);
         }
 
@@ -263,5 +258,4 @@ class ExamTask extends ComponentBase
     {
         return Exam::where('exam_slug', $this->param('slug'))->first();
     }
-
 }

@@ -1,28 +1,23 @@
-{% set timer = ExamTask.fullTask.timer %}
-{% set examQuestions = ExamTask.fullTask.question|length %}
-{% set questionCount = ExamTask.fullTask.question_count %}
-
 <div class="content">
     <div class="content__inner">
         <div class="exam">
             <div class="exam__inner">
 
                 <div class="exam__progress">
-                    <div id="qst_progress">Question 1/{{questionCount}}</div>
+                    <div id="qst_progress">Question 1/{{fullTask.question_count}}</div>
                     <div id="qst_progress-bar" class="exam__progress-bar">
                         <span style="width: 10%;"></span>
                     </div>
                 </div>
 
                 <div id="question_slider">
-                    {% for question in ExamTask.fullTask.question|shuffle|slice(0, questionCount) %}
-                        {% set currentQuestion = loop.index %}
+                    {% for question in fullTask.question|shuffle|slice(0, fullTask.question_count) %}
                         {% set totalQuestion = loop.length %}
-                            <form id="exam_form_{{currentQuestion}}" data-request="onCheckQuestion" data-read-flash data-request-success="var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);" data-request-data="id:{{currentQuestion}}">
+                            <form id="exam_form_{{loop.index}}" data-request="onCheckQuestion" data-read-flash data-request-success="var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);" data-request-data="id:{{question.questionNumber}}">
                                 <div class="question">
 
                                     <div class="question__header">
-                                        <div class="question__title">Test {{ExamTask.fullTask.id}}, <b>Question {{currentQuestion}} / {{totalQuestion}}</b></div>
+                                        <div class="question__title">Test {{fullTask.id}}, <b>Question {{loop.index}} / {{totalQuestion}}</b></div>
                                         <div class="question__text">
                                             <p>{{question.question_title | raw}}</p>
                                         </div>
@@ -31,8 +26,8 @@
                                     <div class="question__answers">
                                         {% for answer in question.answers %}
                                             <div class="radio">
-                                                <input class="radio__input" type="radio" name="question_title" id="option_{{currentQuestion}}_{{answer.answer_number}}" value="{{currentQuestion}}_{{answer.answer_number}}">
-                                                <label class="radio__label" for="option_{{currentQuestion}}_{{answer.answer_number}}" id="ans_{{currentQuestion}}_{{answer.answer_number}}">
+                                                <input class="radio__input" type="radio" name="question_title" id="option_{{question.questionNumber}}_{{answer.answer_number}}" value="{{question.questionNumber}}_{{answer.answer_number}}">
+                                                <label class="radio__label" for="option_{{question.questionNumber}}_{{answer.answer_number}}" id="ans_{{question.questionNumber}}_{{answer.answer_number}}">
                                                     {{answer.answer_title}}
                                                 </label>
                                             </div>
@@ -40,15 +35,15 @@
                                     </div>
 
                                 </div><!-- /.question -->
-                                <input type="hidden" id="qst_num" value="{{currentQuestion}}">
-                                <input type="hidden" id="qst_total_num" value="{{questionCount}}">
+                                <input type="hidden" id="qst_num" value="{{loop.index}}">
+                                <input type="hidden" id="qst_total_num" value="{{fullTask.question_count}}">
                             </form>
                     {% endfor %}
                 </div><!-- /#question_slider -->
 
                 <div class="exam__timer">
 
-                    <div> Time left <span id="timer" data-countdown="{{ExamTask.timer}}"></span> sec.</div>
+                    <div> Time left <span id="timer" data-countdown="{{timer}}"></span> sec.</div>
 
                     <div class="exam__timer-inner">
                         <div class="exam__timer-progress" id="timer-progress">
