@@ -1,0 +1,6 @@
+.category__link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 7px 55px 7px 13px;
+}
