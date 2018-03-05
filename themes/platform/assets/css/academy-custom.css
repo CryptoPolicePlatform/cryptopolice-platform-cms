@@ -4,3 +4,7 @@
     align-items: center;
     padding: 7px 55px 7px 13px;
 }
+
+.category__link:hover, .category__link:focus {
+    text-decoration: none;
+}

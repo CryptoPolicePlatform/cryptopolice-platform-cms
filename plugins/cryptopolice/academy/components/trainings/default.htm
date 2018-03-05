@@ -15,7 +15,7 @@
     <ul class="courses">
         {% for trainingcat in trainings %}
             <li class="courses__item">
-                <a class="courses__link watched" href="{{ 'trainings'|page({slug: trainingcat.slug}) }}">
+                <a class="category__link" href="{{ 'trainings'|page({slug: trainingcat.slug}) }}">
                     <span class="courses__num">#<b> {{ loop.index }}</b></span>
                     <span class="courses__title">{{ trainingcat.title }}</span>
                 </a>
