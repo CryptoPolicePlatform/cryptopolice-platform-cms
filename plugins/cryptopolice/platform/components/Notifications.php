@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
+use CryptoPolice\Platform\Models\Notification;
 use DB, Auth;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
@@ -28,19 +29,12 @@ class Notifications extends ComponentBase
     public function getNotifyList()
     {
 
-        return DB::table('cryptopolice_platform_notifications AS notify')
-            ->leftJoin('cryptopolice_platform_users_notifications as users_notify', function ($join) {
-                $join->on('notify.id', '=', 'users_notify.notification_id')
-                    ->where('users_notify.user_id', Auth::getUser()->id);
-            })
-            ->where('notify.status', 1)
-            ->where('notify.announcement_at', '<', Carbon::now()->toDateTimeString())
-            // Get notification that defined for all users
-            ->where('notify.user_id', 0)
-            // Get notification that defined only for current user
-            ->orWhere('notify.user_id', Auth::getUser()->id)
-            ->select('notify.*', 'users_notify.user_id', 'users_notify.notification_id')
-            ->orderBy('notify.created_at', 'desc')
+        return Notification::with('users_notifications')
+            ->where('status', 1)
+            ->where('announcement_at', '<', Carbon::now()->toDateTimeString())
+            ->where('user_id', 0)
+            ->orWhere('user_id', Auth::getUser()->id)
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 

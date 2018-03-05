@@ -4,18 +4,28 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+        required: 1
     announcement_at:
-        label: Announcement DateTime
+        label: 'Announcement DateTime'
         span: auto
         type: datepicker
+        required: 1
     description:
         label: Description
         oc.commentPosition: ''
         span: full
         size: huge
         type: richeditor
+        required: 1
     status:
         label: Status
         span: auto
         default: 1
         type: switch
+    user_id:
+        label: For
+        options:
+            - 'For all'
+        span: auto
+        default: '0'
+        type: dropdown

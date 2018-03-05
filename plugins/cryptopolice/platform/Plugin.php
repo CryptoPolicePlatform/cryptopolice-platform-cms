@@ -137,6 +137,12 @@ class Plugin extends PluginBase
                     'table'     => 'cryptopolice_platform_community_posts',
                     'key'       => 'user_id',
                 ],
+
+                'userNotifications' => [
+                    'CryptoPolice\Platform\Models\Notification',
+                    'table'     => 'cryptopolice_platform_notifications',
+                    'key'       => 'user_id',
+                ],
             ];
         });
 

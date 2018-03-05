@@ -16,6 +16,10 @@
                     {{ notify.description|raw }}
                 </p>
             </div>
+        {% else %}
+            <div class="issues__item">
+                No new notifications
+            </div>
         {% endfor %}
     </div>
 </div>
