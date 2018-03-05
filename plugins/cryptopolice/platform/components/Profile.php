@@ -40,10 +40,9 @@ class Profile extends ComponentBase
         $this->page['bounty_registrations']     = $this->getUsersBountyRegistrations();
        
         // Academy Statistic
-        $this->page['exam_counst']              = $this->getExamCount();
         $this->page['training_count']           = $this->getTrainingCount();
         $this->page['training_viewed']          = $this->getUsersViewedTrainings();
-        $this->page['exam_scores']              = $this->getExamsStat();
+        $this->page['exam_scores']              = $this->getExamScores();
     }
 
     public function getPercentageDifference($amount, $first, $second) {
@@ -124,11 +123,42 @@ class Profile extends ComponentBase
         return Exam::count();
     }
 
-    public function getExamsStat() {
-        return FinalScore::with('exam')
+    public function getExamScores()
+    {
+
+        $exams = FinalScore::with('exam')
             ->where('user_id', Auth::getUser()->id)
             ->get();
+
+        $this->page['exam_list'] = $this->getUniqueExamList($exams);
+
+        return $exams;
     }
+
+    public function getUniqueExamList($exams)
+    {
+
+        $buf = [];
+        $uniqueExamList = [];
+
+        foreach ($exams as $exam) {
+            if(isset($exam->exam_id)) {
+                array_push($buf, $exam->exam_id);
+            }
+        }
+
+        foreach (array_unique($buf) as $key => $val) {
+            if (isset($exams[$key]->exam->exam_title)) {
+                array_push($uniqueExamList,  [
+                    'id'    => $exams[$key]->exam->id,
+                    'title' => $exams[$key]->exam->exam_title
+                ]);
+            }
+        }
+
+        return $uniqueExamList;
+    }
+
     public function getTrainingCount() {
         return Training::count(); 
     }
