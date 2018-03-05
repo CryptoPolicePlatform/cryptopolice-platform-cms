@@ -26,7 +26,7 @@
     </ul>
 {% endif %}
 
-{% if trainings|length == 10 %}
+{% if trainings.lastPage > 1 %}
     <div class="courses__footer">
         <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>
         <a class="btn" href="{{ trainings.nextPageUrl|raw }}">next section</a>

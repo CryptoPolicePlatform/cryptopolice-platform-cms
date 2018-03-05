@@ -50,7 +50,6 @@ class Trainings extends ComponentBase
                 ->orderBy('sort_order', 'asc')
                 ->paginate(10);
         }
-
         $this->page['trainings'] = $trainings;
     }
 

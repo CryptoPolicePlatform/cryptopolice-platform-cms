@@ -195,8 +195,8 @@ class ExamTask extends ComponentBase
 
         $user = Auth::getUser();
         $selectedExam = $this->getSelectedExam();
-        
-        $answersNumber    = 0;
+
+        $answerNumber    = 0;
         $answerCorrect    = 0;
         $selectedAnswer   = 0;
         $selectedQuestion = 0;
