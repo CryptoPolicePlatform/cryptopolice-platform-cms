@@ -335,7 +335,7 @@ class UsersCampaign extends ComponentBase
     {
         $notify = new Notification();
         $notify->user_id = $this->user_id;
-        $notify->title = 'Registration in CryptoPolice bounty campaign';
+        $notify->title = 'Registration in CryptoPolice '.$campaignTitle.' bounty campaign';
         $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br><strong>I registered to CryptoPolice - ' . $campaignTitle . '<br> My registration code is ' . $code . '</strong>';
         $notify->user_id = $userID;
         $notify->save();

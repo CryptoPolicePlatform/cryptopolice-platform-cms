@@ -29,35 +29,36 @@ class BountyRegistrations extends Controller
 
     public function formAfterSave($model)
     {
-        $this->addUsersNotification($model);
-        $this->sendMail($model);
+        if ($model->approval_type && $model->btc_status) {
+            $this->addUsersNotification($model);
+            $this->sendMail($model);
+        }
     }
 
     public function addUsersNotification($model)
     {
+        $user = User::where('id', $model->user_id)->first();
         $campaign = Bounty::where('id', $model->bounty_campaigns_id)->first();
 
         $notify = new Notification();
-        $notify->user_id = $this->user_id;
-        $notify->title = 'Thank you for your registration in CryptoPolice ' . $campaign->title . ' Bounty campaign';
+        $notify->user_id = $user->id;
+        $notify->title = 'Thank you for your registration in CryptoPolice ' . $campaign->title . ' ounty campaign';
         $notify->description = 'Now you can make you reports basing on the conditions of the campaign';
         $notify->save();
     }
 
     public function sendMail($model)
     {
-        if ($model->approval_type && $model->btc_status) {
-            $user = User::where('id', $model->user_id)->first();
+        $user = User::where('id', $model->user_id)->first();
 
-            $vars = [
-                'name' => $user->nickname,
-                'mail' => $user->email
-            ];
+        $vars = [
+            'name' => $user->nickname,
+            'mail' => $user->email
+        ];
 
-            Mail::send('cryptopolice.bounty::mail.registration', $vars, function ($message) use ($user) {
-                $message->to($user->email, $user->nickname)->subject('Bounty Campaign Registration');
-            });
-            Flash::success('REGISTRATION Mail & notification for [' . $user->email . '] has been send');
-        }
+        Mail::send('cryptopolice.bounty::mail.registration', $vars, function ($message) use ($user) {
+            $message->to($user->email, $user->nickname)->subject('Bounty Campaign Registration');
+        });
+        Flash::success('REGISTRATION Mail & notification for [' . $user->email . '] has been send');
     }
 }
