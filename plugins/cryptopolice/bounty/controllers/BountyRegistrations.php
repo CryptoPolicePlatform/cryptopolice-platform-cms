@@ -42,7 +42,7 @@ class BountyRegistrations extends Controller
 
         $notify = new Notification();
         $notify->user_id = $user->id;
-        $notify->title = 'Thank you for your registration in CryptoPolice ' . $campaign->title . ' ounty campaign';
+        $notify->title = 'Thank you for your registration in CryptoPolice ' . $campaign->title . ' bounty campaign';
         $notify->description = 'Now you can make you reports basing on the conditions of the campaign';
         $notify->save();
     }

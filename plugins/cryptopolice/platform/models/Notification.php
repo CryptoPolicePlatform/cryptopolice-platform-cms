@@ -20,8 +20,7 @@ class Notification extends Model
 
     public $rules = [
         'title'             => 'required|min:0|max:255',
-        'description'       => 'required',
-        'announcement_at'   => 'required',
+        'description'       => 'required'
     ];
 
     public $hasMany = [
