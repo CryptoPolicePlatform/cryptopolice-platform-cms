@@ -12,7 +12,12 @@ class Exam extends Model
     /**
      * @var array Validation rules
      */
+
     public $rules = [
+        'exam_description'  => 'required|min:0|max:255',
+        'exam_title'        => 'required|min:0|max:255',
+        'retake_time'       => 'required|numeric',
+        'timer'             => 'required|numeric',
     ];
 
     protected $jsonable = ['question'];
