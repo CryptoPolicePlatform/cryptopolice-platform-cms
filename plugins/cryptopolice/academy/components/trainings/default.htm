@@ -13,7 +13,7 @@
             </li>
         {% endfor %}
     </ul>
-{% else%}
+{% else %}
     <ul class="courses">
         {% for trainingcat in trainings %}
             <li class="courses__item">
@@ -29,6 +29,7 @@
         {% endfor %}
     </ul>
 {% endif %}
+
 {% if trainings.lastPage > 1 %}
     <div class="courses__footer">
         <a class="btn" href="{{ trainings.previousPageUrl|raw }}">previous section</a>
@@ -36,5 +37,15 @@
     </div>
     <div class="courses__pages">
         {{ trainings.currentPage|raw }}/{{ trainings.lastPage|raw }}
+    </div>
+{% endif %}
+
+{% if this.param.slug %}
+    <div class="courses__footer  text-center">
+        <a class="btn" href="{{'trainings'|page({ slug: '' })}}">back to category list</a>
+    </div>
+{% else %}
+    <div class="courses__footer  text-center">
+        <a class="btn" href="{{'academy'|page}}">back to academy</a>
     </div>
 {% endif %}

@@ -1774,6 +1774,14 @@ th {
     content: "";
 }
 
+.fa-steemit:before {
+    content: "\f2e1";
+}
+
+.fa-file:before {
+    content: "";
+}
+
 .fa-file:before {
     content: "";
 }

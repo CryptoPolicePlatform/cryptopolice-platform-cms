@@ -222,7 +222,7 @@ class Profile extends ComponentBase
 
             $user = Auth::getUser();
 
-            $rules['nickname'] = 'required|min:0|max:160';
+            $rules['nickname'] = 'required|min:0|max:160|unique:users';
 
             $validator = Validator::make([
                 'nickname' => post('nickname')
