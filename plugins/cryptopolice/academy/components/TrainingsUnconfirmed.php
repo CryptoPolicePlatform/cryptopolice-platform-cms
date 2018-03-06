@@ -1,8 +1,6 @@
 <?php namespace CryptoPolice\Academy\Components;
 
-use Auth;
-use Redirect;
-use Response;
+use Auth, Redirect, Response;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Academy\Models\Training;
 
@@ -21,9 +19,11 @@ class TrainingsUnconfirmed extends ComponentBase
 
     public function onRun()
     {
-        $training = Training::where('status','=','0')->orderBy('likes','desc')->paginate(10);
+        $training = Training::where('status','=','0')
+            ->orderBy('likes','desc')
+            ->paginate(10);
        
-        if($training->isEmpty()) {
+        if($training) {
            return $this->controller->run('404');
         } else {
             $this->trainingsUnc = $training;

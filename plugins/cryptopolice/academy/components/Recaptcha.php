@@ -18,10 +18,10 @@ class Recaptcha extends ComponentBase
     public static function verifyCaptcha()
     {
 
-        $secret = Settings::get('recaptcha_key');
-        $response = post('g-recaptcha-response');
-        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
-        $captcha_success = json_decode($verify);
+        $secret             = Settings::get('recaptcha_key');
+        $response           = post('g-recaptcha-response');
+        $verify             = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+        $captcha_success    = json_decode($verify);
 
         if ($captcha_success->success == false) {
             throw new ValidationException([

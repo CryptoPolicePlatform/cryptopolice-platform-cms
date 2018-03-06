@@ -6,6 +6,7 @@
             {% for registered in registeredUsersCampaign %}
                 <div class="issues__item  issues__item--history">
                     <div class="issues__type">#{{registered.bounty.title|upper|slice(0, 2)}}</div>
+
                     <div class="issues__title">
                         {% if registered.status >= 1 %}
                             <a class="bounty_link_title" href="{{'bounty-campaign'|page({id: registered.bounty.id, slug: registered.bounty.slug})}}">
@@ -15,6 +16,7 @@
                             {{ registered.bounty.title }} Campaign
                         {% endif %}
                     </div>
+
                     <div class="issues__view">
                         {% if registered.status >= 1 %}
                             <a href="{{'bounty-campaign'|page({id: registered.bounty.id, slug: registered.bounty.slug})}}">View details</a>
@@ -22,6 +24,7 @@
                             View details
                         {% endif %}
                     </div>
+
                     <div class="issues__amount">
                         <span class="text-orange">
                             {% if registered.reward_type is not null %} {{ registered.given_reward }} {% if registered.reward_type %} STAKES {% else %} OFC {% endif %} {% else %} 0 {% endif %}

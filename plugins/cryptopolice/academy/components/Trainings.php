@@ -1,10 +1,6 @@
 <?php namespace CryptoPolice\Academy\Components;
 
-
-use Auth;
-use Flash;
-use Redirect;
-use Response;
+use Auth, Flash, Redirect, Response;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Academy\Models\Training;
 use CryptoPolice\Academy\Models\TrainingView;
@@ -18,14 +14,14 @@ class Trainings extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Training List',
-            'description' => 'Training List of tasks.'
+            'name'          => 'Training List',
+            'description'   => 'Training List of tasks.'
         ];
     }
 
     public function onRun()
     {
-        $this->slug = $slug = $this->param('slug');
+        $this->page['slug'] = $slug = $this->param('slug');
 
         if ($slug) {
 
@@ -36,7 +32,6 @@ class Trainings extends ComponentBase
             $trainings = Training::leftJoin('cryptopolice_academy_training_views as views', function ($join) {
                 $join->on('cryptopolice_academy_trainings.id', '=', 'views.training_id')
                     ->where('views.user_id', Auth::getUser()->id);
-
             })
                 ->select('cryptopolice_academy_trainings.*', 'views.training_id as watched')
                 ->where('category_id', $category_id)
@@ -56,13 +51,15 @@ class Trainings extends ComponentBase
     public function onTrainingCheck()
     {
 
-        $user = Auth::getUser();
-        $view = TrainingView::where('user_id', $user->id)->where('training_id', post('id'))->get();
+        $trainingViews = TrainingView::where('user_id', Auth::getUser()->id)
+            ->where('training_id', post('id'))
+            ->get();
 
-        if ($view->isEmpty()) {
+        if ($trainingViews->isEmpty()) {
+
             TrainingView::insert([
-                'user_id' => $user->id,
-                'training_id' => post('id')
+                'user_id'       => Auth::getUser()->id,
+                'training_id'   => post('id')
             ]);
         }
 

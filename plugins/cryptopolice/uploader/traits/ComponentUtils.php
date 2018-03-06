@@ -122,8 +122,6 @@ trait ComponentUtils
         }
 
         try {
-            
-            // Recaptcha::verifyCaptcha();
 
             if (!Input::hasFile('file_data')) {
                 throw new ApplicationException('File missing from request');

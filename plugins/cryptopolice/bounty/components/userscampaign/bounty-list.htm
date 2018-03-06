@@ -5,13 +5,25 @@
         <div class="issues">
             {% for bounty in bountyList %}
                 <div class="issues__item  issues__item--history">
+
                     <div class="issues__type">#{{bounty.title|upper|slice(0, 2)}}</div>
+
                     <div class="issues__title">
-                    {% if bounty.status  >= 1 %} <a class="bounty_link_title" href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">{{ bounty.title }} Campaign</a> {% else %} {{ bounty.title }} Campaign {% endif %}
+                        {% if bounty.status  >= 1 %}
+                            <a class="bounty_link_title" href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">{{ bounty.title }} Campaign</a>
+                        {% else %}
+                            {{ bounty.title }} Campaign
+                        {% endif %}
                     </div>
+
                     <div class="issues__view">
-                        {% if bounty.status >= 1 %} <a href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">View details</a> {% else %} View details {% endif %}
+                        {% if bounty.status >= 1 %}
+                            <a href="{{'bounty-campaign'|page({id: bounty.id, slug: bounty.slug})}}">View details</a>
+                        {% else %}
+                            View details
+                        {% endif %}
                     </div>
+
                     <div class="issues__amount">
                         <span class="text">{{ bounty.percentage }}%</span>
                     </div>

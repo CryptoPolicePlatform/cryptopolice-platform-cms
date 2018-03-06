@@ -8,6 +8,7 @@ use Session;
 use Redirect;
 use DateTime;
 use Validator;
+use Carbon\Carbon;
 use RainLab\User\Models\User;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Bounty\Models\Bounty;
@@ -46,7 +47,6 @@ class UsersCampaign extends ComponentBase
             $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
             $this->page['usersReports'] = $this->getUsersReports();
         }
-
 
     }
 
@@ -336,7 +336,8 @@ class UsersCampaign extends ComponentBase
         $notify = new Notification();
         $notify->user_id = $this->user_id;
         $notify->title = 'Registration in CryptoPolice '.$campaignTitle.' bounty campaign';
-        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br><strong>I registered to CryptoPolice - ' . $campaignTitle . '<br> My registration code is ' . $code . '</strong>';
+        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br><strong>I registered to CryptoPolice ' . $campaignTitle . 'campaign<br> My registration code is ' . $code . '</strong>';
+        $notify->announcement_at = Carbon::now();
         $notify->user_id = $userID;
         $notify->save();
     }

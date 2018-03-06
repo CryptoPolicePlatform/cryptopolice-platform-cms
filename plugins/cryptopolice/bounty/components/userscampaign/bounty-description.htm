@@ -2,12 +2,11 @@
     <div class="breadcrumbs">
         <a class="tabs__nav-item active" href="#anchor-1">Report List</a>
         {% if access is null and access is defined %}
-            <a class="tabs__nav-item active" href="#anchor-2">
-                {% if access is empty %} Registration {% else %} Report {% endif %}
-            </a>
+            <a class="tabs__nav-item active" href="#anchor-2"> {% if access is empty %} Registration {% else %} Report {% endif %} </a>
         {% endif %}
     </div>
 {% endif %}
+
 <div class="tabs__content">
     <div class="profile__card  mb-15">
         <h2>{{bounty.title|upper}} CAMPAIGN</h2>

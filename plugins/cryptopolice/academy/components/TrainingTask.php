@@ -3,7 +3,7 @@
 use Flash;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Academy\Models\Training;
-use CryptoPolice\Academy\Models\TrainingCategory as TrainingCategory;
+use CryptoPolice\Academy\Models\TrainingCategory;
 
 class TrainingTask extends ComponentBase
 {
@@ -11,8 +11,8 @@ class TrainingTask extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Training Task',
-            'description' => 'Training Task for officer.'
+            'name'          => 'Training Task',
+            'description'   => 'Training Task for officer.'
         ];
     }
 
@@ -26,8 +26,7 @@ class TrainingTask extends ComponentBase
 
         $categorySlug = TrainingCategory::where('id', $task->category_id)->value('slug');
 
-        $this->page['task'] = $task;
+        $this->page['task']         = $task;
         $this->page['categorySlug'] = $categorySlug;
     }
-
 }

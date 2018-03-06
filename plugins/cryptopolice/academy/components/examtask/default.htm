@@ -5,41 +5,39 @@
 
                 <div class="exam__progress">
                     <div id="qst_progress">Question 1/{{fullTask.question_count}}</div>
-                    <div id="qst_progress-bar" class="exam__progress-bar">
-                        <span style="width: 10%;"></span>
-                    </div>
+                    <div id="qst_progress-bar" class="exam__progress-bar"></div>
                 </div>
 
                 <div id="question_slider">
                     {% for question in fullTask.question|shuffle|slice(0, fullTask.question_count) %}
                         {% set totalQuestion = loop.length %}
-                            <form id="exam_form_{{loop.index}}" data-request="onCheckQuestion" data-read-flash data-request-success="var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);" data-request-data="id:{{question.questionNumber}}">
-                                <div class="question">
+                        <form id="exam_form_{{loop.index}}" data-request="onCheckQuestion" data-read-flash data-request-success="var x = data[2] == 0 ? 'red' : 'green';$('#ans_'+data[0]+'_'+data[1]).css('color',x);" data-request-data="id:{{question.questionNumber}}">
+                            <div class="question">
 
-                                    <div class="question__header">
-                                        <div class="question__title">Test {{fullTask.id}}, <b>Question {{loop.index}} / {{totalQuestion}}</b></div>
-                                        <div class="question__text">
-                                            <p>{{question.question_title | raw}}</p>
+                                <div class="question__header">
+                                    <div class="question__title"> Test {{fullTask.id}}, <b>Question {{loop.index}} / {{totalQuestion}}</b> </div>
+                                    <div class="question__text"> <p>{{question.question_title | raw}}</p> </div>
+                                </div>
+
+                                <div class="question__answers">
+                                    {% for answer in question.answers %}
+                                        <div class="radio">
+                                            <input class="radio__input" type="radio" name="question_title" id="option_{{question.questionNumber}}_{{answer.answer_number}}" value="{{question.questionNumber}}_{{answer.answer_number}}">
+                                            <label class="radio__label" for="option_{{question.questionNumber}}_{{answer.answer_number}}" id="ans_{{question.questionNumber}}_{{answer.answer_number}}">
+                                                {{answer.answer_title}}
+                                            </label>
                                         </div>
-                                    </div>
+                                    {%endfor%}
+                                </div>
 
-                                    <div class="question__answers">
-                                        {% for answer in question.answers %}
-                                            <div class="radio">
-                                                <input class="radio__input" type="radio" name="question_title" id="option_{{question.questionNumber}}_{{answer.answer_number}}" value="{{question.questionNumber}}_{{answer.answer_number}}">
-                                                <label class="radio__label" for="option_{{question.questionNumber}}_{{answer.answer_number}}" id="ans_{{question.questionNumber}}_{{answer.answer_number}}">
-                                                    {{answer.answer_title}}
-                                                </label>
-                                            </div>
-                                        {%endfor%}
-                                    </div>
+                            </div>
 
-                                </div><!-- /.question -->
-                                <input type="hidden" id="qst_num" value="{{loop.index}}">
-                                <input type="hidden" id="qst_total_num" value="{{fullTask.question_count}}">
-                            </form>
+                            <input type="hidden" id="qst_num" value="{{loop.index}}">
+                            <input type="hidden" id="qst_total_num" value="{{fullTask.question_count}}">
+
+                        </form>
                     {% endfor %}
-                </div><!-- /#question_slider -->
+                </div>
 
                 <div class="exam__timer">
 
@@ -51,8 +49,7 @@
                         </div>
                     </div>
 
-                    <a style="display: none;" data-request="onNextQuestion" data-request-success="$( '.question__next' ).css('display','none');$( '.question__check' ).css('display','');"
-                       class="btn question__next" id="next_question" href="#">next question</a>
+                    <a style="display: none;" data-request="onNextQuestion" data-request-success="$( '.question__next' ).css('display','none');$( '.question__check' ).css('display','');" class="btn question__next" id="next_question" href="#">next question</a>
 
                     <form data-request="onCompleteTask" class="question__complete">
                         <button class="btn">Complete Task</button>
@@ -66,8 +63,7 @@
                 <div class="remodal" id="endtime_modal" role="dialog">
                     <div class="remodal__inner">
                         <div class="remodal__title">Scamer stole your money!</div>
-                        <div class="remodal__text">Take it easy, its just a friendly joke.<br>You did not answer in time!
-                        </div>
+                        <div class="remodal__text">Take it easy, its just a friendly joke.<br>You did not answer in time!</div>
                     </div>
                     <a class="btn" data-request="onCompleteTask" href="{{'exam'|page}}">exit and try again</a>
                 </div>

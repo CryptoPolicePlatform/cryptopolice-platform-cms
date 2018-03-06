@@ -8,3 +8,7 @@
 .category__link:hover, .category__link:focus {
     text-decoration: none;
 }
+
+#timer-bar {
+    width: 0;
+}

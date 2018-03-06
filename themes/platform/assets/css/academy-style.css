@@ -284,7 +284,7 @@ body {
 }
 
 a {
-    color: #9e4b8c;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -2168,7 +2168,7 @@ html.remodal-is-locked {
 .courses__content {
   margin-bottom: 35px;
   color: #fff;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 300; }
   .courses__content ul, .courses__content ol {
     margin: 0 0 15px;

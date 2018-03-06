@@ -29,14 +29,18 @@ class Notifications extends ComponentBase
     public function getNotifyList()
     {
 
-        return Notification::with('users_notifications')
+        return Notification::leftJoin('cryptopolice_platform_users_notifications as users_notifications', function ($join) {
+                $user = Auth::getUser();
+                $join->on('cryptopolice_platform_notifications.id', '=', 'users_notifications.notification_id')
+                    ->where('users_notifications.user_id', $user->id);
+            })
             ->where('status', 1)
             ->where('announcement_at', '<', Carbon::now()->toDateTimeString())
-            ->where('user_id', 0)
-            ->orWhere('user_id', Auth::getUser()->id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('cryptopolice_platform_notifications.created_at', 'desc')
+            ->select('cryptopolice_platform_notifications.*', 'users_notifications.user_id', 'users_notifications.notification_id')
             ->get();
     }
+
 
 
     public function onCheckNotification()

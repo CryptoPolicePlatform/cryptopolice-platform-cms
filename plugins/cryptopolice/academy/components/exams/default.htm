@@ -1,49 +1,46 @@
 <ul class="courses">
-    {% for exam in Exams.exams %}
-    <li class="courses__item">
-        {% set break = false %}
+    {% for exam in exams %}
+        <li class="courses__item">
 
-            {% for score in Exams.scores if not break %}
+            {% set break = false %}
+            {% for score in scores if not break %}
                 {% if score.exam_id == exam.id %}
-                {% set break = true %}
-                <a data-request-flash data-request="onExamClick"
-                data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link watched">
+                    {% set break = true %}
                 {% endif %}
             {% endfor %}
 
-            {% if not break %}
-                <a data-request-flash data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link">
-            {% endif %}
+            <a data-request-flash data-request="onExamClick" data-request-data="id: '{{exam.id}}', slug:'{{exam.exam_slug}}'" class="courses__link {% if break %}watched{% endif %}">
+                <span class="courses__num">#<b>{{ loop.index }}</b></span>
+                <span class="courses__title">{{exam.exam_title}}</span>
 
-            <span class="courses__num">#<b>{{ loop.index }}</b></span>
-            <span class="courses__title">{{exam.exam_title}}</span>
-
-            {% set break = false %}
-                {% for score in Exams.scores if not break %}
-                    {% if score.exam_id == exam.id %}
-                        {% set break = true %}
+                {% set break = false %}
+                    {% for score in scores if not break %}
+                        {% if score.exam_id == exam.id %}
+                            {% set break = true %}
                             {% if score.complete_status == 1 %}
-                            <span class="courses__score  in-progress"><span> {{score.score}}/{{ exam.question_count }}</span></span>
+                                <span class="courses__score  in-progress"><span> {{score.score}}/{{ exam.question_count }}</span></span>
                             {% else %}
-                            <span class="courses__score  in-progress"><span> In Progress </span></span>
+                                <span class="courses__score  in-progress"><span> In Progress </span></span>
                             {% endif %}
-                    {% endif %}
-                {% endfor %}
-            {% if not break %}
-            <span class="courses__score"><span> 0 / {{ exam.question_count }}</span></span>
-            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% if not break %}
+                    <span class="courses__score"><span> 0 / {{ exam.question_count }}</span></span>
+                {% endif %}
 
-        </a>
-    </li>
+            </a>
+        </li>
     {% else %}
-    <li><h4 class="content__title">Nothing  here</h4></li>
+        <li>
+            <h4 class="content__title">Nothing  here</h4>
+        </li>
     {% endfor %}
 </ul>
 
-{% if Exams.exams|length == 10 %}
-    <div class="courses__pages">{{Exams.exams.currentPage|raw}}/{{ Exams.exams.lastPage|raw }}</div>
+{% if exams|length == 10 %}
+    <div class="courses__pages">{{exams.currentPage|raw}}/{{ exams.lastPage|raw }}</div>
     <div class="courses__footer">
-        <a class="btn" href="{{ Exams.exams.previousPageUrl|raw }}">previous exams</a>
-        <a class="btn" href="{{ Exams.exams.nextPageUrl|raw }}">next exams</a>
+        <a class="btn" href="{{ exams.previousPageUrl|raw }}"> previous exams </a>
+        <a class="btn" href="{{ exams.nextPageUrl|raw }}"> next exams </a>
     </div>
 {% endif %}

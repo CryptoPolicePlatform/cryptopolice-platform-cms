@@ -11,8 +11,6 @@ use CryptoPolice\Academy\Models\FinalScore;
 
 class Exams extends ComponentBase
 {
-    public $exams;
-    public $scores;
 
     public function componentDetails()
     {
@@ -21,7 +19,6 @@ class Exams extends ComponentBase
             'description' => 'List of exams for officers.'
         ];
     }
-
 
     /**
      * Displays a list of available exams.
@@ -35,15 +32,12 @@ class Exams extends ComponentBase
         $examList = Exam::paginate(10);
 
         if ($examList) {
-            $this->exams = $examList;
-            $this->scores = FinalScore::where('user_id', $user->id)
+            $this->page['exams']    = $examList;
+            $this->page['scores']   = FinalScore::where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
-        } else {
-            $this->exams = false;
         }
     }
-
 
     /**
      * When user clicks on exam link.
@@ -55,25 +49,23 @@ class Exams extends ComponentBase
     public function onExamClick()
     {
 
-        $user = Auth::getUser();
-
         $selectedExam = Exam::where('id', post('id'))->first();
 
-        $selectedExamStatus = FinalScore::where('exam_id', post('id'))
-            ->where('user_id', $user->id)
+        $lastScore = FinalScore::where('exam_id', post('id'))
+            ->where('user_id', Auth::getUser()->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
-        // if latest exam not passed
-        if (isset($selectedExamStatus->complete_status) && ($selectedExamStatus->complete_status == '0')) {
+        // If latest exam not passed
+        if (isset($lastScore->complete_status) && $lastScore->complete_status == '0') {
             return Redirect::to('/exam-task/' . post('slug'));
         }
 
-        // if can start new one
-        if (isset($selectedExamStatus->complete_status) && ($selectedExamStatus->complete_status == '1')) {
+        // If can start new one
+        if (isset($lastScore->complete_status) && $lastScore->complete_status == '1') {
 
             $start = new DateTime('now');
-            $end = new DateTime($selectedExamStatus->completed_at);
+            $end = new DateTime($lastScore->completed_at);
             $left = $start->getTimestamp() - $end->getTimestamp();
 
             if ($left < $selectedExam->retake_time) {
@@ -102,5 +94,4 @@ class Exams extends ComponentBase
         $seconds = $time % 60;
         return $this->formatDate($hours) . ":" . $this->formatDate($minutes) . ":" . $this->formatDate($seconds);
     }
-
 }
