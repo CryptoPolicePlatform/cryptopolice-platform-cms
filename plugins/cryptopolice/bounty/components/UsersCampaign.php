@@ -221,17 +221,22 @@ class UsersCampaign extends ComponentBase
     public function prepareValidationRules($query, $actionType)
     {
 
-        $data = input();
-
         // create array of validation rules
-        foreach ($query->fields as $key => $value) {
+        foreach ($query->fields as $value) {
             if ($value['action_type'] == $actionType) {
                 $rules[$value['name']] = $value['regex'];
+                if($value['multiple']) {
+                    foreach(input() as $key => $filed) {
+                        if(strpos($key,$value['name'].'_') !== false) {
+                            $rules[$key] = $value['regex'];
+                        }
+                    }
+                }
             }
         }
 
         // check validation
-        $validator = Validator::make($data, $rules);
+        $validator = Validator::make(input(), $rules);
         if ($validator->fails()) {
             Flash::error($validator->messages()->first());
         } else {
