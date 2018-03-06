@@ -110,7 +110,11 @@ class UsersCampaign extends ComponentBase
             ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
             ->Where(function ($query) {
                 if (!empty(post('status'))) {
-                    $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
+                    if(post('status') === 'user_reports') {
+                        $query->where('cryptopolice_bounty_user_reports.user_id', Auth::getUser()->id);
+                    } else {
+                        $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
+                    }
                 }
             })->get();
     }
