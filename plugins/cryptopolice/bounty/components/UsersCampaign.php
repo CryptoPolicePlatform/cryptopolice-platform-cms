@@ -91,7 +91,7 @@ class UsersCampaign extends ComponentBase
         foreach ($registrationData as $key => $reg) {
             $registrationData[$key]['given_reward'] = $reg->bountyReport->sum('given_reward');
             if (isset($reg->bountyReport[0])) {
-                $registrationData[$key]['reward_type'] = $reg->bountyReport[0]->reward->reward_type;
+                $registrationData[$key]['reward_type'] = $reg->bountyReport[ sizeof($reg->bountyReport) - 1 ]->reward->reward_type;
             } else {
                 $registrationData[$key]['reward_type'] = null;
             }

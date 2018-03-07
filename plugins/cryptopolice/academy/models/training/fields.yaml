@@ -28,8 +28,7 @@ fields:
         type: switch
     description:
         label: Description
+        size: giant
         span: full
-        size: large
-        oc.commentPosition: ''
         required: 1
         type: richeditor

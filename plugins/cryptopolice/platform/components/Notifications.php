@@ -36,6 +36,7 @@ class Notifications extends ComponentBase
             })
             ->where('status', 1)
             ->where('announcement_at', '<', Carbon::now()->toDateTimeString())
+            ->orWhere('announcement_at', null)
             ->orderBy('cryptopolice_platform_notifications.created_at', 'desc')
             ->select('cryptopolice_platform_notifications.*', 'users_notifications.user_id', 'users_notifications.notification_id')
             ->get();

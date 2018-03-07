@@ -39,11 +39,13 @@ class ExamTask extends ComponentBase
         $user = Auth::getUser();
         $selectedExam = $this->getSelectedExam();
 
-        // Get the status of a non-finished exam
-        $currentExamStatus = FinalScore::where('exam_id', $selectedExam->id)
+        $score = FinalScore::where('exam_id', $selectedExam->id)
             ->where('user_id', $user->id)
-            ->where('complete_status', '0')
-            ->first();
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Get the status of a non-finished exam
+        $currentExamStatus = $score->where('complete_status', '0')->first();
 
         // if non-finished exam
         if (($currentExamStatus)) {
@@ -73,10 +75,7 @@ class ExamTask extends ComponentBase
         } else {
 
             // Get the previous passed exam
-            $previousPassedExam = FinalScore::where('exam_id', $selectedExam->id)
-                ->where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
-                ->first();
+            $previousPassedExam = $score->first();
 
             if ($previousPassedExam) {
 
@@ -101,11 +100,7 @@ class ExamTask extends ComponentBase
             $completeAt->add(new DateInterval("PT{$selectedExam->timer}S"));
 
             // Get the number of the previous attempt
-            $try = FinalScore::where('exam_id', $selectedExam->id)
-                ->where('user_id', $user->id)
-                ->where('complete_status', '1')
-                ->orderBy('created_at', 'desc')
-                ->first();
+            $try = $score->where('complete_status', '1')->first();
 
             // if there was no previous attempt, so will be the first
             $try = isset($try->try) && !empty($try->try) ? $try->try + 1 : '1';
@@ -196,7 +191,7 @@ class ExamTask extends ComponentBase
         $user = Auth::getUser();
         $selectedExam = $this->getSelectedExam();
 
-        $answerNumber    = 0;
+        $answerNumber     = 0;
         $answerCorrect    = 0;
         $selectedAnswer   = 0;
         $selectedQuestion = 0;

@@ -22,6 +22,7 @@ class Users extends ComponentBase
         $users = User::with('avatar', 'groups')
             ->whereNotNull('users.last_seen')
             ->orderBy('last_seen', 'desc')
+            ->take(25)
             ->get();
 
         $this->page['users'] = $users;
