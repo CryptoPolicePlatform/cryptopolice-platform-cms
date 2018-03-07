@@ -46,8 +46,6 @@ class Plugin extends PluginBase
 
         // 0**** php /path/to/file/artisan schedule:run >> /dev/null 2>&1
 
-        trace_log('cron_score_task');
-
         $schedule->call(function () {
 
             $userScores = FinalScore::with('exam')
@@ -65,7 +63,7 @@ class Plugin extends PluginBase
                 }
             }
 
-        })->hourly()
+        })->everyMinute()
             ->name('final_scores')
             ->withoutOverlapping();
     }

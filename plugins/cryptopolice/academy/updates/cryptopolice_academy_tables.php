@@ -51,6 +51,12 @@ class CryptoPolicePlatformAcademyTables extends Migration
             });
         }
 
+        if (!Schema::hasColumns('users', ['btc_username'])) {
+            Schema::table('users', function ($table) {
+                $table->string('btc_username', 255)->nullable();
+            });
+        }
+
         if (!Schema::hasColumns('users', ['youtube_link'])) {
             Schema::table('users', function ($table) {
                 $table->string('youtube_link', 255)->nullable();

@@ -10,6 +10,8 @@
         <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.telegram_username}}">
     {% elseif field.name == 'bitcointalk_profile_link' %}
         <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.btc_link}}">
+    {% elseif field.name == 'youtube_chanel' %}
+        <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.youtube_link}}">
     {% elseif field.name == 'bitcointalk_username' %}
         <input class="input" type="{{ field.input_type }}" name="{{ field.name }}" placeholder="{{ field.description }}" value="{{user.btc_username}}">
     {% elseif field.name == 'full_name' %}

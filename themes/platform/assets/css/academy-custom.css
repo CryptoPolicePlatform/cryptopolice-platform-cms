@@ -20,3 +20,12 @@
 .academy_content {
     font-size: 14px;
 }
+
+.course_desc {
+    height:48px;
+}
+
+.grecaptcha-badge {
+    z-index: 101;
+}
+

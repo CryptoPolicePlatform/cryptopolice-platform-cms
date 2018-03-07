@@ -262,6 +262,7 @@ class Profile extends ComponentBase
                     'facebook_link'     => post('facebook_link'),
                     'youtube_link'      => post('youtube_link'),
                     'twitter_link'      => post('twitter_link'),
+                    'btc_username'      => post('btc_username'),
                     'btc_link'          => post('btc_link'),
                 ]);
 

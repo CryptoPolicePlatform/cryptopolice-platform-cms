@@ -94,6 +94,7 @@ class Plugin extends PluginBase
                 'facebook_link',
                 'youtube_link',
                 'twitter_link',
+                'btc_username',
                 'eth_address',
                 'nickname',
                 'btc_link',

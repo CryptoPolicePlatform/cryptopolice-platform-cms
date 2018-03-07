@@ -270,6 +270,11 @@
 .maintenance {
     text-align: center;
 }
+
 .tabs__item .profile__card {
-    float:none;
+    float: none;
+}
+
+.grecaptcha-badge {
+    z-index: 101;
 }
