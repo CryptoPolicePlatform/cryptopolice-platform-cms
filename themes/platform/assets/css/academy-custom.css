@@ -12,3 +12,11 @@
 #timer-bar {
     width: 0;
 }
+
+.academy_title {
+    font-size: 16px;
+}
+
+.academy_content {
+    font-size: 14px;
+}

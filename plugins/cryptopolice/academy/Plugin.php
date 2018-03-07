@@ -1,5 +1,7 @@
 <?php namespace CryptoPolice\Academy;
 
+use Carbon\Carbon;
+use CryptoPolice\Academy\Models\FinalScore;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -37,6 +39,33 @@ class Plugin extends PluginBase
     public function boot()
     {
 
+    }
+
+    public function registerSchedule($schedule)
+    {
+        // ***** php /path/to/file/artisan schedule:run >> /dev/null 2>&1
+
+        trace_log('cron_final_score');
+        $schedule->call(function () {
+
+            $userScores = FinalScore::with('exam')
+                ->where('created_at', '>', Carbon::now()->subMinutes('10'))
+                ->where('created_at', '<', Carbon::now())
+                ->where('complete_status', 0)
+                ->get();
+
+            foreach ($userScores as $score) {
+                if (Carbon::now()->greaterThan(Carbon::parse($score->completed_at))) {
+
+                    FinalScore::where('id', $score['id'])->update([
+                        'complete_status' => 1
+                    ]);
+                }
+            }
+
+        })->everyMinute()
+            ->name('final_scores')
+            ->withoutOverlapping();
     }
 
 }

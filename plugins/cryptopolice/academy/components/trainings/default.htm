@@ -3,7 +3,7 @@
         {% for training in trainings %}
             <li class="courses__item">
                 <a class="courses__link {% if training.watched is not null %}watched{% endif %}" data-request="onTrainingCheck" data-request-data="id: {{training.id}}, slug: '{{training.slug}}'">
-                    <span class="courses__num">#<b> {{ loop.index + (10 * (trainings.currentPage - 1)) }} </b></span>
+                    <span class="courses__num">#<b>{{ loop.index + (10 * (trainings.currentPage - 1)) }} </b></span>
                     <span class="courses__title">{{ training.title }}</span>
                 </a>
             </li>
@@ -18,7 +18,7 @@
         {% for trainingcat in trainings %}
             <li class="courses__item">
                 <a class="category__link" href="{{ 'trainings'|page({slug: trainingcat.slug}) }}">
-                    <span class="courses__num">#<b> {{ loop.index }}</b></span>
+                    <span class="courses__num">#<b>{{ loop.index }}</b></span>
                     <span class="courses__title">{{ trainingcat.title }}</span>
                 </a>
             </li>
