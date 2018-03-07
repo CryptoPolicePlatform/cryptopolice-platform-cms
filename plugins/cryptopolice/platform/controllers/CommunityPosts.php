@@ -1,7 +1,9 @@
 <?php namespace CryptoPolice\Platform\Controllers;
 
+use Carbon\Carbon;
 use Backend\Classes\Controller;
 use BackendMenu;
+use CryptoPolice\Platform\Models\Notification;
 
 class CommunityPosts extends Controller
 {
@@ -10,7 +12,7 @@ class CommunityPosts extends Controller
         'Backend\Behaviors\FormController',
         'Backend\Behaviors\ReorderController'
     ];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';
@@ -19,5 +21,22 @@ class CommunityPosts extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('CryptoPolice.Platform', 'menu', 'side-menu-item');
+    }
+
+    public function formAfterSave($model)
+    {
+        if ($model->pin) {
+            $this->addUNotification($model);
+        }
+    }
+
+    public function addUNotification($model)
+    {
+        $notify = new Notification();
+        $notify->title = $model->post_title;
+        $notify->description = $model->post_description;
+        $notify->announcement_at = Carbon::now();
+        $notify->user_id = 0;
+        $notify->save();
     }
 }
