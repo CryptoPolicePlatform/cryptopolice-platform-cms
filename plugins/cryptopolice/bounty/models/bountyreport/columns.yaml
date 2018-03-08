@@ -19,11 +19,11 @@ columns:
         select: title
         relation: bounty
     user_id:
-        label: 'Email & Name'
+        label: 'Email & Nickname'
         type: text
         searchable: true
         sortable: true
-        select: 'concat(''['',name,''] '', email)'
+        select: 'concat(''['',nickname,''] '', email)'
         relation: user
     rewards_id:
         label: 'Reward'

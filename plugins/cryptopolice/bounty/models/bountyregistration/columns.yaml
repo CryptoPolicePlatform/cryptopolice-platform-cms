@@ -38,7 +38,7 @@ columns:
         type: text
         searchable: true
         sortable: true
-        select: 'concat(''['',name,''] '', email)'
+        select: 'concat(''['',nickname,''] '', email)'
         relation: user
     created_at:
         label: Created At

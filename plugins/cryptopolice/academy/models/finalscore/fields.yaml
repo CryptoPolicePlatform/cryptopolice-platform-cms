@@ -5,7 +5,7 @@ fields:
         nameFrom: user
         span: left
         required: 1
-        select: 'concat(''['',name,''] '', email)'
+        select: 'concat(''['',nickname,''] '', email)'
         type: relation
     exam:
         label: 'Exam'

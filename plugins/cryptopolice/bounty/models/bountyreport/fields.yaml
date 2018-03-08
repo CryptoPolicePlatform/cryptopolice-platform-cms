@@ -10,7 +10,7 @@ fields:
         oc.commentPosition: ''
         nameFrom: name
         descriptionFrom: description
-        select: 'concat(''['',name,''] '', email)'
+        select: 'concat(''['',nickname,''] '', email)'
         span: auto
         type: relation
     userRegistration:

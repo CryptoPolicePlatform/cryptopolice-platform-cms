@@ -4,7 +4,7 @@ columns:
         type: text
         searchable: true
         sortable: true
-        select: 'concat(''['',name,''] '', email)'
+        select: 'concat(''['',nickname,''] '', email)'
         relation: user
     exam_id:
         label: Exam Title
