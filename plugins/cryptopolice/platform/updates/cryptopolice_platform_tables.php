@@ -101,14 +101,24 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             });
         }
 
+        if (!Schema::hasTable('cryptopolice_platform_scam_categories')) {
+            Schema::create('cryptopolice_platform_scam_categories', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->increments('id');
+                $table->string('title', 255)->nullable();
+            });
+        }
+
         if (!Schema::hasTable('cryptopolice_platform_scams')) {
 
             Schema::create('cryptopolice_platform_scams', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
                 $table->integer('user_id')->nullable();
+                $table->integer('category')->nullable();
                 $table->boolean('status')->default(0);
                 $table->string('title', 255)->nullable();
+                $table->string('url', 255)->nullable();
                 $table->string('description', 1000)->nullable();
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
@@ -117,7 +127,8 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
         }
     }
 
-    public function down() {
+    public function down()
+    {
 
     }
 }
