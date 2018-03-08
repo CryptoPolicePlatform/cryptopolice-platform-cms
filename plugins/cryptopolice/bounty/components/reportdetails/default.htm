@@ -52,10 +52,10 @@
                 <ul class="card__ava-list">
                     <li class="card__ava  card__ava--author"> Reward </li>
                     <li class="card__ava">
-                        {% if report.type %}
-                            {% if report.given_reward %} {{ report.given_reward }} OFC {% else %} 0 {% endif %}
-                        {% else %}
+                        {% if report.reward.reward_type %}
                             {% if report.given_reward %} {{ report.given_reward }} STAKES {% else %} 0 {% endif %}
+                        {% else %}
+                            {% if report.given_reward %} {{ report.given_reward }} OFC {% else %} 0 {% endif %}
                         {% endif%}
                     </li>
                 </ul>

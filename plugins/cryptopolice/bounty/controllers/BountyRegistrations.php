@@ -1,5 +1,6 @@
 <?php namespace CryptoPolice\Bounty\Controllers;
 
+use Carbon\Carbon;
 use Mail;
 use Flash;
 use BackendMenu;
@@ -44,6 +45,7 @@ class BountyRegistrations extends Controller
         $notify->user_id = $user->id;
         $notify->title = 'Thank you for your registration in CryptoPolice ' . $campaign->title . ' bounty campaign';
         $notify->description = 'Now you can make you reports basing on the conditions of the campaign';
+        $notify->announcement_at = Carbon::now();
         $notify->save();
     }
 

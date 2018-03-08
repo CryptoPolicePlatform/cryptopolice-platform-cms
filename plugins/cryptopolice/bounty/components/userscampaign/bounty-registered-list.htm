@@ -29,11 +29,7 @@
                         <span class="text-orange">
                             {% if registered.reward_type is not null and registered.given_reward %}
                                 {{ registered.given_reward }}
-                                    {% if registered.reward_type %}
-                                        STAKES
-                                    {% else %}
-                                        OFC
-                                    {% endif %}
+                                    {% if registered.reward_type %} STAKES {% else %} OFC {% endif %}
                             {% else %}
                                 0
                             {% endif %}
