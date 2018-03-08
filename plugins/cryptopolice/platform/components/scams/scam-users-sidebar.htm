@@ -1,0 +1,23 @@
+<div class="profile__sidebar">
+
+    {% if user.avatar.path %}
+        <img class="profile__ava" src="{{user.avatar.thumb(79, 79, {'mode' : 'crop'})}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% else %}
+        <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+    {% endif %}
+
+    <div class="profile__name">
+        {% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}
+    </div>
+
+    <div class="profile__block">
+        {% if user.name %} <p>Name: <b>{{ user.name }}</b></p> {% endif %}
+        {% if user.surname %} <p>Surname: <b>{{ user.surname }}</b></p> {% endif %}
+        <p>E-mail: <b>{{ user.email }}</b></p>
+    </div>
+
+    <div class="profile__block">
+        <p>Joined: <b>{{ user.created_at| date("m.d.Y") }}</b></p>
+        <p>Last seen: <b>{{ user.last_seen | date("m.d.Y H:i:s")}}</b></p>
+    </div>
+</div>
