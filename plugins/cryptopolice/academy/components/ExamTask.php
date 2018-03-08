@@ -150,7 +150,11 @@ class ExamTask extends ComponentBase
             ->where('complete_status', '0')
             ->first();
 
-        $try = $userTry->try;
+        if($userTry) {
+            $try = $userTry->try;
+        } else {
+            $try = 0;
+        }
 
         // get correct answers for current exam
         $scores = Score::where('user_id', $user->id)
