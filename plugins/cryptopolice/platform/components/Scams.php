@@ -30,8 +30,17 @@ class Scams extends ComponentBase
     public function getScamStatistic()
     {
         $scams = Scam::get();
-        $this->page['active'] = $scams->where('category', '1')->count();
-        $this->page['offline'] = $scams->where('category', '0')->count();
+
+        $this->page['phishing']     = $scams->where('category', 1)->count();
+        $this->page['scamming']     = $scams->where('category', 2)->count();
+
+        $this->page['active']       = $scams->where('status', 1)->count();
+        $this->page['offline']      = $scams->where('status', 0)->count();
+    }
+
+    public function onFilterScams()
+    {
+
     }
 
     public function onAddScam()
