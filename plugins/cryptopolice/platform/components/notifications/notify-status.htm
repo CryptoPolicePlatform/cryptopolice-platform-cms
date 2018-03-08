@@ -1,5 +1,5 @@
-{% if notify.notification_id is null and notify.user_id is null %}
-    <div class="issues__status-item  high">new</div>
-{% else %}
+{% for notify in notification %}
     <div class="issues__status-item  low">Reded</div>
-{% endif %}
+{% else %}
+    <div class="issues__status-item  high">new</div>
+{% endfor%}

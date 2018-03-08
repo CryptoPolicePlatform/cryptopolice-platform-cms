@@ -20,29 +20,33 @@ class Notifications extends ComponentBase
     public function onRun()
     {
         if (Auth::check()) {
+
             $notifications = $this->getNotifyList();
             $this->page['notifications'] = $notifications;
-            $this->page['notifyCount'] = $notifications->where('user_id', null)->where('notification_id', null)->count();
+
+            foreach ($notifications as $notify) {
+                if (!isset($notify->users_notifications[0]->user_id) && !isset($notify->users_notifications[0]->notification_id)) {
+                    $this->page['notifyCount'] += 1;
+                }
+            }
         }
     }
 
     public function getNotifyList()
     {
 
-        return Notification::leftJoin('cryptopolice_platform_users_notifications as users_notifications', function ($join) {
-                $user = Auth::getUser();
-                $join->on('cryptopolice_platform_notifications.id', '=', 'users_notifications.notification_id')
-                    ->where('users_notifications.user_id', $user->id);
-            })
-            ->where('status', 1)
+        $user = Auth::getUser();
+
+        return Notification::with(['users_notifications' => function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        }])
+            ->where('user_id', $user->id)
+            ->orWhere('user_id', 0)
             ->where('announcement_at', '<', Carbon::now()->toDateTimeString())
-            ->orWhere('announcement_at', null)
-            ->orderBy('cryptopolice_platform_notifications.created_at', 'desc')
-            ->select('cryptopolice_platform_notifications.*', 'users_notifications.user_id', 'users_notifications.notification_id')
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
             ->get();
     }
-
-
 
     public function onCheckNotification()
     {
@@ -60,9 +64,9 @@ class Notifications extends ComponentBase
             $model->save();
         }
 
-        $this->page['notify'] = [
-            'notification_id'   => $user->id,
-            'user_id'           => post('id')
+        $this->page['notification'] = [
+            'notification_id' => $user->id,
+            'user_id' => post('id')
         ];
     }
 
