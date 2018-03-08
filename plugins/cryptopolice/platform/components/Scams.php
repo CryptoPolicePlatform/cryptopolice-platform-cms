@@ -17,10 +17,25 @@ class Scams extends ComponentBase
 
     public function onRun()
     {
-        $this->page['scams'] = Scam::paginate(15);
+
+        $this->getScamStatistic();
+        $this->page['scams'] = $this->getScams();
     }
 
-    public function onAddScam() {
+    public function getScams()
+    {
+        return Scam::orderBy('created_at', 'desc')->paginate(10);
+    }
+
+    public function getScamStatistic()
+    {
+        $scams = Scam::get();
+        $this->page['active'] = $scams->where('category', '1')->count();
+        $this->page['offline'] = $scams->where('category', '0')->count();
+    }
+
+    public function onAddScam()
+    {
 
     }
 }
