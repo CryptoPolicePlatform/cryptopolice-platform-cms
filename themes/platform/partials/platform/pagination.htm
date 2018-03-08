@@ -1,0 +1,66 @@
+{% set paginationEnabled = object.currentPage > 1 or object.lastPage > 1 or object.lastPage > object.currentPage %}
+
+{% if paginationEnabled %}
+
+    {% set n = 2 %}
+
+    {% set currentPageZeroBased = object.currentPage-1 %}
+
+    {% set pageLinks = [] %}
+    {% set pageSet = [] %}
+
+    {% set startOffset = max(currentPageZeroBased - n, 0) %}
+    {% if (startOffset + 2*n+1) > (object.lastPage-1) %}
+        {% set startOffset = max(object.lastPage - 2*n - 1, 0) %}
+    {% endif %}
+
+    {% for page in 1..object.lastPage %}
+        {% set pageLinks = pageLinks|merge([page]) %}
+    {% endfor %}
+
+    {% set activeBlock = pageLinks|slice(startOffset, 2*n + 1) %}
+
+    {% if startOffset > 0 %}
+        {% set pageSet = pageSet|merge([1]) %}
+
+        {% if startOffset > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+    {% endif %}
+
+    {% set pageSet = pageSet|merge(activeBlock) %}
+
+    {% set diffToEnd = (object.lastPage-1) - (startOffset + 2*n+1) + 1 %}
+
+    {% if diffToEnd > 0 %}
+        {% if diffToEnd > 1 %}
+            {% set pageSet = pageSet|merge(['...']) %}
+        {% endif %}
+
+        {% set pageSet = pageSet|merge([object.lastPage]) %}
+    {% endif %}
+
+	<div class="pagination">
+	    
+	    {% if object.currentPage > 1 %}
+	        <a class="pagination__item  prev" href="{{ object.previousPageUrl }}"> &larr; Previous </a>
+	    {% else %}
+	    	<span class="pagination__item  prev"> &larr; Previous </span>
+	    {% endif %}
+
+	    {% for page in pageSet %}
+	        {% if page == '...' %}
+	            <span class="pagination__item disabled"> {{ page }} </span>
+	        {% else %}
+	            <a class="pagination__item {{ page == object.currentPage ? 'current' }}" href="{{ this.page.baseFileName | page }}?q={{ searchResults.query }}&amp;page={{ page }}">{{ page }}</a>
+	        {% endif %}
+	    {% endfor %}
+
+	    {% if object.lastPage > object.currentPage %}
+	        <a class="pagination__item  next" href="{{ object.nextPageUrl }}"> Next &rarr; </a>
+	    {% else %}
+	        <span class="pagination__item next disabled"> Next &rarr; </span>
+	    {% endif %}
+
+	</div>
+{% endif %}

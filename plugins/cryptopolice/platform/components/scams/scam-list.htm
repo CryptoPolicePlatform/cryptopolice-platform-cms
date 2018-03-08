@@ -1,43 +1,40 @@
-<div class="profile__content">
-
+<div class="content__block">
     <div class="content__block">
-        <div class="content__block">
-            <h3 class="content__title"> Scams </h3>
-            <div class="issues">
-            {% for scam in scams %}
+        <h3 class="content__title"> Scams </h3>
+        <div class="issues">
+	        {% for scam in scams %}
 
-                <div class="issues__item  issues__item--history">
+	            <div class="issues__item  issues__item--history">
 
-                    <div class="issues__type">#{{scam.id}}</div>
+	                <div class="issues__type">#{{scam.id}}</div>
 
-                    <div class="issues__title">
-                        <a class="bounty_link_title" href="#">{{scam.title}}</a>
-                    </div>
+	                <div class="issues__title">
+	                    <a class="bounty_link_title" href="#">{{scam.title}}</a>
+	                </div>
 
-                    <div class="issues__view">
-                        <a href="#">View details</a>
-                    </div>
+	                <div class="issues__view">
+	                    <a href="#">View details</a>
+	                </div>
 
-                    <div class="issues__amount">
-                        {% if scam.category %}
-                            <span class="text">Phishing</span>
-                        {% else %}
-                            <span class="text">Scamming</span>
-                        {% endif %}
-                    </div>
+	                <div class="issues__amount">
+	                    {% if scam.category %}
+	                        <span class="text">Phishing</span>
+	                    {% else %}
+	                        <span class="text">Scamming</span>
+	                    {% endif %}
+	                </div>
 
-                    {% if scam.status %}
-                    <div class="issues__status  issues__status--big  issues__status--gray"> <span> Offline </span></div>
-                    {% else %}
-                    <div class="issues__status  issues__status--big  issues__status--green"> <span> Active </span></div>
-                    {% endif %}
+	                {% if scam.status %}
+	                	<div class="issues__status  issues__status--big  issues__status--gray"> <span> Offline </span></div>
+	                {% else %}
+	                	<div class="issues__status  issues__status--big  issues__status--green"> <span> Active </span></div>
+	                {% endif %}
 
-                </div>
-            {% endfor %}
+	            </div>
+	        {% endfor %}
 
-                {{ scams.render|raw }}
+	        {% partial 'platform/pagination' object = scams %}
 
-            </div>
         </div>
     </div>
 </div>
