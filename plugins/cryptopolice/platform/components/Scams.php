@@ -17,19 +17,10 @@ class Scams extends ComponentBase
 
     public function onRun()
     {
-        
+        $this->page['scams'] = Scam::paginate(15);
     }
 
     public function onAddScam() {
 
-        $scam = new Scam();
-        $scam->save([
-                'title' => post('scam_title'),
-                'description' => post('scam_description')
-            ]
-        );
-
-        Flash::success('test');
-        return;
     }
 }

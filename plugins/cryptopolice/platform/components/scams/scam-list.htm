@@ -1,357 +1,43 @@
-<div class="content__left">
-    <div class="grid__row">
-        <div class="grid__col  w3">
-            <div class="card">
-                <div class="card__header">
-                    <div class="card__date">18:15 16.20.2018</div>
-                    <h3 class="card__title">
-                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-                    </h3>
-                    <span class="mark  mark--gray">ICO scams</span>
-                </div>
+<div class="profile__content">
 
-                <div class="card__content">Detect new mirror scam. ICO invest netis mirror. project owners approved it.
-                    Loripsum dolor sit amet, consectetur adipiscing elit. Proin et tincidunt dui praesent.
-                </div>
+    <div class="content__block">
+        <div class="content__block">
+            <h3 class="content__title"> Bounty Campaigns </h3>
+            <div class="issues">
+            {% for scam in scams %}
 
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                        </ul>
+                <div class="issues__item  issues__item--history">
+
+                    <div class="issues__type">#{{scam.id}}</div>
+
+                    <div class="issues__title">
+                        <a class="bounty_link_title" href="#">{{scam.title}}</a>
                     </div>
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            <li class="card__social-item  c-share">
-                                <a href="#">share</a>
-                            </li>
-                            <li class="card__social-item  c-comment">
-                                <a href="#">comment</a>
-                            </li>
-                            <li class="card__social-item  c-follow">
-                                <a href="#">follow</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
-                <!-- NOTE: classes: low, medium, high -->
-                <div class="card__status  low">low</div>
+                    <div class="issues__view">
+                        <a href="#">View details</a>
+                    </div>
+
+                    <div class="issues__amount">
+                        {% if scam.category %}
+                            <span class="text">Phishing</span>
+                        {% else %}
+                            <span class="text">Scamming</span>
+                        {% endif %}
+                    </div>
+
+                    {% if scam.status %}
+                    <div class="issues__status  issues__status--big  issues__status--gray"> <span> Offline </span></div>
+                    {% else %}
+                    <div class="issues__status  issues__status--big  issues__status--green"> <span> Active </span></div>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+
+                {{ scams.render|raw }}
+
             </div>
         </div>
-
-        <div class="grid__col  w3">
-            <div class="card">
-                <div class="card__header">
-                    <div class="card__date">18:15 16.20.2018</div>
-                    <h3 class="card__title">
-                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-                    </h3>
-                    <span class="mark  mark--gray">ICO scams</span>
-                </div>
-
-                <div class="card__content">Detect new mirror scam. ICO invest netis mirror. project owners approved it.
-                    Loripsum dolor sit amet, consectetur adipiscing elit. Proin et tincidunt dui praesent.
-                </div>
-
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            <li class="card__social-item  c-share">
-                                <a href="#">share</a>
-                            </li>
-                            <li class="card__social-item  c-comment">
-                                <a href="#">comment</a>
-                            </li>
-                            <li class="card__social-item  c-follow">
-                                <a href="#">follow</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- NOTE: classes: low, medium, high -->
-                <div class="card__status  low">low</div>
-            </div>
-        </div>
-
-        <div class="grid__col  w3">
-            <div class="card">
-                <div class="card__header">
-                    <div class="card__date">18:15 16.20.2018</div>
-                    <h3 class="card__title">
-                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-                    </h3>
-                    <span class="mark  mark--gray">ICO scams</span>
-                </div>
-
-                <div class="card__content">Detect new mirror scam. ICO invest netis mirror. project owners approved it.
-                    Loripsum dolor sit amet, consectetur adipiscing elit. Proin et tincidunt dui praesent.
-                </div>
-
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            <li class="card__social-item  c-share">
-                                <a href="#">share</a>
-                            </li>
-                            <li class="card__social-item  c-comment">
-                                <a href="#">comment</a>
-                            </li>
-                            <li class="card__social-item  c-follow">
-                                <a href="#">follow</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- NOTE: classes: low, medium, high -->
-                <div class="card__status  low">low</div>
-            </div>
-        </div>
-
-        <div class="grid__col  w3">
-            <div class="card">
-                <div class="card__header">
-                    <div class="card__date">18:15 16.20.2018</div>
-                    <h3 class="card__title">
-                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-                    </h3>
-                    <span class="mark  mark--gray">ICO scams</span>
-                </div>
-
-                <div class="card__content">Detect new mirror scam. ICO invest netis mirror. project owners approved it.
-                    Loripsum dolor sit amet, consectetur adipiscing elit. Proin et tincidunt dui praesent.
-                </div>
-
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            <li class="card__social-item  c-share">
-                                <a href="#">share</a>
-                            </li>
-                            <li class="card__social-item  c-comment">
-                                <a href="#">comment</a>
-                            </li>
-                            <li class="card__social-item  c-follow">
-                                <a href="#">follow</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- NOTE: classes: low, medium, high -->
-                <div class="card__status  low">low</div>
-            </div>
-        </div>
-
-        <div class="grid__col  w3">
-            <div class="card">
-                <div class="card__header">
-                    <div class="card__date">18:15 16.20.2018</div>
-                    <h3 class="card__title">
-                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-                    </h3>
-                    <span class="mark  mark--gray">ICO scams</span>
-                </div>
-
-                <div class="card__content">Detect new mirror scam. ICO invest netis mirror. project owners approved it.
-                    Loripsum dolor sit amet, consectetur adipiscing elit. Proin et tincidunt dui praesent.
-                </div>
-
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            <li class="card__social-item  c-share">
-                                <a href="#">share</a>
-                            </li>
-                            <li class="card__social-item  c-comment">
-                                <a href="#">comment</a>
-                            </li>
-                            <li class="card__social-item  c-follow">
-                                <a href="#">follow</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- NOTE: classes: low, medium, high -->
-                <div class="card__status  low">low</div>
-            </div>
-        </div>
-
-        <div class="grid__col  w3">
-            <div class="card">
-                <div class="card__header">
-                    <div class="card__date">18:15 16.20.2018</div>
-                    <h3 class="card__title">
-                        <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-                    </h3>
-                    <span class="mark  mark--gray">ICO scams</span>
-                </div>
-
-                <div class="card__content">Detect new mirror scam. ICO invest netis mirror. project owners approved it.
-                    Loripsum dolor sit amet, consectetur adipiscing elit. Proin et tincidunt dui praesent.
-                </div>
-
-                <div class="card__footer">
-                    <div class="card__footer-left">
-                        <ul class="card__ava-list">
-                            <li class="card__ava  card__ava--author">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                            <li class="card__ava">
-                                <a href="#">
-                                    <img src="http://placehold.it/23" width="23" height="23" alt="Author">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card__footer-right">
-                        <ul class="card__social">
-                            <li class="card__social-item  c-share">
-                                <a href="#">share</a>
-                            </li>
-                            <li class="card__social-item  c-comment">
-                                <a href="#">comment</a>
-                            </li>
-                            <li class="card__social-item  c-follow">
-                                <a href="#">follow</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- NOTE: classes: low, medium, high -->
-                <div class="card__status  low">low</div>
-            </div>
-        </div>
-    </div><!-- /.grid__row -->
+    </div>
 </div>
