@@ -17,14 +17,13 @@ class Scams extends ComponentBase
 
     public function onRun()
     {
-
         $this->getScamStatistic();
         $this->page['scams'] = $this->getScams();
     }
 
     public function getScams()
     {
-        return Scam::orderBy('created_at', 'desc')->paginate(10);
+        return Scam::orderBy('created_at', 'desc')->paginate(30);
     }
 
     public function getScamStatistic()
@@ -34,24 +33,36 @@ class Scams extends ComponentBase
 
         $this->page['total_scams'] = $scams->count();
 
-        $this->page['phishing']     = $scams->where('category', 1)->count();
-        $this->page['scamming']     = $scams->where('category', 2)->count();
-        $this->page['active']       = $scams->where('status', 1)->count();
-        $this->page['offline']      = $scams->where('status', 0)->count();
+        $this->page['phishing'] = $scams->where('category', 1)->count();
+        $this->page['scamming'] = $scams->where('category', 2)->count();
+        $this->page['active'] = $scams->where('status', 1)->count();
+        $this->page['offline'] = $scams->where('status', 0)->count();
 
-        $this->page['percentage_phishing']  = $this->setPercentageValue($this->page['total_scams'], $this->page['phishing']);
-        $this->page['percentage_scamming']  = $this->setPercentageValue($this->page['total_scams'], $this->page['scamming']);
-        $this->page['percentage_active']    = $this->setPercentageValue($this->page['total_scams'], $this->page['active']);
-        $this->page['percentage_offline']   = $this->setPercentageValue($this->page['total_scams'], $this->page['offline']);
+        $this->page['percentage_phishing'] = $this->setPercentageValue($this->page['total_scams'], $this->page['phishing']);
+        $this->page['percentage_scamming'] = $this->setPercentageValue($this->page['total_scams'], $this->page['scamming']);
+        $this->page['percentage_active'] = $this->setPercentageValue($this->page['total_scams'], $this->page['active']);
+        $this->page['percentage_offline'] = $this->setPercentageValue($this->page['total_scams'], $this->page['offline']);
     }
 
-    public function setPercentageValue($total, $amount) {
+    public function setPercentageValue($total, $amount)
+    {
         return (100 / $total * $amount) / 100;
     }
 
     public function onFilterScams()
     {
+        $this->page['scams'] = Scam::Where(function ($query) {
 
+            if (!empty(post('scam_category'))) {
+                $query->where('category_id', post('scam_category'));
+            }
+
+            if (!empty(post('scam_status'))) {
+                $query->where('status', post('scam_status'));
+            }
+
+        })->orderBy('created_at', 'desc')
+            ->paginate(30);
     }
 
     public function onAddScam()

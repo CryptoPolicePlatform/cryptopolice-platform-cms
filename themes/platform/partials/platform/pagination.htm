@@ -40,27 +40,29 @@
         {% set pageSet = pageSet|merge([object.lastPage]) %}
     {% endif %}
 
-	<div class="pagination">
-	    
-	    {% if object.currentPage > 1 %}
-	        <a class="pagination__item  prev" href="{{ object.previousPageUrl }}"> &larr; Previous </a>
-	    {% else %}
-	    	<span class="pagination__item  prev"> &larr; Previous </span>
-	    {% endif %}
+	<div class="scam__pagination">
+        <div class="pagination">
 
-	    {% for page in pageSet %}
-	        {% if page == '...' %}
-	            <span class="pagination__item disabled"> {{ page }} </span>
-	        {% else %}
-	            <a class="pagination__item {{ page == object.currentPage ? 'current' }}" href="{{ this.page.baseFileName | page }}?q={{ searchResults.query }}&amp;page={{ page }}">{{ page }}</a>
-	        {% endif %}
-	    {% endfor %}
+            {% if object.currentPage > 1 %}
+                <a class="pagination__item  prev" href="{{ object.previousPageUrl }}"> &larr; Previous </a>
+            {% else %}
+                <span class="pagination__item  prev"> &larr; Previous </span>
+            {% endif %}
 
-	    {% if object.lastPage > object.currentPage %}
-	        <a class="pagination__item  next" href="{{ object.nextPageUrl }}"> Next &rarr; </a>
-	    {% else %}
-	        <span class="pagination__item next disabled"> Next &rarr; </span>
-	    {% endif %}
+            {% for page in pageSet %}
+                {% if page == '...' %}
+                    <span class="pagination__item disabled"> {{ page }} </span>
+                {% else %}
+                    <a class="pagination__item {{ page == object.currentPage ? 'current' }}" href="{{ this.page.baseFileName | page }}?q={{ searchResults.query }}&amp;page={{ page }}">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
 
+            {% if object.lastPage > object.currentPage %}
+                <a class="pagination__item  next" href="{{ object.nextPageUrl }}"> Next &rarr; </a>
+            {% else %}
+                <span class="pagination__item next disabled"> Next &rarr; </span>
+            {% endif %}
+
+        </div>
 	</div>
 {% endif %}

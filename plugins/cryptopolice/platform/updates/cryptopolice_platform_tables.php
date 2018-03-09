@@ -115,7 +115,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->engine = 'InnoDB';
                 $table->increments('id');
                 $table->integer('user_id')->nullable();
-                $table->integer('category')->nullable();
+                $table->integer('category_id')->nullable();
                 $table->boolean('status')->default(0);
                 $table->string('title', 255)->nullable();
                 $table->string('url', 255)->nullable();

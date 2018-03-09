@@ -278,3 +278,7 @@
 .grecaptcha-badge {
     z-index: 101;
 }
+
+.scam__pagination{
+    text-align: center;
+}

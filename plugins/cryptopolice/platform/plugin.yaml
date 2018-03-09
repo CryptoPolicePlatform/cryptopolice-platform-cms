@@ -26,3 +26,8 @@ navigation:
         label: Scams
         url: cryptopolice/platform/scams
         icon: icon-user-secret
+        sideMenu:
+            side-menu-item:
+                label: 'Scam Categories'
+                url: cryptopolice/platform/scamcategories
+                icon: icon-sitemap

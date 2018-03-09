@@ -1,25 +1,26 @@
 <!-- Filters-->
 <div class="content__header">
 
-    <form accept-charset="UTF-8" data-request="onFilterScams">
+    {{ form_ajax('onFilterScams', { update : { 'Scams::scam-list' : '#scam_list' } }) }}
+
         <div class="select  select--filter">
-            <select name="campaign_type">
-                <option selected="" value="">Categories</option>
-                <option class="dropdown__link" value="'1">Phishing</option>
+            <select name="scam_category">
+                <option value="" selected>Categories</option>
+                <option class="dropdown__link" value="1">Phishing</option>
                 <option class="dropdown__link" value="2">Scamming</option>
             </select>
         </div>
 
         <div class="select  select--filter">
-            <select name="status">
-                <option class="dropdown__link" value="" selected="">Status</option>
+            <select name="scam_status">
+                <option class="dropdown__link" value="" selected>Status</option>
                 <option class="dropdown__link" value="'0'">Offline</option>
-                <option class="dropdown__link" value="'1'">Active</option>
+                <option class="dropdown__link" value="1">Active</option>
             </select>
         </div>
 
         <input type="submit" class="btn bounty-filter" value="Filter">
 
-    </form>
+    {{ form_close() }}
 
 </div>

@@ -5,28 +5,25 @@ use Model;
 /**
  * Model
  */
-class Scam extends Model
+class ScamCategory extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
+    /*
+     * Disable timestamps by default.
+     * Remove this line if timestamps are defined in the database table.
+     */
+    public $timestamps = false;
 
     /**
      * @var array Validation rules
      */
     public $rules = [
         'title' => 'required|min:0|max:255',
-        'description' => 'required|min:0|max:10000'
-    ];
-
-    public $belongsTo = [
-        'category' => 'CryptoPolice\Platform\Models\ScamCategory'
     ];
 
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cryptopolice_platform_scams';
+    public $table = 'cryptopolice_platform_scam_categories';
 }
