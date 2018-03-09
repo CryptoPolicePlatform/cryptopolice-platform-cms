@@ -20,3 +20,24 @@ fields:
         size: giant
         span: full
         type: richeditor
+    fields_data:
+        label: 'Fields data'
+        prompt: 'Add new item'
+        span: full
+        type: repeater
+        form:
+            fields:
+                title:
+                    label: Title
+                    span: auto
+                    type: text
+                value:
+                    label: Value
+                    span: auto
+                    type: text
+    category:
+        label: Category
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation

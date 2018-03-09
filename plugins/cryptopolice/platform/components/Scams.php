@@ -77,7 +77,8 @@ class Scams extends ComponentBase
                 $fileds->where('active', post('scam_status'));
             }
 
-        })->orderBy('created_at', 'desc')
+        })->where('status', 1)
+            ->orderBy('created_at', 'desc')
             ->paginate(30);
     }
 
@@ -94,6 +95,7 @@ class Scams extends ComponentBase
 
         if ($validator->fails()) {
             Flash::error($validator->messages()->first());
+
         } else {
             return true;
         }
@@ -106,22 +108,32 @@ class Scams extends ComponentBase
 
         if (input('_token') == Session::token()) {
 
-            if ($this->prepareValidationRules()){
+            $data = $this->prepareValidationRules();
 
-            $user = Auth::getUser();
+            if ($data) {
 
-            $scam = new Scam();
+                $user = Auth::getUser();
 
-            $scam->description = post('description');
-            $scam->category = post('category');
-            $scam->title = post('title');
-            $scam->url = post('url');
-            $scam->user_id = $user->id;
-            $scam->save();
+                $scam = new Scam();
+                $scam->description = post('description');
+                $scam->category = post('category');
+                $scam->title = post('title');
+                $scam->url = post('url');
 
-            Flash::success('Scam has been successfully added');
+                $json = [];
+                foreach (post() as $key => $value) {
+                    if ($key != 'id' && $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
+                        array_push($json, ['title' => $key, 'value' => $value]);
+                    }
+                }
 
-            return redirect()->back();
+                $scam->fields_data = $json;
+                $scam->user_id = $user->id;
+                $scam->save();
+
+                Flash::success('Scam has been successfully added');
+
+                return redirect()->back();
             }
         }
     }

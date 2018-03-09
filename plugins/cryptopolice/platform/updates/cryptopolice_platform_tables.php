@@ -123,6 +123,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->string('title', 255)->nullable();
                 $table->string('url', 255)->nullable();
                 $table->string('description', 1000)->nullable();
+                $table->string('fields_data', 10000)->nullable();
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();

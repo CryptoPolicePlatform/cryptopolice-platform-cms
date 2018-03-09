@@ -26,6 +26,8 @@ class Scam extends Model
         'category' => 'CryptoPolice\Platform\Models\ScamCategory'
     ];
 
+    protected $jsonable = ['fields_data'];
+
     /**
      * @var string The database table used by the model.
      */
