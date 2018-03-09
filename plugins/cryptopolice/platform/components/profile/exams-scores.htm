@@ -5,7 +5,6 @@
         <div class="accordion" id="accordion_1" role="tablist">
 
             {% for exam in exam_list %}
-
                 <div class="accordion__item {% if loop.index == 1 %}active{% endif %}" id="question{{ loop.index }}">
                     <div class="accordion__title" role="tab">
                         <a href="#question{{ loop.index }}" data-toggle="collapse" data-parent="#accordion_1">{{exam.title}}</a>
@@ -42,7 +41,10 @@
 
                     </div>
                 </div>
-
+            {% else %}
+                <div class="issues__item  issues__item--history">
+                    History is empty
+                </div>
             {% endfor %}
 
         </div>
