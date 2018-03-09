@@ -39,7 +39,7 @@ class Posts extends ComponentBase
         $this->page['search_data'] = post('search');
 
         // skip 100 records per page, for search 100
-        $perPage = !empty(post('search')) ? 100 : 100;
+        $perPage = 100;
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
@@ -59,9 +59,12 @@ class Posts extends ComponentBase
             ->skip($skip)->take($perPage)
             ->get();
 
+
+
         if ($posts->isNotEmpty()) {
 
             $helper = new Helpers();
+            $this->page['limit']  = $posts->count() > $perPage ? true : false;
 
             foreach ($posts as $key => $value) {
 

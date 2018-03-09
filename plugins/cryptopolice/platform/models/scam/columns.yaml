@@ -9,8 +9,23 @@ columns:
         type: text
         searchable: true
         sortable: true
+    url:
+        label: Url
+        type: text
+        searchable: true
+        sortable: true
     status:
         label: Status
         type: switch
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Created at'
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: 'Updated at'
+        type: datetime
         searchable: true
         sortable: true

@@ -9,3 +9,45 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: dropdown
+    fields:
+        label: 'Fields data'
+        prompt: 'Add new item'
+        span: full
+        type: repeater
+        form:
+            fields:
+                title:
+                    label: Title
+                    span: auto
+                    type: text
+                status:
+                    label: Status
+                    span: auto
+                    type: switch
+                type:
+                    label: Type
+                    options:
+                        text: String
+                        radio: Radio
+                        select: Select
+                        checkbox: Checkbox
+                        textarea: Textarea
+                        number: Number
+                    span: auto
+                    type: dropdown
+                multiple:
+                    label: Multiple
+                    span: auto
+                    type: checkbox
+                regex:
+                    label: Regex
+                    span: auto
+                    type: text
+                placeholder:
+                    label: Placeholder
+                    span: auto
+                    type: text
+                name:
+                    label: Name
+                    span: auto
+                    type: text

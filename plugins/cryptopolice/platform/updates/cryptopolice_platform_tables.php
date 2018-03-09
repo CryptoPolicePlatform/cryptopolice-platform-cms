@@ -107,6 +107,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->increments('id');
                 $table->string('icon', 25)->nullable();
                 $table->string('title', 255)->nullable();
+                $table->text('fields', 10000)->nullable();
             });
         }
 
@@ -117,6 +118,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->increments('id');
                 $table->integer('user_id')->nullable();
                 $table->integer('category_id')->nullable();
+                $table->boolean('active')->default(0);
                 $table->boolean('status')->default(0);
                 $table->string('title', 255)->nullable();
                 $table->string('url', 255)->nullable();

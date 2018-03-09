@@ -1,6 +1,22 @@
 fields:
+    status:
+        label: 'Published?'
+        span: auto
+        type: switch
+    active:
+        label: 'Is active ?'
+        span: auto
+        type: switch
     title:
         label: Title
-        oc.commentPosition: ''
-        span: auto
+        span: full
         type: text
+    url:
+        label: URL
+        span: full
+        type: text
+    description:
+        label: Description
+        size: giant
+        span: full
+        type: richeditor

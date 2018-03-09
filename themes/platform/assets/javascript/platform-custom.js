@@ -60,6 +60,18 @@ $(function () {
 
     });
 
+    $('#scam-category').on('change', function () {
+
+        $(this).request('onCategoryChange', {
+            data: {
+                category_id: this.value
+            },
+            update: {
+                'Scams::form-fields': '#form_fields'
+            }
+        });
+    })
+
 });
 
 // Bounty report from fields
@@ -89,3 +101,5 @@ function removeField(block) {
         div.find("input").last().remove();
     }
 }
+
+

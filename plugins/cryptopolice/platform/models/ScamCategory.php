@@ -22,6 +22,8 @@ class ScamCategory extends Model
         'title' => 'required|min:0|max:255',
     ];
 
+    protected $jsonable = ['fields'];
+
     /**
      * @var string The database table used by the model.
      */

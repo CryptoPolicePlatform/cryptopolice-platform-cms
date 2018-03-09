@@ -1,0 +1,12 @@
+{% for field in fields %}
+    {% if field.status %}
+        <div class="form__group">
+            <label for="{{ field.name }}"> {{ field.title }} {% if field.regex %} * {% endif %}</label>
+            {% if field.type == 'textarea' %}
+                <textarea class="textarea" name="{{ field.name }}" placeholder="{{ field.placeholder }}"></textarea>
+            {% else %}
+                <input class="input" name="{{ field.name }}" id="{{ field.name }}" placeholder="{{ field.placeholder }}">
+            {% endif %}
+        </div>
+    {% endif %}
+{% endfor %}

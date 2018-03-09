@@ -1,8 +1,8 @@
 <div class="profile__card  mb-15">
     <h2><i class="fa {{scam.category.icon}} fa-2x"></i> {{scam.title}}</h2>
-    <p> <strong>Status:</strong> {% if scam.status %} <span class="mark  mark--red">Active</span> {% else %} <span class="mark  mark--black"> Offline </span> {% endif %} </p>
-    <p> <strong>URL:</strong> {{scam.url}} </p>
-    <p> <strong>Category:</strong> {{scam.category.title}} </p>
-    {% if scam.description %} <p> <strong>Description:</strong> {{scam.description}} </p> {% endif %}
+    <p><strong>Status:</strong> {% if scam.active %} <span class="mark  mark--red">Active</span> {% else %} <span class="mark  mark--black"> Offline </span> {% endif %} </p>
+    <p><strong>URL:</strong> {{scam.url}} </p>
+    <p><strong>Category:</strong> {{scam.category.title}} </p>
+    {% if scam.description %} <p><strong>Description:</strong> {{scam.description}} </p> {% endif %}
     <a class="btn  btn--gpink" href="{{'scams'|page}}">Return back </a>
 </div>

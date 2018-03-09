@@ -15,7 +15,7 @@
             <i class="fa {{scam.category.icon}}"></i> {{scam.category.title}}
         </div>
 
-        {% if scam.status %}
+        {% if scam.active %}
             <div class="issues__status  issues__status--big  issues__status--green"><span> Active </span></div>
         {% else %}
             <div class="issues__status  issues__status--big  issues__status--gray"><span> Offline </span></div>

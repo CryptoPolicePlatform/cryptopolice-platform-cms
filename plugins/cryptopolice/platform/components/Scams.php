@@ -1,6 +1,6 @@
 <?php namespace CryptoPolice\Platform\Components;
 
-use Auth, Flash, Session;
+use Auth, Flash, Session, Validator;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Models\Scam;
 use CryptoPolice\Platform\Models\ScamCategory;
@@ -29,12 +29,17 @@ class Scams extends ComponentBase
 
     public function getScams()
     {
-        return Scam::orderBy('created_at', 'desc')->paginate(30);
+        return Scam::where('status', 1)->orderBy('created_at', 'desc')->paginate(30);
     }
 
     public function getScamCategories()
     {
         return ScamCategory::get();
+    }
+
+    public function onCategoryChange()
+    {
+        $this->page['fields'] = ScamCategory::where('id', post('category_id'))->value('fields');
     }
 
     public function getScamStatistic()
@@ -46,8 +51,8 @@ class Scams extends ComponentBase
 
         $this->page['phishing']     = $scams->where('category_id', 1)->count();
         $this->page['scamming']     = $scams->where('category_id', 2)->count();
-        $this->page['active']       = $scams->where('status', 1)->count();
-        $this->page['offline']      = $scams->where('status', 0)->count();
+        $this->page['active']       = $scams->where('active', 1)->count();
+        $this->page['offline']      = $scams->where('active', 0)->count();
 
         $this->page['percentage_phishing']      = $this->setPercentageValue($this->page['total_scams'], $this->page['phishing']);
         $this->page['percentage_scamming']      = $this->setPercentageValue($this->page['total_scams'], $this->page['scamming']);
@@ -62,19 +67,38 @@ class Scams extends ComponentBase
 
     public function onFilterScams()
     {
-        $this->page['scams'] = Scam::Where(function ($query) {
+        $this->page['scams'] = Scam::Where(function ($fileds) {
 
             if (!empty(post('scam_category'))) {
-                $query->where('category_id', post('scam_category'));
+                $fileds->where('category_id', post('scam_category'));
             }
 
             if (!empty(post('scam_status'))) {
-                $query->where('status', post('scam_status'));
+                $fileds->where('active', post('scam_status'));
             }
 
         })->orderBy('created_at', 'desc')
             ->paginate(30);
     }
+
+    public function prepareValidationRules()
+    {
+
+        $fields = ScamCategory::where('id', post('category'))->value('fields');
+
+        foreach ($fields as $value) {
+            $rules[$value['name']] = $value['regex'];
+        }
+
+        $validator = Validator::make(post(), $rules);
+
+        if ($validator->fails()) {
+            Flash::error($validator->messages()->first());
+        } else {
+            return true;
+        }
+    }
+
 
     public function onAddScam()
     {
@@ -82,20 +106,23 @@ class Scams extends ComponentBase
 
         if (input('_token') == Session::token()) {
 
+            if ($this->prepareValidationRules()){
+
             $user = Auth::getUser();
 
             $scam = new Scam();
 
-            $scam->description      = post('description');
-            $scam->category         = post('category');
-            $scam->title            = post('title');
-            $scam->url              = post('url');
-            $scam->user_id          = $user->id;
+            $scam->description = post('description');
+            $scam->category = post('category');
+            $scam->title = post('title');
+            $scam->url = post('url');
+            $scam->user_id = $user->id;
             $scam->save();
 
             Flash::success('Scam has been successfully added');
 
             return redirect()->back();
+            }
         }
     }
 }

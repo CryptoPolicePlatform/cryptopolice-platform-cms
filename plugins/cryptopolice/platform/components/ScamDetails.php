@@ -10,8 +10,8 @@ class ScamDetails extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Scam description',
-            'description' => 'Scam description'
+            'name'          => 'Scam description',
+            'description'   => 'Scam description'
         ];
     }
 
@@ -22,6 +22,6 @@ class ScamDetails extends ComponentBase
 
     public function getScam()
     {
-        return Scam::where('id', $this->param('id'))->orderBy('created_at', 'desc')->first();
+        return Scam::where('id', $this->param('id'))->first();
     }
 }
