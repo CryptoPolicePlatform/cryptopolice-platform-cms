@@ -1,6 +1,6 @@
 <div class="content__sidebar">
     <div class="btn__group">
-        <a class="btn  btn--gblack  btn--issue" href="{{ 'new-scam'|page }}">Send new issue</a>
+        <a class="btn  btn--gblack  btn--issue" href="{{   'new-scam'|page }}">Send new issue</a>
         <a class="btn  btn--gblack  btn--project" href="#">Send new project</a>
         <a class="btn  btn--gblack  btn--publ" href="#">Send new publication</a>
     </div>
@@ -14,38 +14,38 @@
     <div class="stat">
 
         <div class="stat__item">
-            <div class="stat__pie  stat__pie--blue" data-circle="" data-color="#00acee" data-empty="#ffffff" data-value="0.91" data-size="34" data-thickness="6">
+            <div class="stat__pie  stat__pie--blue" data-circle="" data-color="#00acee" data-empty="#ffffff" data-value="{{ percentage_phishing }}" data-size="34" data-thickness="6">
                 <canvas width="34" height="34"></canvas>
                 <canvas width="34" height="34"></canvas>
             </div>
-            <div class="stat__counter">{{phishing}}</div>
+            <div class="stat__counter">{{ phishing }}</div>
             <div class="stat__text">Total phishing scams</div>
         </div>
 
         <div class="stat__item">
-            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="0.33" data-size="34" data-thickness="6">
+            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff" data-value="{{ percentage_scamming }}" data-size="34" data-thickness="6">
                 <canvas width="34" height="34"></canvas>
                 <canvas width="34" height="34"></canvas>
             </div>
-            <div class="stat__counter">{{scamming}}</div>
+            <div class="stat__counter">{{ scamming }}</div>
             <div class="stat__text">Total scamming count</div>
         </div>
 
         <div class="stat__item">
-            <div class="stat__pie  stat__pie--orange" data-circle="" data-color="#f7ba96" data-empty="#ffffff" data-value="0.75" data-size="34" data-thickness="6">
+            <div class="stat__pie  stat__pie--orange" data-circle="" data-color="#f7ba96" data-empty="#ffffff" data-value="{{ percentage_active }}" data-size="34" data-thickness="6">
                 <canvas width="34" height="34"></canvas>
                 <canvas width="34" height="34"></canvas>
             </div>
-            <div class="stat__counter">{{active}}</div>
+            <div class="stat__counter">{{ active }}</div>
             <div class="stat__text">Total active scams</div>
         </div>
 
         <div class="stat__item">
-            <div class="stat__pie  stat__pie--orange" data-circle="" data-color="#f7ba96" data-empty="#ffffff" data-value="0.75" data-size="34" data-thickness="6">
+            <div class="stat__pie  stat__pie--orange" data-circle="" data-color="#f7ba96" data-empty="#ffffff" data-value="{{ percentage_offline }}" data-size="34" data-thickness="6">
                 <canvas width="34" height="34"></canvas>
                 <canvas width="34" height="34"></canvas>
             </div>
-            <div class="stat__counter">{{offline}}</div>
+            <div class="stat__counter">{{ offline }}</div>
             <div class="stat__text">Total offline scams</div>
         </div>
 
