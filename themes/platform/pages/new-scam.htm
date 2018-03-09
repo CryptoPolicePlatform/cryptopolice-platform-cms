@@ -2,18 +2,35 @@ title = "New Scam"
 url = "/new-scam"
 layout = "platform"
 description = "Add new scams"
-is_hidden = 1
+is_hidden = 0
 
 [Scams]
 ==
 <main class="content">
     <div class="content__inner">
+        <div class="content__left">
+            <div class="profile">
 
-        <!-- Scam Filter -->
-        {% partial Scams ~ '::scam-add-form' %}
+                <!-- Scam Filter -->
+                {% partial Scams ~ '::scams-users-sidebar' %}
 
-        <!-- Scam sidebar [ links + statistic ] -->
-        {% partial Scams ~ '::scam-sidebar' %}
+                <div class="profile__content">
 
+                    <!-- Scam Filter -->
+                    {% partial Scams ~ '::scams-add-form' %}
+
+                    <!-- Scam sidebar [ links + statistic ] -->
+                    {% partial Scams ~ '::scams-sidebar' %}
+
+                </div>
+            </div>
+        </div>
     </div>
 </main>
+
+<!--Hack with flash notification, remove text rendering before flash message -->
+<div class="empty_flash">
+    {% flash %}
+        <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+    {% endflash %}
+</div>

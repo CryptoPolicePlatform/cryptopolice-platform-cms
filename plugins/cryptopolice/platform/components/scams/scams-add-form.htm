@@ -1,27 +1,30 @@
 {{ form_ajax('onAddScam', { flash : '', model: scams }) }}
+
     <div class="profile__card">
         <h3 class="content__title">Add new scam</h3>
         <div class="form__group">
             <label for="category">Category</label>
             <div class="select">
-                <select id="category" name="scam_category">
-                    <option value="1">Scam ICO</option>
-                    <option value="2">...</option>
-                    <option value="3">...</option>
-                    <option value="4">...</option>
-                    <option value="5">...</option>
-                    <option value="6">...</option>
+                <select id="category" name="category">
+                    {% for category in categories %}
+                        <option value="{{category.id}}"> {{ category.title }} </option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
         <div class="form__group">
-            <label for="scam_title">Title</label>
-            <input class="input" name="title" id="scam_title" placeholder="Title">
+            <label for="title">Title</label>
+            <input class="input" name="title" id="title" placeholder="Title">
         </div>
         <div class="form__group">
-            <label for="scam_description">Description</label>
-            <textarea style="height: 200px;" class="textarea" id="scam_description" name="description" placeholder="Textarea"></textarea>
+            <label for="url">Url</label>
+            <input class="input" name="url" id="url" placeholder="Title">
         </div>
-        <button class="btn  btn--gpink post_load" data-attach-loading>Add scam</button>
+        <div class="form__group">
+            <label for="description">Description</label>
+            <textarea style="height: 200px;" class="textarea" id="description" name="description" placeholder="Textarea"></textarea>
+        </div>
+        <button id="captcha_profile" class="btn  btn--gpink post_load g-recaptcha" data-attach-loading>Add scam</button>
     </div>
+
 {{ form_close() }}

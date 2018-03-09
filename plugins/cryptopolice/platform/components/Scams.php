@@ -1,8 +1,10 @@
 <?php namespace CryptoPolice\Platform\Components;
 
-use Flash;
+use Auth, Flash, Session;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Models\Scam;
+use CryptoPolice\Platform\Models\ScamCategory;
+use CryptoPolice\Academy\Components\Recaptcha;
 
 class Scams extends ComponentBase
 {
@@ -17,13 +19,22 @@ class Scams extends ComponentBase
 
     public function onRun()
     {
+        if ($this->page->url == '/new-scam') {
+            $this->page['categories'] = $this->getScamCategories();
+        } else {
+            $this->page['scams'] = $this->getScams();
+        }
         $this->getScamStatistic();
-        $this->page['scams'] = $this->getScams();
     }
 
     public function getScams()
     {
         return Scam::orderBy('created_at', 'desc')->paginate(30);
+    }
+
+    public function getScamCategories()
+    {
+        return ScamCategory::get();
     }
 
     public function getScamStatistic()
@@ -67,6 +78,24 @@ class Scams extends ComponentBase
 
     public function onAddScam()
     {
+        Recaptcha::verifyCaptcha();
 
+        if (input('_token') == Session::token()) {
+
+            $user = Auth::getUser();
+
+            $scam = new Scam();
+
+            $scam->description      = post('description');
+            $scam->category         = post('category');
+            $scam->title            = post('title');
+            $scam->url              = post('url');
+            $scam->user_id          = $user->id;
+            $scam->save();
+
+            Flash::success('Scam has been successfully added');
+
+            return redirect()->back();
+        }
     }
 }

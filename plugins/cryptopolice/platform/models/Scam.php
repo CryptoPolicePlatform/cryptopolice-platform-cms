@@ -17,8 +17,9 @@ class Scam extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'title' => 'required|min:0|max:255',
-        'description' => 'required|min:0|max:10000'
+        'description'  => 'required|min:0|max:1000',
+        'title'        => 'required|min:0|max:255',
+        'url'          => 'required|min:0|max:255'
     ];
 
     public $belongsTo = [
