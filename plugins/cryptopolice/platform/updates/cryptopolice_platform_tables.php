@@ -105,6 +105,7 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
             Schema::create('cryptopolice_platform_scam_categories', function ($table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
+                $table->string('icon', 25)->nullable();
                 $table->string('title', 255)->nullable();
             });
         }

@@ -1,0 +1,31 @@
+title = "Scam"
+url = "/scam/:id"
+layout = "platform"
+description = "Scam description page"
+is_hidden = 0
+
+[Scams]
+[ScamDetails]
+==
+
+<main class="content">
+    <div class="content__inner">
+        <div class="content__left">
+            <div class="profile">
+
+                <!-- Scam Filter -->
+                {% partial Scams ~ '::scams-users-sidebar' %}
+
+                <div class="profile__content">
+
+                    <!-- Scam list -->
+                    {% partial ScamDetails ~ '::scam' %}
+
+                    <!-- Scam sidebar [ links + statistic ] -->
+                    {% partial Scams ~ '::scams-sidebar' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

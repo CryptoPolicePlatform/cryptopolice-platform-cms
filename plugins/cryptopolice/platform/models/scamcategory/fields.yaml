@@ -4,3 +4,8 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
+    icon:
+        label: Dropdown
+        oc.commentPosition: ''
+        span: auto
+        type: dropdown

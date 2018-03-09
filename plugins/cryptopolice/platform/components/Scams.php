@@ -33,15 +33,15 @@ class Scams extends ComponentBase
 
         $this->page['total_scams'] = $scams->count();
 
-        $this->page['phishing'] = $scams->where('category', 1)->count();
-        $this->page['scamming'] = $scams->where('category', 2)->count();
-        $this->page['active'] = $scams->where('status', 1)->count();
-        $this->page['offline'] = $scams->where('status', 0)->count();
+        $this->page['phishing']     = $scams->where('category_id', 1)->count();
+        $this->page['scamming']     = $scams->where('category_id', 2)->count();
+        $this->page['active']       = $scams->where('status', 1)->count();
+        $this->page['offline']      = $scams->where('status', 0)->count();
 
-        $this->page['percentage_phishing'] = $this->setPercentageValue($this->page['total_scams'], $this->page['phishing']);
-        $this->page['percentage_scamming'] = $this->setPercentageValue($this->page['total_scams'], $this->page['scamming']);
-        $this->page['percentage_active'] = $this->setPercentageValue($this->page['total_scams'], $this->page['active']);
-        $this->page['percentage_offline'] = $this->setPercentageValue($this->page['total_scams'], $this->page['offline']);
+        $this->page['percentage_phishing']      = $this->setPercentageValue($this->page['total_scams'], $this->page['phishing']);
+        $this->page['percentage_scamming']      = $this->setPercentageValue($this->page['total_scams'], $this->page['scamming']);
+        $this->page['percentage_active']        = $this->setPercentageValue($this->page['total_scams'], $this->page['active']);
+        $this->page['percentage_offline']       = $this->setPercentageValue($this->page['total_scams'], $this->page['offline']);
     }
 
     public function setPercentageValue($total, $amount)

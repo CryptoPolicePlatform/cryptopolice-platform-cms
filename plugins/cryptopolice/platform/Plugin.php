@@ -25,6 +25,7 @@ class Plugin extends PluginBase
             'CryptoPolice\Platform\Components\Profile'          => 'Profile',
             'CryptoPolice\Platform\Components\UserProfile'      => 'UserProfile',
             'CryptoPolice\Platform\Components\Scams'            => 'Scams',
+            'CryptoPolice\Platform\Components\ScamDetails'      => 'ScamDetails',
         ];
     }
 
