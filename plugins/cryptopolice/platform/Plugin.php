@@ -42,13 +42,23 @@ class Plugin extends PluginBase
 
         // Password validation before registraion
         Event::listen('rainlab.user.beforeRegister', function () {
+
             Recaptcha::verifyCaptcha();
+
             $userPassword = post('password');
+
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
                 throw new ValidationException([
-                    'password' => 'Password should contain at least one letter character'
+                    'password' => 'Password should contain at least one letter character!'
                 ]);
             }
+
+            if (!preg_match('/^([a-z]|[A-Z]|[0-9]| |_|-)+$/', $userPassword)) {
+                throw new ValidationException([
+                    'password' => 'Not allows the use of special characters and emoji in the password!'
+                ]);
+            }
+
         });
 
         // verify recaptcha before user try to login into paltform
