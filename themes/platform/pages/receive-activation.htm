@@ -10,8 +10,44 @@ forceSecure = 0
 
 [reCaptcha]
 ==
+
+    function onStart() {
+
+        $this['active']  = get('activate');
+
+        $user = Auth::getUser();
+
+        if($user->is_activated) {
+            return Redirect::to('/');
+        }
+    }
+
+==
+
 <div class="content">
     <div class="content__inner">
+        <div class="content__header">
+            <img src="{{'assets/images/cryptopolice-logo-white.png'|theme}}" width="261" height="120" alt="CryptoPolice">
+
+            <h1 class="content__title">Early bird Officer registration has started!</h1>
+            <div class="content__text">
+                <div class="academy_title">
+                    <p>
+                        We have launched the first demo version of the CryptoPolice Academy! The team has done an outstanding job in order to show its combat readiness in the early stages of the project. The Academy is the core of the CryptoPolice platform’s process to train Officers. At the moment, the Academy features demo materials for you to get to know the CryptoPolice platform's training system.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         {% component 'userLogin::activation_check' %}
+
+        {{paramCode}}
+        {% if active is not empty %}
+            <div class="content__title">
+                Congratulations! You have successfully activated
+            </div>
+            <a class="btn" href="{{'community'|page}}">START WITH YOUR PROFILE</a>
+        {% endif %}
+
     </div>
 </div>

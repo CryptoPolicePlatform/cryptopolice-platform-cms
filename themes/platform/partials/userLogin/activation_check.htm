@@ -1,9 +1,12 @@
 {% if not user.is_activated %}
 
-<h3>Your email address has not yet been verified.</h3>
+<div class="content__title">
+    <h3>Your email address has not yet been verified.</h3>
+    <div class="academy_title">You should verify your account otherwise it may be deleted. Please check your email to verify.</div>
+</div>
+
 <p>
-    You should verify your account otherwise it may be deleted. Please check your email to verify.
-    <a href="javascript:;" data-request="onSendActivationEmail">Send the verification email again</a>.
+    <a class="btn" href="javascript:;" data-request="onSendActivationEmail">Send the verification email again</a>
 </p>
 
 {% endif %}
