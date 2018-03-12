@@ -1,0 +1,17 @@
+title = "Receive activation code"
+url = "/receive-activation"
+layout = "academy"
+description = "Receive activation code page"
+is_hidden = 0
+
+[account userLogin]
+paramCode = "code"
+forceSecure = 0
+
+[reCaptcha]
+==
+<div class="content">
+    <div class="content__inner">
+        {% component 'userLogin::activation_check' %}
+    </div>
+</div>

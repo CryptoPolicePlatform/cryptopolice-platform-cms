@@ -1,6 +1,6 @@
 <div class="content">
     <div class="content__inner">
-        <div class="exam">
+        <div id="exam_score_list" class="exam">
             <div class="exam__inner">
 
                 <div class="exam__progress">
@@ -51,7 +51,7 @@
 
                     <a style="display: none;" data-request="onNextQuestion" data-request-success="$( '.question__next' ).css('display','none');$( '.question__check' ).css('display','');" class="btn question__next" id="next_question" href="#">next question</a>
 
-                    <form data-request="onCompleteTask" class="question__complete">
+                    <form data-request="onCompleteTask" class="question__complete" data-request-update="'ExamTask::score-list': '#exam_score_list'">
                         <button class="btn">Complete Task</button>
                     </form>
 
@@ -60,14 +60,14 @@
                     </button>
                 </div>
 
-                <div class="remodal" id="endtime_modal" role="dialog">
-                    <div class="remodal__inner">
-                        <div class="remodal__title">Scamer stole your money!</div>
-                        <div class="remodal__text">Take it easy, its just a friendly joke.<br>You did not answer in time!</div>
-                    </div>
-                    <a class="btn" data-request="onCompleteTask" href="{{'exam'|page}}">exit and try again</a>
-                </div>
             </div><!-- /.exam__inner -->
         </div><!-- /.exam -->
     </div><!-- /.content__inner -->
 </div><!-- /.content -->
+<div class="remodal" id="endtime_modal" role="dialog">
+    <div class="remodal__inner">
+        <div class="remodal__title">Scamer stole your money!</div>
+        <div class="remodal__text">Take it easy, its just a friendly joke.<br>You did not answer in time!</div>
+    </div>
+    <a class="btn" data-request="onCompleteTask" href="{{'exam'|page}}">exit and try again</a>
+</div>

@@ -1,0 +1,23 @@
+<ul class="courses">
+    {% for score in scoreList %}
+        {% if score.answer_correct %}
+            <li class="courses__item">
+                <a class="courses__link watched">
+                    <span class="courses__num">#<b> {{ loop.index }} </b></span>
+                    <span class="courses__title">{{ score.question_title}}</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="courses__item">
+                <a class="courses__link">
+                    <span class="courses__num">#<b> {{ loop.index }} </b></span>
+                    <span class="courses__title">{{ score.question_title}}</span>
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<div class="courses__footer  text-center">
+    <a class="btn" href="{{'exam'|page()}}">back to exams</a>
+</div>
