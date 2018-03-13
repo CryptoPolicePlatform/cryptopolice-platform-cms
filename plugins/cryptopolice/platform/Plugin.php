@@ -98,6 +98,12 @@ class Plugin extends PluginBase
     {
         UserModel::extend(function ($model) {
 
+            $model->bindEvent('model.beforeValidate', function() use ($model) {
+                $model->rules['name']       = ['regex:/^([a-z]|[A-Z]|[0-9]|)+$/i'];
+                $model->rules['surname']    = ['regex:/^([a-z]|[A-Z]|[0-9]|)+$/i'];
+                $model->rules['nickname']   = ['regex:/^([a-z]|[A-Z]|[0-9]|)+$/i'];
+            });
+
             // set fillable fields to User model
 
             $model->addFillable([
