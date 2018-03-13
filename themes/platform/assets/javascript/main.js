@@ -14928,11 +14928,14 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 
         var _ = this;
 
+        console.log($( window ).width());
         if (_.options.vertical === false) {
             if (_.options.centerMode === true) {
-                _.$list.css({
-                    padding: ('0px ' + _.options.centerPadding)
-                });
+            	if($( window ).width() > 720) {
+                    _.$list.css({
+                        padding: ('0px ' + _.options.centerPadding)
+                    });
+                }
             }
         } else {
             _.$list.height(_.$slides.first().outerHeight(true) * _.options.slidesToShow);
@@ -15975,12 +15978,21 @@ $(function () {
     slider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
         var prop = 100 / slick.slideCount;
-        var percentage	= (prop * nextSlide + 3)  + '%';
+        var percentage = (prop * nextSlide + 3) + '%';
 
         questionNumber.val(nextSlide + 1);
         questionProgress.text('Question ' + (nextSlide + 1) + '/' + slick.slideCount);
         questionProgressBar.find("span").css('width', percentage);
 
+    });
+
+    $("#current_question").click(function () {
+        $.request('onClickQuestion', {
+            success: function () {
+                var currentForm = $("#qst_num").val(), currentFormTotalQst = $("#qst_total_num").val();
+                currentForm > 0 && ($("#exam_form_" + currentForm).submit(), $(".question__next").css("display", ""), $(".question__check").css("display", "none")), currentFormTotalQst == currentForm && ($(".question__complete").css("display", "block"), $(".question__check").css("display", "none"), $(".question__next").css("display", "none"));
+            }
+        });
     });
 
 });

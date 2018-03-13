@@ -1751,7 +1751,7 @@ html.remodal-is-locked {
 
 /* Slider */
 .slick-loading .slick-list {
-  background: #fff "../images/ajax-loader.gif" center center no-repeat; }
+  background: #fff "../i/ajax-loader.gif" center center no-repeat; }
 
 /* Arrows */
 .slick-prev,
@@ -2378,7 +2378,15 @@ html.remodal-is-locked {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset; }
   @media (max-width: 600px) {
     .question {
-      padding: 20px; } }
+        padding: 15px;
+        margin-bottom: 0;
+    }
+      .question__answers {
+          margin-bottom: 5px;
+      }
+    .question__text {
+        text-align: center;
+    } }
 
 .question__title {
   margin-bottom: 20px;

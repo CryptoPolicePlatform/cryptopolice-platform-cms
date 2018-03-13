@@ -102,6 +102,11 @@ class Plugin extends PluginBase
                 $model->rules['name']       = ['regex:/^([a-z]|[A-Z]|[0-9]|)+$/i'];
                 $model->rules['surname']    = ['regex:/^([a-z]|[A-Z]|[0-9]|)+$/i'];
                 $model->rules['nickname']   = ['regex:/^([a-z]|[A-Z]|[0-9]|)+$/i'];
+
+                $model->customMessages['name.regex']       = 'Not allows the use of special characters and emoji in the name';
+                $model->customMessages['surname.regex']    = 'Not allows the use of special characters and emoji in the surname';
+                $model->customMessages['nickname.regex']   = 'Not allows the use of special characters and emoji in the nickname';
+
             });
 
             // set fillable fields to User model
