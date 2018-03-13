@@ -11,8 +11,9 @@ fields:
     active:
         label: Active Cron
         type: checkbox
-        default: true
+        default: false
 
     memory_usage_profiling:
         label: Memory Usage Profiling
         type: checkbox
+        default: false

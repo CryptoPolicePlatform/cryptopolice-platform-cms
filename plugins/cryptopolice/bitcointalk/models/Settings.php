@@ -13,9 +13,4 @@ class Settings extends Model
     public $settingsCode = 'bitcointalk_settings';
 
     public $settingsFields = 'fields.yaml';
-
-    public function getActiveAttribute($value)
-    {
-        return $value === null ? 1 : $value;
-    }
 }
