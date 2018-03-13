@@ -31,9 +31,9 @@
                     {% if bounty.status == 1 %}
                         <div class="issues__status  issues__status--big  issues__status--green"> <span> Active </span></div>
                     {% elseif bounty.status == 2 %}
-                        <div class="issues__status  issues__status--big  issues__status--orange"> <span> Pending </span></div>
+                        <div class="issues__status  issues__status--big  issues__status--gray"> <span> Open </span></div>
                     {% elseif bounty.status == 3 %}
-                        <div class="issues__status  issues__status--big  issues__status--green"> <span> Open </span></div>
+                        <div class="issues__status  issues__status--big  issues__status--orange"> <span> Pending </span></div>
                     {% else %}
                         <div class="issues__status  issues__status--big  issues__status--gray"> <span> Closed </span></div>
                     {% endif %}

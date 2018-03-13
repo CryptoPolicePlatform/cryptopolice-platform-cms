@@ -1,6 +1,7 @@
 {{ form_ajax('onUpdateProfile', { flash : '', model: user }) }}
     <div class="profile__card profile_form">
-        <h3 class="content__title">User Profile</h3>
+        <h3 class="private__title">Private information</h3>
+        <p class="private__description">(Only admins are able to see this information)</p>
         <div class="form__group">
             <label for="name">Name</label>
             <input class="input" type="text" name="name" id="name" placeholder="" value="{{ user.name }}">

@@ -282,3 +282,10 @@
 .scam__pagination{
     text-align: center;
 }
+
+.private__title {
+    margin: 0 0 0px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: bold;
+}

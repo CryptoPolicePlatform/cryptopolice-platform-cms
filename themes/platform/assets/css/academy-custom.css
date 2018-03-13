@@ -29,3 +29,12 @@
     z-index: 101;
 }
 
+.bad-score span {
+    background-color: #ce0b4d;
+}
+.good-score span {
+    background-color: #ffa800;
+}
+.excellent-score span {
+    background-color: #84c01b;
+}

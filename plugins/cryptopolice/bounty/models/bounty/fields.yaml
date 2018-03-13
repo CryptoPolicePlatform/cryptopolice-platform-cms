@@ -107,9 +107,9 @@ fields:
     status:
         label: Dropdown
         options:
-            - Closed
-            - Active
-            - Pending
-            - Open
+            - Closed  (Blocked all)
+            - Active  (Allow registration, report, view)
+            - Open    (Allow view)
+            - Pending (Allow registration, view)
         span: auto
         type: dropdown

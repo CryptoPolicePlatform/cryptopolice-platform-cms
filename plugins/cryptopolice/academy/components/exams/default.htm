@@ -18,7 +18,15 @@
                         {% if score.exam_id == exam.id %}
                             {% set break = true %}
                             {% if score.complete_status == 1 %}
-                                <span class="courses__score  in-progress"><span> {{score.score}}/{{ exam.question_count }}</span></span>
+                                {% if score.score == 0 %}
+                                    <span class="courses__score  bad-score"><span> {{score.score}}/{{ exam.question_count }}</span></span>
+                                {% elseif score.score and 100 / exam.question_count * score.score <= 50 %}
+                                    <span class="courses__score  bad-score"><span> {{score.score}}/{{ exam.question_count }}</span></span>
+                                {% elseif score.score and 100 / exam.question_count * score.score <= 90 %}
+                                    <span class="courses__score  good-score"><span> {{score.score}}/{{ exam.question_count }}</span></span>
+                                {% else %}
+                                    <span class="courses__score  excellent-score"><span> {{score.score}}/{{ exam.question_count }}</span></span>
+                                {% endif %}
                             {% else %}
                                 <span class="courses__score  in-progress"><span> In Progress </span></span>
                             {% endif %}

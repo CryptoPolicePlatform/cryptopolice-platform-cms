@@ -196,7 +196,11 @@ class ExamTask extends ComponentBase
             }
         }
 
-        $this->page['scoreList'] = $buffer;
+        if(post('close')) {
+            return Redirect::to('/exam');
+        } else {
+            $this->page['scoreList'] = $buffer;
+        }
     }
 
 

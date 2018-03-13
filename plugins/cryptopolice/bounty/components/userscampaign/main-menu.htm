@@ -11,8 +11,18 @@
 
     {% endif %}
 
-    <!-- Check if bounty campaign is closed and user is not verified to report -->
-    {% if bounty.status == 1 and access is empty %}
+    <!--
+
+         Bounty campaign status
+
+         Status 0   =>  CLOSED     =>  allow nothing
+         Status 1   =>  ACTIVE     =>  allow registration, report and view
+         Status 2   =>  OPEN       =>  allow only view
+         Status 3   =>  PENDING    =>  allow registration and view
+
+    -->
+
+    {% if (bounty.status == 1 or bounty.status == 3) and access is empty %}
 
         <!-- Campaign registration form -->
         {% partial 'UsersCampaign::bounty-registration-form' %}

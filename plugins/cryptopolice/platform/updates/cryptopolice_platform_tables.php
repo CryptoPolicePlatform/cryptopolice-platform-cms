@@ -65,7 +65,6 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
                 $table->increments('id')->unsigned();
                 $table->string('message', 255)->nullable();
                 $table->integer('user_id')->nullable();
-
                 $table->timestamp('created_at')->nullable();
                 $table->timestamp('updated_at')->nullable();
                 $table->timestamp('deleted_at')->nullable();

@@ -1,36 +1,50 @@
-{% if access and status %}
+{# Status 1 => ACTIVE => allow registration, report and view #}
 
-    <div id="anchor-2" class="profile__card">
-        <div class="grid__col  w6">
-            <h3>Report</h3>
+{% if bounty.status == 1 %}
 
-            {{ form_ajax('onAddReport', { flash : '', data: { id: campaignID }, model: BountyRegistration }) }}
+    {% if access and status %}
 
-                {% for bounty in bountyList %}
-                    {% if bounty.slug == this.param.slug %}
-                        {% for field in bounty.fields %}
-                            {% if field.action_type == 'report' and field.status %}
-                                {% partial UsersCampaign ~ '::form-fields' field = field %}
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                {% endfor %}
+        <div id="anchor-2" class="profile__card">
+            <div class="grid__col  w6">
+                <h3>Report</h3>
 
-                <div class="form__group">
-                    <button id="captcha_report" class="btn  btn--gpink g-recaptcha">add new report</button>
-                </div>
+                {{ form_ajax('onAddReport', { flash : '', data: { id: campaignID }, model: BountyRegistration }) }}
 
-            {{ form_close() }}
+                    {% for bounty in bountyList %}
+                        {% if bounty.slug == this.param.slug %}
+                            {% for field in bounty.fields %}
+                                {% if field.action_type == 'report' and field.status %}
+                                    {% partial UsersCampaign ~ '::form-fields' field = field %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
 
+                    <div class="form__group">
+                        <button id="captcha_report" class="btn  btn--gpink g-recaptcha">add new report</button>
+                    </div>
+
+                {{ form_close() }}
+
+            </div>
         </div>
-    </div>
 
-{% elseif not status and access %}
+    {% elseif not status and access %}
 
-    <div class="alert alert--red">
-        <strong>You are banned</strong>
-        You can't participate in {{ bounty.title }} campaign
-        <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
-    </div>
+        <div class="alert alert--red">
+            <strong>You are banned</strong>
+                You can't participate in {{ bounty.title }} campaign
+            <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+        </div>
+
+    {% endif %}
+
+{% elseif bounty.status == 3 %}
+    {% if access and status %}
+        <div class="profile__card">
+            You are successfully registered
+        </div>
+    {% endif %}
+{% else %}
 
 {% endif %}
