@@ -334,15 +334,13 @@
     }
 }
 
-@media (max-width: 767px) {
-    .post__sidebar {
-        width: 100%;
-    }
-}
-
 /*Post list*/
 
 @media (max-width: 767px) {
+
+    .post__sidebar {
+        width: 100%;
+    }
 
     .card__social {
         text-align: center;
@@ -387,11 +385,6 @@
 @media (max-width: 767px) {
     .post__content {
         width: 100%;
-    }
-}
-
-@media (max-width: 767px) {
-    .post__content {
         margin-top: 30px;
         padding-left: 0;
     }
