@@ -10,6 +10,21 @@ is_hidden = 0
 security = "user"
 redirect = "login"
 ==
+
+    function onStart()
+    {
+        $user = Auth::getUser();
+
+        if(!isset($user)) {
+            return Redirect::to('/login');
+        }
+
+        if(!$user->is_activated) {
+            return Redirect::to('/receive-activation');
+        }
+    }
+
+==
 <div class="content">
     <div class="content__inner">
         {% component 'TrainingTask' %}

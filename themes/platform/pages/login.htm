@@ -14,15 +14,14 @@ forceSecure = 0
 paramCode = "code"
 forceSecure = 0
 ==
-<?php
-function onStart() {
+
+    function onStart() {
         $this['active']  = get('activate');
 
         if(Auth::check()) {
            return Redirect::to('/');
         }
     }
-?>
 ==
 <div class="content">
     <div class="content__inner">
@@ -50,3 +49,4 @@ function onStart() {
 
     </div>
 </div>
+

@@ -3,11 +3,23 @@ description = "Platform Layout"
 [session]
 security = "all"
 ==
+
     function onStart()
     {
         header('x-frame-options:DENY');
         header('referrer-policy:same-origin');
+
+        $user = Auth::getUser();
+
+        if(!isset($user)) {
+            return Redirect::to('/login');
+        }
+
+        if(!$user->is_activated) {
+            return Redirect::to('/receive-activation');
+        }
     }
+
 ==
 <!DOCTYPE html>
 <html>

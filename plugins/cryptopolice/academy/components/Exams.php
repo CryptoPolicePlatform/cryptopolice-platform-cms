@@ -65,7 +65,7 @@ class Exams extends ComponentBase
         if (isset($lastScore->complete_status) && $lastScore->complete_status == '1') {
 
             $start = new DateTime('now');
-            $end = new DateTime($lastScore->completed_at);
+            $end = new DateTime($lastScore->created_at);
             $left = $start->getTimestamp() - $end->getTimestamp();
 
             if ($left < $selectedExam->retake_time) {

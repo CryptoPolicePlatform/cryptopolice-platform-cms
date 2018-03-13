@@ -157,13 +157,13 @@ class ExamTask extends ComponentBase
         }
 
         // get correct answers for current exam
-        $scores = Score::where('user_id', $user->id)
+        $scores = Score::with('exam')
+            ->where('user_id', $user->id)
             ->where('try', $try)
             ->where('exam_id', $selectedExam->id)
-            ->where('is_correct', '1')
             ->get();
 
-        $correctAnswers = sizeof($scores);
+        $correctAnswers = sizeof($scores->where('is_correct', '1'));
 
         // Complete the current exam
         FinalScore::where('user_id', $user->id)
@@ -176,8 +176,47 @@ class ExamTask extends ComponentBase
                 'completed_at'      => new DateTime('now')
             ]);
 
-        return Redirect::to('/exam');
+
+        $buffer = [];
+
+        foreach ($scores as $key => $score) {
+
+            $question = $this->searchArray($score->exam->question, 'questionNumber', $score->question_num);
+
+            if (isset($question[0]['answers'])) {
+                $answer = $this->searchArray($question[0]['answers'], 'answer_number', $score->answer_num);
+            }
+
+            if (isset($question[0]['question_title']) && isset($answer[0]['answer_correct'])) {
+                array_push($buffer, [
+                        'question_title' => $question[0]['question_title'],
+                        'answer_correct' => $answer[0]['answer_correct']
+                    ]
+                );
+            }
+        }
+
+        $this->page['scoreList'] = $buffer;
     }
+
+
+    public function searchArray($array, $key, $value)
+    {
+        $results = array();
+
+        if (is_array($array)) {
+            if (isset($array[$key]) && $array[$key] == $value) {
+                $results[] = $array;
+            }
+
+            foreach ($array as $subarray) {
+                $results = array_merge($results, $this->searchArray($subarray, $key, $value));
+            }
+        }
+
+        return $results;
+    }
+
 
 
     /**
