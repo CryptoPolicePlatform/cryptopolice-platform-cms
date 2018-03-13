@@ -7,6 +7,9 @@
 }
 .post_uploader {
     float: left;
+    display: flex;
+    justify-content: center;
+
     margin: 25px 25px 0px 10px;
 }
 .header__public {
@@ -121,10 +124,6 @@
     width: 60%;
 }
 
-.post_content {
-    width: 100%;
-}
-
 .post_form {
     margin-bottom: 15px;
 }
@@ -179,7 +178,6 @@
         float:none;
         margin-top: 25px;
         margin-bottom: 25px;
-        margin-left: 25%;
     }
     .choose__post_item {
         width: 100%;
@@ -204,11 +202,6 @@
     .card__content {
         width: 100%;
     }
-}
-
-.user_right_sidebar {
-    right: -10px;
-    top: 0px;
 }
 
 .notify_block {
@@ -271,7 +264,7 @@
     text-align: center;
 }
 
-.tabs__item .profile__card {
+.tabs__item .post__card {
     float: none;
 }
 
@@ -288,4 +281,110 @@
     color: #333333;
     font-size: 18px;
     font-weight: bold;
+}
+
+.user_right_sidebar {
+    top: 100px;
+    right: 60px;
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    z-index: 99;
+}
+
+@media (max-width: 1120px) {
+    .user_right_sidebar {
+        -ms-transform: translateX(+280px);
+        transform: translateX(+280px);
+        transition: transform .2s linear;
+    }
+
+    .user_right_sidebar.open {
+        -ms-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+/* Post sidebar */
+
+.post__sidebar {
+    width: 20%;
+    float: left;
+    padding: 13px 18px;
+    background: #fff url("../images/profile-sidebar-bg.png") no-repeat right top;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 1720px) {
+    .post__sidebar {
+        width: 25%;
+    }
+}
+
+@media (max-width: 1520px) {
+    .post__sidebar {
+        width: 20%;
+    }
+}
+
+@media (max-width: 1320px) {
+    .post__sidebar {
+        width: 30%;
+    }
+}
+
+/*Post list*/
+
+@media (max-width: 767px) {
+
+    .post__sidebar {
+        width: 100%;
+    }
+
+    .card__social {
+        text-align: center;
+    }
+
+    .card__footer-left {
+        text-align: center;
+    }
+
+    .post_image {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Post section */
+
+.post__content {
+    width: 80%;
+    float: left;
+    padding-left: 25px;
+}
+
+@media (max-width: 1720px) {
+    .post__content {
+        width: 80%;
+    }
+}
+
+@media (max-width: 1520px) {
+    .post__content {
+        width: 80%;
+    }
+}
+
+@media (max-width: 1320px) {
+    .post__content {
+        width: 70%;
+    }
+}
+
+@media (max-width: 767px) {
+    .post__content {
+        width: 100%;
+        margin-top: 30px;
+        padding-left: 0;
+    }
 }

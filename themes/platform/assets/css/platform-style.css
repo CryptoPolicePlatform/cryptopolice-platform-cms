@@ -3870,6 +3870,7 @@ html.remodal-is-locked {
 }
 
 .content {
+    height: 100%;
     padding-top: 100px;
     padding-bottom: 120px;
 }
@@ -3928,6 +3929,8 @@ html.remodal-is-locked {
 @media (max-width: 1120px) {
     .content__inner {
         padding-left: 20px;
+        padding-right: 20px;
+
     }
 }
 
@@ -4806,7 +4809,7 @@ html.remodal-is-locked {
 
 @media (max-width: 1320px) {
     .profile__sidebar {
-        width: 40%;
+        width: 30%;
     }
 }
 
@@ -6917,7 +6920,7 @@ html.remodal-is-locked {
     width: 100%;
     height: 45px;
     background-color: #1b1f26;
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     z-index: 100;

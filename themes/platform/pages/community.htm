@@ -36,14 +36,13 @@ use CryptoPolice\Platform\Models\CommunityPost;
 <main class="content">
     <div class="content__inner">
         <div class="content__left">
-            <div class="profile">
+            <div class="grid__row">
+                <div class="profile">
 
-                <!-- User profile section -->
-                {% partial UserProfile ~ '::profile' %}
+                    <!-- User profile section -->
+                    {% partial UserProfile ~ '::profile' %}
 
-                <div class="profile__content">
-                    <div class="grid__row">
-                        <div class="post_content">
+                    <div class="post__content">
                             <div id="posts_list">
 
                                 {% if page_num is defined and page_num %}
@@ -62,13 +61,14 @@ use CryptoPolice\Platform\Models\CommunityPost;
                                 <!-- Load more form -->
                                 {% partial 'CommunityPosts::post-load-form' %}
 
-                            </div>
-                        </div>
-                    </div>
 
+                        </div>
+
+
+
+                    </div>
                     <!-- User sidebar section -->
                     {% partial 'CommunityUsers::user-list-sidebar' %}
-
                 </div>
             </div>
         </div><!-- /.content__left -->
