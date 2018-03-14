@@ -297,7 +297,7 @@ class UsersCampaign extends ComponentBase
 
     public function generateBountyCode()
     {
-        $code = 'OFC-' . mb_strtoupper(md5(uniqid(rand(), true)));
+        $code = 'OFCR-' . mb_strtoupper(md5(uniqid(rand(), true)));
         $query = BountyRegistration::where('btc_code', $code)->get();
         return $query->isNotEmpty() ? $this->generateBountyCode() : $code;
     }
