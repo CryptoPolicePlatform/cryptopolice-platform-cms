@@ -64,4 +64,14 @@ class Page extends Model
     {
         return html_entity_decode($value, ENT_QUOTES | ENT_XHTML, "UTF-8");
     }
+
+    public function getTitleAttribute()
+    {
+        return json_decode($this->attributes['title']);
+    }
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = json_encode($value);
+    }
 }

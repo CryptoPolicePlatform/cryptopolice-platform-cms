@@ -79,4 +79,14 @@ class Topic extends Model
             throw new ValidationException(['url' => 'No valid for URL for topic !!!']);
         }
     }
+
+    public function getTitleAttribute()
+    {
+        return json_decode($this->attributes['title']);
+    }
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = json_encode($value);
+    }
 }
