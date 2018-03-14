@@ -3,6 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 
+use CryptoPolice\Bitcointalk\Models\Settings;
 use CryptoPolice\Bitcointalk\Classes\CronJobs\Crawler;
 
 /**
@@ -27,8 +28,24 @@ class Topic extends Controller
 
     public function onScraping()
     {
+        $memory_usage_profiling = Settings::get('memory_usage_profiling');
+
+        if($memory_usage_profiling) {
+
+            $mem_start = memory_get_usage();
+
+        }
+
         $crawler = new Crawler(input('ids'));
 
-        return $crawler->run();
+        $crawler->run();
+
+        if($memory_usage_profiling) {
+
+            trace_log("Scraping script memori usage: ".(memory_get_usage()-$mem_start-sizeof($mem_start))." bytes");
+        }
+
+        return true;
+
     }
 }

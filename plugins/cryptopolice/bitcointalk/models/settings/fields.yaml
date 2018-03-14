@@ -1,0 +1,19 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+#fields:
+fields:
+    bitcointalk:
+        label: Bitcointalk
+        type: section
+
+    active:
+        label: Active Cron
+        type: checkbox
+        default: false
+
+    memory_usage_profiling:
+        label: Memory Usage Profiling
+        type: checkbox
+        default: false

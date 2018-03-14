@@ -285,7 +285,7 @@
 
 .user_right_sidebar {
     top: 100px;
-    right: 60px;
+    right: 30px;
     position: fixed;
     width: 200px;
     height: 100%;
@@ -317,7 +317,7 @@
 
 @media (max-width: 1720px) {
     .post__sidebar {
-        width: 25%;
+        width: 20%;
     }
 }
 

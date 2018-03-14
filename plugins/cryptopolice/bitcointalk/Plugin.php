@@ -3,6 +3,7 @@
 use Backend;
 use System\Classes\PluginBase;
 
+use CryptoPolice\Bitcointalk\Models\Settings;
 use CryptoPolice\Bitcointalk\Classes\CronJobs\Crawler;
 /**
  * Bitcointalk Plugin Information File
@@ -107,17 +108,51 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerSettings()
+    {
+        return [
+            'config' => [
+                'label'       => 'Bitcointalk',
+                'description' => 'Settings',
+                'icon'        => 'icon-btc',
+                'class'       => Settings::class,
+                'order'       => 10,
+                'permissions' => ['cryptopolice.bitcointalk.some_permission']
+            ]
+        ];
+    }
+
+
     public function registerSchedule($schedule)
     {
         //*	*	*	*	* php /path/to/file/artisan schedule:run >> /dev/null 2>&1
+
         $schedule->call(function () {
 
-            $crawler = new Crawler();
+            $settings = Settings::instance();
 
-            $crawler->run();
+            if($settings->active) {
+
+                if($settings->memory_usage_profiling) {
+
+                    $mem_start = memory_get_usage();
+
+                }
+
+                $crawler = new Crawler();
+
+                $crawler->run();
+
+
+                if($settings->memory_usage_profiling) {
+
+                    trace_log("Cron memori usage: " . (memory_get_usage() - $mem_start - sizeof($mem_start)) . " bytes");
+
+                }
+            }
 
         })->everyFiveMinutes()
             ->name('crawl')
-            ->withoutOverlapping();;
+            ->withoutOverlapping();
     }
 }

@@ -74,3 +74,7 @@ fields:
           type: number
           required: true
           span: right
+
+    btc_bounty_campaign_link:
+        label: BitcoinTalk bounty campaign link
+        type: text

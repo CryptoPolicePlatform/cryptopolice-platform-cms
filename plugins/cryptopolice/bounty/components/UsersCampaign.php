@@ -1,6 +1,5 @@
 <?php namespace CryptoPolice\Bounty\Components;
 
-use CryptoPolice\Bounty\Models\BountyReport;
 use DB;
 use Auth;
 use Flash;
@@ -12,6 +11,8 @@ use Carbon\Carbon;
 use RainLab\User\Models\User;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Bounty\Models\Bounty;
+use CryptoPolice\Academy\Models\Settings;
+use CryptoPolice\Bounty\Models\BountyReport;
 use CryptoPolice\Platform\Models\Notification;
 use CryptoPolice\Academy\Components\Recaptcha;
 use CryptoPolice\Bounty\Models\BountyRegistration;
@@ -38,6 +39,7 @@ class UsersCampaign extends ComponentBase
         if (!empty($this->param('slug'))) {
             if ($this->checkBountyStatus()) {
                 $this->getUsersAccess();
+                $this->getBitcoinTalkLink();
                 $this->getRegisteredUsersCount();
                 $this->page['campaignReports'] = $this->getCampaignReports();
             } else {
@@ -48,6 +50,10 @@ class UsersCampaign extends ComponentBase
             $this->page['usersReports'] = $this->getUsersReports();
         }
 
+    }
+
+    public function getBitcoinTalkLink() {
+        $this->page['btc_ulr'] = Settings::get('btc_bounty_campaign_link');
     }
 
     public function checkBountyStatus()
@@ -262,6 +268,7 @@ class UsersCampaign extends ComponentBase
 
             if ($this->prepareValidationRules($registrationData, 'report')) {
                 // check if user has access to report
+                trace_log($registrationData->pivot->approval_type);
                 if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
 
                     // create json from input data
