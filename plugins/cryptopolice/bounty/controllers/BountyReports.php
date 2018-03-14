@@ -28,7 +28,7 @@ class BountyReports extends Controller
 
     public function formAfterSave($model)
     {
-        // $this->sendMail($model);
+        $this->sendMail($model);
         $this->addUsersNotification($model);
     }
 

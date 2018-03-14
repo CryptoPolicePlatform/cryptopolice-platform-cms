@@ -78,3 +78,13 @@ fields:
     btc_bounty_campaign_link:
         label: BitcoinTalk bounty campaign link
         type: text
+
+    active:
+        label: Active Exam Cron
+        type: checkbox
+        default: false
+
+    active_trace:
+        label: Exam trace log
+        type: checkbox
+        default: false

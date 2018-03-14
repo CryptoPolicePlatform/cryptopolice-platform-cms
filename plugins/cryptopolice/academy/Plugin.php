@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use CryptoPolice\Academy\Models\FinalScore;
 use System\Classes\PluginBase;
+use CryptoPolice\Academy\Models\Settings;
 
 class Plugin extends PluginBase
 {
@@ -48,18 +49,29 @@ class Plugin extends PluginBase
 
         $schedule->call(function () {
 
-            $userScores = FinalScore::with('exam')
-                ->where('created_at', '>', Carbon::now()->subMinutes('10'))
-                ->where('created_at', '<', Carbon::now())
-                ->where('complete_status', 0)
-                ->get();
+            $settings = Settings::instance();
 
-            foreach ($userScores as $score) {
-                if (Carbon::now()->greaterThan(Carbon::parse($score->completed_at))) {
+            if ($settings->active) {
 
-                    FinalScore::where('id', $score['id'])->update([
-                        'complete_status' => 1
-                    ]);
+                $userScores = FinalScore::with('exam')
+                    ->where('created_at', '>', Carbon::now()->subMinutes('10'))
+                    ->where('created_at', '<', Carbon::now())
+                    ->where('complete_status', 0)
+                    ->get();
+
+                $count = 0;
+
+                foreach ($userScores as $score) {
+                    $count++;
+                    if (Carbon::now()->greaterThan(Carbon::parse($score->completed_at))) {
+                        FinalScore::where('id', $score['id'])->update([
+                            'complete_status' => 1
+                        ]);
+                    }
+                }
+
+                if ($settings->active_trace) {
+                    trace_log("[exam_scores_cron] Query updated count:" . $count);
                 }
             }
 

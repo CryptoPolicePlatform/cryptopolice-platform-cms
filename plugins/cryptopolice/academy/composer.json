@@ -1,0 +1,12 @@
+{
+    "name": "bin/academy",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "authors": [
+        {
+            "name": "CryptoPolicePlatform",
+            "email": "vladimirs@cunami.lv"
+        }
+    ]
+}
