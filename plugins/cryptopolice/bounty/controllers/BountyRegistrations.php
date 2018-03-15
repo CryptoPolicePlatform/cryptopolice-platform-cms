@@ -31,8 +31,8 @@ class BountyRegistrations extends Controller
     public function formAfterSave($model)
     {
         if ($model->approval_type && $model->btc_status) {
-            $this->addUsersNotification($model);
-            $this->sendMail($model);
+            // $this->addUsersNotification($model);
+            // $this->sendMail($model);
         }
     }
 

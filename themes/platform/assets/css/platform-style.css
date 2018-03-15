@@ -3896,8 +3896,19 @@ html.remodal-is-locked {
     position: relative;
 }
 
+.bounty_content__inner {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 260px 0 265px;
+    position: relative;
+}
+
 @media (max-width: 1919px) {
     .content__inner {
+        max-width: 1700px;
+    }
+    .bounty_content__inner {
         max-width: 1700px;
     }
 }
@@ -3906,16 +3917,25 @@ html.remodal-is-locked {
     .content__inner {
         max-width: 1500px;
     }
+    .bounty_content__inner {
+        max-width: 1500px;
+    }
 }
 
 @media (max-width: 1520px) {
     .content__inner {
         max-width: 1300px;
     }
+    .bounty_content__inner {
+        max-width: 1300px;
+    }
 }
 
 @media (max-width: 1520px) {
     .content__inner {
+        max-width: 1300px;
+    }
+    .bounty_content__inner {
         max-width: 1300px;
     }
 }
@@ -3924,13 +3944,18 @@ html.remodal-is-locked {
     .content__inner {
         max-width: 1100px;
     }
+    .bounty_content__inner {
+        max-width: 1100px;
+    }
 }
 
 @media (max-width: 1120px) {
     .content__inner {
         padding-left: 20px;
         padding-right: 20px;
-
+    }
+    .bounty_content__inner {
+        padding-left: 20px;
     }
 }
 
@@ -3938,10 +3963,17 @@ html.remodal-is-locked {
     .content__inner {
         padding-right: 20px;
     }
+    .bounty_content__inner {
+        padding-right: 20px;
+    }
 }
 
 @media (max-width: 480px) {
     .content__inner {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .bounty_content__inner {
         padding-right: 15px;
         padding-left: 15px;
     }
@@ -4824,9 +4856,17 @@ html.remodal-is-locked {
     float: left;
     padding-left: 25px;
 }
+.bounty__content {
+    width: 80%;
+    float: left;
+    padding-left: 25px;
+}
 
 @media (max-width: 1720px) {
     .profile__content {
+        width: 75%;
+    }
+    .bounty__content {
         width: 75%;
     }
 }
@@ -4835,11 +4875,17 @@ html.remodal-is-locked {
     .profile__content {
         width: 70%;
     }
+    .bounty__content {
+        width: 70%;
+    }
 }
 
 @media (max-width: 1320px) {
     .profile__content {
         width: 60%;
+    }
+    .bounty__content {
+        width: 70%;
     }
 }
 
@@ -4847,10 +4893,17 @@ html.remodal-is-locked {
     .profile__content {
         width: 100%;
     }
+    .bounty__content {
+        width: 100%;
+    }
 }
 
 @media (max-width: 767px) {
     .profile__content {
+        margin-top: 30px;
+        padding-left: 0;
+    }
+    .bounty__content {
         margin-top: 30px;
         padding-left: 0;
     }
@@ -6921,6 +6974,7 @@ html.remodal-is-locked {
     height: 45px;
     background-color: #1b1f26;
     position: relative;
+    top: 120px;
     bottom: 0;
     left: 0;
     z-index: 100;
