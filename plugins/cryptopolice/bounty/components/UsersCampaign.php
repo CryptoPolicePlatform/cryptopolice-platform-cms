@@ -73,9 +73,8 @@ class UsersCampaign extends ComponentBase
 
     public function getRegisteredUsersCount()
     {
-
         $totalUserCampaignCount = BountyRegistration::where('bounty_campaigns_id', $this->param('id'))->count('user_id');
-        $totalUserCount = User::count('id');
+        $totalUserCount = User::where('is_activated',1)->count('id');
 
         if ($totalUserCampaignCount) {
             $percentage = 100 / $totalUserCount * $totalUserCampaignCount;

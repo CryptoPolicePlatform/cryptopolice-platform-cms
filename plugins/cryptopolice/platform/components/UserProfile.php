@@ -44,7 +44,7 @@ class UserProfile extends ComponentBase
         $totalUserCount = $users[0]->users_count;
         $totalActiveUserCount = $users[0]->active_users;
 
-        $this->page['active_user_count'] = $totalUserCount;
+        $this->page['active_user_count'] = $totalActiveUserCount;
         $this->page['active_user_percentage'] = ((100 / $totalUserCount) * $totalActiveUserCount) / 100;
 
         $this->page['post_count'] = $totalPostsCount;
