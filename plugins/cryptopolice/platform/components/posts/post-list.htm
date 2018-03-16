@@ -35,7 +35,7 @@
                             <ul class="card__ava-list">
                                 <li class="card__ava  card__ava--author">
                                     {% if post.user.avatar %}
-                                        <img src="{{post.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
+                                        <img src="{{post.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" title="{{post.user.nickname}}" width="23" height="23" alt="Author">
                                     {% else %}
                                         <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                                     {% endif %}
@@ -44,7 +44,7 @@
                                         {% for comment in  post.comments|slice(0, 3) %}
                                             <li class="card__ava">
                                                 {% if comment.user.avatar%}
-                                                    <img src="{{comment.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" alt="Author">
+                                                    <img src="{{comment.user.avatar.thumb(23, 23, {'mode' : 'crop'})}}" width="23" height="23" title="{{comment.user.nickname}}" alt="Author">
                                                 {% else %}
                                                     <img class="header__ava user_sidebar" src="{{'assets/images/user.svg'|theme}}" width="30" height="30" alt="user-avatar">
                                                 {% endif %}
