@@ -85,7 +85,7 @@ function setMultipleField(block) {
     var title = input.first().attr('id');
     var placeholder = input.last().attr('placeholder');
 
-    div.append('<input style="margin-top:20px" class="input" name="' + title + '" placeholder="' + placeholder + '">');
+    div.append('<input style="margin-top:20px" class="input" name="' + title + '[]" placeholder="' + placeholder + '">');
 
 }
 

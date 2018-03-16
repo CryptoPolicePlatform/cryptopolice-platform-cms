@@ -246,7 +246,7 @@ class UsersCampaign extends ComponentBase
                     $rules[$value['name'] . '.*'] = $value['regex'];
 
                     $messages[$value['name'] . '.*.distinct'] = 'Duplicate links are not allowed';
-                    $messages[$value['name'] . '.*.required'] = 'Required link field is missing';
+                    $messages[$value['name'] . '.*.required'] = 'The link field is required';
 
                 } else {
                     $rules[$value['name']] = $value['regex'];

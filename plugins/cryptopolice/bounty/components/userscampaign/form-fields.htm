@@ -29,7 +29,7 @@
             </div>
         {% else %}
             <div id="mul_{{ field.name }}" class="multiple_fields">
-                <input class="input" type="{{ field.input_type }}" id="{{ field.name }}[]" name="{{ field.name }}" placeholder="{{ field.description }}">
+                <input class="input" type="{{ field.input_type }}" id="{{ field.name }}" name="{{ field.name }}{% if field.is_array %}[]{% endif %}" placeholder="{{ field.description }}">
             </div>
             {% if field.multiple %}
                 <a class="btn  btn--green btn_report" href="#" onclick="setMultipleField('mul_{{ field.name }}')">Add field</a>
