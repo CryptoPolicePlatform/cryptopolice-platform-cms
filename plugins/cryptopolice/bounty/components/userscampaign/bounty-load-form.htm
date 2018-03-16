@@ -1,0 +1,10 @@
+{% if limit %}
+    <div id="bounty_load_form">
+        <div id="loading" class="bounty_load" style="text-align: center;  display: none;"> Loading...</div>
+        <form data-request="onGetCampaignReports" data-request-data="page: {{page_num}}" data-request-loading="#loading"
+              data-request-update="'UsersCampaign::campaign-reports-filtered' : '@#campaign_reports', 'UsersCampaign::bounty-load-form' : '#bounty_load_form'">
+            <input type="hidden" name="status" value="{{filter}}">
+            <button class="btn  btn--gpink btc_load">Load More</button>
+        </form>
+    </div>
+{% endif %}

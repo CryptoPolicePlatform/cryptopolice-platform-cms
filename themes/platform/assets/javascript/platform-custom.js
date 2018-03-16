@@ -70,8 +70,20 @@ $(function () {
                 'Scams::form-fields': '#form_fields'
             }
         });
-    })
+    });
 
+    $('#campaign_filters').on('change', function () {
+
+        $(this).request('onGetCampaignReports', {
+            data: {
+                category_id: this.value
+            },
+            update: {
+                'UsersCampaign::campaign-reports-filtered': '#campaign_reports',
+                'UsersCampaign::bounty-load-form' : '#bounty_load_form'
+            }
+        });
+    });
 });
 
 // Bounty report from fields

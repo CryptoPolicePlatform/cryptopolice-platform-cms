@@ -1,10 +1,8 @@
 {% if limit %}
     <div id="post_load_form">
-        <div id="loading" class="post_load" style="text-align: center;  display: none;"> Loading... </div>
+        <div id="loading" class="btc_load" style="text-align: center;  display: none;"> Loading... </div>
         <form data-request="onGetPosts" data-request-data="page: {{page_num}}" data-request-loading="#loading" data-request-update="'CommunityPosts::post-list' : '@#post_content', 'CommunityPosts::post-load-form' : '#post_load_form'">
-        {# {{ form_ajax('onGetPosts', { data: { page: page_num } , flash : '', loading : '#loading', update : {  : '#post_load_form' } }) }} #}
-            <button class="btn  btn--gpink post_load">Load More</button>
-        {# {{ form_close() }} #}
+            <button class="btn  btn--gpink btc_load">Load More</button>
         </form>
     </div>
 {% endif %}

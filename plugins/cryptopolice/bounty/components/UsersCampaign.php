@@ -37,19 +37,22 @@ class UsersCampaign extends ComponentBase
         $this->page['profileStatistic'] = $this->getProfileStatistic();
 
         if (!empty($this->param('slug'))) {
+
             if ($this->checkBountyStatus()) {
+
                 $this->getUsersAccess();
                 $this->getBitcoinTalkLink();
                 $this->getRegisteredUsersCount();
-                $this->page['campaignReports'] = $this->getCampaignReports();
+                $this->onGetCampaignReports();
+
             } else {
                 return Redirect::to('/bounty-campaign');
             }
+
         } else {
             $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
             $this->page['usersReports'] = $this->getUsersReports();
         }
-
     }
 
     public function getBitcoinTalkLink() {
@@ -109,27 +112,6 @@ class UsersCampaign extends ComponentBase
         return $registrationData;
     }
 
-
-    public function onFilterCampaignReports()
-    {
-
-        $this->page['campaignReports'] = DB::table('cryptopolice_bounty_user_reports')
-            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
-            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
-            ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
-            ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
-            ->Where(function ($query) {
-                if (!empty(post('status'))) {
-                    if(post('status') === 'user_reports') {
-                        $query->where('cryptopolice_bounty_user_reports.user_id', Auth::getUser()->id);
-                    } else {
-                        $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
-                    }
-                }
-            })->get();
-    }
-
-
     public function getProfileStatistic()
     {
 
@@ -177,7 +159,6 @@ class UsersCampaign extends ComponentBase
         ];
     }
 
-
     public function onFilterReports()
     {
 
@@ -199,24 +180,43 @@ class UsersCampaign extends ComponentBase
         }
     }
 
-
     public function getUsersReports()
     {
         $user = Auth::getUser();
-        return BountyReport::with('reward','bounty')->where('user_id', $user->id)->get();
+        return BountyReport::with('reward','bounty')->where('user_id', $user->id)->orderBy('cryptopolice_bounty_user_reports.created_at','desc')->get();
     }
 
-
-    public function getCampaignReports()
+    public function onGetCampaignReports()
     {
 
-        return DB::table('cryptopolice_bounty_user_reports')
+        $this->page['limit'] = true;
+        $this->page['page_num'] = post('page') ? post('page') + 1 : 1;
+        $perPage = 5;
+
+        $skip = post('page') ? post('page') * $perPage : 0;
+
+        $campaignReports = DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
+            ->Where(function ($query) {
+                if (!empty(post('status'))) {
+                    if (post('status') === 'user_reports') {
+                        $query->where('cryptopolice_bounty_user_reports.user_id', Auth::getUser()->id);
+                    } else {
+                        $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
+                    }
+                }
+            })
             ->orderBy('cryptopolice_bounty_campaigns.created_at', 'desc')
+            ->skip($skip)
+            ->take($perPage)
             ->get();
+
+        $this->page['filter']           = post('status');
+        $this->page['campaignReports']  = $campaignReports;
+        $this->page['limit']            = $campaignReports->count() < $perPage ? false : true;
     }
 
 
@@ -284,7 +284,14 @@ class UsersCampaign extends ComponentBase
                     // create json from input data
                     foreach (input() as $key => $value) {
                         if ($key != 'id' && $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
-                            array_push($json, ['title' => $key, 'value' => $value]);
+                            if (is_array($value)) {
+                                foreach ($value as $val) {
+                                    array_push($json, ['title' => $key, 'value' => $val]);
+                                }
+                            } else {
+
+                                array_push($json, ['title' => $key, 'value' => $value]);
+                            }
                         }
                     }
 
