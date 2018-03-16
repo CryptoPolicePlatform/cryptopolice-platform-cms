@@ -88,3 +88,8 @@ fields:
         label: Exam trace log
         type: checkbox
         default: false
+
+    campaign_reports_per_page:
+        label: Pagination per pare (campaign reports)
+        type: number
+        span: left

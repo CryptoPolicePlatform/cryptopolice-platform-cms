@@ -191,7 +191,7 @@ class UsersCampaign extends ComponentBase
 
         $this->page['limit'] = true;
         $this->page['page_num'] = post('page') ? post('page') + 1 : 1;
-        $perPage = 5;
+        $perPage = Settings::get('campaign_reports_per_page');
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
