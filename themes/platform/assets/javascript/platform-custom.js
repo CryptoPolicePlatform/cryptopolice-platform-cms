@@ -82,11 +82,10 @@ function setMultipleField(block) {
     var div = $('#' + block);
     var input = div.find("input");
 
-    var count = input.length + 1;
     var title = input.first().attr('id');
     var placeholder = input.last().attr('placeholder');
 
-    div.append('<input style="margin-top:20px" class="input" type="text" name="' + title + '_' + count + '" placeholder="' + placeholder + '">');
+    div.append('<input style="margin-top:20px" class="input" name="' + title + '" placeholder="' + placeholder + '">');
 
 }
 

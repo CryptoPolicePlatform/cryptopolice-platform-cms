@@ -231,22 +231,29 @@ class UsersCampaign extends ComponentBase
     public function prepareValidationRules($query, $actionType)
     {
 
+        $messages = [];
+
         // create array of validation rules
+
         foreach ($query->fields as $value) {
             if ($value['action_type'] == $actionType) {
-                $rules[$value['name']] = $value['regex'];
-                if($value['multiple']) {
-                    foreach(input() as $key => $filed) {
-                        if(strpos($key,$value['name'].'_') !== false) {
-                            $rules[$key] = $value['regex'];
-                        }
-                    }
+                if ($value['is_array']) {
+
+                    $rules[$value['name'] . '.*'] = $value['regex'];
+
+                    $messages[$value['name'] . '.*.distinct'] = 'Duplicate links are not allowed';
+                    $messages[$value['name'] . '.*.required'] = 'Required link field is missing';
+
+                } else {
+                    $rules[$value['name']] = $value['regex'];
                 }
+
             }
         }
 
         // check validation
-        $validator = Validator::make(input(), $rules);
+        $validator = Validator::make(input(), $rules, $messages);
+
         if ($validator->fails()) {
             Flash::error($validator->messages()->first());
         } else {
@@ -268,7 +275,6 @@ class UsersCampaign extends ComponentBase
 
             if ($this->prepareValidationRules($registrationData, 'report')) {
                 // check if user has access to report
-                trace_log($registrationData->pivot->approval_type);
                 if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {
 
                     // create json from input data

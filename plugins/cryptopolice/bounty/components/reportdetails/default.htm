@@ -10,11 +10,13 @@
     </div>
     
     {% for field in report.description %}
-        <div class="card__header report_title"> {{ field.title|replace({'_': ' '})|capitalize }}  </div>
         {% if field.title == 'email' %}
             <div class="card__content report_content"> {{ field.value|slice(0, 3)}}*****@****.com </div>
         {% else %}
-            <div class="card__content report_content"> {{ field.value }} </div>
+            {% for value in field.value %}
+                <div class="card__header report_title"> {{ field.title|replace({'_': ' '})|capitalize }}  </div>
+                <div class="card__content report_content"> {{ value }} </div>
+            {% endfor %}
         {% endif %}
     {% endfor %}
 
