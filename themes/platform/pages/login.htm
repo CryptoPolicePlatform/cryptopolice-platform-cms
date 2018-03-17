@@ -17,11 +17,12 @@ forceSecure = 0
 
     function onStart() {
         $this['active']  = get('activate');
-
-        if(Auth::check()) {
-           return Redirect::to('/');
-        }
     }
+
+    function onEnd() {
+	    if(Auth::check()) { return Redirect::to('/profile'); }
+	}
+
 ==
 <div class="content">
     <div class="content__inner">
