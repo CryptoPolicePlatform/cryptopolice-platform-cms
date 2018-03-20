@@ -14928,7 +14928,6 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 
         var _ = this;
 
-        console.log($( window ).width());
         if (_.options.vertical === false) {
             if (_.options.centerMode === true) {
             	if($( window ).width() > 720) {
@@ -15998,7 +15997,11 @@ $(function () {
 });
 
 $(document).on('closed', '#endtime_modal', function (e) {
-    $.request('onCompleteTask');
+    $.request('onCompleteTask', {
+    	 data: {
+            close: 1
+        },
+    });
 });
 
 

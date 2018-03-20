@@ -1,5 +1,6 @@
 <?php namespace Cryptopolice\Uploader\Components;
 
+use Auth;
 use System\Models\File;
 use ApplicationException;
 use Cms\Classes\ComponentBase;
@@ -251,7 +252,26 @@ class ImageUploader extends ComponentBase
     public function onRemoveAttachment()
     {
         if (($file_id = post('file_id')) && ($file = File::find($file_id))) {
-            $this->model->{$this->attribute}()->remove($file, $this->getSessionKey());
+
+            if ($this->attribute == 'post_image') {
+
+                if ($this->model->post_image == null) {
+                    $this->model->{$this->attribute}()->remove($file, $this->getSessionKey());
+                } else {
+                    throw new ApplicationException('Access denied,you can\'t delete the current file');
+                }
+            }
+
+            if ($this->attribute == 'avatar') {
+
+                $user = Auth::getUser();
+
+                if ($this->model->avatar->id == $user->avatar->id) {
+                    $this->model->{$this->attribute}()->remove($file, $this->getSessionKey());
+                } else {
+                    throw new ApplicationException('Access denied,you can\'t delete the current file');
+                }
+            }
         }
     }
 

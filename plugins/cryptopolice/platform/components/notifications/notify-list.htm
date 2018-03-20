@@ -8,7 +8,14 @@
                     <a href="#" id="{{ notify.id }}" data-request="onCheckNotification" data-request-data="id:{{ notify.id }}" data-request-update="'Notifications::notify-status': '#status_{{notify.id }}'">{{ notify.title }}</a>
                     <div class="card__date">{{ notify.created_at }}</div>
                 </div>
-                <div class="issues__status" id="status_{{ notify.id }}"> {% partial Notification ~ '::notify-status' notification = notify.users_notifications %} </div>
+                <div class="issues__status" id="status_{{ notify.id }}">
+                    {% for notify in notify.users_notifications %}
+                    <div class='issues__status-item  low'>read</div>
+                    {% else %}
+                    <div class='issues__status-item  high'>new</div>
+                    {% endfor%}
+
+                </div>
             </div>
             <div class="issues__item notify_block profile__card" id="description_{{ notify.id }}">
                 <p class="card__content">
@@ -22,5 +29,3 @@
         {% endfor %}
     </div>
 </div>
-
-

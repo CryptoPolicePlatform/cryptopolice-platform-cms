@@ -24,7 +24,28 @@ redirect = "login"
                 <div class="bounty__content">
 
                     <!-- Verification bounty campaign message -->
-                    {% partial UsersCampaign ~ '::bounty-verification-code' %}
+                    {% if access is defined and access is not null %}
+                        {% if not access %}
+                            {% if not btc_status %}
+                                <div class="alert alert--orange">
+                                    <h2>To verify your registration please approve your Bitcointalk account</h2>
+                                    <br>
+                                    <span class="mark  mark--red"><strong>Post this message to our Bitcointalk bounty announcement </strong></span>
+                                    <a href="{{ btc_ulr }}" target="_blank">LINK</a> <br><br>
+                                    <span class="mark  mark--red"><strong>Only 1 registration code per post</strong></span>
+                                    <h2>Message:</h2>
+                                    <h4> I registered to CryptoPolice {{bounty.title}} campaign <br> My registration code is {{btc_code}}</h4>
+                                    <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+                                </div>
+                            {% else %}
+                                <div class="alert alert--orange">
+                                    You have been verified on BitcoinTalk
+                                    <h4>You need to wait until we accept you registration, to participate in {{bounty.title}} campaign</h4>
+                                    <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
 
                     {% partial UsersCampaign ~ '::main-menu' %}
 

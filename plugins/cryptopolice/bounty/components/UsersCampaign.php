@@ -211,6 +211,7 @@ class UsersCampaign extends ComponentBase
             ->orderBy('cryptopolice_bounty_campaigns.created_at', 'desc')
             ->skip($skip)
             ->take($perPage)
+            ->whereNull('cryptopolice_bounty_user_reports.deleted_at')
             ->get();
 
         $this->page['filter']           = post('status');

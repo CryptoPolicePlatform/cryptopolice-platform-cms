@@ -52,7 +52,6 @@ $(function () {
     // Notifications blocks
     $('.notify_title a[href^="#"]').on('click', function (e) {
 
-        console.log('test');
         e.preventDefault();
 
         var element = $('#description_' + $(this).attr('id'));
