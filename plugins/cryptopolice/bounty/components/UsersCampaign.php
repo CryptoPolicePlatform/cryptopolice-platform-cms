@@ -44,6 +44,7 @@ class UsersCampaign extends ComponentBase
                 $this->getBitcoinTalkLink();
                 $this->getRegisteredUsersCount();
                 $this->onGetCampaignReports();
+                $this->getCampaignRegistration();
 
             } else {
                 return Redirect::to('/bounty-campaign');
@@ -219,6 +220,10 @@ class UsersCampaign extends ComponentBase
         $this->page['limit']            = $campaignReports->count() < $perPage ? false : true;
     }
 
+
+    public function getCampaignRegistration() {
+        $this->page['campaign_registered_list'] = BountyRegistration::with('user')->where('bounty_campaigns_id',$this->param('id'))->get();
+    }
 
     public function getUsersAccess()
     {

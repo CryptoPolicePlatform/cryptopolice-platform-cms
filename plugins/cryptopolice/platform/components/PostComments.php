@@ -10,7 +10,7 @@ use CryptoPolice\Platform\Classes\Helpers;
 use CryptoPolice\Platform\Models\CommunityPost;
 use CryptoPolice\Platform\Models\CommunityComment;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
-
+use October\Rain\Support\Facades\Markdown;
 
 class PostComments extends ComponentBase
 {
@@ -78,11 +78,13 @@ class PostComments extends ComponentBase
             } else {
 
                 $user = Auth::getUser();
-
+                
+                $html = Markdown::parse(strip_tags(input('description')));
+                
                 $comment = new CommunityComment;
                 $comment->user_id = $user->id;
                 $comment->post_id = $this->param('id');
-                $comment->description = input('description');
+                $comment->description = $html;
                 if (!empty(input('parent_id'))) {
                     $comment->parent_id = input('parent_id');
                 }

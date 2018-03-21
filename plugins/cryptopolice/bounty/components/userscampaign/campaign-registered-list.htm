@@ -1,0 +1,68 @@
+{% if campaignID == '7' %}
+    <!-- Registration approved list -->
+    <div id="report_list">
+        <h3 class="content__title"> Approved registrations</h3>
+        <div class="issues">
+
+            {% for registration in campaign_registered_list %}
+            	{% set incerement = loop.index %}
+                {% if user.is_superuser %}
+                    <div class="issues__item  issues__item--history">
+                        
+							{% set type = 'Translate' %}
+                            {% for field in registration.fields_data %}
+								
+								{% if 'selected_category' in field %}
+                            		<div class="issues__type">#{{ incerement }}</div>
+                                	<div class="issues__title"><strong>{{registration.user.nickname}}</strong> - {{ field.value }}</div>
+                                {% endif %}
+								
+								{% if 'selected_language' in field %}
+									<div class="issues__view">{{field.value}}</div>
+                                {% endif %}
+
+								{% if 'action_type' in field %}
+									{% set type = field.value %}
+								{% endif %}
+
+                            {% endfor%}
+								
+														
+								<div class="issues__amount">{{type}} </div>
+						
+
+                     </div>
+                {% else %}
+                    {% if registration.approval_type %}
+                              <div class="issues__item  issues__item--history">
+                        
+							{% set type = 'Translate' %}
+                            {% for field in registration.fields_data %}
+								
+								{% if 'selected_category' in field %}
+                            		<div class="issues__type">#{{ incerement }}</div>
+                                	<div class="issues__title"><strong>{{registration.user.nickname}}</strong> - {{ field.value }}</div>
+                                {% endif %}
+								
+								{% if 'selected_language' in field %}
+									<div class="issues__view">{{field.value}}</div>
+                                {% endif %}
+
+								{% if 'action_type' in field %}
+									{% set type = field.value %}
+								{% endif %}
+
+                            {% endfor%}
+								
+														
+								<div class="issues__amount">{{type}} </div>
+						
+
+                     </div>
+                    {% endif  %}
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

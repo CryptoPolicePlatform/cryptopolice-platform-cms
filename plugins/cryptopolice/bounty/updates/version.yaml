@@ -1,5 +1,5 @@
 1.0.1:
     - Initialize CryptoPolice bounty plugin.
-1.0.4:
+1.0.6:
     - CryptoPolice bounty create tables
     - cryptopolice_bounty_tables.php

@@ -1,6 +1,7 @@
 <?php namespace CryptoPolice\Bounty\Models;
 
 use Model;
+use ValidationException;
 
 /**
  * Model
@@ -52,4 +53,28 @@ class BountyRegistration extends Model
      */
     public $table = 'cryptopolice_bounty_user_registration';
 
+    public function beforeSave()
+    {
+
+        $data = input();
+        $reg = $data['BountyRegistration'];
+
+        if (!$reg['approval_type']) {
+            if (!$reg['reverified'] && !empty($reg['message']) || ($reg['reverified'] && empty($reg['message']))) {
+
+                throw new ValidationException([
+                    'message' => 'Please, set Reverifed status and Message or Approval status'
+                ]);
+            }
+        }
+
+        if ($reg['approval_type']) {
+            if ($reg['reverified'] || !empty($reg['message'])) {
+                throw new ValidationException([
+                    'message' => 'Please, remove Reverifed status and Message'
+                ]);
+            }
+        }
+
+    }
 }

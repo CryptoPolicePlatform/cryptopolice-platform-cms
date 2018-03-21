@@ -53,9 +53,9 @@ class Plugin extends PluginBase
                 ]);
             }
 
-            if (!preg_match('/^([a-z]|[A-Z]|[0-9]| |_|-)+$/', $userPassword)) {
+            if (!preg_match('/^[A-Za-z0-9_~\-!=<>|:;?"+@#\$%\^&\*\(\)]+$/', $userPassword)) {
                 throw new ValidationException([
-                    'password' => 'Not allows the use of special characters and emoji in the password!'
+                    'password' => 'Not allows the use emoji in the password!'
                 ]);
             }
 

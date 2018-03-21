@@ -222,16 +222,18 @@ class Profile extends ComponentBase
 
             $user = Auth::getUser();
 
+            $nickname = strip_tags(preg_replace('/\s+/', '', post('nickname')));
+
             $rules['nickname'] = 'required|min:0|max:160|unique:users';
 
             $validator = Validator::make([
-                'nickname' => post('nickname')
+                'nickname' => $nickname
             ], $rules);
 
             if ($validator->fails()) {
                 Flash::error($validator->messages()->first());
             } else {
-                $user->update(['nickname' => post('nickname')]);
+                $user->update(['nickname' => $nickname]);
                 Flash::success('You\'re nickname has been updated');
             }
         }

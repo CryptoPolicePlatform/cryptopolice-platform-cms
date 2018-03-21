@@ -38,3 +38,11 @@ scopes:
       options:
           0: Not Approved
           1: Approved
+
+  reverified:
+      label: Reverified Status
+      type: group
+      conditions: reverified in (:filtered)
+      options:
+          0: Not reverified
+          1: Reverified

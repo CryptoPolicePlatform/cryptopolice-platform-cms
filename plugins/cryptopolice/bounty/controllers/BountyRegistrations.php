@@ -27,13 +27,30 @@ class BountyRegistrations extends Controller
         BackendMenu::setContext('CryptoPolice.Bounty', 'bounty-campaign', 'campaigns-registration');
     }
 
-
     public function formAfterSave($model)
     {
+
+        if (!empty($model->message) && $model->reverified) {
+
+            $user       = User::where('id', $model->user_id)->first();
+            $campaign   = Bounty::where('id', $model->bounty_campaigns_id)->first();
+
+            $notify = new Notification();
+
+            $notify->user_id            = $user->id;
+            $notify->title              = '[Need your action] Notification from admin regarding CryptoPolice ' . $campaign->title . ' bounty campaign';
+            $notify->description        = $model->message;
+            $notify->announcement_at    = Carbon::now();
+
+            $notify->save();
+
+        }
+
         if ($model->approval_type && $model->btc_status) {
             $this->addUsersNotification($model);
             $this->sendMail($model);
         }
+
     }
 
     public function addUsersNotification($model)
@@ -42,10 +59,10 @@ class BountyRegistrations extends Controller
         $campaign = Bounty::where('id', $model->bounty_campaigns_id)->first();
 
         $notify = new Notification();
-        $notify->user_id = $user->id;
-        $notify->title = 'Thank you for your registration in CryptoPolice ' . $campaign->title . ' bounty campaign';
-        $notify->description = 'Now you can make you reports basing on the conditions of the campaign';
-        $notify->announcement_at = Carbon::now();
+        $notify->user_id            = $user->id;
+        $notify->title              = 'Thank you for your registration in CryptoPolice ' . $campaign->title . ' bounty campaign';
+        $notify->description        = 'Now you can make you reports basing on the conditions of the campaign';
+        $notify->announcement_at    = Carbon::now();
         $notify->save();
     }
 

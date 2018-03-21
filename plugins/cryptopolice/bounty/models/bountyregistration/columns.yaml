@@ -5,6 +5,13 @@ columns:
         searchable: true
         sortable: true
         width: 30px
+    reverified:
+        label: Reverified?
+        type: partial
+        sortable: true
+        clickable: 'false'
+        cssClass: column-button
+        width: 150px
     btc_status:
         label: Bitcointalk Status
         type: partial
