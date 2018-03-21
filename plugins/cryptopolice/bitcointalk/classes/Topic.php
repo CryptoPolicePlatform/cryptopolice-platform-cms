@@ -1,15 +1,20 @@
 <?php namespace CryptoPolice\Bitcointalk\Classes;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
 
 use Xparse\CssExpressionTranslator\CssExpressionTranslator;
 use Xparse\ElementFinder\ElementFinder;
 
 use CryptoPolice\Bitcointalk\Models\Topic as Model;
+use CryptoPolice\Bitcointalk\Models\Settings;
+
 class Topic
 {
     private $models;
     private $hash;
+    private $user_agent;
+    private $cf_clearance;
 
     public function __construct($ids = null)
     {
@@ -18,6 +23,11 @@ class Topic
         } else {
             $this->models = Model::findOrFail($ids);
         }
+
+        $settings = Settings::instance();
+
+        $this->user_agent = $settings->user_agent;
+        $this->cf_clearance = $settings->cf_clearance;
     }
 
     public function grabbing()
@@ -101,11 +111,16 @@ class Topic
 
     private function get($url, $query = [])
     {
-        $headers = ['User-Agent' => 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0)'];
+        $headers = ['User-Agent' => $this->user_agent];
+
+        $jar = CookieJar::fromArray([
+            'cf_clearance'  => $this->cf_clearance,
+            ], '.bitcointalk.org');
 
         $opt = [
-            'headers' => $headers,
+            'headers'   => $headers,
             'query'     => $query,
+            'cookies'   => $jar
         ];
 
         $response = $this->request($url, $opt);
