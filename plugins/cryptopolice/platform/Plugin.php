@@ -31,7 +31,14 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
-
+        return [
+            'settings' => [
+                'label'         => 'Access Settings',
+                'description'   => 'Manage access token',
+                'icon'          => 'icon-user',
+                'class'         => 'CryptoPolice\Platform\Models\Settings',
+            ]
+        ];
     }
 
     public function boot()

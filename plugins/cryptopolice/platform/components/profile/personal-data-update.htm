@@ -10,10 +10,6 @@
             <label for="surname">Surname</label>
             <input class="input" type="text" name="surname" id="surname" placeholder="" value="{{ user.surname }}">
         </div>
-        <div class="form__group">
-            <label for="email">Email</label>
-            <input class="input" type="email" name="email" id="email" placeholder="" value="{{ user.email }}">
-        </div>
         {% set countryId = user.country_id %}
         {% set stateId = stateId|default(form_value('state_id')) %}
         <label for="country">Country</label>

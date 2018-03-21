@@ -20,7 +20,7 @@
                         {{ reply.user.email|slice(0, 3)}}*****@***{{ reply.user.email|slice(reply.user.email.length - 4, reply.user.email.length) }}
                     {% endif %}
                 </strong>
-                    {{ reply.created_at }}
+                {{ reply.created_at }}
                 {% if reply.deleted_at is null %}
                     <a id="{{reply.id}}" href="#"> Reply </a>
                         {% if user and user.id == reply.user_id and reply.deleted_at is null %}
@@ -31,7 +31,7 @@
         </div>
         <div class="card__content">
             {% if reply.deleted_at is null %}
-                {{ reply.description|md }}
+                {{ reply.description|striptags|md }}
             {% else %}
                 <i>This message has been removed</i>
             {% endif %}

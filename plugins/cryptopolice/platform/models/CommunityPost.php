@@ -17,8 +17,17 @@ class CommunityPost extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'post_title'        => 'required|min:0|max:255|regex:/(^[A-Za-z0-9 ]+$)+/',
+        'post_title'        => 'required|min:0|max:255|regex:/(^[A-Za-z0-9,.?! ]+$)+/',
         'post_description'  => 'required|min:0|max:10000',
+    ];
+
+    /**
+     * @var array The array of custom error messages.
+     */
+    public $customMessages = [
+        'post_title.regex'          => 'Not allowed the use of special characters and emoji in post title,<br> You can only use letters and numbers, other characters [ ,.?! ]',
+        'post_title.required'       => 'The post title is required',
+        'post_description.required' => 'The post description is required'
     ];
 
     /*

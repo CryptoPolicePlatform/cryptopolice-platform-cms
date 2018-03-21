@@ -116,12 +116,7 @@ class Posts extends ComponentBase
 
             if ($helper->checkLinks($description)) {
                 Flash::error('Links are not allowed');
-            }
-//            else if (!empty($title) && preg_match('/^[A-Za-z0-9_~\-!=<>|:;?"+@#\$%\^&\*\(\)]+$/', $title)) {
-//                Flash::error('Not allows the use emoji in the title');
-
-//            }
-            else {
+            } else {
 
                 $post = new CommunityPost;
                 $post->post_title = $title;

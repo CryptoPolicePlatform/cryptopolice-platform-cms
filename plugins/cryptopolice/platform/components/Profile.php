@@ -15,6 +15,7 @@ use CryptoPolice\Platform\Models\CommunityPost;
 use CryptoPolice\Platform\Models\CommunityComment;
 
 use Auth, Flash,Input,Session,Validator,ValidationException;
+use October\Rain\Auth\Manager;
 
 class Profile extends ComponentBase
 {
@@ -183,6 +184,27 @@ class Profile extends ComponentBase
         }
     }
 
+    public function verifyUser()
+    {
+
+        $user = Auth::getUser();
+
+        $credentials = [
+            'login'     => $user->email,
+            'password'  => post('password')
+        ];
+
+        $userAccess = Auth::authenticate($credentials, true);
+        if (isset($userAccess) && !empty($userAccess)) {
+
+            return $userAccess->isBanned() ? Auth::logout() : true;
+
+        } else {
+            Flash::success('Your password is invalid. Please try again!');
+            return false;
+        }
+    }
+
     public function onUpdateWalletAddress()
     {
 
@@ -190,28 +212,43 @@ class Profile extends ComponentBase
 
         if (input('_token') == Session::token()) {
 
-            $user = Auth::getUser();
+            if ($this->verifyUser()) {
 
-            if ($user->eth_address == post('eth_address')) {
-                $rules['eth_address'] = 'min:42|max:42';
-            } else {
-                $rules['eth_address'] = 'min:42|max:42|unique:users';
-            }
+                $user = Auth::getUser();
+                $ethAddress = strip_tags(trim(post('eth_address')));
 
-            $validator = Validator::make([
-                'eth_address' => post('eth_address')
-            ], $rules);
+                $rules['eth_address'] = $user->eth_address == $ethAddress ? 'min:42|max:42' : 'min:42|max:42|unique:users';
 
-            if ($validator->fails()) {
+                $validator = Validator::make(['eth_address' => $ethAddress], $rules);
 
-                Flash::error($validator->messages()->first());
+                if ($validator->fails()) {
 
-            } else {
-                $user->update(['eth_address' => post('eth_address')]);
-                Flash::success('You\'re ethereum wallet address has been updated');
+                    Flash::error($validator->messages()->first());
+
+                } else {
+                    $user->update(['eth_address' => $ethAddress]);
+                    Flash::success('You\'re ethereum wallet address has been successfully changed');
+                }
             }
         }
     }
+
+    public function onEmailUpdate()
+    {
+        Recaptcha::verifyCaptcha();
+
+        if (input('_token') == Session::token()) {
+
+            if ($this->verifyUser()) {
+
+                $user = Auth::getUser();
+                $user->update(['email' => post('email')]);
+
+                Flash::success('Your email address has been successfully changed');
+            }
+        }
+    }
+
 
     public function onUpdateNickname()
     {

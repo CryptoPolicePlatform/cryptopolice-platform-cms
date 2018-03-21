@@ -1,0 +1,20 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    access_token:
+        label: Access token
+        type: text
+        span: left
+
+    white_list:
+        label: White list
+        span: left
+        type: repeater
+        form:
+            fields:
+                ip:
+                    span: auto
+                    type: text
