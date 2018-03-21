@@ -8,6 +8,13 @@ fields:
         label: Bitcointalk
         type: section
 
+    user_agent:
+        label: Current Browser User Agent
+
+    cf_clearance:
+        label: Cookie value the cf_clearance (lifetime - 7h)
+        comment: Checking your browser before accessing bitcointalk.org.
+
     active:
         label: Active Cron
         type: checkbox

@@ -111,15 +111,21 @@ class Posts extends ComponentBase
             }
 
             $helper = new Helpers();
-            $html = Markdown::parse(strip_tags(input('description')));
-            
-            if ($helper->checkLinks($html)) {
+            $description    = Markdown::parse(strip_tags(input('description')));
+            $title          = strip_tags(input('title'));
+
+            if ($helper->checkLinks($description)) {
                 Flash::error('Links are not allowed');
-            } else {
+            }
+//            else if (!empty($title) && preg_match('/^[A-Za-z0-9_~\-!=<>|:;?"+@#\$%\^&\*\(\)]+$/', $title)) {
+//                Flash::error('Not allows the use emoji in the title');
+
+//            }
+            else {
 
                 $post = new CommunityPost;
-                $post->post_title = input('title');
-                $post->post_description = $html;
+                $post->post_title = $title;
+                $post->post_description = $description;
                 $post->user_id = $user->id;
                 $post->save(null, post('_session_key'));
 

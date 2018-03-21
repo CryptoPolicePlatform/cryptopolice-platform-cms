@@ -3871,6 +3871,7 @@ html.remodal-is-locked {
 
 .content {
     height: 100%;
+    min-height: 100vh;
     padding-top: 100px;
     padding-bottom: 120px;
 }
@@ -6974,7 +6975,6 @@ html.remodal-is-locked {
     height: 45px;
     background-color: #1b1f26;
     position: relative;
-    top: 120px;
     bottom: 0;
     left: 0;
     z-index: 100;
