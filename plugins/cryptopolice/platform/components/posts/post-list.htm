@@ -22,7 +22,7 @@
                         <div class="card__header">
                             <div class="card__date">{{post.created_at}}</div>
                             <h3 class="card__title">
-                                {{ post.post_title }}
+                                {{ post.post_title|striptags }}
                             </h3>
                         </div>
                         <div class="card__content">

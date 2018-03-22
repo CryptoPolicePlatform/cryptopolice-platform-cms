@@ -1,13 +1,13 @@
 {{ form_ajax('onEmailUpdate', { flash : '', model: user }) }}
     <div class="profile__card profile_form">
-        <h3 class="content__title">Private information</h3>
+        <h3 class="content__title">Email address</h3>
         <div class="form__group">
             <label for="email">Email</label>
             <input class="input" type="email" name="email" id="email" placeholder="" value="{{ user.email }}">
         </div>
         <div class="form__group">
             <label for="password">Confirm password</label>
-            <input class="input" type="password" name="password" id="password">
+            <input class="input" type="password" name="password" id="email_password" value="">
         </div>
         <button id="captcha_email" class="btn  btn--gpink g-recaptcha" data-attach-loading>Update Profile</button>
     </div>

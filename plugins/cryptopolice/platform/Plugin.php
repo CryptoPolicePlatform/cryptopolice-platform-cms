@@ -54,6 +54,12 @@ class Plugin extends PluginBase
 
             $userPassword = post('password');
 
+            if (strlen($userPassword) < 8) {
+                throw new ValidationException([
+                    'password' => 'Passwords must be at least 8 characters in length'
+                ]);
+            }
+
             if (!preg_match('/[a-zA-Z]/', $userPassword)) {
                 throw new ValidationException([
                     'password' => 'Password should contain at least one letter character!'

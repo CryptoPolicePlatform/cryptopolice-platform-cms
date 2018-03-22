@@ -217,14 +217,12 @@ class Profile extends ComponentBase
                 $user = Auth::getUser();
                 $ethAddress = strip_tags(trim(post('eth_address')));
 
-                $rules['eth_address'] = $user->eth_address == $ethAddress ? 'min:42|max:42' : 'min:42|max:42|unique:users';
+                $rules['eth_address'] = $user->eth_address == $ethAddress ? 'required|min:42|max:42' : 'required|min:42|max:42|unique:users';
 
                 $validator = Validator::make(['eth_address' => $ethAddress], $rules);
 
                 if ($validator->fails()) {
-
                     Flash::error($validator->messages()->first());
-
                 } else {
                     $user->update(['eth_address' => $ethAddress]);
                     Flash::success('You\'re ethereum wallet address has been successfully changed');
@@ -242,9 +240,16 @@ class Profile extends ComponentBase
             if ($this->verifyUser()) {
 
                 $user = Auth::getUser();
-                $user->update(['email' => post('email')]);
 
-                Flash::success('Your email address has been successfully changed');
+				$rules['email'] = 'required';
+                $validator = Validator::make(['email' => post('email')], $rules);
+				
+				if ($validator->fails()) {
+                    Flash::error($validator->messages()->first());
+                } else {
+                	$user->update(['email' => post('email')]);
+                	Flash::success('Your email address has been successfully changed');
+            	}
             }
         }
     }

@@ -36,13 +36,13 @@ class Notifications extends ComponentBase
     {
 
         $user = Auth::getUser();
-
         return Notification::with(['users_notifications' => function ($query) use ($user) {
             $query->where('user_id', $user->id);
         }])
             ->where('user_id', $user->id)
             ->orWhere('user_id', 0)
             ->where('announcement_at', '<', Carbon::now()->toDateTimeString())
+            ->where('created_at', '>', $user->created_at->toDateTimeString())
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
             ->get();

@@ -42,7 +42,7 @@ class Topic extends Controller
 
         if($memory_usage_profiling) {
 
-            trace_log("Scraping script memori usage: ".(memory_get_usage()-$mem_start-sizeof($mem_start))." bytes");
+            trace_log("Scraping script memory usage: ".(memory_get_usage()-$mem_start-sizeof($mem_start))." bytes");
         }
 
         return true;

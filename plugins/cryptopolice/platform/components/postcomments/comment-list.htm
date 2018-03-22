@@ -31,7 +31,7 @@
         </div>
         <div class="card__content">
             {% if reply.deleted_at is null %}
-                {{ reply.description|striptags|md }}
+                {{ reply.description|striptags }}
             {% else %}
                 <i>This message has been removed</i>
             {% endif %}

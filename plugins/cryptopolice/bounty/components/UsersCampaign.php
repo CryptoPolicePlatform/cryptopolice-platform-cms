@@ -57,7 +57,7 @@ class UsersCampaign extends ComponentBase
     }
 
     public function getBitcoinTalkLink() {
-        $this->page['btc_ulr'] = Settings::get('btc_bounty_campaign_link');
+        $this->page['btc_ulr'] = strip_tags(Settings::get('btc_bounty_campaign_link'));
     }
 
     public function checkBountyStatus()
@@ -133,14 +133,14 @@ class UsersCampaign extends ComponentBase
         $stakesList = [];
         foreach (array_unique($buf) as $key => $value) {
             array_push($stakesList, [
-                'campaign_title' => $value,
-                'stake_amount' => $data->where('campaign_title', $value)->sum('given_reward')
+                'campaign_title'    => $value,
+                'stake_amount'      => $data->where('campaign_title', $value)->sum('given_reward')
             ]);
         }
 
-        $counter = $data->count();
-        $approved = $data->where('report_status', 1)->count();
-        $pending = $data->where('report_status', 0)->count();
+        $counter    = $data->count();
+        $approved   = $data->where('report_status', 1)->count();
+        $pending    = $data->where('report_status', 0)->count();
 
         if ($counter - $pending && $approved) {
             $value = (100 / ($counter - $pending) * $approved) / 100;
@@ -150,12 +150,12 @@ class UsersCampaign extends ComponentBase
 
         return [
             'report_percentage' => $value,
-            'total_tokens' => $data->where('type', 0)->sum('given_reward'),
-            'report_count' => $data->count(),
-            'disapproved' => $data->where('report_status', 2)->count(),
-            'approved' => $data->where('report_status', 1)->count(),
-            'pending' => $data->where('report_status', 0)->count(),
-            'stake_list' => $stakesList,
+            'total_tokens'      => $data->where('type', 0)->sum('given_reward'),
+            'report_count'      => $data->count(),
+            'disapproved'       => $data->where('report_status', 2)->count(),
+            'approved'          => $data->where('report_status', 1)->count(),
+            'pending'           => $data->where('report_status', 0)->count(),
+            'stake_list'        => $stakesList,
         ];
     }
 
@@ -195,29 +195,26 @@ class UsersCampaign extends ComponentBase
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
+        $user = Auth::getUser();
         $campaignReports = DB::table('cryptopolice_bounty_user_reports')
             ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
-            ->Where(function ($query) {
-                if (!empty(post('status'))) {
-                    if (post('status') === 'user_reports') {
-                        $query->where('cryptopolice_bounty_user_reports.user_id', Auth::getUser()->id);
-                    } else {
-                        $query->where('cryptopolice_bounty_user_reports.report_status', post('status'));
-                    }
+            ->whereNull('cryptopolice_bounty_user_reports.deleted_at')
+            ->Where(function ($query) use ($user) {
+                if (!$user->is_superuser) {
+                    $query->where('cryptopolice_bounty_user_reports.user_id', $user->id);
                 }
             })
             ->orderBy('cryptopolice_bounty_campaigns.created_at', 'desc')
             ->skip($skip)
             ->take($perPage)
-            ->whereNull('cryptopolice_bounty_user_reports.deleted_at')
             ->get();
 
-        $this->page['filter']           = post('status');
-        $this->page['campaignReports']  = $campaignReports;
-        $this->page['limit']            = $campaignReports->count() < $perPage ? false : true;
+        $this->page['filter'] = post('status');
+        $this->page['campaignReports'] = $campaignReports;
+        $this->page['limit'] = $campaignReports->count() < $perPage ? false : true;
     }
 
 
@@ -230,10 +227,10 @@ class UsersCampaign extends ComponentBase
 
         $user = Auth::getUser();
         $query = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
-        $this->page['btc_code'] = $query ? $query->pivot->btc_code : null;
-        $this->page['btc_status'] = $query ? $query->pivot->btc_status : null;
-        $this->page['access'] = $query ? $query->pivot->approval_type : null;
-        $this->page['status'] = $query ? $query->pivot->status : null;
+        $this->page['btc_code']     = $query ? $query->pivot->btc_code : null;
+        $this->page['btc_status']   = $query ? $query->pivot->btc_status : null;
+        $this->page['access']       = $query ? $query->pivot->approval_type : null;
+        $this->page['status']       = $query ? $query->pivot->status : null;
     }
 
 
@@ -291,19 +288,18 @@ class UsersCampaign extends ComponentBase
                         if ($key != 'id' && $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
                             if (is_array($value)) {
                                 foreach ($value as $val) {
-                                    array_push($json, ['title' => $key, 'value' => $val]);
+                                    array_push($json, ['title' => strip_tags($key), 'value' => strip_tags($val)]);
                                 }
                             } else {
-
-                                array_push($json, ['title' => $key, 'value' => $value]);
+                                array_push($json, ['title' => strip_tags($key), 'value' => strip_tags($value)]);
                             }
                         }
                     }
 
                     $user->bountyReports()->attach(post('id'), [
-                        'bounty_user_registration_id' => $registrationData->pivot->id,
-                        'description' => json_encode($json),
-                        'created_at' => new DateTime(),
+                        'bounty_user_registration_id'   => $registrationData->pivot->id,
+                        'description'                   => json_encode($json),
+                        'created_at'                    => new DateTime(),
                     ]);
 
                     $user->save();
@@ -342,18 +338,18 @@ class UsersCampaign extends ComponentBase
 
                     foreach (input() as $key => $value) {
                         if ($key != 'id' && $key != 'g-recaptcha-response' && $key != '_session_key' && $key != '_token') {
-                            array_push($json, ['title' => $key, 'value' => $value]);
+                            array_push($json, ['title' => strip_tags($key), 'value' => strip_tags($value)]);
                         }
                     }
 
                     $code = $this->generateBountyCode();
 
                     $user->bountyCampaigns()->attach(post('id'), [
-                        'btc_code' => $code,
-                        'btc_username' => input('bitcointalk_username'),
-                        'fields_data' => json_encode($json),
-                        'created_at' => new DateTime(),
-                        'status' => 1,
+                        'btc_code'      => $code,
+                        'btc_username'  => strip_tags(input('bitcointalk_username')),
+                        'fields_data'   => json_encode($json),
+                        'created_at'    => new DateTime(),
+                        'status'        => 1,
                     ]);
                     $user->save();
 
@@ -372,11 +368,11 @@ class UsersCampaign extends ComponentBase
     public function setUserNotification($campaignTitle, $userID, $code)
     {
         $notify = new Notification();
-        $notify->user_id = $this->user_id;
-        $notify->title = 'Registration in CryptoPolice '.$campaignTitle.' bounty campaign';
-        $notify->description = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href="">LINK</a><br>Message:<br><strong>I registered to CryptoPolice ' . $campaignTitle . 'campaign<br> My registration code is ' . $code . '</strong>';
-        $notify->announcement_at = Carbon::now();
-        $notify->user_id = $userID;
+        $notify->user_id            = $this->user_id;
+        $notify->title              = 'Registration in CryptoPolice '.strip_tags($campaignTitle).' bounty campaign';
+        $notify->description        = 'To verify your registration please approve your Bitcointalk account <br> Post this message to our Bitcointalk bounty announcement <br><a href='.strip_tags(Settings::get('btc_bounty_campaign_link')).'>LINK</a><br>Message:<br><strong>I registered to CryptoPolice ' . $campaignTitle . 'campaign<br> My registration code is ' . $code . '</strong>';
+        $notify->announcement_at    = Carbon::now();
+        $notify->user_id            = $userID;
         $notify->save();
     }
 }

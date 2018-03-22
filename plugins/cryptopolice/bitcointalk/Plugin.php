@@ -146,7 +146,7 @@ class Plugin extends PluginBase
 
                 if($settings->memory_usage_profiling) {
 
-                    trace_log("Cron memori usage: " . (memory_get_usage() - $mem_start - sizeof($mem_start)) . " bytes");
+                    trace_log("Cron memory usage: " . (memory_get_usage() - $mem_start - sizeof($mem_start)) . " bytes");
 
                 }
             }

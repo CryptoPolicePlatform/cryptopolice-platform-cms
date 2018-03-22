@@ -3,24 +3,10 @@
     <h3 class="content__title"> Bounty Reports</h3>
     <div class="issues">
 
-        <!-- Filters-->
-        <div class="select  select--filter">
-            <select id="campaign_filters" name="status">
-                <option value="" selected>All</option>
-                <option value="'0'">Pending</option>
-                <option value="1">Approved</option>
-                <option value="2">Disapproved</option>
-                <option value="user_reports">My reports</option>
-            </select>
-        </div>
-        <!-- End Filters -->
-
         <div id="anchor-1">
             <div id="campaign_reports">
-
                 {% partial 'UsersCampaign::campaign-reports-filtered' %}
                 {% partial 'UsersCampaign::campaign-registered-list' %}
-
             </div>
         </div>
 
