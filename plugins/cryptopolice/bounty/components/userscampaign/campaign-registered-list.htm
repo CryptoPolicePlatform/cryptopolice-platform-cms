@@ -9,7 +9,7 @@
                 {% if user.is_superuser %}
                     <div class="issues__item  issues__item--history">
                         
-							{% set type = 'Translate' %}
+							{% set type = 'Translation' %}
                             {% for field in registration.fields_data %}
 								
 								{% if 'selected_category' in field %}
@@ -36,7 +36,7 @@
                     {% if registration.approval_type %}
                               <div class="issues__item  issues__item--history">
                         
-							{% set type = 'Translate' %}
+							{% set type = 'Translation' %}
                             {% for field in registration.fields_data %}
 								
 								{% if 'selected_category' in field %}

@@ -45,6 +45,11 @@ columns:
         type: text
         searchable: true
         sortable: true
+    btc_username:
+        label: BitcoinTalk username
+        type: text
+        searchable: true
+        sortable: true
     user_id:
         label: User
         type: text
