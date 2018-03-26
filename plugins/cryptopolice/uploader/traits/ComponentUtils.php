@@ -98,10 +98,38 @@ trait ComponentUtils
         return $list;
     }
 
+    protected function verifyMetadataType($source)
+    {
+
+        $fp     = fopen($source, 'rb');
+        $sig    = fread($fp, 8);
+
+        if ($sig != "\x89PNG\x0d\x0a\x1a\x0a") {
+            fclose($fp);
+            throw new ApplicationException(sprintf('Invalid png format.'));
+        }
+
+        while (!feof($fp)) {
+
+            $data = unpack('Nlength/a4type', fread($fp, 8));
+
+            if ($data['type'] == 'zTXt') {
+                fclose($fp);
+                throw new ApplicationException('Uploading a file with metadata \'zTXt\' is not allowed');
+            }
+            break;
+        }
+        fclose($fp);
+    }
+
     protected function compress($source, $destination, $quality)
     {
 
         $info = getimagesize($source);
+
+        if ($info['mime'] == 'image/png') {
+            $this->verifyMetadataType($source);
+        }
 
         if ($info['mime'] == 'image/jpeg')
             $image = imagecreatefromjpeg($source);
