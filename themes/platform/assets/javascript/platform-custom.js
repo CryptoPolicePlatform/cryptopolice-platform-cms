@@ -1,13 +1,13 @@
 
-if ($('#textarea_form').length) {
-    var simplemde = new SimpleMDE({
-        element: $("#textarea_form")[0],
-        tabSize: 4,
-        placeholder: "Type here...",
-        forceSync: true,
-        toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "unordered-list", "ordered-list", "|", "clean-block", "table", "horizontal-rule", "|", "preview"]
-    });
-}
+// if ($('#textarea_form').length) {
+//     var simplemde = new SimpleMDE({
+//         element: $("#textarea_form")[0],
+//         tabSize: 4,
+//         placeholder: "Type here...",
+//         forceSync: true,
+//         toolbar: ["bold", "italic", "strikethrough", "|", "heading-1", "heading-2", "heading-3", "|", "quote", "unordered-list", "ordered-list", "|", "clean-block", "table", "horizontal-rule", "|", "preview"]
+//     });
+// }
 
 $(function () {
 

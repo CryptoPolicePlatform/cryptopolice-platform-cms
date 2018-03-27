@@ -3608,25 +3608,25 @@ html.remodal-is-locked {
 
 @media (max-width: 1720px) {
     .header__inner {
+        max-width: 1700px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .header__inner {
         max-width: 1500px;
     }
 }
 
 @media (max-width: 1520px) {
     .header__inner {
-        max-width: 1300px;
-    }
-}
-
-@media (max-width: 1520px) {
-    .header__inner {
-        max-width: 1300px;
+        max-width: 1500px;
     }
 }
 
 @media (max-width: 1320px) {
     .header__inner {
-        max-width: 1100px;
+        max-width: 1300px;
     }
 }
 
@@ -3893,15 +3893,7 @@ html.remodal-is-locked {
     width: 100%;
     max-width: 1920px;
     margin: 0 auto;
-    padding: 0 260px 0 265px;
-    position: relative;
-}
-
-.bounty_content__inner {
-    width: 100%;
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 0 260px 0 265px;
+    padding: 0 240px 0 265px;
     position: relative;
 }
 
@@ -3909,53 +3901,56 @@ html.remodal-is-locked {
     .content__inner {
         max-width: 1700px;
     }
-    .bounty_content__inner {
+    .bounty-list {
         max-width: 1700px;
     }
 }
 
 @media (max-width: 1720px) {
     .content__inner {
-        max-width: 1500px;
+        max-width: 1700px;
     }
-    .bounty_content__inner {
+    .bounty-list {
         max-width: 1500px;
     }
 }
 
 @media (max-width: 1520px) {
     .content__inner {
-        max-width: 1300px;
+        max-width: 1500px;
     }
-    .bounty_content__inner {
-        max-width: 1300px;
+    .bounty-list {
+        max-width: 1500px;
     }
 }
 
 @media (max-width: 1520px) {
     .content__inner {
-        max-width: 1300px;
+        max-width: 1500px;
     }
-    .bounty_content__inner {
-        max-width: 1300px;
+    .bounty-list {
+        max-width: 1500px;
     }
 }
 
 @media (max-width: 1320px) {
     .content__inner {
-        max-width: 1100px;
+        max-width: 1300px;
     }
-    .bounty_content__inner {
-        max-width: 1100px;
+    .bounty-list {
+        max-width: 1300px;
     }
 }
 
 @media (max-width: 1120px) {
     .content__inner {
         padding-left: 20px;
-        padding-right: 20px;
     }
-    .bounty_content__inner {
+    .post-list {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .bounty-list {
         padding-left: 20px;
     }
 }
@@ -3964,7 +3959,7 @@ html.remodal-is-locked {
     .content__inner {
         padding-right: 20px;
     }
-    .bounty_content__inner {
+    .bounty-list {
         padding-right: 20px;
     }
 }
@@ -3974,7 +3969,7 @@ html.remodal-is-locked {
         padding-right: 15px;
         padding-left: 15px;
     }
-    .bounty_content__inner {
+    .bounty-list {
         padding-right: 15px;
         padding-left: 15px;
     }
@@ -3983,9 +3978,13 @@ html.remodal-is-locked {
 .content__sidebar {
     width: 200px;
     position: absolute;
-    top: 27px;
-    right: 20px;
+    top: 39px;
+    right: 15px;
     z-index: 1;
+}
+
+.sidebar__bounty {
+    right: 10px;
 }
 
 .sidebar--white{
@@ -3996,8 +3995,10 @@ html.remodal-is-locked {
 
 }
 
-
 @media (max-width: 767px) {
+    .content__sidebar .profile__card {
+        margin-top:20px;
+    }
     .content__sidebar {
         position: static;
         margin-top: 30px;
@@ -4590,7 +4591,7 @@ html.remodal-is-locked {
 }
 
 .card__footer-left {
-    width: 40%;
+    width: 55%;
 }
 
 @media (max-width: 480px) {
@@ -4600,7 +4601,7 @@ html.remodal-is-locked {
 }
 
 .card__footer-right {
-    width: 60%;
+    width: 45%;
     text-align: right;
 }
 
@@ -4883,7 +4884,7 @@ html.remodal-is-locked {
 
 @media (max-width: 1320px) {
     .profile__content {
-        width: 60%;
+        width: 70%;
     }
     .bounty__content {
         width: 70%;
@@ -7012,19 +7013,13 @@ html.remodal-is-locked {
 
 @media (max-width: 1720px) {
     .footer__inner {
+        max-width: 1700px;
+    }
+}
+
+@media (max-width: 1520px) {
+    .footer__inner {
         max-width: 1500px;
-    }
-}
-
-@media (max-width: 1520px) {
-    .footer__inner {
-        max-width: 1300px;
-    }
-}
-
-@media (max-width: 1520px) {
-    .footer__inner {
-        max-width: 1300px;
     }
 }
 

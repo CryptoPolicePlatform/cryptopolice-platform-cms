@@ -13,79 +13,81 @@ is_hidden = 0
 [CommunityPostComments]
 ==
 <main class="content">
-    <div class="content__inner">
+    <div class="content__inner post-list">
         <div class="content__left">
-            <div class="profile">
+            <div class="grid__row">
+                <div class="profile">
 
-                <!-- User profile section -->
-                {% partial UserProfile ~ '::profile' %}
+                    <!-- User profile section -->
+                    {% partial UserProfile ~ '::profile' %}
 
-                <div class="profile__content">
+                    <div class="post__content">
 
-                    <!-- Post description -->
-                    {% partial CommunityPostDetails ~ '::post-details' %}
+                        <!-- Post description -->
+                        {% partial CommunityPostDetails ~ '::post-details' %}
 
-                    <!-- Add comment form -->
-                    {% if user %} {% partial CommunityPostComments ~ '::comment-add-form' %} {% endif %}
+                        <!-- Add comment form -->
+                        {% if user %} {% partial CommunityPostComments ~ '::comment-add-form' %} {% endif %}
 
-                    <!-- Comment list -->
-                    {% for comment in comments %}
-                        <div style="margin-top:10px;" class="card post_item">
-                            <div class="choose__post">
-                                <div class="choose_img">
-                                    {% if comment.user.avatar %}
-                                        <img src="{{comment.user.avatar.thumb(55, 55, {'mode' : 'crop'})}}" width="55" height="55" alt="">
-                                    {% else %}
-                                        <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="55" height="55" alt="user-avatar">
-                                    {% endif %}
-                                </div>
-                                <div class="card__header">
-                                    <div class="card__date">
-                                        <strong>
-                                            {% if comment.user.nickname %}
-                                                {% if comment.user.is_superuser %}
-                                                    <span class="mark  mark--red"> {{ comment.user.nickname }}*</span>
-                                                {% else %}
-                                                    {{ comment.user.nickname }}
-                                                {% endif%}
-                                            {% else %}
-                                                    {{ comment.user.email|slice(0, 3)}}*****@***{{ comment.user.email|slice(comment.user.email.length - 4, comment.user.email.length) }}
-                                            {% endif %}
-                                        </strong>
-                                        {{ comment.created_at }}
-                                        {% if comment.deleted_at is null %}
-                                            <a id="{{comment.id}}" href="#">Reply</a>
-                                                {% if user and user.id == comment.user_id and comment.deleted_at is null %}
-                                                    | <a data-request="onDeleteComment" data-request-data="id:{{comment.id}}" data-request-confirm data-request-flash>Remove</a>
-                                                {% endif %}
+                        <!-- Comment list -->
+                        {% for comment in comments %}
+                            <div style="margin-top:10px;" class="card post_item">
+                                <div class="choose__post">
+                                    <div class="choose_img">
+                                        {% if comment.user.avatar %}
+                                            <img src="{{comment.user.avatar.thumb(55, 55, {'mode' : 'crop'})}}" width="55" height="55" alt="">
+                                        {% else %}
+                                            <img class="header__ava" src="{{'assets/images/user.svg'|theme}}" width="55" height="55" alt="user-avatar">
                                         {% endif %}
                                     </div>
-                                </div>
-                                <div class="card__content">
-                                    {% if comment.deleted_at is null %}
-                                        {{ comment.description|striptags }}
-                                    {% else %}
-                                        <i>This message has been removed</i>
-                                    {% endif %}
-                                </div>
-
-                                {% if comment.childs %}
-                                    <div class="card__footer">
-                                        <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
-
-                                            <!-- Comment Replies -->
-                                            {% partial CommunityPostComments ~ '::comment-list' childs=comment.childs %}
-
+                                    <div class="card__header">
+                                        <div class="card__date">
+                                            <strong>
+                                                {% if comment.user.nickname %}
+                                                    {% if comment.user.is_superuser %}
+                                                        <span class="mark  mark--red"> {{ comment.user.nickname }}*</span>
+                                                    {% else %}
+                                                        {{ comment.user.nickname }}
+                                                    {% endif%}
+                                                {% else %}
+                                                        {{ comment.user.email|slice(0, 3)}}*****@***{{ comment.user.email|slice(comment.user.email.length - 4, comment.user.email.length) }}
+                                                {% endif %}
+                                            </strong>
+                                            {{ comment.created_at }}
+                                            {% if comment.deleted_at is null %}
+                                                <a id="{{comment.id}}" href="#">Reply</a>
+                                                    {% if user and user.id == comment.user_id and comment.deleted_at is null %}
+                                                        | <a data-request="onDeleteComment" data-request-data="id:{{comment.id}}" data-request-confirm data-request-flash>Remove</a>
+                                                    {% endif %}
+                                            {% endif %}
                                         </div>
                                     </div>
-                                {% endif %}
+                                    <div class="card__content">
+                                        {% if comment.deleted_at is null %}
+                                            {{ comment.description|striptags }}
+                                        {% else %}
+                                            <i>This message has been removed</i>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if comment.childs %}
+                                        <div class="card__footer">
+                                            <div style="margin-left:7.5%; width: 100%" class="card__footer-left">
+
+                                                <!-- Comment Replies -->
+                                                {% partial CommunityPostComments ~ '::comment-list' childs=comment.childs %}
+
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
 
-                    <!-- User list sidebar section -->
-                    {% partial 'CommunityUsers::user-list-sidebar' %}
+                        <!-- User list sidebar section -->
+                        {% partial 'CommunityUsers::user-list-sidebar' %}
 
+                    </div>
                 </div>
             </div>
         </div>
