@@ -3976,6 +3976,7 @@ html.remodal-is-locked {
 }
 
 .content__sidebar {
+    float: right;
     width: 200px;
     position: absolute;
     top: 39px;
@@ -4837,13 +4838,13 @@ html.remodal-is-locked {
 
 @media (max-width: 1520px) {
     .profile__sidebar {
-        width: 30%;
+        width: 40%;
     }
 }
 
 @media (max-width: 1320px) {
     .profile__sidebar {
-        width: 30%;
+        width: 40%;
     }
 }
 
@@ -4875,19 +4876,19 @@ html.remodal-is-locked {
 
 @media (max-width: 1520px) {
     .profile__content {
-        width: 70%;
+        width: 60%;
     }
     .bounty__content {
-        width: 70%;
+        width: 60%;
     }
 }
 
 @media (max-width: 1320px) {
     .profile__content {
-        width: 70%;
+        width: 60%;
     }
     .bounty__content {
-        width: 70%;
+        width: 60%;
     }
 }
 

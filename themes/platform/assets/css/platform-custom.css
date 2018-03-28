@@ -397,3 +397,12 @@
         height: 100%;
     }
 }
+
+/* Bounty section */
+
+@media (max-width: 1024px) {
+    .second_stat_block {
+        margin-top: 80px;
+        margin-left: 0px;
+    }
+}
