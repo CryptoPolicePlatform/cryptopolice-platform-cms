@@ -46,6 +46,11 @@ class UsersCampaign extends ComponentBase
                 $this->onGetCampaignReports();
                 $this->getCampaignRegistration();
 
+                // Verified report list for Security Bounty campaign
+                if ($this->param('id') == '3') {
+                    $this->onGetVerifiedReports();
+                }
+
             } else {
                 return Redirect::to('/bounty-campaign');
             }
@@ -183,8 +188,22 @@ class UsersCampaign extends ComponentBase
     public function getUsersReports()
     {
         $user = Auth::getUser();
-        return BountyReport::with('reward','bounty')->where('user_id', $user->id)->orderBy('cryptopolice_bounty_user_reports.created_at','desc')->get();
+        return BountyReport::with('reward', 'bounty')->where('user_id', $user->id)->orderBy('cryptopolice_bounty_user_reports.created_at', 'desc')->get();
     }
+
+    public function onGetVerifiedReports()
+    {
+        $this->page['verifiedReports'] = DB::table('cryptopolice_bounty_user_reports')
+            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
+            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
+            ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
+            ->where('cryptopolice_bounty_campaigns.id', $this->param('id'))
+            ->where('cryptopolice_bounty_user_reports.report_status', 1)
+            ->whereNull('cryptopolice_bounty_user_reports.deleted_at')
+            ->orderBy('cryptopolice_bounty_campaigns.created_at', 'desc')
+            ->get();
+    }
+
 
     public function onGetCampaignReports()
     {
