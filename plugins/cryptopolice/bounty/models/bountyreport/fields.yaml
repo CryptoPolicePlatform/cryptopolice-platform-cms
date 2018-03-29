@@ -17,25 +17,10 @@ fields:
         label: 'Registration Data'
         span: left
         type: registrationbox
-    description:
-        label: Description
-        oc.commentPosition: ''
-        prompt: 'Add new item'
+    report_list:
+        label: Users report list
         span: full
-        type: repeater
-        form:
-            fields:
-                title:
-                    oc.commentPosition: ''
-                    readOnly: 1
-                    span: auto
-                    type: text
-                value:
-                    size: small
-                    oc.commentPosition: ''
-                    readOnly: 1
-                    span: auto
-                    type: textarea
+        type: reportlist
     reward:
         label: Reward
         type: dropdown

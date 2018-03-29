@@ -14,6 +14,12 @@ class BuilderTableCreateCryptopolicePlatformCommunityPosts extends Migration
     public function up()
     {
 
+        if (!Schema::hasColumns('cryptopolice_platform_community_posts', ['notify'])) {
+            Schema::table('cryptopolice_platform_community_posts', function ($table) {
+                $table->boolean('notify')->default(0);
+            });
+        }
+
         if (!Schema::hasTable('cryptopolice_platform_community_posts')) {
 
             Schema::create('cryptopolice_platform_community_posts', function ($table) {

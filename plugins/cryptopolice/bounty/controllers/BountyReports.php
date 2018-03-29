@@ -1,12 +1,15 @@
 <?php namespace CryptoPolice\Bounty\Controllers;
 
-use Carbon\Carbon;
 use Mail;
 use Flash;
+use Exception;
 use BackendMenu;
+use Carbon\Carbon;
 use RainLab\User\Models\User;
 use Backend\Classes\Controller;
 use CryptoPolice\Bounty\Models\Bounty;
+use CryptoPolice\Academy\Models\Settings;
+use CryptoPolice\Bounty\Models\BountyReport;
 Use CryptoPolice\Platform\Models\Notification;
 
 class BountyReports extends Controller
@@ -56,9 +59,33 @@ class BountyReports extends Controller
             'mail' => $user->email,
             'campaignTitle' => $campaign->title,
         ];
+
         Mail::send('cryptopolice.bounty::mail.report', $vars, function ($message) use ($user) {
             $message->to($user->email, $user->full_name)->subject('Bounty Campaign Report');
         });
+
         Flash::success('REPORT mail & notification for [' . $user->email . '] has been send');
+    }
+
+    public function onUpdateReportsStatus()
+    {
+
+        $settings   = Settings::instance();
+        $idList     = post('BountyReport.report_list');
+
+        try {
+            foreach (json_decode($idList) as $value) {
+                BountyReport::where('id', $value->id)
+                    ->whereBetween('created_at', [
+                        $settings->campaign_reports_start_date, $settings->campaign_reports_end_date
+                    ])
+                    ->update([
+                        'report_status' => '2'
+                    ]);
+            }
+            Flash::warning('All users reports was successfully BLOCKED');
+        } catch (Exception $e) {
+            Flash::error($e->getMessage());
+        }
     }
 }

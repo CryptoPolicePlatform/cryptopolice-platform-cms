@@ -39,6 +39,10 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: switch
+    notify:
+        label: Send notification
+        span: auto
+        type: switch
     user:
         label: Users
         nameFrom: user

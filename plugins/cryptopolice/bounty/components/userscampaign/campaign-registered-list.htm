@@ -9,41 +9,51 @@
                 {% if user.is_superuser %}
                     <div class="issues__item  issues__item--history">
                         
-							{% set type = 'Translation' %}
-                            {% for field in registration.fields_data %}
-								
-								{% if 'selected_category' in field %}
-                            		<div class="issues__type">#{{ incerement }}</div>
-                                	<div class="issues__title"><strong>{{registration.user.nickname}}</strong> - {{ field.value }}</div>
-                                {% endif %}
-								
-								{% if 'selected_language' in field %}
-									<div class="issues__view">{{field.value}}</div>
-                                {% endif %}
+                        {% set type = 'Translation' %}
+                        {% set btc_username = ' ' %}
 
-								{% if 'action_type' in field %}
-									{% set type = field.value %}
-								{% endif %}
+                        {% for field in registration.fields_data %}
 
-                            {% endfor%}
-								
-														
-								<div class="issues__amount">{{type}} </div>
-						
+                            {% if 'selected_category' in field %}
+                                <div class="issues__type">#{{ incerement }}</div>
+                                <div class="issues__title"> {{ field.value }}</div>
+                            {% endif %}
 
-                     </div>
+                            {% if 'bitcointalk_username' in field %}
+                                {% set btc_username = field.value %}
+                            {% endif %}
+
+                            {% if 'selected_language' in field %}
+                                <div class="issues__view">{{field.value}}</div>
+                            {% endif %}
+
+                            {% if 'action_type' in field %}
+                                {% set type = field.value %}
+                                {% set btc_username = field.value %}
+                            {% endif %}
+
+                        {% endfor%}
+
+                        <div class="issues__amount">
+                    </div>
+
+                        <div class="issues__amount"> {{btc_username}} </div>
+
+                        <div class="issues__status  issues__status--big  issues__status--green"><span> {{type}} </span></div>
+                        
+                    </div>
                 {% else %}
                     {% if registration.approval_type %}
-                              <div class="issues__item  issues__item--history">
-                        
+                        <div class="issues__item  issues__item--history">
 							{% set type = 'Translation' %}
+
                             {% for field in registration.fields_data %}
 								
 								{% if 'selected_category' in field %}
                             		<div class="issues__type">#{{ incerement }}</div>
-                                	<div class="issues__title"><strong>{{registration.user.nickname}}</strong> - {{ field.value }}</div>
+                                	<div class="issues__title">{{ field.value }} - <strong> {{ registration.user.nickname }} </strong> </div>
                                 {% endif %}
-								
+
 								{% if 'selected_language' in field %}
 									<div class="issues__view">{{field.value}}</div>
                                 {% endif %}
@@ -54,11 +64,9 @@
 
                             {% endfor%}
 								
-														
-								<div class="issues__amount">{{type}} </div>
-						
 
-                     </div>
+						<div class="issues__status  issues__status--big  issues__status--green"><span> {{type}} </span></div>
+                    </div>
                     {% endif  %}
                 {% endif %}
 

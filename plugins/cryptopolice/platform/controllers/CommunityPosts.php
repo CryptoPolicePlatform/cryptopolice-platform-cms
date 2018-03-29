@@ -25,7 +25,7 @@ class CommunityPosts extends Controller
 
     public function formAfterSave($model)
     {
-        if ($model->pin) {
+        if ($model->notify) {
             $this->addUNotification($model);
         }
     }

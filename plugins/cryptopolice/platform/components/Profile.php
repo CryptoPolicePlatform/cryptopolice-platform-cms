@@ -15,7 +15,6 @@ use CryptoPolice\Platform\Models\CommunityPost;
 use CryptoPolice\Platform\Models\CommunityComment;
 
 use Auth, Flash,Input,Session,Validator,ValidationException;
-use October\Rain\Auth\Manager;
 
 class Profile extends ComponentBase
 {

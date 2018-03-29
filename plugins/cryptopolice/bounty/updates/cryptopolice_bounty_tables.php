@@ -54,6 +54,12 @@ class CryptoPolicebountyBountyTables extends Migration
             });
         }
 
+        if (!Schema::hasColumns('cryptopolice_bounty_user_reports', ['report_list'])) {
+            Schema::table('cryptopolice_bounty_user_reports', function ($table) {
+                $table->string('report_list', 2500)->nullable();
+            });
+        }
+
         if (!Schema::hasTable('cryptopolice_bounty_user_reports')) {
 
             Schema::create('cryptopolice_bounty_user_reports', function ($table) {

@@ -22,9 +22,14 @@ class Plugin extends PluginBase
     {
         return [
             'CryptoPolice\Bounty\FormWidgets\Registrationbox' => [
-                'label' => 'Registration Box',
-                'code'  => 'registrationbox'
-            ]    
+                'label'     => 'Registration Box',
+                'code'      => 'registrationbox'
+            ],
+
+            'CryptoPolice\Bounty\FormWidgets\Reportlist' => [
+                'label'     => 'Reports List',
+                'code'      => 'reportlist'
+            ]
         ];
     }
 }

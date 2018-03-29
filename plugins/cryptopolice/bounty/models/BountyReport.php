@@ -24,6 +24,7 @@ class BountyReport extends Model
     public $rules = [
     ];
 
+    public $fileable = ['report_status'];
     /**
      * @var array Relations
      */

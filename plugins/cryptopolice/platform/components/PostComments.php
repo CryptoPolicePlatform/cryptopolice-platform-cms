@@ -7,7 +7,6 @@ use Session;
 use Validator;
 use Cms\Classes\ComponentBase;
 use CryptoPolice\Platform\Classes\Helpers;
-use CryptoPolice\Platform\Models\CommunityPost;
 use CryptoPolice\Platform\Models\CommunityComment;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
 use October\Rain\Support\Facades\Markdown;

@@ -42,3 +42,8 @@ columns:
         type: date
         searchable: true
         sortable: true
+    updated_at:
+        label: 'Updated At'
+        type: datetime
+        searchable: true
+        sortable: true

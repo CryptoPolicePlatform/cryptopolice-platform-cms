@@ -3,77 +3,87 @@
 # ===================================
 
 fields:
+
     settings_label:
-      label: ReCaptcha
-      type: section
+        label: Platform settings
+        type: section
 
     recaptcha_key:
-          label: reCaptcha Key
-          type: text
-          required: true
+        label: reCaptcha Key
+        type: text
+        required: true
 
     new_post_views:
-          label: NEW post "min" views
-          type: number
-          required: true
-          span: left
+        label: NEW post "min" views
+        type: number
+        required: true
+        span: left
+
     new_post_min_comments:
-          label: NEW post "min" comments
-          type: number
-          required: true
-          span: right
+        label: NEW post "min" comments
+        type: number
+        required: true
+        span: right
+
     new_post_min_hours:
-          label: NEW post "min" hours
-          type: number
-          required: true
-          span: left
+        label: NEW post "min" hours
+        type: number
+        required: true
+        span: left
+
     new_post_max_hours:
-          label: NEW post "max" hours
-          type: number
-          required: true
-          span: right
+        label: NEW post "max" hours
+        type: number
+        required: true
+        span: right
 
     med_post_views:
-          label: WARM post "min" views
-          type: number
-          required: true
-          span: left
+        label: WARM post "min" views
+        type: number
+        required: true
+        span: left
+
     med_post_min_comments:
-          label: WARM post "min" comments
-          type: number
-          required: true
-          span: right
+        label: WARM post "min" comments
+        type: number
+        required: true
+        span: right
+
     med_post_min_hours:
-          label: WARM post "min" hours
-          type: number
-          required: true
-          span: left
+        label: WARM post "min" hours
+        type: number
+        required: true
+        span: left
+
     med_post_max_hours:
-          label: WARM post "max" hours
-          type: number
-          required: true
-          span: right
+        label: WARM post "max" hours
+        type: number
+        required: true
+        span: right
 
     hot_post_views:
-          label: HOT post "min" views
-          type: number
-          required: true
-          span: left
+        label: HOT post "min" views
+        type: number
+        required: true
+        span: left
+
     hot_post_min_comments:
-          label: HOT post "min" comments
-          type: number
-          required: true
-          span: right
+        label: HOT post "min" comments
+        type: number
+        required: true
+        span: right
+
     hot_post_min_hours:
-          label: HOT post "min" hours
-          type: number
-          required: true
-          span: left
+        label: HOT post "min" hours
+        type: number
+        required: true
+        span: left
+
     hot_post_max_hours:
-          label: HOT post "max" hours
-          type: number
-          required: true
-          span: right
+        label: HOT post "max" hours
+        type: number
+        required: true
+        span: right
 
     btc_bounty_campaign_link:
         label: BitcoinTalk bounty campaign link
@@ -93,3 +103,15 @@ fields:
         label: Pagination per pare (campaign reports)
         type: number
         span: left
+
+    campaign_reports_start_date:
+        label: Bounty campaign start date
+        type: datepicker
+        mode: date
+        span: left
+
+    campaign_reports_end_date:
+        label: Bounty campaign end date
+        type: datepicker
+        mode: date
+        span: right

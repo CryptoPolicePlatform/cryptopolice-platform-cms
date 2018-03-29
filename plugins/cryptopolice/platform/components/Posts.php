@@ -9,7 +9,6 @@ use Request;
 use Validator;
 use Illuminate\Support\Carbon;
 use Cms\Classes\ComponentBase;
-use CryptoPolice\Academy\Models\Settings;
 use CryptoPolice\Platform\Classes\Helpers;
 use October\Rain\Support\Facades\Markdown;
 use CryptoPolice\Academy\Components\Recaptcha;
