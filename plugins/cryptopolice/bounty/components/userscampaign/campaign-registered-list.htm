@@ -5,7 +5,7 @@
         <div class="issues">
 
             {% for registration in campaign_registered_list %}
-            	{% set incerement = loop.index %}
+            	{% set increment = loop.index %}
                 {% if user.is_superuser %}
                     <div class="issues__item  issues__item--history">
                         
@@ -15,12 +15,12 @@
                         {% for field in registration.fields_data %}
 
                             {% if 'selected_category' in field %}
-                                <div class="issues__type">#{{ incerement }}</div>
-                                <div class="issues__title"> {{ field.value }}</div>
+                                <div class="issues__type">#{{ increment }}</div>
+                                	<div class="issues__title">{{ field.value }} - <strong> {{ registration.user.nickname }} </strong> </div>
                             {% endif %}
 
                             {% if 'bitcointalk_username' in field %}
-                                {% set btc_username = field.value %}
+							    {% set btc_username = field.value %}
                             {% endif %}
 
                             {% if 'selected_language' in field %}
@@ -29,18 +29,19 @@
 
                             {% if 'action_type' in field %}
                                 {% set type = field.value %}
-                                {% set btc_username = field.value %}
                             {% endif %}
 
                         {% endfor%}
 
-                        <div class="issues__amount">
+                        <div class="issues__amount"> {{btc_username}}
                     </div>
 
-                        <div class="issues__amount"> {{btc_username}} </div>
-
+                    {% if registration.approval_type == 0 %}
+                        <div class="issues__status  issues__status--big  issues__status--orange"><span> {{type}} </span></div>
+                    {% else %}
                         <div class="issues__status  issues__status--big  issues__status--green"><span> {{type}} </span></div>
-                        
+                    {% endif %}
+
                     </div>
                 {% else %}
                     {% if registration.approval_type %}
@@ -50,7 +51,7 @@
                             {% for field in registration.fields_data %}
 								
 								{% if 'selected_category' in field %}
-                            		<div class="issues__type">#{{ incerement }}</div>
+                            		<div class="issues__type">#{{ increment }}</div>
                                 	<div class="issues__title">{{ field.value }} - <strong> {{ registration.user.nickname }} </strong> </div>
                                 {% endif %}
 
@@ -63,7 +64,7 @@
 								{% endif %}
 
                             {% endfor%}
-								
+
 
 						<div class="issues__status  issues__status--big  issues__status--green"><span> {{type}} </span></div>
                     </div>

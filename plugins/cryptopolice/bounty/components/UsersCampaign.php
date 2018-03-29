@@ -231,6 +231,8 @@ class UsersCampaign extends ComponentBase
             ->take($perPage)
             ->get();
 
+        trace_log($campaignReports);
+
         $this->page['filter'] = post('status');
         $this->page['campaignReports'] = $campaignReports;
         $this->page['limit'] = $campaignReports->count() < $perPage ? false : true;
