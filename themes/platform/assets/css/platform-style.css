@@ -6372,7 +6372,7 @@ html.remodal-is-locked {
 }
 
 .table__wrapper::-webkit-scrollbar {
-    background-color: #333333;
+    background-color: #f0f3f5;
     -webkit-appearance: none;
 }
 
@@ -6382,16 +6382,16 @@ html.remodal-is-locked {
 }
 
 .table__wrapper::-webkit-scrollbar:horizontal {
-    background-color: #333333;
+    background-color: #f0f3f5;
     height: 15px;
 }
 
 .table__wrapper::-webkit-scrollbar-thumb {
-    background-color: #ffea5b;
+    background-color: #f0f3f5;
 }
 
 .table__wrapper::-webkit-scrollbar-track {
-    background-color: #333333;
+    background-color: #f0f3f5;
 }
 
 .table {
