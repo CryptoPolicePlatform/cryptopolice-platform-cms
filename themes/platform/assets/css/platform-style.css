@@ -3967,9 +3967,6 @@ html.remodal-is-locked {
     .content__inner {
         padding-right: 20px;
     }
-    /*.bounty-list {*/
-        /*padding-right: 20px;*/
-    /*}*/
 }
 
 @media (max-width: 480px) {
@@ -3977,10 +3974,6 @@ html.remodal-is-locked {
         padding-right: 15px;
         padding-left: 15px;
     }
-    /*.bounty-list {*/
-        /*padding-right: 15px;*/
-        /*padding-left: 15px;*/
-    /*}*/
 }
 
 .content__sidebar {

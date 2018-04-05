@@ -1,5 +1,5 @@
 {% for report in campaignReports %}
-    <div class="bounty__section issues__item  issues__item--history">
+    <div class="issues__item  issues__item--history">
         <div class="issues__type">#{{report.campaign_title|upper|slice(0, 2)}}{{ report.id }}</div>
         <div class="issues__title"> Report to {{ report.campaign_title }} campaign {{report.created_at}}</div>
         <div class="issues__view"><a href="{{'bounty-report'|page({ id: report.id })}}">View details</a></div>
