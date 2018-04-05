@@ -4,7 +4,7 @@
         <h3 class="content__title"> Registered Bounty Campaigns </h3>
         <div class="issues">
             {% for registered in registeredUsersCampaign %}
-                <div class="issues__item  issues__item--history">
+                <div class="bounty__section issues__item  issues__item--history">
                     <div class="issues__type">#{{registered.bounty.title|upper|slice(0, 2)}}</div>
 
                     <div class="issues__title">

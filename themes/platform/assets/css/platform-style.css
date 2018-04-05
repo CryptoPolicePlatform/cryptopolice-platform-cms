@@ -3911,7 +3911,7 @@ html.remodal-is-locked {
         max-width: 1700px;
     }
     .bounty-list {
-        max-width: 1500px;
+        max-width: 1700px;
     }
 }
 
@@ -3938,7 +3938,10 @@ html.remodal-is-locked {
         max-width: 1300px;
     }
     .bounty-list {
-        max-width: 1300px;
+        padding-right: 20px;
+    }
+    .dashboard-section {
+        padding-right: 20px;
     }
 }
 
@@ -3951,6 +3954,11 @@ html.remodal-is-locked {
         padding-left: 20px;
     }
     .bounty-list {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .dashboard-section {
+        padding-right: 20px;
         padding-left: 20px;
     }
 }
@@ -3959,9 +3967,9 @@ html.remodal-is-locked {
     .content__inner {
         padding-right: 20px;
     }
-    .bounty-list {
-        padding-right: 20px;
-    }
+    /*.bounty-list {*/
+        /*padding-right: 20px;*/
+    /*}*/
 }
 
 @media (max-width: 480px) {
@@ -3969,10 +3977,10 @@ html.remodal-is-locked {
         padding-right: 15px;
         padding-left: 15px;
     }
-    .bounty-list {
-        padding-right: 15px;
-        padding-left: 15px;
-    }
+    /*.bounty-list {*/
+        /*padding-right: 15px;*/
+        /*padding-left: 15px;*/
+    /*}*/
 }
 
 .content__sidebar {
@@ -3982,10 +3990,6 @@ html.remodal-is-locked {
     top: 39px;
     right: 15px;
     z-index: 1;
-}
-
-.sidebar__bounty {
-    right: 10px;
 }
 
 .sidebar--white{
@@ -4838,13 +4842,13 @@ html.remodal-is-locked {
 
 @media (max-width: 1520px) {
     .profile__sidebar {
-        width: 40%;
+        width: 25%;
     }
 }
 
 @media (max-width: 1320px) {
     .profile__sidebar {
-        width: 40%;
+        width: 30%;
     }
 }
 
@@ -4876,19 +4880,19 @@ html.remodal-is-locked {
 
 @media (max-width: 1520px) {
     .profile__content {
-        width: 60%;
+        width: 75%;
     }
     .bounty__content {
-        width: 60%;
+        width: 75%;
     }
 }
 
 @media (max-width: 1320px) {
     .profile__content {
-        width: 60%;
+        width: 70%;
     }
     .bounty__content {
-        width: 60%;
+        width: 70%;
     }
 }
 
@@ -5069,7 +5073,7 @@ html.remodal-is-locked {
     padding-right: 155px;
 }
 
-@media (max-width: 1520px) {
+@media (max-width: 1250px) {
     .issues__item--history {
         display: block;
         padding-right: 15px;
@@ -5090,7 +5094,7 @@ html.remodal-is-locked {
     z-index: 1;
 }
 
-@media (max-width: 1520px) {
+@media (max-width: 1250px) {
     .issues__item--history .issues__type {
         position: static;
         width: 100%;
@@ -5100,7 +5104,7 @@ html.remodal-is-locked {
 }
 
 .issues__title {
-    width: 270px;
+    width: 250px;
     -ms-flex-positive: 2;
     flex-grow: 2;
     padding-left: 80px;
@@ -5109,15 +5113,19 @@ html.remodal-is-locked {
     font-weight: 300;
 }
 
-@media (max-width: 1520px) {
+@media (max-width: 1250px) {
     .issues__item--history .issues__title {
         display: block;
         width: 100%;
         padding-left: 0;
         text-align: center;
     }
+    .issues__item--history .issues__view {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
 }
-
 .issues__view,
 .issues__amount {
     max-width: 110px;
@@ -5131,7 +5139,7 @@ html.remodal-is-locked {
     border-left: 1px solid #ccc;
 }
 
-@media (max-width: 1520px) {
+@media (max-width: 1250px) {
     .issues__view,
     .issues__amount {
         display: block;
@@ -5143,11 +5151,12 @@ html.remodal-is-locked {
 }
 
 .issues__amount {
-    min-width: 130px;
+    min-width: 110px;
     font-size: 14px;
 }
 
 .issues__view {
+    width: 75px;
     font-size: 12px;
 }
 
@@ -5179,14 +5188,14 @@ html.remodal-is-locked {
     z-index: 1;
 }
 
-@media (max-width: 1520px) {
+@media (max-width: 1250px) {
     .issues__item--history .issues__status:before {
         display: none;
     }
 }
 
 .issues__status--big {
-    width: 120px;
+    width: 115px;
     text-align: center;
 }
 
@@ -5204,7 +5213,7 @@ html.remodal-is-locked {
     transform: translateY(-50%);
 }
 
-@media (max-width: 1520px) {
+@media (max-width: 1250px) {
     .issues__item--history .issues__status--big span {
         display: block;
         width: 100%;
@@ -5216,7 +5225,7 @@ html.remodal-is-locked {
     }
 }
 
-@media (max-width: 1520px) {
+@media (max-width: 1250px) {
     .issues__item--history .issues__status--big {
         display: block;
         width: 100%;
@@ -5405,7 +5414,7 @@ html.remodal-is-locked {
 
 .textarea {
     display: block;
-    width: 100%;
+    width: 99%;
     min-height: 80px;
     height: 80px;
     padding: 10px 15px;

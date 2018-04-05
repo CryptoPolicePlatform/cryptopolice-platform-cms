@@ -286,6 +286,34 @@
     font-weight: bold;
 }
 
+.sidebar__bounty {
+    top: 40px;
+    height: auto;
+    position: absolute;
+    z-index: 99;
+    width: 210px;
+}
+@media (max-width: 1120px) {
+    .sidebar__bounty {
+        position: fixed;
+    }
+}
+@media (max-width: 1320px) {
+
+    .sidebar__bounty {
+
+        -ms-transform: translateX(+280px);
+        transform: translateX(+280px);
+        transition: transform .2s linear;
+    }
+
+    .sidebar__bounty.open {
+        width: 230px;
+        -ms-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
 .user_right_sidebar {
     overflow: auto;
     top: 100px;
@@ -318,9 +346,19 @@
     background: #fff url("../images/profile-sidebar-bg.png") no-repeat right top;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+.bounty__sidebar {
+    width: 20%;
+    float: left;
+    padding: 13px 18px;
+    background: #fff url("../images/profile-sidebar-bg.png") no-repeat right top;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
 
 @media (max-width: 1720px) {
     .post__sidebar {
+        width: 20%;
+    }
+    .bounty__sidebar {
         width: 20%;
     }
 }
@@ -329,10 +367,16 @@
     .post__sidebar {
         width: 20%;
     }
+    .bounty__sidebar{
+        width: 20%;
+    }
 }
 
 @media (max-width: 1320px) {
     .post__sidebar {
+        width: 30%;
+    }
+    .bounty__sidebar{
         width: 30%;
     }
 }
@@ -340,6 +384,9 @@
 @media (max-width: 767px) {
 
     .post__sidebar {
+        width: 100%;
+    }
+    .bounty__sidebar{
         width: 100%;
     }
 }
@@ -352,8 +399,17 @@
     padding-left: 25px;
 }
 
+.bounty__content {
+    width: 80%;
+    float: left;
+    padding-left: 25px;
+}
+
 @media (max-width: 1720px) {
     .post__content {
+        width: 80%;
+    }
+    .bounty__content {
         width: 80%;
     }
 }
@@ -362,10 +418,16 @@
     .post__content {
         width: 80%;
     }
+    .bounty__content {
+        width: 80%;
+    }
 }
 
 @media (max-width: 1320px) {
     .post__content {
+        width: 70%;
+    }
+    .bounty__content {
         width: 70%;
     }
 }
@@ -373,6 +435,11 @@
 @media (max-width: 767px) {
 
     .post__content {
+        width: 100%;
+        margin-top: 30px;
+        padding-left: 0;
+    }
+    .bounty__content {
         width: 100%;
         margin-top: 30px;
         padding-left: 0;
