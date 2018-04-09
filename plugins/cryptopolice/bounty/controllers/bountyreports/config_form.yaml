@@ -3,7 +3,7 @@ form: $/cryptopolice/bounty/models/bountyreport/fields.yaml
 modelClass: CryptoPolice\bounty\Models\BountyReport
 defaultRedirect: cryptopolice/bounty/bountyreports
 create:
-    redirect: cryptopolice/bounty/bountyreports/update/:id
+    redirect: 'cryptopolice/bounty/bountyreports/update/:id'
     redirectClose: cryptopolice/bounty/bountyreports
 update:
     redirect: cryptopolice/bounty/bountyreports

@@ -107,11 +107,11 @@ fields:
     campaign_reports_start_date:
         label: Bounty campaign start date
         type: datepicker
-        mode: date
+        mode: datetime
         span: left
 
     campaign_reports_end_date:
         label: Bounty campaign end date
         type: datepicker
-        mode: date
+        mode: datetime
         span: right

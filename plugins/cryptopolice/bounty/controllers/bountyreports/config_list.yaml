@@ -1,14 +1,13 @@
-list: $/cryptopolice/bounty/models/bountyreport/columns.yaml
-modelClass: CryptoPolice\bounty\Models\BountyReport
 title: BountyReports
-noRecordsMessage: backend::lang.list.no_records
+modelClass: CryptoPolice\Bounty\Models\BountyReport
+list: $/cryptopolice/bounty/models/bountyreport/columns.yaml
+recordUrl: 'cryptopolice/bounty/bountyreports/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
 showSetup: true
 showCheckboxes: true
-recordsPerPage: 20
 toolbar:
     buttons: list_toolbar
     search:
-        prompt: backend::lang.list.search_prompt
-recordUrl: cryptopolice/bounty/bountyreports/update/:id
-
+        prompt: 'backend::lang.list.search_prompt'
 filter: config_filter.yaml

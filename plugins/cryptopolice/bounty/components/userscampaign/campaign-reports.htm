@@ -2,17 +2,14 @@
 <div id="report_list">
     <h3 class="content__title"> Bounty reports</h3>
     <div class="issues">
-
         <div id="anchor-1">
             <div id="campaign_reports">
                 {% partial 'UsersCampaign::campaign-reports-filtered' %}
-                {% partial 'UsersCampaign::campaign-registered-list' %}
-                {% partial 'UsersCampaign::campaign-verified-reports' %}
             </div>
+            {% partial 'UsersCampaign::bounty-load-form' %}
+            {% partial 'UsersCampaign::campaign-registered-list' %}
+            {% partial 'UsersCampaign::campaign-verified-reports' %}
         </div>
-
-        {% partial 'UsersCampaign::bounty-load-form' %}
-
     </div>
 </div>
 <hr>

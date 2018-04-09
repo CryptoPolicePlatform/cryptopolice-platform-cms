@@ -296,8 +296,7 @@ class UsersCampaign extends ComponentBase
 
             $json = [];
             $user = Auth::getUser();
-            $registrationData = $user->bountyCampaigns()->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
-
+            $registrationData = $user->bountyCampaigns()->where('cryptopolice_bounty_user_registration.deleted_at', null)->wherePivot('bounty_campaigns_id', $this->param('id'))->first();
             if ($this->prepareValidationRules($registrationData, 'report')) {
                 // check if user has access to report
                 if ($registrationData->pivot->approval_type == 1 && $registrationData->pivot->status == 1) {

@@ -76,9 +76,8 @@ class BountyReports extends Controller
         try {
             foreach (json_decode($idList) as $value) {
                 BountyReport::where('id', $value->id)
-                    ->whereBetween('created_at', [
-                        $settings->campaign_reports_start_date, $settings->campaign_reports_end_date
-                    ])
+                    ->where('created_at', '>=', $settings->campaign_reports_start_date)
+                    ->where('created_at', '<=', $settings->campaign_reports_end_date)
                     ->update([
                         'report_status' => '2'
                     ]);
