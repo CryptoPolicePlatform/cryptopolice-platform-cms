@@ -101,35 +101,39 @@ trait ComponentUtils
     protected function verifyMetadataType($source)
     {
 
-        $fp     = fopen($source, 'rb');
-        $sig    = fread($fp, 8);
-
-        if ($sig != "\x89PNG\x0d\x0a\x1a\x0a") {
-            fclose($fp);
-            throw new ApplicationException(sprintf('Invalid png format.'));
-        }
-
-        while (!feof($fp)) {
-
-            $data = unpack('Nlength/a4type', fread($fp, 8));
-
-            if ($data['type'] == 'zTXt') {
-                fclose($fp);
-                throw new ApplicationException('Uploading a file with metadata \'zTXt\' is not allowed');
-            }
-            break;
-        }
-        fclose($fp);
-    }
-
-    protected function compress($source, $destination, $quality)
-    {
-
         $info = getimagesize($source);
 
         if ($info['mime'] == 'image/png') {
-            $this->verifyMetadataType($source);
+
+            $fp  = fopen($source, 'rb');
+            $sig = fread($fp, 8);
+
+            if ($sig != "\x89PNG\x0d\x0a\x1a\x0a") {
+                fclose($fp);
+                throw new ApplicationException(sprintf('Invalid png format.'));
+            }
+
+            while (!feof($fp)) {
+
+                $data = unpack('Nlength/a4type', fread($fp, 8));
+
+                if ($data['type'] == 'zTXt') {
+                    fclose($fp);
+                    return 1;
+                }
+
+                if ($data['type'] == 'IEND') break;
+
+                fseek($fp, $data['length'] + 4, SEEK_CUR);
+            }
+            fclose($fp);
         }
+    }
+
+    protected function compress($source, $quality)
+    {
+
+        $info = getimagesize($source);
 
         if ($info['mime'] == 'image/jpeg')
             $image = imagecreatefromjpeg($source);
@@ -137,9 +141,9 @@ trait ComponentUtils
         elseif ($info['mime'] == 'image/png')
             $image = imagecreatefrompng($source);
 
-        imagejpeg($image, $destination, $quality);
+        imagejpeg($image, $source, $quality);
 
-        return $destination;
+        return $source;
     }
 
     protected function checkUploadAction()
@@ -170,7 +174,12 @@ trait ComponentUtils
                 throw new ApplicationException(sprintf('File %s is not valid.', $uploadedFile->getClientOriginalName()));
             }
 
-            $this->compress($uploadedFile->getRealPath(), $uploadedFile->getRealPath(), 75);
+            if ($this->verifyMetadataType($uploadedFile->getRealPath())) {
+                unlink($uploadedFile->getRealPath());
+                throw new ApplicationException('Uploading a file with metadata \'zTXt\' is not allowed');
+            }
+
+            $this->compress($uploadedFile->getRealPath(), 75);
 
             $file = new File;
             $file->data = $uploadedFile;
