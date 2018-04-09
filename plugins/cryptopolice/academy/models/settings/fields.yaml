@@ -115,3 +115,8 @@ fields:
         type: datepicker
         mode: datetime
         span: right
+
+    campaign_reports_group:
+        label: Group bounty campaign reports
+        type: checkbox
+        default: false

@@ -21,7 +21,7 @@
 
         <div class="field-repeater">
 
-            <?php echo '<p> <a href=/backend/cryptopolice/bounty/bountyreports/update/'.$data->id.' target="blank"> №'. ($key + 1) .' User: '.$data->user->email.' Link <strong>Created:'.$data->created_at.'</strong></a> </p>'; ?>
+            <?php echo '<p> <a href=/backend/cryptopolice/bounty/bountyreports/update/'.$data->id.' target="blank"> ID:'.$data->id.' №'. ($key + 1) .' User: '.$data->user->email.' Link <strong>Created:'.$data->created_at.'</strong></a> </p>'; ?>
 
             <ul class="field-repeater-items" data-disposable="">
 
@@ -34,12 +34,16 @@
                     <div class="repeater-item-collapsed-title"></div>
 
                     <div class="field-repeater-form">
-                        <div class="form-group  text-field span-left   " data-field-name="title">
-                            <input class="form-control" readonly value=" <?php echo $data['title'] ?>"/>
+                        <div class="form-group  text-field span-left" data-field-name="title">
+                            <input class="form-control" readonly value="<?php echo $data['title'] ?>"/>
                         </div>
                         <div class="form-group  textarea-field span-right">
                             <textarea class="form-control field-textarea size-small" readonly><?php echo $data['value']; ?></textarea>
-                            <?php echo stristr('link, tweet, retweet, github_url, bitcointalk_link, comment, post, link, links, youtube_link', $data['title']) !== false ? "<a href='" . $data['value'] . "' target='_blank'> LINK </a>" : ' '; ?>
+                            <?php
+                                echo stristr('link, tweet, link_post_or_share, link_post, retweet, github_url, bitcointalk_link, comment, post, link, links, youtube_link', $data['title']) !== false ? "<a href='" . $data['value'] . "' target='_blank'> LINK </a>" : ' ';
+
+
+                            ?>
                         </div>
                     </div>
                 </li>

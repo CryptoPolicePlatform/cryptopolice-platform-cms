@@ -74,15 +74,19 @@ class BountyReports extends Controller
         $idList     = post('BountyReport.report_list');
 
         try {
-            foreach (json_decode($idList) as $value) {
-                BountyReport::where('id', $value->id)
-                    ->where('created_at', '>=', $settings->campaign_reports_start_date)
-                    ->where('created_at', '<=', $settings->campaign_reports_end_date)
-                    ->update([
-                        'report_status' => '2'
-                    ]);
+            if ($settings->campaign_reports_group) {
+                foreach (json_decode($idList) as $value) {
+                    BountyReport::where('id', $value->id)
+                        ->where('created_at', '>=', $settings->campaign_reports_start_date)
+                        ->where('created_at', '<=', $settings->campaign_reports_end_date)
+                        ->update([
+                            'report_status' => '2'
+                        ]);
+                }
+                Flash::warning('All users reports was successfully BLOCKED');
+            } else {
+                Flash::error('Group setting is not selected');
             }
-            Flash::warning('All users reports was successfully BLOCKED');
         } catch (Exception $e) {
             Flash::error($e->getMessage());
         }

@@ -28,15 +28,21 @@ class ReportList extends FormWidgetBase
 
         $settings = Settings::instance();
 
-        $this->vars['report_id']    = $this->model->id;
+        $this->vars['report_id'] = $this->model->id;
 
-        $this->vars['reports_data'] = BountyReport::with('user', 'bounty')
-            ->where([
-                    ['bounty_user_registration_id', '=', $this->model->bounty_user_registration_id],
-                    ['bounty_campaigns_id',         '=', $this->model->bounty_campaigns_id]
-                ]
-            )
-            ->whereBetween('created_at', [$settings->campaign_reports_start_date, $settings->campaign_reports_end_date])
-            ->get();
+        if ($settings->campaign_reports_group) {
+            $this->vars['reports_data'] = BountyReport::with('user', 'bounty')
+                ->where([
+                        ['bounty_user_registration_id', '=', $this->model->bounty_user_registration_id],
+                        ['bounty_campaigns_id', '=', $this->model->bounty_campaigns_id]
+                    ]
+                )
+                ->whereBetween('created_at', [$settings->campaign_reports_start_date, $settings->campaign_reports_end_date])
+                ->get();
+        } else {
+            $this->vars['reports_data'] = BountyReport::with('user', 'bounty')
+                ->where('id', $this->model->id)
+                ->get();
+        }
     }
 }

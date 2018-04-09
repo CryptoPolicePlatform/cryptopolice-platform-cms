@@ -9,20 +9,21 @@ security = "user"
 redirect = "login"
 
 [reCaptcha]
-[Profile]
-[Uploader]
 
+[Profile]
+
+[Uploader]
 placeholderText = "Click or drag images to upload"
 maxSize = 1
 fileTypes = ".gif,.jpg,.jpeg,.png"
-imageWidth = 160
-imageHeight = 160
+imageWidth = 100
+imageHeight = 100
 imageMode = "crop"
 modelClass = "RainLab\User\Models\User"
 modelKeyColumn = "avatar"
 identifierValue = "{{ :id }}"
 ==
-
+<?php
 use RainLab\User\Models\User;
 
     function onInit ()
@@ -42,7 +43,7 @@ use RainLab\User\Models\User;
             $component->bindModel('avatar', $user);
         }
     }
-
+?>
 ==
 <main class="content">
     <div class="content__inner">
