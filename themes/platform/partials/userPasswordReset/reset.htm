@@ -1,8 +1,8 @@
 <p class="lead">
-    <div class="content__text">Please check your email for the activation code.</div>
+    <div class="content__text">Reset link sent successfully. You will receive a link shortly if a user is registered.</div>
 <p>
 
-<form data-request="{{ __SELF__ }}::onResetPassword" data-request-update="'{{ __SELF__ }}::complete': '#partialUserResetForm'">
+<form data-request="onReset" data-request-update="'{{ __SELF__ }}::complete': '#partialUserResetForm'">
 
     <div class="form-group">
         <div class="content__text">Activation Code</div>
