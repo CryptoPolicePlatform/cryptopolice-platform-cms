@@ -57,24 +57,27 @@ class BountyRegistration extends Model
     {
 
         $data = input();
-        $reg = $data['BountyRegistration'];
 
-        if (!$reg['approval_type']) {
-            if (!$reg['reverified'] && !empty($reg['message']) || ($reg['reverified'] && empty($reg['message']))) {
+        if (isset($data['BountyRegistration']) && !empty($data['BountyRegistration'])) {
 
-                throw new ValidationException([
-                    'message' => 'Please, set Reverifed status and Message or Approval status'
-                ]);
+            $reg = $data['BountyRegistration'];
+            
+            if (!$reg['approval_type']) {
+                if (!$reg['reverified'] && !empty($reg['message']) || ($reg['reverified'] && empty($reg['message']))) {
+
+                    throw new ValidationException([
+                        'message' => 'Please, set Reverifed status and Message or Approval status'
+                    ]);
+                }
+            }
+
+            if ($reg['approval_type']) {
+                if ($reg['reverified'] || !empty($reg['message'])) {
+                    throw new ValidationException([
+                        'message' => 'Please, remove Reverifed status and Message'
+                    ]);
+                }
             }
         }
-
-        if ($reg['approval_type']) {
-            if ($reg['reverified'] || !empty($reg['message'])) {
-                throw new ValidationException([
-                    'message' => 'Please, remove Reverifed status and Message'
-                ]);
-            }
-        }
-
     }
 }
