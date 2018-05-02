@@ -13,12 +13,11 @@
         </div>
         <div class="stat__item second_stat_block">
             <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff"
-                 data-value="0.055555555555556" data-size="34" data-thickness="6">
-                <canvas width="34" height="34"></canvas>
-                <canvas width="34" height="34"></canvas>
+                 data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6">
+
             </div>
-            <div class="stat__counter"> 5.56%</div>
-            <div class="stat__text"> Registered in airdrop {{airdrop_registration.count}} users</div>
+            <div class="stat__counter"> {{ percentageAirdropRegistrations|number_format(2, '.', ',') }}%</div>
+            <div class="stat__text"> Registered in airdrop {{totalAirdropRegistrations}} users</div>
         </div>
 
         {{ airdrop.description|md }}
@@ -35,18 +34,18 @@
                     {{ form_ajax('onAirdropRegistration', { flash : '', model: AirdropRegistration }) }}
 
                     {% for field in airdrop.fields %}
-                    {% if field.status %}
-                    <div class="form__group">
-                        <label>{{field.title}}</label>
-                        <input class="input" type="{{ field.input_type }}" id="{{ field.name }}"
-                               name="{{ field.name }}{% if field.is_array %}[]{% endif %}"
-                               placeholder="{{ field.description }}">
-                    </div>
-                    {% endif %}
+                        {% if field.status %}
+                            <div class="form__group">
+                                <label>{{field.title}}</label>
+                                <input class="input" type="{{ field.input_type }}" id="{{ field.name }}"
+                                       name="{{ field.name }}{% if field.is_array %}[]{% endif %}"
+                                       placeholder="{{ field.description }}">
+                            </div>
+                        {% endif %}
                     {% endfor %}
 
                     <div class="form__group">
-                        <button id="" class="btn  btn--gpink">Submit registration</button>
+                        <button id="recaptcha_registration" class="btn  btn--gpink g-recaptcha">Submit registration</button>
                     </div>
 
                     {{ form_close() }}
@@ -59,14 +58,8 @@
             <div class="profile__card">
                 <div class="grid__col  w6">
                     <div class="alert alert--orange">
-                        <h2>To verify your registration please approve your Bitcointalk account</h2>
-                        <br>
-                        <span class="mark  mark--red"><strong>Post this message to our Bitcointalk bounty announcement </strong></span>
-                        <a href="https://bitcointalk.org/index.php?topic=3160487" target="_blank">LINK</a> <br><br>
-                        <span class="mark  mark--red"><strong>Only 1 registration code per post</strong></span>
-                        <h2>Message:</h2>
-                        <h4> I registered to CryptoPolice Reddit campaign <br> My registration code is
-                            OFCR-77AEB86B5CAE933A2BD218F1B9202FAB</h4>
+                        <h2>{{airdrop_title|md}}</h2>
+                        {{airdrop_description|md}}
                         <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
                     </div>
                 </div>
@@ -76,4 +69,3 @@
     {% endif %}
 
 </div>
-

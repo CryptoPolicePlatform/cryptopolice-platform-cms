@@ -62,7 +62,9 @@ fields:
                     type: textarea
 
     status:
-        label: Active AirDrop
+        label: Dropdown
+        options:
+            - Open    (allow registrations)
+            - Closed
         span: auto
-        default: 1
-        type: switch
+        type: dropdown

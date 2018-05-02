@@ -120,3 +120,11 @@ fields:
         label: Group bounty campaign reports
         type: checkbox
         default: false
+
+    airdrop_title:
+        label: Airdrop title message
+        type: richeditor
+
+    airdrop_description:
+        label: Airdrop description message
+        type: richeditor

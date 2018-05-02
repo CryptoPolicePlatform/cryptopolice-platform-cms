@@ -28,3 +28,12 @@ is_hidden = 0
         </div>
     </div>
 </main>
+
+<!--Hack with flash notification, remove text rendering before flash message -->
+{% if active is empty %}
+<div class="empty_flash">
+    {% flash %}
+    <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+    {% endflash %}
+</div>
+{% endif %}

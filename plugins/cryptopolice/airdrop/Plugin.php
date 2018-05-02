@@ -13,6 +13,16 @@ class Plugin extends PluginBase
 
     }
 
+    public function registerFormWidgets()
+    {
+        return [
+            'CryptoPolice\Airdrop\FormWidgets\Airdroplist' => [
+                'label' => 'Aridrop List',
+                'code' => 'aridroplist'
+            ]
+        ];
+    }
+
     public function boot()
     {
         $this->extendUserModel();

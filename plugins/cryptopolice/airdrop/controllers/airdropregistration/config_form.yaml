@@ -1,0 +1,10 @@
+name: AirdropRegistration
+form: $/cryptopolice/airdrop/models/airdropregistration/fields.yaml
+modelClass: cryptopolice\airdrop\Models\AirdropRegistration
+defaultRedirect: cryptopolice/airdrop/airdropregistration
+create:
+    redirect: 'cryptopolice/airdrop/airdropregistration/update/:id'
+    redirectClose: cryptopolice/airdrop/airdropregistration
+update:
+    redirect: cryptopolice/airdrop/airdropregistration
+    redirectClose: cryptopolice/airdrop/airdropregistration
