@@ -1,0 +1,10 @@
+name: Airdrops
+form: $/cryptopolice/airdrop/models/airdrop/fields.yaml
+modelClass: cryptopolice\airdrop\Models\Airdrop
+defaultRedirect: cryptopolice/airdrop/airdrops
+create:
+    redirect: 'cryptopolice/airdrop/airdrops/update/:id'
+    redirectClose: cryptopolice/airdrop/airdrops
+update:
+    redirect: cryptopolice/airdrop/airdrops
+    redirectClose: cryptopolice/airdrop/airdrops

@@ -1,0 +1,17 @@
+<div class="modal-dialog">
+    <div class="modal-content" style="padding:20px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" style="color:red;">Duplicates detected: <?php echo count($arr); ?></h4>
+        <div class="modal-body" style="padding-top:20px;">
+            <?php foreach(($arr) as $val) { ?>
+
+
+            <a href="<?php echo Config::get('app.url').'backend/cryptopolice/bounty/bountyreports/update/'.$val['id']; ?>" target="_blank"> <p>ID: <?php echo $val['id']?></a>
+
+            - <?php echo $val['duplicate']; ?></p>
+            <p><?php echo '<strong>'.$val['created_at'].'</strong>'; ?></p>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+

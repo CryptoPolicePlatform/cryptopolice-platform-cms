@@ -1,0 +1,9 @@
+
+
+<?php foreach(json_decode($value) as $val) { ?>
+<?php if($val->title == 'bitcointalk_username') { echo "<strong>Bitcointalk:</strong> " . $val->value."<br>"; } ?>
+<?php if($val->title == 'telegram_username') { echo "<strong>Telegram:</strong> " . $val->value."<br>"; } ?>
+<?php if($val->title == 'facebook_profile_link') { echo "<strong>Facebook:</strong> " . $val->value."<br>"; } ?>
+<?php if($val->title == 'twitter_profile_link') { echo "<strong>Twitter:</strong> " . $val->value."<br>"; } ?>
+
+<?php } ?>

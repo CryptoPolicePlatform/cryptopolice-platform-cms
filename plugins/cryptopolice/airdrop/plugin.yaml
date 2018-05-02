@@ -1,0 +1,11 @@
+plugin:
+    name: AirDrop
+    description: 'AirDrop plugin'
+    author: Cryptopolice
+    icon: oc-icon-flag-o
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Airdrop
+        url: cryptopolice/airdrop/airdrops
+        icon: icon-life-ring

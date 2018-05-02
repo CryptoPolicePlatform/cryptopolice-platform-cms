@@ -47,3 +47,11 @@ columns:
         type: datetime
         searchable: true
         sortable: true
+    bounty_user_registration_id:
+        label: Registration data
+        relation: userRegistration
+        select: fields_data
+        type: partial
+        searchable: true
+        sortable: true
+        cssClass: column-button

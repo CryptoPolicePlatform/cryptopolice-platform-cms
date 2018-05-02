@@ -1,15 +1,15 @@
 {% if resetPassword.code == null %}
 
-<p class="lead">
-    <div class="choose__title">Forgot password?</div>
-    <div class="content__text">No problem! Enter your email address to verify your account.</div>
-<p>
+    <p class="lead">
+        <div class="choose__title">Forgot password?</div>
+        <div class="content__text">No problem! Enter your email address to verify your account.</div>
+    <p>
 
-<form data-request="onRestore" data-request-update="'{{ __SELF__ }}::reset': '#partialUserResetForm'">
-    <div class="form-group">
-        <input name="email" type="email" class="input  input--email" id="userRestoreEmail" placeholder="Enter your email">
-    </div>
-    <button type="submit" id="captcha_restore" class="btn btn-default g-recaptcha">Restore password</button>
-</form>
+    <form data-request="onRestore" data-request-update="'{{ __SELF__ }}::reset': '#partialUserResetForm'">
+        <div class="form-group">
+            <input name="email" type="email" class="input  input--email" id="userRestoreEmail" placeholder="Enter your email">
+        </div>
+        <button type="submit" id="captcha_restore" class="btn btn-default g-recaptcha">Restore password</button>
+    </form>
 
 {% endif %}

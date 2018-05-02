@@ -1,0 +1,39 @@
+<div class="bounty__sidebar">
+    <a href="{{ 'profile'|page }}">
+        {% if user.avatar.path %}
+        <img class="profile__ava" src="{{user.avatar.thumb(79, 79, {'mode' : 'crop'})}}" width="79" height="79" title="Avatar" alt="Avatar">
+        {% else %}
+        <img class="profile__ava" src="{{'assets/images/user.svg'|theme}}" width="79" height="79" title="Avatar" alt="Avatar">
+        {% endif %}
+    </a>
+
+    <div class="profile__name"> {% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %} </div>
+    <div class="profile__block"><p> Balance: <b> {{ profileStatistic.total_tokens }} OFC </b></p></div>
+
+    {% if profileStatistic.stake_list is not empty %}
+    <div class="profile__block">
+        <p>Stakes:</p>
+        <div class="profile__block-item">
+            {% for stake in profileStatistic.stake_list %}
+            <p> {{ stake.campaign_title }}: <b> {{ stake.stake_amount }} <small>STAKES</small> </b></p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="profile__block">
+        <p> Statistics: </p>
+        <div class="profile__block-item">
+            <p> Total : <b> {{ profileStatistic.report_count }} </b></p>
+            <div class="profile__stat">
+                <div class="stat__pie  stat__pie--big" data-circle="" data-color="#8f78db" data-empty="#c6bbec" data-value="{{ profileStatistic.report_percentage }}" data-size="60" data-thickness="10">
+                    <canvas width="60" height="60"></canvas>
+                </div>
+                <ul class="profile__stat-list">
+                    <li class="purple"> Approved: <b> {{ profileStatistic.approved}} </b></li>
+                    <li class="light-purple"> Disapproved: <b> {{ profileStatistic.disapproved }} </b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

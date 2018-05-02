@@ -91,4 +91,39 @@ class BountyReports extends Controller
             Flash::error($e->getMessage());
         }
     }
+
+    public function onVerifyReport($modal)
+    {
+
+        $arr = [];
+        $settings = Settings::instance();
+
+        $report = BountyReport::find($modal);
+        $allReports = BountyReport::where('id', '!=', $modal)->where('created_at', '<=', $report->created_at)->get();
+
+        if (isset($report->description) && !empty($report->description)) {
+            foreach ($report->description as $userReport) {
+
+                if (isset($allReports) && !empty($allReports)) {
+                    foreach ($allReports as $report) {
+
+                        if (isset($report->description) && !empty($report->description)) {
+                            foreach ($report->description as $usersReport) {
+
+                                if (array_search($usersReport['title'], ['retweet', 'tweet', 'link_post_or_share', 'link_post', 'bitcointalk_link'], true)) {
+                                    if ($userReport['value'] == $usersReport['value'] && !empty($usersReport['value'])) {
+                                        array_push($arr, ['id' => $report->id, 'created_at' => $report->created_at, 'duplicate' => $usersReport['value']]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return [
+            'result' => $this->makePartial('verify', ['arr' => $arr])
+        ];
+    }
 }

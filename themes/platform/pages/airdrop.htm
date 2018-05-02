@@ -1,0 +1,30 @@
+title = "AirDrop"
+url = "/airdrop"
+layout = "platform"
+description = "AirDrop page"
+is_hidden = 0
+
+[Airdrop]
+
+[Bounties]
+
+
+[session]
+==
+<main class="content">
+    <div class="content__inner bounty-list">
+        <div class="content__left">
+
+            {% partial Airdrop ~ '::airdrop-bar' %}
+
+            <div class="profile">
+
+                {% partial Airdrop ~ '::airdrop-profile' %}
+                {% partial Airdrop ~ '::airdrop-main-page' %}
+
+                {% component 'Bounties' %}
+
+            </div>
+        </div>
+    </div>
+</main>

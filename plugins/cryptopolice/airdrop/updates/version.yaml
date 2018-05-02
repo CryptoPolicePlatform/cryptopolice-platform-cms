@@ -1,0 +1,8 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table cryptopolice_airdrop_airdrop'
+    - builder_table_create_cryptopolice_airdrop_airdrop.php
+1.0.3:
+    - 'Created table cryptopolice_airdrop_user_registration'
+    - builder_table_create_cryptopolice_airdrop_user_registration.php

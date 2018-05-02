@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: ID
+        type: number
+        searchable: true
+        sortable: true
+    title:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true
+    status:
+        label: Status
+        type: number
+        searchable: true
+        sortable: true

@@ -1,0 +1,68 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        type: text
+    description:
+        label: Description
+        size: large
+        span: full
+        type: richeditor
+    fields:
+        label: Fields
+        oc.commentPosition: ''
+        prompt: 'Add new item'
+        span: left
+        type: repeater
+        form:
+            fields:
+                title:
+                    label: Title
+                    oc.commentPosition: ''
+                    span: auto
+                    required: 1
+                    type: text
+
+                input_type:
+                    label: 'Input Type'
+                    options:
+                        text: String
+                        radio: Radio
+                        checkbox: Checkbox
+                        textarea: Textarea
+                        number: Number
+                    span: auto
+                    required: 1
+                    type: dropdown
+                    comment: 'Input, select, radio ....'
+                status:
+                    label: Status
+                    span: auto
+                    default: 1
+                    type: switch
+                name:
+                    label: Name
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                regex:
+                    label: Regex
+                    oc.commentPosition: ''
+                    span: auto
+                    type: text
+                multiple:
+                    label: 'Multiple Field'
+                    span: auto
+                    type: checkbox
+                description:
+                    label: Description
+                    size: ''
+                    oc.commentPosition: ''
+                    span: full
+                    type: textarea
+
+    status:
+        label: Active AirDrop
+        span: auto
+        default: 1
+        type: switch
