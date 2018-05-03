@@ -63,7 +63,7 @@ class Posts extends ComponentBase
         if ($posts->isNotEmpty()) {
 
             $helper = new Helpers();
-            $this->page['limit']  = $posts->count() > $perPage ? true : false;
+            $this->page['limit']  = $posts->count() >= $perPage ? true : false;
 
             foreach ($posts as $key => $value) {
 

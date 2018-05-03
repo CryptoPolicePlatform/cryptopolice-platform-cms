@@ -13,7 +13,6 @@ use CryptoPolice\Academy\Models\Settings;
 use CryptoPolice\Academy\Components\Recaptcha;
 use cryptopolice\airdrop\Models\AirdropRegistration;
 
-
 class UsersAirdrop extends ComponentBase
 {
 
@@ -33,28 +32,17 @@ class UsersAirdrop extends ComponentBase
         $this->page['airdrop_title']                = $settings->airdrop_title;
         $this->page['airdrop_description']          = $settings->airdrop_description;
         $this->page['airdrop_approved_title']       = $settings->airdrop_approved_title;
-        $this->page['airdrop_approved_description'] = $settings->airdrop_approved_description;
         $this->page['airdrop_registration_title']   = $settings->airdrop_registration_title;
-
-        $this->page['profileStatistic']             = $this->getProfileStatistic();
+        $this->page['airdrop_approved_description'] = $settings->airdrop_approved_description;
 
         $user = Auth::getUser();
+
         if ($user) {
+            $this->page['profileStatistic']     = $this->getProfileStatistic();
             $this->page['airdrop_registration'] = $user->airDropRegistration()->first();
         }
 
-        $totalAirdropCount = AirdropRegistration::count();
-        $totalUserCount = User::count();
-
-        if ($totalAirdropCount) {
-            $percentage = 100 / $totalUserCount * $totalAirdropCount;
-        } else {
-            $percentage = 0;
-        }
-
-        $this->page['totalAirdropRegistrations']        = $totalAirdropCount;
-        $this->page['percentageAirdropRegistrations']   = $percentage;
-
+        $this->page['totalAirdropRegistrations']        = AirdropRegistration::count();
     }
 
     public function getProfileStatistic()
@@ -62,7 +50,7 @@ class UsersAirdrop extends ComponentBase
 
         $user = Auth::getUser();
         $data = DB::table('cryptopolice_bounty_user_reports')
-            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
+            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_user_reports.user_id', $user->id)

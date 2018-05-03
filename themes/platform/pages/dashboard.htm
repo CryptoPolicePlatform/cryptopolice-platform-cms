@@ -69,7 +69,18 @@ $component->bindModel('avatar', $user);
                     </div>
                 </div>
 
+                <style>
+                    @media (max-width: 767px)
+                         {
+                        .d {
+                        width: 0px;
+                        }
+                    }
+                </style>
+                    <div class="d">
                 <div class="content__sidebar">
+
+
                     <div class="profile__card sidebar__bounty">
                         <h3 class="content__title">
                             Change Avatar
@@ -77,7 +88,7 @@ $component->bindModel('avatar', $user);
                         {% component 'Uploader' %}
                     </div>
                 </div>
-
+                </div>
             </div>
         </div>
     </div>

@@ -1,34 +1,29 @@
 <div class="bounty__content">
 
-    <div class="profile__card  mb-15">
-        <h2>{{airdrop.title}}</h2>
-        <div class="stat__item stat_block">
-            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff"
-                 data-value="0.1" data-size="34" data-thickness="6">
-                <canvas width="34" height="34"></canvas>
-                <canvas width="34" height="34"></canvas>
+        <div class="profile__card  mb-15">
+            <h2>{{airdrop.title}}</h2>
+
+            <div class="stat__item">
+                <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff"
+                     data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6">
+                </div>
+                <div class="stat__counter"> {{ (100/11764*totalAirdropRegistrations)|number_format(2, '.', ',') }}%</div>
+                <div class="stat__text"> Registered in airdrop 11764 / {{totalAirdropRegistrations}} users</div>
             </div>
-            <div class="stat__counter">10%</div>
-            <div class="stat__text">Reward amount 2,000,000 OFCR</div>
+
+            {{ airdrop.description|md }}
+
         </div>
-        <div class="stat__item second_stat_block">
-            <div class="stat__pie  stat__pie--red" data-circle="" data-color="#f67982" data-empty="#ffffff"
-                 data-value="{{ bountyPercentage / 100 }}" data-size="34" data-thickness="6">
-
-            </div>
-            <div class="stat__counter"> {{ percentageAirdropRegistrations|number_format(2, '.', ',') }}%</div>
-            <div class="stat__text"> Registered in airdrop {{totalAirdropRegistrations}} users</div>
-        </div>
-
-        {{ airdrop.description|md }}
-
-    </div>
 
     {% if not user %}
 
         <div class="profile__card">
             <div class="grid__col  w6">
-                {{airdrop_registration_title|md}}
+                <h3>{{airdrop_registration_title|md}}</h3>
+                <div class="airdrop-block">
+                    <a class="btn  btn--gpink airdrop_login" href={{'login'|page}}>Sign up</a>
+                    <a class="btn  btn--gpink airdrop_login" href={{'login'|page}}> Login</a>
+                </div>
             </div>
         </div>
 
@@ -37,56 +32,56 @@
     {% if airdrop.status and user %}
         {% if airdrop_registration is empty %}
 
-            <div class="profile__card">
-                <div class="grid__col  w6">
-                    <h3>AirDrop registration form</h3>
-                    {{ form_ajax('onAirdropRegistration', { flash : '', model: AirdropRegistration }) }}
+        <div class="profile__card">
+            <div class="grid__col  w6">
+                <h3>AirDrop registration form</h3>
+                {{ form_ajax('onAirdropRegistration', { flash : '', model: AirdropRegistration }) }}
 
-                        {% for field in airdrop.fields %}
-                            {% if field.status %}
-                            <div class="form__group">
-                                <label>{{field.title}}</label>
-                                <input class="input" type="{{ field.input_type }}" id="{{ field.name }}"
-                                       name="{{ field.name }}{% if field.is_array %}[]{% endif %}"
-                                       placeholder="{{ field.description }}">
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-
-                    <div class="form__group">
-                        <button id="recaptcha_registration" class="btn  btn--gpink g-recaptcha">Submit registration</button>
-                    </div>
-
-                    {{ form_close() }}
-
+                {% for field in airdrop.fields %}
+                {% if field.status %}
+                <div class="form__group">
+                    <label>{{field.title}}</label>
+                    <input class="input" type="{{ field.input_type }}" id="{{ field.name }}"
+                           name="{{ field.name }}{% if field.is_array %}[]{% endif %}"
+                           placeholder="{{ field.description }}">
                 </div>
+                {% endif %}
+                {% endfor %}
+
+                <div class="form__group">
+                    <button id="recaptcha_registration" class="btn  btn--gpink g-recaptcha">Submit registration</button>
+                </div>
+
+                {{ form_close() }}
+
             </div>
+        </div>
 
         {% else %}
 
             {% if airdrop_registration.approval_type == 0 %}
 
-                <div class="profile__card">
-                    <div class="grid__col  w6">
-                        <div class="alert alert--orange">
-                            <h2>{{airdrop_title|md}}</h2>
-                            {{airdrop_description|md}}
-                            <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
-                        </div>
+            <div class="profile__card">
+                <div class="grid__col  w6">
+                    <div class="alert alert--orange">
+                        <h2>{{airdrop_title|md}}</h2>
+                        {{airdrop_description|md}}
+                        <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
                     </div>
                 </div>
+            </div>
 
             {% else %}
 
-                <div class="profile__card">
-                    <div class="grid__col  w6">
-                        <div class="alert alert--green">
-                            <h2>{{airdrop_approved_title|md}}</h2>
-                            {{airdrop_approved_description|md}}
-                            <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
-                        </div>
+            <div class="profile__card">
+                <div class="grid__col  w6">
+                    <div class="alert alert--green">
+                        <h2>{{airdrop_approved_title|md}}</h2>
+                        {{airdrop_approved_description|md}}
+                        <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
                     </div>
                 </div>
+            </div>
 
             {% endif %}
 

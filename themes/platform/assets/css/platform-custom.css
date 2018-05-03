@@ -166,6 +166,19 @@
     padding: 10px 20px;
 }
 
+.airdrop_login {
+    text-align:center;
+    display: inline-block;
+    margin: 0 auto;
+    width: 25%;
+    border-radius: 40px;
+    padding: 10px 20px;
+}
+
+.airdrop-block {
+    text-align: center;
+}
+
 @media (max-width: 767px) {
 
     .post_item {
