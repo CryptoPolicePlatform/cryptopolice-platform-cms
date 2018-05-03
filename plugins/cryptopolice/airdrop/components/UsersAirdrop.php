@@ -1,16 +1,17 @@
 <?php namespace CryptoPolice\Airdrop\Components;
 
 use Auth;
-use Illuminate\Support\Facades\Redirect;
 use Session;
 use Validator;
 use RainLab\User\Models\User;
 use Cms\Classes\ComponentBase;
+use Illuminate\Support\Facades\DB;
 use October\Rain\Support\Facades\Flash;
+use Illuminate\Support\Facades\Redirect;
 use cryptopolice\airdrop\Models\Airdrop;
 use CryptoPolice\Academy\Models\Settings;
-use cryptopolice\airdrop\Models\AirdropRegistration;
 use CryptoPolice\Academy\Components\Recaptcha;
+use cryptopolice\airdrop\Models\AirdropRegistration;
 
 
 class UsersAirdrop extends ComponentBase
@@ -28,18 +29,19 @@ class UsersAirdrop extends ComponentBase
     {
         $settings = Settings::instance();
 
-        $this->page['airdrop'] = Airdrop::first();
-        $this->page['airdrop_title'] = $settings->airdrop_title;
-        $this->page['airdrop_description'] = $settings->airdrop_description;
-        $this->page['airdrop_approved_title'] = $settings->airdrop_approved_title;
+        $this->page['airdrop']                      = Airdrop::first();
+        $this->page['airdrop_title']                = $settings->airdrop_title;
+        $this->page['airdrop_description']          = $settings->airdrop_description;
+        $this->page['airdrop_approved_title']       = $settings->airdrop_approved_title;
         $this->page['airdrop_approved_description'] = $settings->airdrop_approved_description;
-        $this->page['airdrop_registration_title'] = $settings->airdrop_registration_title;
+        $this->page['airdrop_registration_title']   = $settings->airdrop_registration_title;
+
+        $this->page['profileStatistic']             = $this->getProfileStatistic();
 
         $user = Auth::getUser();
         if ($user) {
             $this->page['airdrop_registration'] = $user->airDropRegistration()->first();
         }
-
 
         $totalAirdropCount = AirdropRegistration::count();
         $totalUserCount = User::count();
@@ -50,9 +52,56 @@ class UsersAirdrop extends ComponentBase
             $percentage = 0;
         }
 
-        $this->page['totalAirdropRegistrations'] = $totalAirdropCount;
-        $this->page['percentageAirdropRegistrations'] = $percentage;
+        $this->page['totalAirdropRegistrations']        = $totalAirdropCount;
+        $this->page['percentageAirdropRegistrations']   = $percentage;
 
+    }
+
+    public function getProfileStatistic()
+    {
+
+        $user = Auth::getUser();
+        $data = DB::table('cryptopolice_bounty_user_reports')
+            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title', 'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
+            ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
+            ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
+            ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
+            ->get();
+
+        $buf = [];
+        foreach ($data as $key => $value) {
+            if ($value->type == 1) {
+                array_push($buf, $value->campaign_title);
+            }
+        }
+
+        $stakesList = [];
+        foreach (array_unique($buf) as $key => $value) {
+            array_push($stakesList, [
+                'campaign_title' => $value,
+                'stake_amount' => $data->where('campaign_title', $value)->sum('given_reward')
+            ]);
+        }
+
+        $counter    = $data->count();
+        $approved   = $data->where('report_status', 1)->count();
+        $pending    = $data->where('report_status', 0)->count();
+
+        if ($counter - $pending && $approved) {
+            $value = (100 / ($counter - $pending) * $approved) / 100;
+        } else {
+            $value = 0;
+        }
+
+        return [
+            'stake_list'            => $stakesList,
+            'report_percentage'     => $value,
+            'total_tokens'          => $data->where('type', 0)->sum('given_reward'),
+            'report_count'          => $data->count(),
+            'disapproved'           => $data->where('report_status', 2)->count(),
+            'approved'              => $data->where('report_status', 1)->count(),
+            'pending'               => $data->where('report_status', 0)->count(),
+        ];
     }
 
     public function onAirdropRegistration()
@@ -78,7 +127,6 @@ class UsersAirdrop extends ComponentBase
                         foreach ($registrations as $reg) {
                             foreach (json_decode($reg['fields_data']) as $field) {
                                 if ($field->value == $value) {
-
                                     Flash::error('User with this credentials in airdrop are already registered');
                                     return Redirect::to('/airdrop');
                                 }
@@ -93,10 +141,9 @@ class UsersAirdrop extends ComponentBase
                     }
 
                     $user->airDropRegistration()->create([
-                            'fields_data' => json_encode($json),
-                            'airdrop_id' => 1,
+                            'fields_data'   => json_encode($json),
+                            'airdrop_id'    => 1,
                         ]
-
                     );
 
                     Flash::success('Successfully registered');
@@ -130,6 +177,4 @@ class UsersAirdrop extends ComponentBase
             return true;
         }
     }
-
-
 }

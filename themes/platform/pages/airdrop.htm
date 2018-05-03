@@ -2,14 +2,11 @@ title = "AirDrop"
 url = "/airdrop"
 layout = "platform"
 description = "AirDrop page"
-is_hidden = 0
-
-[Airdrop]
-
-[Bounties]
-
+is_hidden = 1
 
 [session]
+[Airdrop]
+[Bounties]
 ==
 <main class="content">
     <div class="content__inner bounty-list">
@@ -33,7 +30,7 @@ is_hidden = 0
 {% if active is empty %}
 <div class="empty_flash">
     {% flash %}
-    <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
+        <p data-control="flash-message" class="flash-message fade {{ type }}" data-interval="5"> {{ message }} </p>
     {% endflash %}
 </div>
 {% endif %}
