@@ -2,6 +2,7 @@
 
 use Config;
 use Backend\Classes\FormWidgetBase;
+use cryptopolice\airdrop\Models\AirdropRegistration;
 use CryptoPolice\Bounty\Models\BountyReport;
 use CryptoPolice\Academy\Models\Settings;
 
@@ -26,8 +27,9 @@ class Airdroplist extends FormWidgetBase
     public function prepareVars()
     {
 
-        $settings = Settings::instance();
-
-        return 'test';
+        $this->vars['id'] = $this->model->id;
+        $this->vars['reportData'] = AirdropRegistration::with('user')
+            ->where('id', $this->model->id)
+            ->first();
     }
 }

@@ -32,32 +32,36 @@ class UsersCampaign extends ComponentBase
     public function onRun()
     {
 
-        $this->page['bounty'] = $this->getBountyCampaign();
-        $this->page['campaignID'] = $this->param('id');
-        $this->page['profileStatistic'] = $this->getProfileStatistic();
+        $user = Auth::getUser();
 
-        if (!empty($this->param('slug'))) {
+        if ($user) {
+            $this->page['bounty'] = $this->getBountyCampaign();
+            $this->page['campaignID'] = $this->param('id');
+            $this->page['profileStatistic'] = $this->getProfileStatistic();
 
-            if ($this->checkBountyStatus()) {
+            if (!empty($this->param('slug'))) {
 
-                $this->getUsersAccess();
-                $this->getBitcoinTalkLink();
-                $this->getRegisteredUsersCount();
-                $this->onGetCampaignReports();
-                $this->getCampaignRegistration();
+                if ($this->checkBountyStatus()) {
 
-                // Verified report list for Security Bounty campaign
-                if ($this->param('id') == '3') {
-                    $this->onGetVerifiedReports();
+                    $this->getUsersAccess();
+                    $this->getBitcoinTalkLink();
+                    $this->getRegisteredUsersCount();
+                    $this->onGetCampaignReports();
+                    $this->getCampaignRegistration();
+
+                    // Verified report list for Security Bounty campaign
+                    if ($this->param('id') == '3') {
+                        $this->onGetVerifiedReports();
+                    }
+
+                } else {
+                    return Redirect::to('/bounty-campaign');
                 }
 
             } else {
-                return Redirect::to('/bounty-campaign');
+                $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
+                $this->page['usersReports'] = $this->getUsersReports();
             }
-
-        } else {
-            $this->page['registeredUsersCampaign'] = $this->getRegisteredUsersCampaign();
-            $this->page['usersReports'] = $this->getUsersReports();
         }
     }
 

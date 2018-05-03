@@ -128,3 +128,15 @@ fields:
     airdrop_description:
         label: Airdrop description message
         type: richeditor
+
+    airdrop_approved_title:
+        label: Airdrop approved title message
+        type: richeditor
+
+    airdrop_approved_description:
+        label: Airdrop approved description message
+        type: richeditor
+
+    airdrop_registration_title:
+        label: Airdrop registration message
+        type: richeditor

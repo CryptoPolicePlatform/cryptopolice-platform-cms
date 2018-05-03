@@ -8,9 +8,9 @@ navigation:
     main-menu-item:
         label: Airdrop
         url: cryptopolice/airdrop/airdrops
-        icon: icon-life-ring
+        icon: icon-flag
         sideMenu:
             side-menu-item:
                 label: Registrations
                 url: cryptopolice/airdrop/airdropregistration
-                icon: icon-sitemap
+                icon: icon-users

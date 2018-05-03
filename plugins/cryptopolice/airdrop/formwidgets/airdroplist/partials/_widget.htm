@@ -1,1 +1,47 @@
-Test
+<?php
+    try {
+?>
+
+<input type="hidden" name="AirdropRegistration[fields_data]" id="Form-field-AirdropRegistration-reportData"
+       value='<?php echo ($reportData->fields_data); ?>' placeholder="" class="form-control" autocomplete="off"
+       maxlength="255">
+
+<div class="form-group  widget-field span-full" data-field-name="fields_data">
+
+
+    <div class="field-repeater">
+
+        <ul class="field-repeater-items" data-disposable="">
+
+            <?php foreach (json_decode($reportData->fields_data) as $key => $data) { ?>
+
+            <li class="field-repeater-item">
+                <div class="repeater-item-handle Repeater-formDescription-items-description-handle">
+                </div>
+
+                <div class="repeater-item-collapsed-title"></div>
+
+                <div class="field-repeater-form">
+                    <div class="form-group  text-field span-left" data-field-name="title">
+                        <input class="form-control" readonly value="<?php echo $data->title ?>"/>
+                    </div>
+                    <div class="form-group  textarea-field span-right">
+                        <textarea class="form-control field-textarea size-small" readonly><?php echo $data->
+                            value ?></textarea>
+                        <?php  echo stristr('twitter_link, link, facebook_link', $data->title) !== false ? "<a
+                            href='" . $data->value . "' target='_blank'> LINK </a>" : ' '; ?>
+                    </div>
+                </div>
+            </li>
+
+            <?php } ?>
+
+        </ul>
+    </div>
+</div>
+
+<?php
+    } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
+?>

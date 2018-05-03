@@ -11,3 +11,8 @@ fields:
         label: Users report list
         span: full
         type: aridroplist
+
+    approval_type:
+        label: 'Approve registration'
+        span: auto
+        type: checkbox

@@ -31,10 +31,13 @@ class UsersAirdrop extends ComponentBase
         $this->page['airdrop'] = Airdrop::first();
         $this->page['airdrop_title'] = $settings->airdrop_title;
         $this->page['airdrop_description'] = $settings->airdrop_description;
+        $this->page['airdrop_approved_title'] = $settings->airdrop_approved_title;
+        $this->page['airdrop_approved_description'] = $settings->airdrop_approved_description;
+        $this->page['airdrop_registration_title'] = $settings->airdrop_registration_title;
 
         $user = Auth::getUser();
         if ($user) {
-            $this->page['airdrop_registration'] = $user->airDropRegistration()->get();
+            $this->page['airdrop_registration'] = $user->airDropRegistration()->first();
         }
 
 
