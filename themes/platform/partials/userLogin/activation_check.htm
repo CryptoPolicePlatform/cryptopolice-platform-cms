@@ -6,7 +6,9 @@
 </div>
 
 <p>
-    <a class="btn" href="javascript:;" data-request="onSendActivationEmail">Send the verification email again</a>
+    <form data-request="onSendMail">
+    <button class="btn g-recaptcha" id="recaptcha_verefication">Send the verification email again</button>
+    </form>
 </p>
 
 {% endif %}

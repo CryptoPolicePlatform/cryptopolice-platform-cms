@@ -27,6 +27,12 @@ class CryptoPolicePlatformAcademyTables extends Migration
             });
         }
 
+        if (!Schema::hasColumns('users', ['activation_at'])) {
+            Schema::table('users', function ($table) {
+                $table->timestamp('activation_at')->nullable();
+            });
+        }
+
         if (!Schema::hasColumns('users', ['twitter_link'])) {
             Schema::table('users', function ($table) {
                 $table->string('twitter_link', 255)->nullable();

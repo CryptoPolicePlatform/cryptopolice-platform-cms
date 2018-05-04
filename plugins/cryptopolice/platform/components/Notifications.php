@@ -39,6 +39,7 @@ class Notifications extends ComponentBase
         return Notification::with(['users_notifications' => function ($query) use ($user) {
             $query->where('user_id', $user->id);
         }])
+            ->select('description', 'title', 'id')
             ->where('user_id', $user->id)
             ->orWhere('user_id', 0)
             ->where('announcement_at', '<', Carbon::now()->toDateTimeString())

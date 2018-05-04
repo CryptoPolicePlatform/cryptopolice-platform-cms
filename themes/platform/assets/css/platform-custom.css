@@ -167,6 +167,7 @@
 }
 
 .airdrop_login {
+    min-width: 100px;
     text-align:center;
     display: inline-block;
     margin: 0 auto;

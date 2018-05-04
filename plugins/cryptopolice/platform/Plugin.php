@@ -2,6 +2,7 @@
 
 use Auth;
 use Event;
+use Carbon\Carbon;
 use Redirect;
 use ValidationException;
 use System\Classes\PluginBase;
@@ -85,9 +86,16 @@ class Plugin extends PluginBase
             $user->avatar = (new \System\Models\File)->fromData($this->generateAvatar($user), md5(uniqid(rand(),true)).'.jpeg');
 
             $nickname = explode("@", $user->email);
-            $user->update(['nickname' => substr($nickname[0], 0, 5) . rand(100, 999)]);
+            $user->update([
+                'nickname' => substr($nickname[0], 0, 5) . rand(100, 999),
+                'activation_at' => Carbon::now()
+            ]);
         });
 
+    }
+
+    public function onSendMail() {
+        trace_log('test');
     }
 
     protected function generateAvatar($user)
@@ -129,6 +137,7 @@ class Plugin extends PluginBase
                 'facebook_link',
                 'youtube_link',
                 'twitter_link',
+                'activation_at',
                 'btc_username',
                 'eth_address',
                 'nickname',

@@ -4,7 +4,6 @@ layout = "academy"
 description = "Receive activation code page"
 is_hidden = 0
 
-
 [session]
 security = "user"
 redirect = "login"
@@ -16,15 +15,43 @@ forceSecure = 0
 [reCaptcha]
 ==
 
+    use Carbon\Carbon;
+    use October\Rain\Support\Facades\Flash;
+    use Illuminate\Support\Facades\Redirect;
+    use CryptoPolice\Academy\Components\Recaptcha;
+
     function onStart() {
 
+        $user = Auth::getUser();
         $this['active']  = get('activate');
+    }
+
+    function onSendMail() {
+
+        $user = Auth::getUser();
+        Recaptcha::verifyCaptcha();
+
+        if(Carbon::parse($user->activation_at)->diffInMinutes(Carbon::now()) > 1) {
+
+            trace_log('Activation email:  '. $user->email);
+
+            $user->update([
+                'activation_at' => Carbon::now()
+            ]);
+
+            return $this['userLogin']->onSendActivationEmail();
+
+        } else {
+
+            sleep(2);
+            Flash::success('An activation email has been sent to your email address');
+            return Redirect::to('receive-activation');
+        }
     }
 
     function onEnd() {
         
         $user = Auth::getUser();
-
         if($user->is_activated) {
             return Redirect::to('/');
         }
