@@ -8,7 +8,7 @@
     </a>
 
     <div class="profile__name"> {% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %} </div>
-    <div class="profile__block"><p> Balance: <b> {{ profileStatistic.total_tokens }} OFCR </b></p></div>
+    <div class="profile__block"><p> Balance: <b>  {% if airdrop_registration.approval_type == 1 %} {{ profileStatistic.total_tokens + 170}} {% else %} {% if profileStatistic.total_tokens %} {{ profileStatistic.total_tokens }} {% else %} 0 {% endif %} {% endif %} OFCR </b></p></div>
 
     {% if profileStatistic.stake_list is not empty %}
     <div class="profile__block">

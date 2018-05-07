@@ -8,11 +8,15 @@ fields:
         span: auto
         type: relation
     fields_data:
-        label: Users report list
+        label: 'Users report list'
         span: full
         type: aridroplist
-
     approval_type:
         label: 'Approve registration'
         span: auto
         type: checkbox
+    message:
+        label: Message
+        size: large
+        span: full
+        type: richeditor

@@ -1,6 +1,7 @@
 <?php namespace cryptopolice\airdrop\Models;
 
 use Model;
+use ValidationException;
 
 /**
  * Model
@@ -33,4 +34,5 @@ class AirdropRegistration extends Model
             'key' => 'user_id'
         ]
     ];
+
 }

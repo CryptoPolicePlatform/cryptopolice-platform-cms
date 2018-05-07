@@ -31,12 +31,12 @@ forceSecure = 0
         $user = Auth::getUser();
         Recaptcha::verifyCaptcha();
 
-        if(Carbon::parse($user->activation_at)->diffInMinutes(Carbon::now()) > 1) {
+        if(Carbon::parse($user->activated_at)->diffInMinutes(Carbon::now()) > 1) {
 
             trace_log('Activation email:  '. $user->email);
 
             $user->update([
-                'activation_at' => Carbon::now()
+                'activated_at' => Carbon::now()
             ]);
 
             return $this['userLogin']->onSendActivationEmail();

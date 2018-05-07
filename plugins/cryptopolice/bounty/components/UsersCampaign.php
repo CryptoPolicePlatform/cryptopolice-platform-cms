@@ -32,6 +32,7 @@ class UsersCampaign extends ComponentBase
     public function onRun()
     {
 
+
         $user = Auth::getUser();
 
         if ($user) {

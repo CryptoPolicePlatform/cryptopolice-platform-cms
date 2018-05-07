@@ -97,34 +97,36 @@ class Posts extends ComponentBase
 
             $user = Auth::getUser();
 
-            $previousPost = CommunityPost::where('user_id', $user->id)
-                ->orderBy('created_at', 'desc')
-                ->get();
+            if($user) {
+                $previousPost = CommunityPost::where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
-            if($previousPost->isNotEmpty()) {
-                $minutes = $this->compareDates($previousPost[0]->created_at);
-                if ($minutes < 10) {
-                    Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
-                    return false;
+                if ($previousPost->isNotEmpty()) {
+                    $minutes = $this->compareDates($previousPost[0]->created_at);
+                    if ($minutes < 10) {
+                        Flash::error('You will be able to post after ' . (10 - $minutes) . ' min(s)');
+                        return false;
+                    }
                 }
-            }
 
-            $helper = new Helpers();
-            $description    = Markdown::parse(strip_tags(input('description')));
-            $title          = strip_tags(input('title'));
+                $helper = new Helpers();
+                $description = Markdown::parse(strip_tags(input('description')));
+                $title = strip_tags(input('title'));
 
-            if ($helper->checkLinks($description)) {
-                Flash::error('Links are not allowed');
-            } else {
+                if ($helper->checkLinks($description)) {
+                    Flash::error('Links are not allowed');
+                } else {
 
-                $post = new CommunityPost;
-                $post->post_title = $title;
-                $post->post_description = $description;
-                $post->user_id = $user->id;
-                $post->save(null, post('_session_key'));
+                    $post = new CommunityPost;
+                    $post->post_title = $title;
+                    $post->post_description = $description;
+                    $post->user_id = $user->id;
+                    $post->save(null, post('_session_key'));
 
-                Flash::success('Post has been successfully added');
-                return redirect()->back();
+                    Flash::success('Post has been successfully added');
+                    return redirect()->back();
+                }
             }
         }
     }

@@ -23,6 +23,5 @@ class BuilderTableCreateCryptopoliceAirdropAirdrop extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('cryptopolice_airdrop_airdrop');
     }
 }
