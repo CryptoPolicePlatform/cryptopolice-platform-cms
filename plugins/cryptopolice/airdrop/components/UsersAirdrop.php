@@ -50,7 +50,9 @@ class UsersAirdrop extends ComponentBase
 
         $user = Auth::getUser();
         $data = DB::table('cryptopolice_bounty_user_reports')
-            ->select('cryptopolice_bounty_rewards.reward_type as type', 'cryptopolice_bounty_campaigns.title as campaign_title')
+            ->select('cryptopolice_bounty_rewards.reward_type as type',
+                'cryptopolice_bounty_campaigns.title as campaign_title',
+                'cryptopolice_bounty_campaigns.*', 'cryptopolice_bounty_user_reports.*')
             ->join('cryptopolice_bounty_campaigns', 'cryptopolice_bounty_user_reports.bounty_campaigns_id', '=', 'cryptopolice_bounty_campaigns.id')
             ->join('cryptopolice_bounty_rewards', 'cryptopolice_bounty_user_reports.reward_id', '=', 'cryptopolice_bounty_rewards.id')
             ->where('cryptopolice_bounty_user_reports.user_id', $user->id)
@@ -66,8 +68,8 @@ class UsersAirdrop extends ComponentBase
         $stakesList = [];
         foreach (array_unique($buf) as $key => $value) {
             array_push($stakesList, [
-                'campaign_title' => $value,
-                'stake_amount' => $data->where('campaign_title', $value)->sum('given_reward')
+                'campaign_title'    => $value,
+                'stake_amount'      => $data->where('campaign_title', $value)->sum('given_reward')
             ]);
         }
 
@@ -76,21 +78,22 @@ class UsersAirdrop extends ComponentBase
         $pending    = $data->where('report_status', 0)->count();
 
         if ($counter - $pending && $approved) {
-            $value = (100 / ($counter - $pending) * $approved) / 100;
+            $value = (100 / ($counter) * $approved - $pending) / 100;
         } else {
             $value = 0;
         }
 
         return [
-            'stake_list'            => $stakesList,
-            'report_percentage'     => $value,
-            'total_tokens'          => $data->where('type', 0)->sum('given_reward'),
-            'report_count'          => $data->count(),
-            'disapproved'           => $data->where('report_status', 2)->count(),
-            'approved'              => $data->where('report_status', 1)->count(),
-            'pending'               => $data->where('report_status', 0)->count(),
+            'report_percentage' => $value,
+            'total_tokens'      => $data->where('type', 0)->sum('given_reward'),
+            'report_count'      => $data->count(),
+            'disapproved'       => $data->where('report_status', 2)->count(),
+            'approved'          => $data->where('report_status', 1)->count(),
+            'pending'           => $data->where('report_status', 0)->count(),
+            'stake_list'        => $stakesList,
         ];
     }
+
 
     public function onAirdropRegistration()
     {
@@ -105,6 +108,13 @@ class UsersAirdrop extends ComponentBase
             if ($this->prepareValidationRules($data)) {
 
                 $user = Auth::getUser();
+                $counter = AirdropRegistration::count();
+
+                if(11764  <= $counter) {
+                    Flash::error('The registration on CryptoPolice AirDrop is closed');
+                    return Redirect::to('/airdrop');
+                }
+
                 $access = $user->airDropRegistration()->get();
 
                 if ($access->isEmpty()) {

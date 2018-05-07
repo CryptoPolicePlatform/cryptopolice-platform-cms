@@ -153,7 +153,7 @@ class UsersCampaign extends ComponentBase
         $pending    = $data->where('report_status', 0)->count();
 
         if ($counter - $pending && $approved) {
-            $value = (100 / ($counter - $pending) * $approved) / 100;
+            $value = (100 / ($counter) * $approved - $pending) / 100;
         } else {
             $value = 0;
         }

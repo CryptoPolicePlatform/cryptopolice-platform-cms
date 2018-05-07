@@ -1,0 +1,50 @@
+title = "Referral"
+url = "/referral"
+layout = "platform"
+description = "Referral page"
+is_hidden = 0
+
+[session]
+security = "all"
+
+[Airdrop]
+[Bounties]
+==
+<main class="content">
+    <div class="content__inner bounty-list">
+        <div class="content__left">
+
+            {% partial Airdrop ~ '::airdrop-bar' %}
+
+            <div class="profile">
+
+                {% partial Airdrop ~ '::airdrop-profile' %}
+
+                <div class="bounty__content">
+                    <div class="profile__card  mb-15">
+                        <h2>CryptoPolice referral program</h2>
+                        <img style="width: 100%; height: 100%;" src="{{'assets/images/referral_program.png'|theme}}" alt="Referral program">
+                        <p></p>
+                        <p></p>
+                        Each participant will get its own Referral code to invite friends. <br>
+
+                        For this action participant will receive referral bounties.<br>
+
+                        You will receive 7% from the purchases that your friends make, and your friends will get a 5% premium on their purchases.<br>
+                        Referral bonus will be paid in OFCR tokens.<br>
+                    </div>
+
+                    <div class="profile__card">
+                        <div class="text-center">
+                            <p><strong>To receive our referral link, please join our whitelist and the link will be sent to your email address.</strong></p>
+                            <a href="https://tokensale.cryptopolice.com/invite.html" target="_blank"><img src="{{'assets/images/join_whitelist.png'|theme}}" alt="Join whitelist"></a>
+                        </div>
+                    </div>
+                </div>
+
+                {% component 'Bounties' %}
+
+            </div>
+        </div>
+    </div>
+</main>

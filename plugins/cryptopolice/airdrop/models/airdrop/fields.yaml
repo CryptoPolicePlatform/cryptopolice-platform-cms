@@ -64,7 +64,7 @@ fields:
     status:
         label: Dropdown
         options:
-            - Open    (allow registrations)
             - Closed
+            - Open    (allow registrations)
         span: auto
         type: dropdown
