@@ -5,14 +5,6 @@ fields:
         nameFrom: title
         span: auto
         type: relation
-    user:
-        label: User
-        oc.commentPosition: ''
-        nameFrom: name
-        descriptionFrom: description
-        select: 'concat(''['',nickname,''] '', email)'
-        span: auto
-        type: relation
     userRegistration:
         label: 'Registration Data'
         span: left
