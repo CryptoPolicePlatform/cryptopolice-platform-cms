@@ -10,7 +10,7 @@
             <input class="input  input--confirm" type="password" name="password_confirmation"
                    placeholder="Confirm password" autocomplete="off">
         </div>
-        <button id="captcha_singup" class="btn  btn--full g-recaptcha">
+        <button onSubmit="dataLayer.push({'event': 'police', 'eventCategory': 'sendform', 'eventAction': 'form', 'eventLabel': 'signup'});" id="captcha_singup" class="btn  btn--full g-recaptcha">
             Signup
         </button>
     </form>
