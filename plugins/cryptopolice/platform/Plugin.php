@@ -53,7 +53,14 @@ class Plugin extends PluginBase
 
             Recaptcha::verifyCaptcha();
 
+            $userEmail    = post('email');
             $userPassword = post('password');
+
+            if (!preg_match('/^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/', $userEmail)) {
+                throw new ValidationException([
+                    'password' => 'Your email address is invalid'
+                ]);
+            }
 
             if (strlen($userPassword) < 8) {
                 throw new ValidationException([
