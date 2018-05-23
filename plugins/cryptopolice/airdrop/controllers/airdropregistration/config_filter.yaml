@@ -1,0 +1,8 @@
+scopes:
+    approval_type:
+        label: Approval Type
+        type: group
+        conditions: approval_type in (:filtered)
+        options:
+            0: Not Approved
+            1: Approved
