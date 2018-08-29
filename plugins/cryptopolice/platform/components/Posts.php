@@ -38,7 +38,7 @@ class Posts extends ComponentBase
         $this->page['search_data'] = post('search');
 
         // skip 100 records per page, for search 100
-        $perPage = 100;
+        $perPage = 10;
 
         $skip = post('page') ? post('page') * $perPage : 0;
 
