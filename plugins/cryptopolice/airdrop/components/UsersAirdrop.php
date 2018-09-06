@@ -123,11 +123,13 @@ class UsersAirdrop extends ComponentBase
                     $registrations = AirdropRegistration::all();
 
                     foreach (input() as $key => $value) {
-                        foreach ($registrations as $reg) {
-                            foreach (json_decode($reg['fields_data']) as $field) {
-                                if ($field->value == $value) {
-                                    Flash::error('User with this credentials in airdrop are already registered');
-                                    return Redirect::to('/airdrop');
+                        foreach ($registrations as $key => $reg) {
+                            if (isset($reg['fields_data']) && json_decode($reg['fields_data']) != null) {
+                                foreach (json_decode($reg['fields_data']) as $field) {
+                                    if ($field->value == $value) {
+                                        Flash::error('User with this credentials in airdrop are already registered');
+                                        return Redirect::to('/airdrop');
+                                    }
                                 }
                             }
                         }
