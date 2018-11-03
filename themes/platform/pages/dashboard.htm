@@ -62,8 +62,11 @@ $component->bindModel('avatar', $user);
                 <div class="profile__content">
                     <div class="content__block">
 
+                        {#
                         {% partial __SELF__ ~ '::bounty-reports' %}
                         {% partial __SELF__ ~ '::bounty-registrations' %}
+                        #}
+
                         {% partial __SELF__ ~ '::exams-scores' %}
 
                     </div>
