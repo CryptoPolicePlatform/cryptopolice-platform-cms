@@ -144,7 +144,7 @@ class Plugin extends PluginBase
                 'btc_username',
                 'eth_address',
                 'nickname',
-                'btc_link',
+                'btc_link'
             ]);
 
             // Extended Relations for user Model

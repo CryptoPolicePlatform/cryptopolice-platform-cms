@@ -62,7 +62,7 @@ class Scams extends ComponentBase
 
     public function setPercentageValue($total, $amount)
     {
-        return (100 / $total * $amount) / 100;
+        return 1; //(100 / $total * $amount) / 100;
     }
 
     public function onFilterScams()

@@ -11,6 +11,7 @@ redirect = "login"
 [reCaptcha]
 
 [Profile]
+[Officer]
 
 [Uploader]
 placeholderText = "Click or drag images to upload"
@@ -60,17 +61,14 @@ $component->bindModel('avatar', $user);
                 {% partial __SELF__ ~ '::profile-sidebar' %}
 
                 <div class="profile__content">
+                   {% partial 'Officer::become-to-officer' %}
+
+                    <p><hr></p>
                     <div class="content__block">
-
-                        {#
-                        {% partial __SELF__ ~ '::bounty-reports' %}
-                        {% partial __SELF__ ~ '::bounty-registrations' %}
-                        #}
-
-                        {% partial __SELF__ ~ '::exams-scores' %}
-
+                        {% partial  'Profile::exams-scores' %}
                     </div>
                 </div>
+
 
                 <style>
                     @media (max-width: 767px)
@@ -89,6 +87,9 @@ $component->bindModel('avatar', $user);
                             Change Avatar
                         </h3>
                         {% component 'Uploader' %}
+                        <div>
+                            <a class="btn bounty-filter" href="{{'profile'|page}}">Change profile settings</a>
+                        </div>
                     </div>
                 </div>
                 </div>
