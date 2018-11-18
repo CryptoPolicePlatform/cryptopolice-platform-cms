@@ -1,0 +1,11 @@
+name: Application
+modelClass: CryptoPolice\FraudVerification\Models\Application
+form: $/cryptopolice/fraudverification/models/application/fields.yaml
+defaultRedirect: cryptopolice/fraudverification/application
+create:
+    redirect: 'cryptopolice/fraudverification/application/update/:id'
+    redirectClose: cryptopolice/fraudverification/application
+update:
+    redirect: cryptopolice/fraudverification/application
+    redirectClose: cryptopolice/fraudverification/application
+preview: {  }

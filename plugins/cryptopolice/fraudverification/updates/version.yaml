@@ -1,0 +1,20 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.4:
+    - 'Created table cryptopolice_fraudverification_become_to_officer'
+    - builder_table_create_cryptopolice_fraudverification_become_to_officer.php
+1.0.10:
+    - 'Created table cryptopolice_fraudverification_application_types'
+    - builder_table_create_cryptopolice_fraudverification_application_types.php
+1.0.14:
+    - 'Created table cryptopolice_fraudverification_application_verdicts'
+    - builder_table_create_cryptopolice_fraudverification_application_verdicts.php
+1.0.17:
+    - 'Created table cryptopolice_fraudverification_verdict'
+    - builder_table_create_cryptopolice_fraudverification_verdict.php
+1.0.19:
+    - 'Created table cryptopolice_fraudverification_verification_levels'
+    - builder_table_create_cryptopolice_fraudverification_verification_levels.php
+1.0.20s:
+    - 'Created table cryptopolice_fraudverification_application'
+    - builder_table_create_cryptopolice_fraudverification_application.php

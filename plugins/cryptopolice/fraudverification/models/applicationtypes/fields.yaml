@@ -1,0 +1,18 @@
+fields:
+    type:
+        label: 'Type name'
+        span: auto
+        type: text
+    order:
+        label: Order
+        span: auto
+        type: number
+    status:
+        label: Status
+        span: auto
+        type: switch
+    description:
+        label: Description
+        size: ''
+        span: auto
+        type: textarea

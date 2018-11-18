@@ -1,0 +1,41 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    type:
+        label: type
+        type: text
+        searchable: true
+        sortable: true
+    description:
+        label: description
+        type: text
+        searchable: true
+        sortable: true
+    category_id:
+        label: category_id
+        type: number
+        searchable: true
+        sortable: true
+    order:
+        label: order
+        type: number
+        searchable: true
+        sortable: true
+    status:
+        label: Publick
+        type: switch
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        searchable: true
+        sortable: true

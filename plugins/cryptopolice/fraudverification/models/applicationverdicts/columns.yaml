@@ -1,0 +1,31 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    verdict:
+        label: verdict
+        type: text
+        searchable: true
+        sortable: true
+    order:
+        label: order
+        type: text
+        searchable: true
+        sortable: true
+    status:
+        label: Publick
+        type: switch
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        searchable: true
+        sortable: true

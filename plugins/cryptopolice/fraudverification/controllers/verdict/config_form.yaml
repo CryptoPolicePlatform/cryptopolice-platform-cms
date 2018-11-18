@@ -1,0 +1,11 @@
+name: Verdict
+modelClass: CryptoPolice\FraudVerification\Models\Verdict
+form: $/cryptopolice/fraudverification/models/verdict/fields.yaml
+defaultRedirect: cryptopolice/fraudverification/verdict
+create:
+    redirect: 'cryptopolice/fraudverification/verdict/update/:id'
+    redirectClose: cryptopolice/fraudverification/verdict
+update:
+    redirect: cryptopolice/fraudverification/verdict
+    redirectClose: cryptopolice/fraudverification/verdict
+preview: {  }

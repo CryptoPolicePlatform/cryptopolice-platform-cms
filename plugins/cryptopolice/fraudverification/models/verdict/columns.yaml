@@ -1,0 +1,44 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    user_id:
+        label: user
+        type: number
+        searchable: true
+        sortable: true
+        select: 'email'
+        relation: user
+    application_id:
+        label: application
+        type: number
+        searchable: true
+        sortable: true
+        select: 'concat(''['',domain,''] '', task)'
+        relation: application
+    verdict_id:
+        label: verdict
+        type: text
+        searchable: true
+        sortable: true
+        select: 'verdict'
+        relation: verdict
+    verification_id:
+        label: verification
+        type: number
+        searchable: true
+        sortable: true
+        select: 'level'
+        relation: verification
+    status:
+        label: status
+        type: switch
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true

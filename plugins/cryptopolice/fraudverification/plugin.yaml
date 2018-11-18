@@ -1,0 +1,68 @@
+plugin:
+    name: 'cryptopolice.fraudverification::lang.plugin.name'
+    description: 'cryptopolice.fraudverification::lang.plugin.description'
+    author: CryptoPolice
+    icon: oc-icon-chain
+    homepage: ''
+navigation:
+    FraudVerification:
+        label: 'Fraud verification'
+        url: cryptopolice/fraudverification/becometoofficer
+        icon: icon-chain
+        order: '3'
+        sideMenu:
+            BecomeToOfficer:
+                label: 'Become to Officer'
+                url: cryptopolice/fraudverification/becometoofficer
+                icon: icon-user
+                permissions:
+                    - BecomeToOfficer
+            FraudApplication:
+                label: Application
+                url: cryptopolice/fraudverification/application
+                icon: icon-paper-plane
+                permissions:
+                    - FraudApplication
+            FraudApplicationTypes:
+                label: 'Application Types'
+                url: cryptopolice/fraudverification/applicationtypes
+                icon: icon-tasks
+                permissions:
+                    - FraudApplicationTypes
+            FraudApplicationVerdicts:
+                label: 'Application Verdicts'
+                url: cryptopolice/fraudverification/applicationverdicts
+                icon: icon-thumb-tack
+                permissions:
+                    - FraudApplicationVerdicts
+            FraudApplicationOfficerVerdicts:
+                label: 'Officer Verdicts'
+                url: /
+                icon: icon-star
+                permissions:
+                    - FraudApplicationOfficerVerdicts
+            VerificationLevels:
+                label: 'Verification Levels'
+                url: /
+                icon: icon-sitemap
+                permissions:
+                    - VerificationLevels
+permissions:
+    FraudApplication:
+        tab: 'Fraud Application'
+        label: 'Fraud Application'
+    FraudApplicationTypes:
+        tab: 'Fraud Application Types'
+        label: 'Fraud Application Types'
+    BecomeToOfficer:
+        tab: 'Become To Officer'
+        label: 'Become To Officer'
+    FraudApplicationVerdicts:
+        tab: 'Fraud Application Verdicts types'
+        label: 'Fraud Application Verdicts types'
+    FraudApplicationOfficerVerdicts:
+        tab: 'Officer Verdicts'
+        label: ' Officer Verdicts'
+    VerificationLevels:
+        tab: 'Verification Levels'
+        label: 'Verification Levels'

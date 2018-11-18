@@ -1,0 +1,42 @@
+fields:
+    user:
+        label: User
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        select: 'email'
+    application:
+        label: Application
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        select: 'concat(''['',domain,''] '', task)'
+    verification:
+        label: 'Verification level'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        select: 'concat(''['',level,''] '', description)'
+    verdict:
+        label: Verdict
+        span: auto
+        type: relation
+        select: 'concat(''['',verdict,''] '', description)'
+    status:
+        label: Public
+        span: auto
+        type: switch
+    comment:
+        label: Comment
+        size: ''
+        span: auto
+        type: textarea
+    created_at:
+        label: 'Created date'
+        span: auto
+        mode: datetime
+        disabled: 1
+        type: datepicker

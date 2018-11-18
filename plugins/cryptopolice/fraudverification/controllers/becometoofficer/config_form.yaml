@@ -1,0 +1,11 @@
+name: BecomeToOfficer
+modelClass: CryptoPolice\FraudVerification\Models\BecomeToOfficer
+form: $/cryptopolice/fraudverification/models/becometoofficer/fields.yaml
+defaultRedirect: cryptopolice/fraudverification/becometoofficer
+create:
+    redirect: 'cryptopolice/fraudverification/becometoofficer/update/:id'
+    redirectClose: cryptopolice/fraudverification/becometoofficer
+update:
+    redirect: cryptopolice/fraudverification/becometoofficer
+    redirectClose: cryptopolice/fraudverification/becometoofficer
+preview: {  }

@@ -1,0 +1,19 @@
+fields:
+    level:
+        label: 'Level title'
+        span: auto
+        type: text
+    description:
+        label: Description
+        size: ''
+        span: auto
+        type: textarea
+    officer_count:
+        label: 'Officer count'
+        span: auto
+        type: number
+        comment: 'participating in the investigation'
+    status:
+        label: Status
+        span: auto
+        type: switch

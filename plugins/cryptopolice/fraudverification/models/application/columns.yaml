@@ -1,0 +1,45 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    user_id:
+        label: user
+        type: number
+        searchable: true
+        sortable: true
+        select: 'email'
+        relation: user
+    domain:
+        label: domain
+        type: text
+        searchable: true
+        sortable: true
+    task:
+        label: task
+        type: text
+        searchable: true
+        sortable: true
+    status:
+        label: Publick
+        type: switch
+        searchable: true
+        sortable: true
+    type_id:
+        label: type
+        type: text
+        searchable: true
+        sortable: true
+        select: 'type'
+        relation: type
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        searchable: true
+        sortable: true

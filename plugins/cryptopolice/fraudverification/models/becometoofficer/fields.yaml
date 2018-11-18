@@ -1,0 +1,17 @@
+fields:
+    user:
+        label: User
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        select: 'concat(''['',nickname,''] '', email)'
+    status:
+        label: Status
+        span: auto
+        type: switch
+    created_at:
+        label: 'Registration date'
+        mode: datetime
+        span: auto
+        type: datepicker

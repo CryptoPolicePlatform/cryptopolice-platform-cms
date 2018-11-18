@@ -1,0 +1,11 @@
+name: VerificationLevels
+modelClass: CryptoPolice\FraudVerification\Models\VerficationLevels
+form: $/cryptopolice/fraudverification/models/verficationlevels/fields.yaml
+defaultRedirect: cryptopolice/fraudverification/verificationlevels
+create:
+    redirect: 'cryptopolice/fraudverification/verificationlevels/update/:id'
+    redirectClose: cryptopolice/fraudverification/verificationlevels
+update:
+    redirect: cryptopolice/fraudverification/verificationlevels
+    redirectClose: cryptopolice/fraudverification/verificationlevels
+preview: {  }

@@ -1,0 +1,40 @@
+fields:
+    user:
+        label: User
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        select: 'email'
+    domain:
+        label: Domain
+        span: auto
+        type: text
+    task:
+        label: Task
+        size: ''
+        span: auto
+        type: textarea
+    status:
+        label: Publick
+        span: auto
+        type: switch
+    type:
+        label: 'Application type'
+        span: auto
+        type: relation
+        select: 'concat(''['',type,''] '', description)'
+    created_at:
+        label: 'Created date'
+        mode: datetime
+        span: auto
+        hidden: 0
+        disabled: 1
+        type: datepicker
+    updated_at:
+        label: 'Updated date'
+        mode: datetime
+        span: auto
+        disabled: 1
+        hidden: 0
+        type: datepicker
