@@ -40,6 +40,7 @@ class Officer extends ComponentBase
 
            // Dashboard
            $this->page['FraudApplications'] = $this->getFraudApplications();
+           $this->page['MyApplications'] = $this->getFraudApplications(false,$user->id);
            $this->page['isUserSendApplicationToBecomeOfficer'] = $this->getIsUserOfficer(false);
            $this->page['MyVerdicts'] = $this->getVerdicts(false, $user->id);
        }
@@ -185,10 +186,12 @@ class Officer extends ComponentBase
         }
     }
 
-    public function getFraudApplications($id = false)
+    public function getFraudApplications($id = false, $user = false)
     {
         if($id){
             $FraudApplications = FraudApplications::where('id', $id)->where('status', true)->first();
+        }elseif($user) {
+            $FraudApplications = FraudApplications::where('user_id', $user)->orderBy('id','desc')->where('status', true)->get();
         }else{
             $FraudApplications = FraudApplications::where('status', true)->orderBy('id','desc')->get();
         }

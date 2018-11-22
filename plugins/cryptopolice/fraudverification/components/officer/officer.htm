@@ -56,6 +56,54 @@
 
 
     <div class="content__block">
+        <h3 class="content__title">My applications </h3>
+
+        <div class="issues">
+
+            {% for myapplication in MyApplications %}
+            <div class="issues__item  issues__item--history">
+
+                <div class="issues__type">
+                    <a href="{{'fraud-application'|page({id:myapplication.id})}}">
+                        #A{{myapplication.id}}
+                    </a>
+                </div>
+
+                <div class="issues__title">
+                    <a class="bounty_link_title" href="{{'fraud-application'|page({id:myapplication.id})}}">
+                        {% if myapplication.task|length > 95 %}
+                        {{myapplication.task|slice(0, 95)}}...
+                        {% else %}
+                        {{myapplication.task}}
+                        {% endif %}
+                    </a>
+                </div>
+
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    <a href="{{'fraud-application'|page({id:myapplication.id})}}">
+                        {% if myapplication.domain|length > 50 %}
+                        {{myapplication.domain|slice(0, 40)|replace({'http://': "", "https://" : "", "wwww." : ""})}}...
+                        {% else %}
+                        {{myapplication.domain|replace({'http://': "", "https://" : "", "wwww." : ""})}}
+                        {% endif %}
+                    </a>
+                </div>
+
+                <div class="issues__status">
+                    <div class="issues__status-item  high">{{myapplication.type.type|slice(0, 5)}}</div>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="issues__item  issues__item--history">
+                <a  href="#"> You do not create any application. Create your first application </a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="content__block">
         <h3 class="content__title">Verification history</h3>
 
         <div class="issues">
