@@ -9,9 +9,6 @@
     <div class="profile__name">
         {% if not user.nickname %} {{ user.email }} {% else %} {{ user.nickname }} {% endif %}
     </div>
-    {% if isUserOfficer == false %}
-    <a class="btn btn--bounty" href="{{'become-to-officer'|page}}">Become to Officer </a>
-    {% endif %}
 
     <div class="profile__block">
         {% if user.name %}
