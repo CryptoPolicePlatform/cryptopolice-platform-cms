@@ -58,12 +58,14 @@ $component->bindModel('avatar', $user);
 
             <div class="profile">
 
+
+
                 {% partial __SELF__ ~ '::profile-sidebar' %}
 
                 <div class="profile__content">
-                   {% partial 'Officer::become-to-officer' %}
 
-                    <p><hr></p>
+                    {% partial 'Officer::officer' %}
+
                     <div class="content__block">
                         {% partial  'Profile::exams-scores' %}
                     </div>

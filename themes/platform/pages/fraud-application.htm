@@ -1,0 +1,130 @@
+title = "Fraud application"
+url = "/fraud-application/:id"
+layout = "platform"
+description = "Fraud application  page"
+is_hidden = 0
+[Officer]
+==
+<main class="content">
+    <div class="content__inner report-details">
+        <div class="content__left">
+            <div class="grid__row">
+                <div class="breadcrumbs">
+                    <a class="breadcrumbs__item" href="{{'dashboard'|page}}">Dashboard</a>
+                    <span class="breadcrumbs__item  active">#A{{FraudApplications.id}} Fraud application</span>
+                </div>
+
+                <div class="card">
+
+                    <div class="card__header report_header">
+                        <h2>[#A{{FraudApplications.id}} {{FraudApplications.type.type}}] -
+                            {% if FraudApplications.task|length > 100 %}
+                                {{ FraudApplications.task|slice(0, 100)}}...
+                            {% else %}
+                                {{ FraudApplications.task}}
+                            {% endif %}
+                        </h2>
+                    </div>
+
+                    <div class="card__header report_title"> Application id  </div>
+                    <div class="card__content report_content"> #A{{ FraudApplications.id }} </div>
+
+                    <div class="card__header report_title"> Application type  </div>
+                    <div class="card__content report_content"> {{ FraudApplications.type.type }} </div>
+
+                    <div class="card__header report_title"> Domain </div>
+                    <div class="card__content report_content"> {{ FraudApplications.domain }} </div>
+
+                    <div class="card__header report_title"> Application task </div>
+                    <div class="card__content report_content"> {{ FraudApplications.task }} </div>
+
+
+
+                    <div class="card__footer">
+                        <div class="card__footer-left">
+                            <ul class="card__ava-list">
+                                <li class="card__ava  card__ava--author">
+                                    reported by <span class="mark  mark--green">{{ FraudApplications.user.nickname }}</span>
+                                </li>
+                                <li class="card__ava">
+                                    New application
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card__footer-right">
+                            <div class="card__date">{{ FraudApplications.created_at }}</div>
+                        </div>
+                    </div>
+
+
+                    <div class="card__status  high">{{ FraudApplications.type.type|slice(0, 5)}} </div>
+
+
+                </div>
+
+                <hr>
+
+                {% for verdict in Verdicts %}
+                <div class="card profile__card content__block">
+                    <div class="card__header report_message"> #V{{ verdict.id}} {{ verdict.verdict.verdict}} ({{ verdict.verdict.description}}) </div>
+                    <div class="card__content report_content"> {{ verdict.comment}}</div>
+                    <div class="card__footer">
+                        <div class="card__footer-left">
+                            <ul class="card__ava-list">
+                                <li class="card__ava  card__ava--author"> verified by <span class="mark  mark--green">{{ verdict.user.nickname }}</span>  </li>
+                                <li class="card__ava">
+                                    {{ verdict.verification.level }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card__footer-right">
+                            <div class="card__date">{{ verdict.user.created_at }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% if IsVerdictSubmittedForThisApplicationByThisUser == 0 %}
+
+                <div class="card profile__card content__block">
+                    {{ form_ajax('onSubmitVerdict', { flash : '', model: BecomeToOfficer }) }}
+                    <div>
+                        <h3 class="content__title">Submit your verdict</h3>
+
+                        <div class="form__group">
+                            <label for="verdict">Chose your verdict</label>
+                            <div class="form__group" id="verdict">
+                                <div class="select">
+                                    <select name="verdict_id">
+                                        {% for verdict_type in VerdictTypes %}
+                                        <option value="{{ verdict_type.id }}">{{ verdict_type.verdict }} - {{ verdict_type.description }}</option>
+                                        {% else %}
+                                        <option disabled> Verdicts is not specify in admin panel</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="verdict">Your comment</label>
+                            <textarea class="textarea" name="comment" placeholder="Enter your proofs"></textarea>
+                        </div>
+
+                        <div class="form__group">
+                            <button id="captcha_nickname" class="btn  btn--gpink g-recaptcha" data-attach-loading> Submit your verdict</button>
+                        </div>
+                    </div>
+                    {{ form_close() }}
+
+                </div>
+
+
+                {% endif %}
+
+
+
+            </div><!-- /.grid__row -->
+        </div><!-- /.content__left -->
+    </div>
+</main>

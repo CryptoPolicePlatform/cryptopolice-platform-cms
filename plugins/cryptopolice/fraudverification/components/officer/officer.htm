@@ -1,0 +1,143 @@
+
+{% if  isUserOfficer %}
+
+
+
+    <div class="content__block">
+        <h3 class="content__title">Waiting for verification</h3>
+
+        <div class="issues">
+            {% for application in FraudApplications %}
+
+            <div class="issues__item  issues__item--history">
+
+                <div class="issues__type">
+                    <a href="{{'fraud-application'|page({id:application.id})}}">
+                        #A{{application.id}}
+                    </a>
+                </div>
+
+                <div class="issues__title">
+                    <a class="bounty_link_title" href="{{'fraud-application'|page({id:application.id})}}">
+                        {% if application.task|length > 95 %}
+                            {{application.task|slice(0, 95)}}...
+                        {% else %}
+                            {{application.task}}
+                        {% endif %}
+                    </a>
+                </div>
+
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    <a href="{{'fraud-application'|page({id:application.id})}}">
+                        {% if application.domain|length > 50 %}
+                            {{application.domain|slice(0, 40)|replace({'http://': "", "https://" : "", "wwww." : ""})}}...
+                        {% else %}
+                            {{application.domain|replace({'http://': "", "https://" : "", "wwww." : ""})}}
+                        {% endif %}
+                    </a>
+                </div>
+
+                <div class="issues__status">
+                    <div class="issues__status-item  high">{{application.type.type|slice(0, 5)}}</div>
+                </div>
+            </div>
+
+
+
+            {% else %}
+            <div class="issues__item  issues__item--history">
+               You don't have any waiting applications for verification
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div><!-- /.content__block -->
+
+
+    <div class="content__block">
+        <h3 class="content__title">Verification history</h3>
+
+        <div class="issues">
+
+            {% for verdict in MyVerdicts %}
+            <div class="issues__item  issues__item--history">
+                <div class="issues__type"><a href="{{'fraud-application'|page({id:verdict.application.id})}}"> #V{{ verdict.id}} </a></div>
+                <div class="issues__title"><a href="{{'fraud-application'|page({id:verdict.application.id})}}">{{ verdict.comment}}</a></div>
+                <div class="issues__view">
+                    <a href="{{'fraud-application'|page({id:verdict.application.id})}}">{{ verdict.application.domain}}</a></a>
+                </div>
+                <div class="issues__amount">
+                    <span class="text-green">{{ verdict.verification.level}}</span>
+                </div>
+                <div class="issues__status  issues__status--big  issues__status--green">
+                    <span>{{ verdict.verdict.verdict}}</span>
+                </div>
+            </div>
+            {% else %}
+            <div class="issues__item  issues__item--history">
+                You don't have any verdicts (historical verifications)
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+{% elseif  isUserSendApplicationToBecomeOfficer %}
+
+
+
+    <div class="grid__col  w6">
+        <div class="alert alert--orange">
+            <h2>Please wait for verification!</h2>
+            Our moderators is verifying your application! Please wait for answer. Thank you!
+            <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+        </div>
+    </div>
+
+{% else %}
+{{ form_ajax('onBecomeToOfficer', { flash : '', model: BecomeToOfficer , update: { 'Officer::officer': '#myDiv' }}) }}
+<div class="profile__card content__block">
+    <h3 class="content__title">Early bird Officer registration has started!</h3>
+
+    <div class="form__group">
+        <label for="nickname">Nickname</label>
+        <input class="input" type="text" name="nickname" id="nickname" placeholder="" value="{{ user.nickname }}">
+    </div>
+    <div class="form__group">
+        <label for="name">Name</label>
+        <input class="input" type="text" name="name" id="name" placeholder="" value="{{ user.name }}">
+    </div>
+    <div class="form__group">
+        <label for="surname">Surname</label>
+        <input class="input" type="text" name="surname" id="surname" placeholder="" value="{{ user.surname }}">
+    </div>
+    <div class="form__group">
+        <label for="email">Email</label>
+        <input class="input" type="email" name="email" id="email" placeholder="" value="{{ user.email }}">
+    </div>
+    <div class="form__group">
+        <label for="eth-address">Ethereum address</label>
+        <input class="input" type="text" name="eth_address" id="eth-address" value="{{ user.eth_address}}">
+    </div>
+    <div class="form__group">
+        <label for="eth-address">Company name where are you employed and your position </label>
+        <input class="input" type="text" name="company" id="company" value="{{ user.company}}">
+    </div>
+
+    {% set countryId = user.country_id %}
+    {% set stateId = stateId|default(form_value('state_id')) %}
+    <label for="country">Country</label>
+    <div class="form__group" id="country">
+        <div class="select">
+            {{ form_select_country('country_id', countryId, { id: 'accountCountry', class: 'form-control', emptyOption: '' }) }}
+        </div>
+    </div>
+    <button id="captcha_nickname" class="btn  btn--gpink g-recaptcha" data-attach-loading>Become to Officer</button>
+</div>
+{{ form_close() }}
+
+
+
+{% endif %}

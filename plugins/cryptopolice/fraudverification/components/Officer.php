@@ -2,6 +2,9 @@
 
 use Cms\Classes\ComponentBase;
 use CryptoPolice\FraudVerification\Models\BecomeToOfficer as BecomeToOfficer;
+use CryptoPolice\FraudVerification\Models\Application as FraudApplications;
+use CryptoPolice\FraudVerification\Models\ApplicationVerdicts as VerdictTypes;
+use CryptoPolice\FraudVerification\Models\Verdict as Verdict;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
 use Auth, Flash,Input,Session,Validator,ValidationException, Redirect;
 
@@ -22,10 +25,25 @@ class Officer extends ComponentBase
 
     public function onRun()
     {
-        //$this->page['bountyList'] = ::orderBy('sort_order', 'asc')->get();
+        $user = Auth::getUser();
+        $this->page['isUserOfficer'] = $this->getIsUserOfficer(true);
 
-       $this->page['isUserOfficer'] = $this->getIsUserOfficer(true);
-       $this->page['isUserSendApplicationToBecomeOfficer'] = $this->getIsUserOfficer(false);
+       if($this->param('id')){
+           // Fraud application page
+           $this->page['FraudApplications'] = $this->getFraudApplications($this->param('id'));
+           $this->page['VerdictTypes'] = $this->getVerdictTypes();
+           $this->page['Verdicts'] = $this->getVerdicts($this->param('id'),false);
+           $this->page['IsVerdictSubmittedForThisApplicationByThisUser'] = $this->getIsUserSubmitedVerditForApplication($this->param('id'),$user->id);
+
+       }else{
+
+
+           // Dashboard
+           $this->page['FraudApplications'] = $this->getFraudApplications();
+           $this->page['isUserSendApplicationToBecomeOfficer'] = $this->getIsUserOfficer(false);
+           $this->page['MyVerdicts'] = $this->getVerdicts(false, $user->id);
+       }
+
 
 
 
@@ -40,6 +58,57 @@ class Officer extends ComponentBase
             ->count();
 
         return $isUserOfficer;
+    }
+
+    public function onSubmitVerdict()
+    {
+        Recaptcha::verifyCaptcha();
+
+        if (input('_token') == Session::token()) {
+
+            $user = Auth::getUser();
+
+            // Data
+
+            $verdict_id =  strip_tags(trim(post('verdict_id')));
+            $comment    =  strip_tags(trim(post('comment')));
+            $application_id = strip_tags(trim($this->param('id')));
+
+            // Rulles
+
+            $validator = Validator::make(
+                [
+                    'verdict_id' => $verdict_id,
+                    'comment' => $comment,
+                    'application_id' => $application_id
+                ],
+                [
+                    'verdict_id' => 'required|numeric|min:1',
+                    'comment' => 'required|min:5|max:5000',
+                    'application_id' => 'required|numeric|min:1'
+                ]
+            );
+
+            if ($validator->fails()) {
+                Flash::error($validator->messages()->first());
+            } else {
+
+                // Submitting application
+                $newVerdict = new Verdict;
+                $newVerdict->user_id            = $user->id;
+                $newVerdict->verdict_type_id    = $verdict_id;
+                $newVerdict->comment            = $comment;
+                $newVerdict->application_id     = $application_id;
+                $newVerdict->verification_id    = 1;
+
+                $newVerdict->save();
+
+                Flash::success('You\'re verdict has been successfully submitted! ');
+
+                return Redirect::to('dashboard');
+            }
+
+        }
     }
 
     public function onBecomeToOfficer()
@@ -114,6 +183,49 @@ class Officer extends ComponentBase
 
 
         }
+    }
+
+    public function getFraudApplications($id = false)
+    {
+        if($id){
+            $FraudApplications = FraudApplications::where('id', $id)->where('status', true)->first();
+        }else{
+            $FraudApplications = FraudApplications::where('status', true)->orderBy('id','desc')->get();
+        }
+
+        return $FraudApplications;
+    }
+
+    public function getVerdictTypes()
+    {
+
+        $VerdictTypes = VerdictTypes::where('status', true)->orderBy('order','asc')->get();
+
+        return $VerdictTypes;
+    }
+
+    public function getVerdicts($app_id = false, $user_id = false)
+    {
+        if ( $app_id && $user_id == false ){
+            $Verdicts = Verdict::where('status', true)->where('application_id',$app_id)->where('status', true)->orderBy('id','asc')->get();
+        }
+
+        if( $user_id && $app_id == false ){
+            $Verdicts = Verdict::where('status', true)->where('user_id',$user_id)->where('status', true)->orderBy('id','asc')->get();
+        }
+
+        if( $user_id && $app_id  ){
+            $Verdicts = Verdict::where('status', true)->where('user_id',$user_id)->where('application_id',$app_id)->where('status', true)->orderBy('id','asc')->get();
+        }
+
+
+        return $Verdicts;
+    }
+
+    public function getIsUserSubmitedVerditForApplication($app_id,$user_id){
+
+        return  Verdict::where('user_id',$user_id)->where('application_id',$app_id)->count();
+
     }
 
 }

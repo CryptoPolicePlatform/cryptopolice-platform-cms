@@ -7,7 +7,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'CryptoPolice\FraudVerification\components\Officer'         => 'Officer'
+            'CryptoPolice\FraudVerification\components\Officer'         => 'Officer',
         ];
     }
 
