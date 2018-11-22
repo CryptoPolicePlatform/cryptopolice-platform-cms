@@ -20,7 +20,7 @@ forceSecure = 0
     }
 
     function onEnd() {
-	    if(Auth::check()) { return Redirect::to('/profile'); }
+	    if(Auth::check()) { return Redirect::to('/dashboard'); }
 	}
 
 ==
@@ -45,7 +45,7 @@ forceSecure = 0
                 Congratulations! You have successfully activated
             </div>
 
-            <a class="btn" href="{{'profile'|page}}">START WITH YOUR PROFILE</a>
+            <a class="btn" href="{{'dashboard'|page}}">START WITH YOUR PROFILE</a>
         {% endif %}
 
     </div>
