@@ -1,0 +1,11 @@
+name: VerificationsUsers
+modelClass: CryptoPolice\FraudVerification\Models\VerificationsUsers
+form: $/cryptopolice/fraudverification/models/verificationsusers/fields.yaml
+defaultRedirect: cryptopolice/fraudverification/verificationsusers
+create:
+    redirect: 'cryptopolice/fraudverification/verificationsusers/update/:id'
+    redirectClose: cryptopolice/fraudverification/verificationsusers
+update:
+    redirect: cryptopolice/fraudverification/verificationsusers
+    redirectClose: cryptopolice/fraudverification/verificationsusers
+preview: {  }

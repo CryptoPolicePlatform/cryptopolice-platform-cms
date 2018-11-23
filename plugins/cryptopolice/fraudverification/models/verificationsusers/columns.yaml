@@ -1,0 +1,57 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        invisible: false
+        sortable: true
+    user_id:
+        label: user_id
+        type: number
+        searchable: true
+        invisible: false
+        sortable: true
+        select: email
+        relation: user
+    application_id:
+        label: application_id
+        type: number
+        searchable: true
+        invisible: false
+        sortable: true
+        select: task
+        relation: application
+    verdict_id:
+        label: verdict_id
+        type: number
+        searchable: true
+        invisible: false
+        sortable: true
+        select: comment
+        relation: verdict
+    level_id:
+        label: level_id
+        type: text
+        searchable: true
+        invisible: false
+        sortable: true
+        select: level
+        relation: level
+    status:
+        label: status
+        type: text
+        searchable: true
+        invisible: false
+        sortable: true
+    type:
+        label: type
+        type: text
+        searchable: true
+        invisible: false
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        invisible: false
+        sortable: true

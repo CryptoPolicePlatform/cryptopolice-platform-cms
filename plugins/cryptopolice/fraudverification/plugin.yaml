@@ -7,22 +7,28 @@ plugin:
 navigation:
     FraudVerification:
         label: 'Fraud verification'
-        url: cryptopolice/fraudverification/becometoofficer
+        url: cryptopolice/fraudverification/application
         icon: icon-chain
         order: '3'
         sideMenu:
-            BecomeToOfficer:
-                label: 'Become to Officer'
-                url: cryptopolice/fraudverification/becometoofficer
-                icon: icon-user
-                permissions:
-                    - BecomeToOfficer
             FraudApplication:
                 label: Application
                 url: cryptopolice/fraudverification/application
                 icon: icon-paper-plane
                 permissions:
                     - FraudApplication
+            FraudApplicationOfficerVerdicts:
+                label: 'Officer Verdicts'
+                url: cryptopolice/fraudverification/verdict
+                icon: icon-star
+                permissions:
+                    - FraudApplicationOfficerVerdicts
+            BecomeToOfficer:
+                label: 'Become to Officer'
+                url: cryptopolice/fraudverification/becometoofficer
+                icon: icon-user
+                permissions:
+                    - BecomeToOfficer
             FraudApplicationTypes:
                 label: 'Application Types'
                 url: cryptopolice/fraudverification/applicationtypes
@@ -35,18 +41,18 @@ navigation:
                 icon: icon-thumb-tack
                 permissions:
                     - FraudApplicationVerdicts
-            FraudApplicationOfficerVerdicts:
-                label: 'Officer Verdicts'
-                url: /
-                icon: icon-star
-                permissions:
-                    - FraudApplicationOfficerVerdicts
             VerificationLevels:
                 label: 'Verification Levels'
-                url: /
+                url: cryptopolice/fraudverification/verificationlevels
                 icon: icon-sitemap
                 permissions:
                     - VerificationLevels
+            VerificationsUsers:
+                label: 'Verifications Users'
+                url: cryptopolice/fraudverification/verificationsusers
+                icon: icon-users
+                permissions:
+                    - VerificationsUsers
 permissions:
     FraudApplication:
         tab: 'Fraud Application'
@@ -66,3 +72,6 @@ permissions:
     VerificationLevels:
         tab: 'Verification Levels'
         label: 'Verification Levels'
+    VerificationsUsers:
+        tab: 'Verifications Users'
+        label: 'Verifications Users'

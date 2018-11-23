@@ -1,0 +1,38 @@
+fields:
+    user:
+        label: User
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        select: email
+        emptyOption: Select user
+    application:
+        label: Application
+        nameFrom: name
+        descriptionFrom: description
+        select: 'concat(''[A'',id,''] '', task)'
+        span: auto
+        type: relation
+        emptyOption: Select application
+    verdict:
+        label: Verdict
+        nameFrom: name
+        descriptionFrom: description
+        select: 'concat(''[V'',id,''] '', comment)'
+        span: auto
+        type: relation
+        emptyOption: Select verdict
+    level:
+        label: Level
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        select: 'concat(''['',level,''] '', description)'
+    status:
+        label: Status
+        span: auto
+        type: switch
+        default: true
+

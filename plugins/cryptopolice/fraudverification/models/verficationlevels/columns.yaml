@@ -19,8 +19,8 @@ columns:
         type: text
         searchable: true
         sortable: true
-    satus:
-        label: satus
+    status:
+        label: Status
         type: switch
         searchable: true
         sortable: true

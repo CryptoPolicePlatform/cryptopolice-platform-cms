@@ -7,7 +7,7 @@ class BuilderTableCreateCryptopoliceFraudverificationVerificationLevels extends 
 {
     public function up()
     {
-        //Schema::dropIfExists('cryptopolice_fraudverification_verification_levels');
+        Schema::dropIfExists('cryptopolice_fraudverification_verification_levels');
 
         Schema::create('cryptopolice_fraudverification_verification_levels', function($table)
         {
@@ -16,6 +16,7 @@ class BuilderTableCreateCryptopoliceFraudverificationVerificationLevels extends 
             $table->string('level');
             $table->text('description');
             $table->smallInteger('officer_count');
+            $table->smallInteger('verification_order');
             $table->boolean('status');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

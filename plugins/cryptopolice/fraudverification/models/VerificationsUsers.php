@@ -1,19 +1,17 @@
 <?php namespace CryptoPolice\FraudVerification\Models;
 
 use Model;
-use CryptoPolice\FraudVerification\Components\Officer as Officer;
 
 /**
  * Model
  */
-class Application extends Model
+class VerificationsUsers extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
-
 
     /*
     * Relations
@@ -24,26 +22,25 @@ class Application extends Model
             'Rainlab\user\Models\User',
             'key' => 'user_id'
         ],
-        'type' => [
-            'CryptoPolice\FraudVerification\Models\ApplicationTypes',
-            'key' => 'type_id'
+        'application' => [
+            'CryptoPolice\FraudVerification\Models\Application',
+            'key' => 'application_id'
+        ],
+        'verdict' => [
+            'CryptoPolice\FraudVerification\Models\Verdict',
+            'key' => 'verdict_id'
+        ],
+        'level' => [
+            'CryptoPolice\FraudVerification\Models\VerficationLevels',
+            'key' => 'level_id'
         ],
 
     ];
 
-    public function afterCreate()
-    {
-        if($this->status){
-            // Send to verification
-            Officer::SendToVerification($this->id);
-        }
-
-    }
-
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'cryptopolice_fraudverification_application';
+    public $table = 'cryptopolice_fraudverification_verification_users';
 
     /**
      * @var array Validation rules

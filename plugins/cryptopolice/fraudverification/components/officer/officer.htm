@@ -4,19 +4,15 @@
 
 
     <div class="content__block">
-        <h3 class="content__title">Waiting for verification</h3>
-
+        <h3 class="content__title">Fraud application for verification</h3>
         <div class="issues">
             {% for application in FraudApplications %}
-
             <div class="issues__item  issues__item--history">
-
                 <div class="issues__type">
                     <a href="{{'fraud-application'|page({id:application.id})}}">
                         #A{{application.id}}
                     </a>
                 </div>
-
                 <div class="issues__title">
                     <a class="bounty_link_title" href="{{'fraud-application'|page({id:application.id})}}">
                         {% if application.task|length > 95 %}
@@ -26,7 +22,6 @@
                         {% endif %}
                     </a>
                 </div>
-
                 <div class="issues__view" style="padding-left: 10px; text-align: left; ">
                     <a href="{{'fraud-application'|page({id:application.id})}}">
                         {% if application.domain|length > 50 %}
@@ -36,27 +31,21 @@
                         {% endif %}
                     </a>
                 </div>
-
                 <div class="issues__status">
                     <div class="issues__status-item  high">{{application.type.type|slice(0, 5)}}</div>
                 </div>
             </div>
-
-
-
             {% else %}
             <div class="issues__item  issues__item--history">
                You don't have any waiting applications for verification
             </div>
             {% endfor %}
-
-
         </div>
     </div><!-- /.content__block -->
 
 
     <div class="content__block">
-        <h3 class="content__title">My applications </h3>
+        <h3 class="content__title">My fraud applications </h3>
 
         <div class="issues">
 
@@ -130,6 +119,46 @@
 
         </div>
     </div>
+
+    <div class="content__block">
+        <h3 class="content__title">All fraud applications</h3>
+        <div class="issues">
+            {% for application in FraudApplications %}
+            <div class="issues__item  issues__item--history">
+                <div class="issues__type">
+                    <a href="{{'fraud-application'|page({id:application.id})}}">
+                        #A{{application.id}}
+                    </a>
+                </div>
+                <div class="issues__title">
+                    <a class="bounty_link_title" href="{{'fraud-application'|page({id:application.id})}}">
+                        {% if application.task|length > 95 %}
+                        {{application.task|slice(0, 95)}}...
+                        {% else %}
+                        {{application.task}}
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    <a href="{{'fraud-application'|page({id:application.id})}}">
+                        {% if application.domain|length > 50 %}
+                        {{application.domain|slice(0, 40)|replace({'http://': "", "https://" : "", "wwww." : ""})}}...
+                        {% else %}
+                        {{application.domain|replace({'http://': "", "https://" : "", "wwww." : ""})}}
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="issues__status">
+                    <div class="issues__status-item  high">{{application.type.type|slice(0, 5)}}</div>
+                </div>
+            </div>
+            {% else %}
+            <div class="issues__item  issues__item--history">
+                You don't have any waiting applications for verification
+            </div>
+            {% endfor %}
+        </div>
+    </div><!-- /.content__block -->
 
 
 {% elseif  isUserSendApplicationToBecomeOfficer %}
