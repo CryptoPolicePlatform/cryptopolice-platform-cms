@@ -7,8 +7,9 @@ use CryptoPolice\FraudVerification\Models\ApplicationVerdicts as VerdictTypes;
 use CryptoPolice\FraudVerification\Models\Verdict as Verdict;
 use CryptoPolice\FraudVerification\Models\VerficationLevels as Levels;
 use CryptoPolice\FraudVerification\Models\VerificationsUsers as VerificationsUsers;
+// use Rainlab\User\Models\User as Users;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
-use Auth, Flash,Input,Session,Validator,ValidationException, Redirect;
+use Auth, Db, Flash,Input,Session,Validator,ValidationException, Redirect, Log;
 
 
 /**
@@ -31,17 +32,17 @@ class Officer extends ComponentBase
         $this->page['isUserOfficer'] = $this->getIsUserOfficer(true);
 
        if($this->param('id')){
+
            // Fraud application page
            $this->page['FraudApplications'] = $this->getFraudApplications($this->param('id'));
            $this->page['VerdictTypes'] = $this->getVerdictTypes();
            $this->page['Verdicts'] = $this->getVerdicts($this->param('id'),false);
-           $this->page['IsVerdictSubmittedForThisApplicationByThisUser'] = $this->getIsUserSubmitedVerditForApplication($this->param('id'),$user->id);
+           $this->page['CanUserVerifyThisApplication'] = $this->getIsUserAbleToVerifyApplication($this->param('id'),$user->id);
 
        }else{
 
-
            // Dashboard
-           $this->page['WaitForVerification'] = $this->getFraudApplications();
+           $this->page['WaitForVerification'] = $this->getFraudApplicationsToVerification($user->id);
            $this->page['FraudApplications'] = $this->getFraudApplications();
            $this->page['MyApplications'] = $this->getFraudApplications(false,$user->id);
            $this->page['isUserSendApplicationToBecomeOfficer'] = $this->getIsUserOfficer(false);
@@ -53,36 +54,54 @@ class Officer extends ComponentBase
 
     }
 
-    public static function SendToVerification($ApplicationId){
-
-        // Get fraud application
-        $Application = FraudApplications::where('id',$ApplicationId)->first();
-
-        // Count all officers
-        $OfficerCount  = BecomeToOfficer::where('status', true)->count();
+    public static function SendToVerification($UserId, $ApplicationId, $VerdictId = null, $level = 1){
 
 
-        // Get first verification levels
-        $VerificationLevels = Levels::where('status', true)->first();
+        // Get verification level data
+        if($level){
+            // Get level data
+            $LevelData = Levels::where('status', true)->where('verification_order', $level)->first();
+            // Get level Officer amount
+            $LevelOfficer_amount = $LevelData->officer_count;
+        }
+
+
+        // Select random officers
+        $OfficersToVerification = BecomeToOfficer::where('status', true)->where('user_id', '!=' , $UserId )->inRandomOrder()->take($LevelOfficer_amount)->get();
+
+        // Save officers to verification
+        foreach($OfficersToVerification as $officer ){
+
+           $SaveOfficerToVerification =  new VerificationsUsers();
+           $SaveOfficerToVerification->user_id = $officer->user_id;
+           $SaveOfficerToVerification->application_id = $ApplicationId;
+           $SaveOfficerToVerification->verdict_id = $VerdictId;
+           $SaveOfficerToVerification->level_id = $LevelData->id;
+           $SaveOfficerToVerification->status = true;
+           $SaveOfficerToVerification->type = 1;
+           $SaveOfficerToVerification->save();
+
+        }
+
+
+        return $OfficersToVerification;
+    }
+
+    public function getFraudApplicationsToVerification($user_id){
+
+
+        trace_sql();
+
+        return   Db::table('cryptopolice_fraudverification_application')
+            ->leftJoin('cryptopolice_fraudverification_verification_users', 'cryptopolice_fraudverification_verification_users.application_id', '=', 'cryptopolice_fraudverification_application.id')
+            ->select('cryptopolice_fraudverification_application.*', 'cryptopolice_fraudverification_verification_users.id as verify_id')
+            ->where('cryptopolice_fraudverification_verification_users.user_id',$user_id)
+            ->where('cryptopolice_fraudverification_application.status',true)
+            ->groupBy('user_id')
+            ->get();
 
 
 
-//        foreach( $VerificationLevels as $level){
-//
-//            $level->level;
-//
-//
-//
-//         // Send to verification
-//            $newVerification= new VerificationsUsers;
-//            $newOfficerSubmittion->user_id = $user->id;
-//            $newOfficerSubmittion->save();
-//
-//        }
-
-
-
-        return true;
     }
 
     public function getIsUserOfficer($status){
@@ -260,9 +279,9 @@ class Officer extends ComponentBase
         return $Verdicts;
     }
 
-    public function getIsUserSubmitedVerditForApplication($app_id,$user_id){
+    public function getIsUserAbleToVerifyApplication($app_id,$user_id){
 
-        return  Verdict::where('user_id',$user_id)->where('application_id',$app_id)->count();
+        return  VerificationsUsers::where('user_id',$user_id)->where('application_id',$app_id)->count();
 
     }
 

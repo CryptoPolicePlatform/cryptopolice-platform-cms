@@ -2,6 +2,7 @@
 
 use Model;
 use CryptoPolice\FraudVerification\Components\Officer as Officer;
+use Log;
 
 /**
  * Model
@@ -35,7 +36,9 @@ class Application extends Model
     {
         if($this->status){
             // Send to verification
-            Officer::SendToVerification($this->id);
+           $verify =  Officer::SendToVerification($this->user_id, $this->id, null,1);
+
+           Log::info('Application A'.$this->id.' sanded to verification. Officers -  '. $verify);
         }
 
     }

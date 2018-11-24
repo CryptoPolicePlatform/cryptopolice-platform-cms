@@ -6,7 +6,7 @@
     <div class="content__block">
         <h3 class="content__title">Fraud application for verification</h3>
         <div class="issues">
-            {% for application in FraudApplications %}
+            {% for application in WaitForVerification %}
             <div class="issues__item  issues__item--history">
                 <div class="issues__type">
                     <a href="{{'fraud-application'|page({id:application.id})}}">

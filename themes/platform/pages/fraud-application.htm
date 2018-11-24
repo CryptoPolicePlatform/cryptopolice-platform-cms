@@ -84,7 +84,11 @@ is_hidden = 0
                 </div>
                 {% endfor %}
 
-                {% if IsVerdictSubmittedForThisApplicationByThisUser == 0 %}
+                {% if CanUserVerifyThisApplication == 1 %}
+                <div class="alert  alert--red">
+                    <p>Please verify this fraud application. You are chosen by our Multi-level verification algorithm. Inactive officers will be punished with a negative rating which will affect  the receive of the next verification request. </p>
+                    <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+                </div>
 
                 <div class="card profile__card content__block">
                     {{ form_ajax('onSubmitVerdict', { flash : '', model: BecomeToOfficer }) }}
@@ -118,7 +122,12 @@ is_hidden = 0
                     {{ form_close() }}
 
                 </div>
+                {% else %}
 
+                <div class="alert  alert--orange">
+                    <p>You can not verify this fraud application. Officers are randomly selected by our Multi-level verification algorithm. Be active and your turn will come! </p>
+                    <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
+                </div>
 
                 {% endif %}
 
