@@ -49,13 +49,9 @@ class Officer extends ComponentBase
            $this->page['MyVerdicts'] = $this->getVerdicts(false, $user->id);
        }
 
-
-
-
     }
 
     public static function SendToVerification($UserId, $ApplicationId, $VerdictId = null, $level = 1){
-
 
         // Get verification level data
         if($level){
@@ -64,7 +60,6 @@ class Officer extends ComponentBase
             // Get level Officer amount
             $LevelOfficer_amount = $LevelData->officer_count;
         }
-
 
         // Select random officers
         $OfficersToVerification = BecomeToOfficer::where('status', true)->where('user_id', '!=' , $UserId )->inRandomOrder()->take($LevelOfficer_amount)->get();
@@ -83,25 +78,20 @@ class Officer extends ComponentBase
 
         }
 
-
         return $OfficersToVerification;
     }
 
     public function getFraudApplicationsToVerification($user_id){
 
-
-
-
-        return   Db::table('cryptopolice_fraudverification_application')
-            ->join('cryptopolice_fraudverification_verification_users', 'cryptopolice_fraudverification_verification_users.application_id', '=', 'cryptopolice_fraudverification_application.id')
-            ->join('cryptopolice_fraudverification_application_types', 'cryptopolice_fraudverification_application_types.id', '=', 'cryptopolice_fraudverification_application.type_id')
+        return Db::table('cryptopolice_fraudverification_verification_users')
+            ->LeftJoin('cryptopolice_fraudverification_application', 'cryptopolice_fraudverification_application.id', '=', 'cryptopolice_fraudverification_verification_users.application_id')
+            ->LeftJoin('cryptopolice_fraudverification_application_types', 'cryptopolice_fraudverification_application_types.id', '=', 'cryptopolice_fraudverification_application.type_id')
+            ->LeftJoin('cryptopolice_fraudverification_verdict', 'cryptopolice_fraudverification_verdict.application_id', '=', 'cryptopolice_fraudverification_application.id')
             ->select('cryptopolice_fraudverification_application.*', 'cryptopolice_fraudverification_verification_users.id as verify_id','cryptopolice_fraudverification_application_types.type as type_title')
             ->where('cryptopolice_fraudverification_verification_users.user_id',$user_id)
+            ->whereNull('cryptopolice_fraudverification_verdict.id')
             ->where('cryptopolice_fraudverification_application.status',true)
-            ->groupBy('user_id')
             ->get();
-
-
 
     }
 
@@ -282,7 +272,14 @@ class Officer extends ComponentBase
 
     public function getIsUserAbleToVerifyApplication($app_id,$user_id){
 
-        return  VerificationsUsers::where('user_id',$user_id)->where('application_id',$app_id)->count();
+        $IsOfficerNominatedForThisApplication =   VerificationsUsers::where('user_id',$user_id)->where('application_id',$app_id)->count();
+        $IsOfficerSubmittedVerdictForThisApplication =   Verdict::where('user_id',$user_id)->where('application_id',$app_id)->count();
+
+        if($IsOfficerNominatedForThisApplication == 1 &&  $IsOfficerSubmittedVerdictForThisApplication == 0) {
+            return true;
+        }else{
+            return false;
+        }
 
     }
 

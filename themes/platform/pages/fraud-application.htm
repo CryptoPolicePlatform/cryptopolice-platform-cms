@@ -84,7 +84,7 @@ is_hidden = 0
                 </div>
                 {% endfor %}
 
-                {% if CanUserVerifyThisApplication == 1 %}
+                {% if CanUserVerifyThisApplication %}
                 <div class="alert  alert--red">
                     <p>Please verify this fraud application. You are chosen by our Multi-level verification algorithm and now you have opportunity to verify it and earn OFCR tokens. Please take into account that by being more active, you will increase your rating and receive more applications, by being less active, you will lose your rating.</p>
                     <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
@@ -122,16 +122,8 @@ is_hidden = 0
                     {{ form_close() }}
 
                 </div>
-                {% else %}
-
-                <div class="alert  alert--orange">
-                    <p>You can not verify this fraud application. Officers are randomly selected by our Multi-level verification algorithm. Be active and your turn will come! </p>
-                    <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
-                </div>
 
                 {% endif %}
-
-
 
             </div><!-- /.grid__row -->
         </div><!-- /.content__left -->
