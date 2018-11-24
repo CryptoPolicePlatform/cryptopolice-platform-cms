@@ -90,11 +90,12 @@ class Officer extends ComponentBase
     public function getFraudApplicationsToVerification($user_id){
 
 
-        trace_sql();
+
 
         return   Db::table('cryptopolice_fraudverification_application')
-            ->leftJoin('cryptopolice_fraudverification_verification_users', 'cryptopolice_fraudverification_verification_users.application_id', '=', 'cryptopolice_fraudverification_application.id')
-            ->select('cryptopolice_fraudverification_application.*', 'cryptopolice_fraudverification_verification_users.id as verify_id')
+            ->join('cryptopolice_fraudverification_verification_users', 'cryptopolice_fraudverification_verification_users.application_id', '=', 'cryptopolice_fraudverification_application.id')
+            ->join('cryptopolice_fraudverification_application_types', 'cryptopolice_fraudverification_application_types.id', '=', 'cryptopolice_fraudverification_application.type_id')
+            ->select('cryptopolice_fraudverification_application.*', 'cryptopolice_fraudverification_verification_users.id as verify_id','cryptopolice_fraudverification_application_types.type as type_title')
             ->where('cryptopolice_fraudverification_verification_users.user_id',$user_id)
             ->where('cryptopolice_fraudverification_application.status',true)
             ->groupBy('user_id')
