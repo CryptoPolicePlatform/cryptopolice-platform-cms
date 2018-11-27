@@ -7,6 +7,7 @@ use CryptoPolice\FraudVerification\Models\ApplicationVerdicts as VerdictTypes;
 use CryptoPolice\FraudVerification\Models\Verdict as Verdict;
 use CryptoPolice\FraudVerification\Models\VerficationLevels as Levels;
 use CryptoPolice\FraudVerification\Models\VerificationsUsers as VerificationsUsers;
+use CryptoPolice\FraudVerification\Models\ApplicationTypes as ApplicationTypes;
 // use Rainlab\User\Models\User as Users;
 use CryptoPolice\Academy\Components\Recaptcha as Recaptcha;
 use Auth, Db, Flash,Input,Session,Validator,ValidationException, Redirect, Log;
@@ -354,6 +355,59 @@ class Officer extends ComponentBase
       VerificationsUsers::where('user_id',$user_id)->where('verdict_id',$verdict_id)->where('application_id',$app_id)->first();
         return true;
 
+    }
+
+
+    public static function onSubmitFraudApplication($user = 2, $domain, $task, $application_type_id){
+
+        $user = intval(trim($user));
+        $domain = strip_tags(trim($domain));
+        $task = strip_tags(trim($task));
+        $application_type_id = intval(trim($application_type_id));
+
+        // Rulles
+        $validator = Validator::make(
+            [
+                'user_id' => $user,
+                'domain' => $domain,
+                'task' => $task,
+                'application_type' => $application_type_id
+            ],
+            [
+                'user_id' => 'required|min:1|numeric',
+                'domain' => 'required|min:4|max:255',
+                'task' => 'required|min:3|max:5000',
+                'application_type' => 'required|min:1|numeric'
+            ]
+        );
+
+
+        if ($validator->fails()) {
+            return error($validator->messages()->first());
+        } else {
+
+
+            // Submitting application
+            $new = new FraudApplications;
+            $new->user_id = $user;
+            $new->domain = $domain;
+            $new->task = $task;
+            $new->type_id = $application_type_id;
+            $new->status = 0;
+
+            $new->save();
+
+            return "Your report is successfully submitted for verification";
+        }
+
+
+
+    }
+
+
+    public static function GetApplicationTypes(){
+
+        return ApplicationTypes::where('status', true)->get();
     }
 
 }
