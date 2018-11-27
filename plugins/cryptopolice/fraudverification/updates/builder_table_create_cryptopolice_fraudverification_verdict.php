@@ -18,6 +18,7 @@ class BuilderTableCreateCryptopoliceFraudverificationVerdict extends Migration
             $table->integer('application_id');
             $table->integer('verdict_type_id');
             $table->integer('verification_id');
+            $table->integer('parent_id')->nullable();
             $table->text('comment');
             $table->boolean('status')->default(1);
             $table->timestamp('created_at')->nullable();

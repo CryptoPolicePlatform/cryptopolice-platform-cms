@@ -1,6 +1,7 @@
 <?php namespace CryptoPolice\FraudVerification\Models;
 
 use Model;
+use CryptoPolice\FraudVerification\Components\Officer as Officer;
 
 /**
  * Model
@@ -36,6 +37,15 @@ class Verdict extends Model
             'key' => 'verdict_type_id'
         ],
     ];
+
+    public function afterCreate()
+    {
+        if($this->status){
+            // Send to verification
+
+            Officer::SendToVerification($this->user_id, $this->application_id, $this->id,2);
+        }
+    }
 
     /**
      * @var string The database table used by the model.

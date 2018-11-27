@@ -1,5 +1,5 @@
-title = "Fraud application"
-url = "/fraud-application/:id"
+title = "Verdict"
+url = "/verdict/:id/:app_id"
 layout = "platform"
 description = "Fraud application  page"
 is_hidden = 0
@@ -7,7 +7,6 @@ security = "user"
 redirect = "login"
 
 [Officer]
-
 ==
 <main class="content">
     <div class="content__inner report-details">
@@ -15,32 +14,40 @@ redirect = "login"
             <div class="grid__row">
                 <div class="breadcrumbs">
                     <a class="breadcrumbs__item" href="{{'dashboard'|page}}">Dashboard</a>
-                    <span class="breadcrumbs__item  active">#A{{FraudApplications.id}} Fraud application</span>
+                    <span class="breadcrumbs__item  active">#V{{Verdict.id}} Verdict</span>
                 </div>
 
                 <div class="card">
 
                     <div class="card__header report_header">
-                        <h2>[#A{{FraudApplications.id}} {{FraudApplications.type.type}}] -
-                            {% if FraudApplications.task|length > 100 %}
-                                {{ FraudApplications.task|slice(0, 100)}}...
+                        <h2>[#V{{Verdict.id}} {{Verdict.verdict.verdict}}] -
+                            {% if Verdict.comment|length > 100 %}
+                                {{ Verdict.comment|slice(0, 100)}}...
                             {% else %}
-                                {{ FraudApplications.task}}
+                                {{ Verdict.comment }}
                             {% endif %}
                         </h2>
                     </div>
 
-                    <div class="card__header report_title"> Application id  </div>
-                    <div class="card__content report_content"> #A{{ FraudApplications.id }} </div>
+                    <div class="card__header report_title"> Verdict id  </div>
+                    <div class="card__content report_content"> #V{{ Verdict.id }} </div>
+
+                    <div class="card__header report_title"> Verdict type  </div>
+                    <div class="card__content report_content"> {{ Verdict.verdict.verdict }} </div>
+
+                    <div class="card__header report_title"> Verdict comment </div>
+                    <div class="card__content report_content"> {{ Verdict.comment }} </div>
 
                     <div class="card__header report_title"> Application type  </div>
-                    <div class="card__content report_content"> {{ FraudApplications.type.type }} </div>
+                    <div class="card__content report_content"> {{ Verdict.application.type.type }} </div>
 
                     <div class="card__header report_title"> Domain </div>
-                    <div class="card__content report_content"> {{ FraudApplications.domain }} </div>
+                    <div class="card__content report_content"> {{ Verdict.application.domain }} </div>
 
                     <div class="card__header report_title"> Application task </div>
-                    <div class="card__content report_content"> {{ FraudApplications.task }} </div>
+                    <div class="card__content report_content"> {{ Verdict.application.task }} </div>
+
+
 
 
 
@@ -48,47 +55,28 @@ redirect = "login"
                         <div class="card__footer-left">
                             <ul class="card__ava-list">
                                 <li class="card__ava  card__ava--author">
-                                    reported by <span class="mark  mark--green">{{ FraudApplications.user.nickname }}</span>
+                                    verified by <span class="mark  mark--green">{{ Verdict.user.nickname }}</span>
                                 </li>
                                 <li class="card__ava">
-                                    New application
+                                    {{ Verdict.verification.level }}
                                 </li>
                             </ul>
                         </div>
                         <div class="card__footer-right">
-                            <div class="card__date">{{ FraudApplications.created_at }}</div>
+                            <div class="card__date">{{ Verdict.created_at }}</div>
                         </div>
                     </div>
 
 
-                    <div class="card__status  high">{{ FraudApplications.type.type|slice(0, 5)}} </div>
+                    <div class="card__status  high">{{ Verdict.verdict.verdict|slice(0, 5)}} </div>
 
 
                 </div>
 
                 <hr>
 
-                {% for verdict in Verdicts %}
-                <div class="card profile__card content__block">
-                    <div class="card__header report_message"> #V{{ verdict.id}} {{ verdict.verdict.verdict}} ({{ verdict.verdict.description}}) </div>
-                    <div class="card__content report_content"> {{ verdict.comment}}</div>
-                    <div class="card__footer">
-                        <div class="card__footer-left">
-                            <ul class="card__ava-list">
-                                <li class="card__ava  card__ava--author"> verified by <span class="mark  mark--green">{{ verdict.user.nickname }}</span>  </li>
-                                <li class="card__ava">
-                                    {{ verdict.verification.level }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card__footer-right">
-                            <div class="card__date">{{ verdict.user.created_at }}</div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
 
-                {% if CanUserVerifyThisApplication %}
+                {% if CanUserVerifyThisVerdict %}
                 <div class="alert  alert--red">
                     <p>Please verify this fraud application. You are chosen by our Multi-level verification algorithm and now you have opportunity to verify it and earn OFCR tokens. Please take into account that by being more active, you will increase your rating and receive more applications, by being less active, you will lose your rating.</p>
                     <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
@@ -97,7 +85,7 @@ redirect = "login"
                 <div class="card profile__card content__block">
                     {{ form_ajax('onSubmitVerdict', { flash : '', model: BecomeToOfficer }) }}
                     <div>
-                        <h3 class="content__title">Submit your verdict</h3>
+                        <h3 class="content__title">Submit your verification</h3>
 
                         <div class="form__group">
                             <label for="verdict">Chose your verdict</label>
@@ -115,11 +103,12 @@ redirect = "login"
                         </div>
 
                         <div class="form__group">
-                            <label for="verdict">Your comment</label>
-                            <textarea class="textarea" name="comment" placeholder="Enter your proofs"></textarea>
+                            <label for="verdict">Your proofs / comment</label>
+                            <textarea class="textarea" name="comment" placeholder="Enter your proofs or comment"></textarea>
                         </div>
 
                         <div class="form__group">
+                            <input type="hidden" name="parent_id" value="{{ Verdict.id }}">
                             <button id="captcha_nickname" class="btn  btn--gpink g-recaptcha" data-attach-loading> Submit your verdict</button>
                         </div>
                     </div>

@@ -6,6 +6,22 @@
     <div class="content__block">
         <h3 class="content__title">Fraud application for verification</h3>
         <div class="issues">
+            {% if WaitForVerification is not empty %}
+            <div class="issues__item  issues__item--history" style="background-color: #f3f3f3">
+                <div class="issues__type">
+                    ID
+                </div>
+                <div class="issues__title">
+                    <b>Application task</b>
+                </div>
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    Domain
+                </div>
+                <div class="issues__status">
+                    <div class="issues__status-item text-black">TYPE</div>
+                </div>
+            </div>
+            {% endif %}
             {% for application in WaitForVerification %}
             <div class="issues__item  issues__item--history">
                 <div class="issues__type">
@@ -43,12 +59,81 @@
         </div>
     </div><!-- /.content__block -->
 
+    <div class="content__block">
+        <h3 class="content__title">Verdicts for verification</h3>
+        <div class="issues">
+           {% if WaitForVerificationVerdicts is not empty %}
+            <div class="issues__item  issues__item--history" style="background-color: #f3f3f3">
+                <div class="issues__type">
+                    ID
+                </div>
+                <div class="issues__title">
+                    <b>Application task</b>
+                </div>
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    Domain
+                </div>
+                <div class="issues__status">
+                    <div class="issues__status-item text-black">TYPE</div>
+                </div>
+            </div>
+            {% endif %}
+            {% for item in WaitForVerificationVerdicts %}
+            {% if item.verdict.id %}
+            <div class="issues__item  issues__item--history">
+                <div class="issues__type">
+                    <a href="{{'verdict'|page({id:item.verdict_id, app_id:item.application_id})}}">
+                        #V{{item.verdict_id}}
+                    </a>
+                </div>
+                <div class="issues__title">
+                    <a class="bounty_link_title" href="{{'verdict'|page({id:item.verdict_id, app_id:item.application_id})}}">
+                        {% if item.verdict.comment|length > 95 %}
+                            {{item.verdict.comment|slice(0, 95)}}...
+                        {% else %}
+                            {{item.verdict.comment}}
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    <a href="{{'verdict'|page({id:item.verdict_id, app_id:item.application_id})}}">
+                        {{item.application.domain}}
+                    </a>
+                </div>
+                <div class="issues__status">
+                    <div class="issues__status-item  high">{{item.application.type.type|slice(0, 5)}}</div>
+                </div>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="issues__item  issues__item--history">
+               You don't have any waiting verdicts for verification
+            </div>
+            {% endfor %}
+        </div>
+    </div><!-- /.content__block -->
+
 
     <div class="content__block">
         <h3 class="content__title">My fraud applications </h3>
 
         <div class="issues">
-
+            {% if MyApplications is not empty %}
+            <div class="issues__item  issues__item--history" style="background-color: #f3f3f3">
+                <div class="issues__type">
+                    ID
+                </div>
+                <div class="issues__title">
+                    <b>Application task</b>
+                </div>
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    Domain
+                </div>
+                <div class="issues__status">
+                    <div class="issues__status-item text-black">TYPE</div>
+                </div>
+            </div>
+            {% endif %}
             {% for myapplication in MyApplications %}
             <div class="issues__item  issues__item--history">
 
@@ -96,13 +181,21 @@
         <h3 class="content__title">Verification history</h3>
 
         <div class="issues">
-
+            {% if MyVerdicts is not empty %}
+                <div class="issues__item  issues__item--history" style="background-color: #f3f3f3">
+                    <div class="issues__type">ID</div>
+                    <div class="issues__title">Verdict proofs / comment</div>
+                    <div class="issues__view">Domain</div>
+                    <div class="issues__amount">Level</div>
+                    <div class="issues__status  issues__status--big"><span style="color: black!important;text-transform: capitalize">Type</span></div>
+                </div>
+            {% endif  %}
             {% for verdict in MyVerdicts %}
             <div class="issues__item  issues__item--history">
                 <div class="issues__type"><a href="{{'fraud-application'|page({id:verdict.application.id})}}"> #V{{ verdict.id}} </a></div>
                 <div class="issues__title"><a href="{{'fraud-application'|page({id:verdict.application.id})}}">{{ verdict.comment}}</a></div>
                 <div class="issues__view">
-                    <a href="{{'fraud-application'|page({id:verdict.application.id})}}">{{ verdict.application.domain}}</a></a>
+                    <a href="{{'fraud-application'|page({id:verdict.application.id})}}">{{ verdict.application.domain}}</a>
                 </div>
                 <div class="issues__amount">
                     <span class="text-green">{{ verdict.verification.level}}</span>
@@ -123,6 +216,22 @@
     <div class="content__block">
         <h3 class="content__title">All fraud applications</h3>
         <div class="issues">
+            {% if FraudApplications is not empty %}
+            <div class="issues__item  issues__item--history" style="background-color: #f3f3f3">
+                <div class="issues__type">
+                    ID
+                </div>
+                <div class="issues__title">
+                    <b>Application task</b>
+                </div>
+                <div class="issues__view" style="padding-left: 10px; text-align: left; ">
+                    Domain
+                </div>
+                <div class="issues__status">
+                    <div class="issues__status-item text-black">TYPE</div>
+                </div>
+            </div>
+            {% endif %}
             {% for application in FraudApplications %}
             <div class="issues__item  issues__item--history">
                 <div class="issues__type">
