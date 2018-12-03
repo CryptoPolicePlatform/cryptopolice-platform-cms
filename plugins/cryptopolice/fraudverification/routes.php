@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\DB;
 use CryptoPolice\FraudVerification\Components\Officer as Officer;
 use CryptoPolice\Platform\Models\Settings;
 
+function api_response($message,$data,$status)
+{
+    if($status) return json_encode(['status' => $status,'massage' => $message,'data' => $data]);
+    else return json_encode(['status' => $status,'massage' => $message,'error' => $data]);
+
+}
+
+
 
 Route::post('/api/submit-fraud-application', function () {
 
@@ -23,19 +31,21 @@ Route::post('/api/submit-fraud-application', function () {
            } catch (\Exception $e) {
 
                Log::error($e->getMessage());
-               return response(error('Something went wrong!').$e->getMessage());
+
+               return api_response('Something went wrong!',$e->getMessage(),false);
+
            }
 
 
         } else {
 
             trace_log("Access failed, [/api/submit-fraud-application] - form " . request()->getClientIp());
-            return response(error('Authorization failed, invalid token!'));
+            return api_response('Invalid token!',[],false);
         }
     } else {
 
         trace_log("Access failed, [/api/submit-fraud-application] - " . request()->getClientIp());
-        return response(error('Add your IP to White list!'));
+        return api_response('Add your IP to White list!',[],false);
     }
 
 
@@ -55,22 +65,23 @@ Route::get('/api/get-fraud-application-types', function () {
                 $result = Officer::GetApplicationTypes();
                 return response()->json($result,200);
 
+
             } catch (\Exception $e) {
 
                 Log::error($e->getMessage());
-                return response(error('Something went wrong while getting data! ').$e->getMessage());
+                return api_response('Something went wrong while getting data! ',$e->getMessage(),false);
             }
 
 
         } else {
 
             trace_log("Access failed, [/api/submit-fraud-application] - form " . request()->getClientIp());
-            return response(error('Authorization failed, invalid token'));
+            return api_response('Authorization failed, invalid token',[],false);
         }
     } else {
 
         trace_log("Access failed, [/api/submit-fraud-application] - " . request()->getClientIp());
-        return response(error('Add your IP to White list!'));
+        return api_response('Add your IP to White list!',[],false);
     }
 
 

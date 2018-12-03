@@ -383,13 +383,15 @@ class Officer extends ComponentBase
 
 
         if ($validator->fails()) {
-            return error($validator->messages()->first());
+
+            return api_response("Validation error",$validator->messages()->all(),false);
+
         } else {
 
 
             // Submitting application
             $new = new FraudApplications;
-            $new->user_id = $user;
+            $new->user_id = $user."asdasd";
             $new->domain = $domain;
             $new->task = $task;
             $new->type_id = $application_type_id;
@@ -397,7 +399,7 @@ class Officer extends ComponentBase
 
             $new->save();
 
-            return "Your report is successfully submitted for verification";
+            return api_response("Your report is successfully submitted for verification",[],true);
         }
 
 
