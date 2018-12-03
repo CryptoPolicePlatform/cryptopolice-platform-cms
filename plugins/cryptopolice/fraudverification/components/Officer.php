@@ -391,7 +391,7 @@ class Officer extends ComponentBase
 
             // Submitting application
             $new = new FraudApplications;
-            $new->user_id = $user."asdasd";
+            $new->user_id = $user;
             $new->domain = $domain;
             $new->task = $task;
             $new->type_id = $application_type_id;
