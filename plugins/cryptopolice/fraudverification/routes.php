@@ -53,7 +53,7 @@ Route::get('/api/get-fraud-application-types', function () {
             try {
 
                 $result = Officer::GetApplicationTypes();
-                return $result;
+                return response()->json($result,200);
 
             } catch (\Exception $e) {
 
