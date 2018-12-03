@@ -8,8 +8,8 @@ use CryptoPolice\Platform\Models\Settings;
 
 function api_response($message,$data,$status)
 {
-    if($status) return json_encode(['success' => $status,'massage' => $message,'data' => $data]);
-    else return json_encode(['success' => $status,'massage' => $message,'error' => $data]);
+    if($status) return json_encode(['success' => $status,'message' => $message,'data' => $data]);
+    else return json_encode(['success' => $status,'message' => $message,'error' => $data]);
 
 }
 
