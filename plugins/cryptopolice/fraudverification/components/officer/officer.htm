@@ -276,8 +276,8 @@
 
     <div class="grid__col  w6">
         <div class="alert alert--orange">
-            <h2>Please wait for verification!</h2>
-            Our moderators is verifying your application! Please wait for answer. Thank you!
+            <h2>Thank you for applying!</h2>
+            We will verify all requests and let you know when our new products will be ready for you! Please wait for answer. Thank you!
             <button class="alert__button" type="button"><i class="fa fa-close"></i></button>
         </div>
     </div>
@@ -285,32 +285,42 @@
 {% else %}
 {{ form_ajax('onBecomeToOfficer', { flash : '', model: BecomeToOfficer , update: { 'Officer::officer': '#myDiv' }}) }}
 <div class="profile__card content__block">
-    <h3 class="content__title">Early bird Officer registration has started!</h3>
+    <h3 class="content__title">Claim you CryptoPolice gift tokens</h3>
+    <p> Read our last announcement here - ... </p>
 
-    <div class="form__group">
-        <label for="nickname">Nickname</label>
-        <input class="input" type="text" name="nickname" id="nickname" placeholder="" value="{{ user.nickname }}">
-    </div>
     <div class="form__group">
         <label for="name">Name</label>
         <input class="input" type="text" name="name" id="name" placeholder="" value="{{ user.name }}">
     </div>
+
     <div class="form__group">
         <label for="surname">Surname</label>
         <input class="input" type="text" name="surname" id="surname" placeholder="" value="{{ user.surname }}">
     </div>
+
     <div class="form__group">
-        <label for="email">Email</label>
+        <label for="email">E-mail</label>
         <input class="input" type="email" name="email" id="email" placeholder="" value="{{ user.email }}">
     </div>
+
     <div class="form__group">
-        <label for="eth-address">Ethereum address</label>
-        <input class="input" type="text" name="eth_address" id="eth-address" value="{{ user.eth_address}}">
+        <label for="role">Your role in project </label>
+        <div class="select">
+            <select id="role" name="role" >
+                <option value="Bounty campaign participant<">Bounty campaign participant</option>
+                <option value="Airdrop participant">Airdrop participant</option>
+                <option value="CryptoPolice Adviser">CryptoPolice Adviser</option>
+                <option value="I was not involved in the CryptoPolice bounty, but would like to receive the gift :)">I was not involved in the CryptoPolice bounty, but would like to receive the gift :)</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
     </div>
+
     <div class="form__group">
-        <label for="eth-address">Company name where are you employed and your position </label>
-        <input class="input" type="text" name="company" id="company" value="{{ user.company}}">
+        <label for="role">Your comment or feedback </label>
+        <textarea class="textarea" name="comment" maxlength="1000"></textarea>
     </div>
+
 
     {% set countryId = user.country_id %}
     {% set stateId = stateId|default(form_value('state_id')) %}
@@ -320,7 +330,7 @@
             {{ form_select_country('country_id', countryId, { id: 'accountCountry', class: 'form-control', emptyOption: '' }) }}
         </div>
     </div>
-    <button id="captcha_nickname" class="btn  btn--gpink g-recaptcha" data-attach-loading>Become to Officer</button>
+    <button id="captcha_nickname" class="btn  btn--gpink g-recaptcha" data-attach-loading>Apply for gift</button>
 </div>
 {{ form_close() }}
 

@@ -217,27 +217,30 @@ class Officer extends ComponentBase
             // Personal data
             $name           =   strip_tags(trim(post('name')));
             $surname        =   strip_tags(trim(post('surname')));
-            $ethAddress     =   strip_tags(trim(post('eth_address')));
             $email          =   strip_tags(trim(post('email')));
-            $nickname       =   strip_tags(preg_replace('/\s+/', '', post('nickname')));
             $country_id     =   post('country_id');
-            $company        =   strip_tags(trim(post('company')));
+            $role        =   strip_tags(trim(post('role')));
+            $comment        =   strip_tags(trim(post('comment')));
 
 
             // Rulles
             $validator = Validator::make(
                 [
-                    'eth_address' => $ethAddress,
+                    'role' => $role,
                     'email' => $email,
-                    'nickname' => $nickname,
+                    'comment' => $comment,
                     'name' => $name,
                     'surname' => $surname,
                     'country_id' => $country_id,
                 ],
                 [
-                    'eth_address' => 'required|min:42|max:42',
+                    'role' => 'required|max:255',
                     'email' => 'required',
-                    'nickname' => 'required|min:3|max:160'
+                    'name' => 'required',
+                    'surname' => 'required',
+                    'country_id' => 'required',
+                    'comment' => 'max:1000',
+
                 ]
             );
 
@@ -249,23 +252,22 @@ class Officer extends ComponentBase
                 $user->update([
                     'name'          => $name,
                     'surname'       => $surname,
-                    'eth_address'   => $ethAddress,
                     'email'         => $email,
-                    'nickname'      => $nickname,
                     'country_id'    => $country_id,
-                    'company'       => $company,
 
                 ]);
 
                 // Submitting application
                 $newOfficerSubmittion = new BecomeToOfficer;
                 $newOfficerSubmittion->user_id = $user->id;
+                $newOfficerSubmittion->role = $role;
+                $newOfficerSubmittion->comment = $comment;
                 $newOfficerSubmittion->save();
 
-                Flash::success('You\'re request has been successfully submitted! Wait for the answer! ');
+                Flash::success('You\'re request has been successfully submitted! Wait for the verification! ');
 
                 return Redirect::to('dashboard');
-
+            //
 
             }
 

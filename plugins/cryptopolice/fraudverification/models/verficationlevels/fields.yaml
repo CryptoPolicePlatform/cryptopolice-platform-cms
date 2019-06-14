@@ -2,6 +2,7 @@ fields:
     level:
         label: 'Level title'
         span: auto
+        required: 1
         type: text
     description:
         label: Description
@@ -11,9 +12,15 @@ fields:
     officer_count:
         label: 'Officer count'
         span: auto
+        required: 1
         type: number
         comment: 'participating in the investigation'
     status:
         label: Status
         span: auto
         type: switch
+    verification_order:
+        label: 'Verification order (Level order)'
+        span: auto
+        required: 1
+        type: number

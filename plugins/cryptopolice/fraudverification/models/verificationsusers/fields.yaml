@@ -6,7 +6,7 @@ fields:
         span: auto
         type: relation
         select: email
-        emptyOption: Select user
+        emptyOption: 'Select user'
     application:
         label: Application
         nameFrom: name
@@ -14,7 +14,7 @@ fields:
         select: 'concat(''[A'',id,''] '', task)'
         span: auto
         type: relation
-        emptyOption: Select application
+        emptyOption: 'Select application'
     verdict:
         label: Verdict
         nameFrom: name
@@ -22,7 +22,7 @@ fields:
         select: 'concat(''[V'',id,''] '', comment)'
         span: auto
         type: relation
-        emptyOption: Select verdict
+        emptyOption: 'Select verdict'
     level:
         label: Level
         nameFrom: name
@@ -35,4 +35,11 @@ fields:
         span: auto
         type: switch
         default: true
-
+    type:
+        label: Type
+        span: auto
+        options:
+            1: '1'
+            2: '2'
+            3: '3'
+        type: dropdown

@@ -1,6 +1,6 @@
 columns:
-    id:
-        label: id
+    verification_order:
+        label: Order
         type: number
         searchable: true
         sortable: true
