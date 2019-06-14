@@ -9,19 +9,18 @@
 1.0.14:
     - 'Created table cryptopolice_fraudverification_application_verdicts'
     - builder_table_create_cryptopolice_fraudverification_application_verdicts.php
-
-
 1.0.20:
     - 'Created table cryptopolice_fraudverification_application'
     - builder_table_create_cryptopolice_fraudverification_application.php
 1.0.23:
     - 'Created table cryptopolice_fraudverification_verification_users'
     - builder_table_create_cryptopolice_fraudverification_verification_users.php
-
 1.0.24:
     - 'Created table cryptopolice_fraudverification_verification_levels'
     - builder_table_create_cryptopolice_fraudverification_verification_levels.php
-
 1.0.26:
     - 'Created table cryptopolice_fraudverification_verdict'
     - builder_table_create_cryptopolice_fraudverification_verdict.php
+1.0.27:
+    - 'Updated table cryptopolice_fraudverification_become_to_officer'
+    - builder_table_update_cryptopolice_fraudverification_become_to_officer.php
